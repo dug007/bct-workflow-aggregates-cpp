@@ -1,0 +1,146 @@
+     (1) SUCCESS -     24  TESTS  MyClass::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::Set(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(315): error: EXPRESSION: f1==2.0
+
+Total checks = 24
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(315): error: EXPRESSION: f1==2.0
+
+Total checks = 24
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(315): error: EXPRESSION: f1==2.0
+
+Total checks = 24
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
