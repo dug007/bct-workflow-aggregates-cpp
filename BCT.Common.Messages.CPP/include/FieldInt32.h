@@ -15,7 +15,10 @@ namespace Bct
          {
 
          public:
-            //FieldInt32() {}
+            FieldInt32()
+            {
+            }
+            FieldInt32(FieldStateEnum::FieldState state, int32_t def) : BaseField(FieldTypeEnum::FieldType::Int32Field, state, def) {}
             FieldInt32(int16_t ver, std::vector<FieldStateEnum::FieldState> states, std::vector<int32_t> defs) : BaseField(FieldTypeEnum::FieldType::Int32Field, states[ver], defs[ver]) {}
             FieldInt32& operator=(const int32_t val)
             {

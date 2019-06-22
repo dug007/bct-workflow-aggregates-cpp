@@ -13,8 +13,9 @@ namespace Bct
          class FieldDouble : public BaseField<double>
          {
          public:
-            //FieldDouble() {};
+            FieldDouble() {};
             FieldDouble(int16_t ver, std::vector<FieldStateEnum::FieldState> states, std::vector<double> defs) : BaseField(FieldTypeEnum::FieldType::DoubleField, states[ver], defs[ver]) {}
+            FieldDouble(FieldStateEnum::FieldState state, double def) : BaseField(FieldTypeEnum::FieldType::DoubleField, state, def) {}
             FieldDouble& operator=(const double val)
             {
                this->Value(val);

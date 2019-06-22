@@ -14,7 +14,10 @@ namespace Bct
          private:
             using FieldDouble::Value;
          public:
-            ///FieldDoubleRo() {}
+            FieldDoubleRo()
+            {
+            }
+            FieldDoubleRo(FieldStateEnum::FieldState state, double def) : FieldDouble(state, def) {}
             //FieldDoubleRo(int16_t ver, std::vector<FieldStateEnum::FieldState> states, std::vector<double> defs) : FieldDouble(ver, states, defs) {}
             double Value()
             {

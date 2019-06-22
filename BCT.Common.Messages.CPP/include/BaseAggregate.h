@@ -26,7 +26,7 @@ namespace Bct
          public:
             BaseAggregate(const int16_t ver, std::vector<VersionMetaData> aggregateMetaData);
 
-            BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch);
+            //BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch);
 
             /**
              * Destructor

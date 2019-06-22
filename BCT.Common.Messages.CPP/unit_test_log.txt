@@ -144,3 +144,26 @@ Total tests = 1
 Total checks = 24
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -     12  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(192): error: EXPRESSION: a.Field1.State()==FieldStateEnum::FieldState::NotSet
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(193): error: EXPRESSION: a.Field7.State()==FieldStateEnum::FieldState::NotSet
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(194): error: EXPRESSION: a.Field7d.State()==FieldStateEnum::FieldState::Default
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(195): error: EXPRESSION: a.Field7c.State()==FieldStateEnum::FieldState::Constant
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(203): error: EXPRESSION: a.Field7c=3
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(204): error: EXPRESSION: a.Field7c.Value(3)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(211): error: EXPRESSION: a.Field7ro.State()==FieldStateEnum::FieldState::Constant
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(212): error: EXPRESSION: a.Field7c.Value()==6
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(213): error: EXPRESSION: (int32_t)a.Field7c==6
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(214): error: EXPRESSION: a.Field7c.State()==FieldStateEnum::FieldState::Constant
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(223): error: EXPRESSION: a.Field7d.State()==FieldStateEnum::FieldState::Default
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(225): error: EXPRESSION: a.getVersion()=="1.2.0"
+
+Total checks = 22
+Total failed checks = 12
+Total tested = 1
+Total tests = 1

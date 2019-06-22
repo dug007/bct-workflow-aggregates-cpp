@@ -16,7 +16,7 @@ namespace Bct
          class VersionMetaData
          {
          public:
-            std::map<std::string, FieldMeta> fieldMetaData;
+            std::vector<FieldMeta> fieldMetaData;
             std::vector<AssessmentRule> assessmentRules;
             std::vector<ComputeRule> computeRules;
          };

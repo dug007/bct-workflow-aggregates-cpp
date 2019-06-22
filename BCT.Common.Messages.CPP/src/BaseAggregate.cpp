@@ -11,11 +11,11 @@ namespace Bct
          {
 
          }
-         BaseAggregate::BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch)
-            : _major(major), _minor(minor), _patch(patch)
-         {
-            _version = std::to_string(major) + '.' + std::to_string(minor) + '.' + std::to_string(patch);
-         }
+         //BaseAggregate::BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch)
+         //   : _major(major), _minor(minor), _patch(patch)
+         //{
+         //   _version = std::to_string(major) + '.' + std::to_string(minor) + '.' + std::to_string(patch);
+         //}
 
          /**
           * Destructor
