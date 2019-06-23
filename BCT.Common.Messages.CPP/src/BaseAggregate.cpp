@@ -6,8 +6,8 @@ namespace Bct
    {
       namespace Aggregates
       {
-         BaseAggregate::BaseAggregate(const int16_t ver, std::vector<VersionMetaData> aggregateMetaData)
-            : _ver(ver), _aggregateMetaData(aggregateMetaData)
+         BaseAggregate::BaseAggregate(const int16_t ver)
+            : _ver(ver)
          {
 
          }

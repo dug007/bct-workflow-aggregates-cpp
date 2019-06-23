@@ -26,71 +26,6 @@ class Sample1Aggregate : public BaseAggregate
 {
 private:
 
-   FieldStateEnum::FieldState _Field1states[3] =
-   {
-      FieldStateEnum::NotSet,
-      FieldStateEnum::NotSet,
-      FieldStateEnum::NotSet
-   };
-   std::string _Field1defaults[3] =
-   {
-      "0.0",
-      "0.0",
-      "0.0"
-   };
-
-   FieldStateEnum::FieldState _Field7states[3] =
-   {
-      FieldStateEnum::NotSet,
-      FieldStateEnum::NotSet,
-      FieldStateEnum::NotSet,
-   };
-   std::string _Field7defaults[3] =
-   {
-      "0",
-      "0",
-      "0"
-   };
-
-   FieldStateEnum::FieldState _Field7rostates[3] =
-   {
-      FieldStateEnum::NotSet,
-      FieldStateEnum::NotSet,
-      FieldStateEnum::Constant
-   };
-   std::string _Field7rodefaults[3] =
-   {
-      "1",
-      "2",
-      "5"
-   };
-
-   FieldStateEnum::FieldState _Field7cstates[3] =
-   {
-      FieldStateEnum::NotSet,
-      FieldStateEnum::NotSet,
-      FieldStateEnum::Constant
-   };
-   std::string _Field7cdefaults[3] =
-   {
-      "1",
-      "2",
-      "6"
-   };
-
-   FieldStateEnum::FieldState _Field7dstates[3] =
-   {
-      FieldStateEnum::NotSet,
-      FieldStateEnum::NotSet,
-      FieldStateEnum::Default
-   };
-   std::string _Field7ddefaults[3] =
-   {
-      "0",
-      "0",
-      "-1"
-   };
-
 public:
    FieldDouble Field1;
    FieldInt32 Field7;
@@ -111,9 +46,74 @@ private:
       throw "error: invalid version"; // TODO localize
    }
 
-   std::vector<VersionMetaData> init(int16_t ver)
+   void init()
    {
-      std::vector<VersionMetaData> md;
+      std::vector<VersionMetaData> &md = _aggregateMetaData;
+      int16_t ver = _ver;
+      FieldStateEnum::FieldState _Field1states[3] =
+      {
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet
+      };
+      std::string _Field1defaults[3] =
+      {
+         "0.0",
+         "0.0",
+         "0.0"
+      };
+
+      FieldStateEnum::FieldState _Field7states[3] =
+      {
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet,
+      };
+      std::string _Field7defaults[3] =
+      {
+         "0",
+         "0",
+         "0"
+      };
+
+      FieldStateEnum::FieldState _Field7rostates[3] =
+      {
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet,
+         FieldStateEnum::Constant
+      };
+      std::string _Field7rodefaults[3] =
+      {
+         "1",
+         "2",
+         "5"
+      };
+
+      FieldStateEnum::FieldState _Field7cstates[3] =
+      {
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet,
+         FieldStateEnum::Constant
+      };
+      std::string _Field7cdefaults[3] =
+      {
+         "1",
+         "2",
+         "6"
+      };
+
+      FieldStateEnum::FieldState _Field7dstates[3] =
+      {
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet,
+         FieldStateEnum::Default
+      };
+      std::string _Field7ddefaults[3] =
+      {
+         "0",
+         "0",
+         "-1"
+      };
 
       for (int16_t i=0; i < 3; i++)
       {
@@ -138,12 +138,11 @@ private:
           md.push_back(vmd);
       }
 
-      Field1 = FieldDouble(_Field1states[ver], std::atof(_Field1defaults[ver].c_str()));
-      Field7 = FieldInt32(_Field7states[ver], std::atoi(_Field7defaults[ver].c_str()));
-      Field7d = FieldInt32(_Field7dstates[ver], std::atoi(_Field7ddefaults[ver].c_str()));
-      Field7c = FieldInt32(_Field7cstates[ver], std::atoi(_Field7cdefaults[ver].c_str()));
-      Field7ro = FieldInt32Ro(_Field7rostates[ver], std::atoi(_Field7rodefaults[ver].c_str()));
-      return md;
+      Field1 = FieldDouble("Field1", ver, md);
+      Field7 = FieldInt32("Field7", ver, md);
+      Field7d = FieldInt32("Field7d", ver, md);
+      Field7c = FieldInt32("Field7c", ver, md);
+      Field7ro = FieldInt32Ro("Field7ro", ver, md);
    }
       //Sample1Aggregate(int16_t ver) : BaseAggregate(_majors[ver], _minors[ver], _patchs[ver]),
       //Field1(ver, _Field1states, _Field1defaults),
@@ -157,8 +156,9 @@ private:
 public:
   // Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : Sample1Aggregate(GetVer(major, minor, patch)) { }
    
-   Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(GetVer(major, minor, patch), init(GetVer(major, minor, patch)))
+   Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(GetVer(major, minor, patch))
    {
+      init();
    }
 
    virtual ~Sample1Aggregate() {};
@@ -188,7 +188,7 @@ std::vector<int16_t> Sample1Aggregate::_patchs = { 0,0,0 };
 
 TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
 {
-   Sample1Aggregate a(1, 2, 0); 
+   Sample1Aggregate a(1, 2, 0);
    CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
