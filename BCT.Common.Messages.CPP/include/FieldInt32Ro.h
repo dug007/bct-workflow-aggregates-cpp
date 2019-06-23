@@ -14,12 +14,12 @@ namespace Bct
          class FieldInt32Ro : public FieldInt32
          {
          private:
-            using FieldInt32::Value;
+            using FieldInt32::Value; // hide set/get
          public:
             FieldInt32Ro() {}
-            FieldInt32Ro(std::string fieldName, int16_t ver, std::vector<VersionMetaData> &metaData) : FieldInt32(fieldName, ver, metaData) {}  // feature fEmbedMetaData
-            //FieldInt32Ro(FieldStateEnum::FieldState state, int32_t def) : FieldInt32(state, def) {}
-            //FieldInt32Ro(int16_t ver, std::vector <FieldStateEnum::FieldState> states, std::vector<int32_t> defs) : FieldInt32(ver, states, defs) {}
+            FieldInt32Ro(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData) : FieldInt32(fieldName, ver, metaData)
+            {
+            }
             int32_t Value()
             {
                return FieldInt32::Value();

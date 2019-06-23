@@ -13,14 +13,12 @@ namespace Bct
    {
       namespace Aggregates
       {
-         class VersionMetaData
+         struct VersionMetaData
          {
-         public:
             std::vector<FieldMeta> fieldMetaData;
             std::vector<AssessmentRule> assessmentRules;
             std::vector<ComputeRule> computeRules;
          };
-
       }
    }
 }

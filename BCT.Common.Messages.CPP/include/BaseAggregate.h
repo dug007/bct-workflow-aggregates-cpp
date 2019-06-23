@@ -26,11 +26,6 @@ namespace Bct
          public:
             BaseAggregate(const int16_t ver);
 
-            //BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch);
-
-            /**
-             * Destructor
-             */
             virtual ~BaseAggregate();
 
          private:
@@ -59,9 +54,8 @@ namespace Bct
             typedef std::string StringField;
             typedef bool BoolField;
 
-
          protected:
-            std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get
+            std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get?
             std::string _version;
             int16_t _ver;
             int16_t _major;

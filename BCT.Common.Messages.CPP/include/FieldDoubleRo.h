@@ -12,15 +12,13 @@ namespace Bct
          class FieldDoubleRo : public FieldDouble
          {
          private:
-            using FieldDouble::Value;
+            using FieldDouble::Value; // hide value set/get
          public:
             FieldDoubleRo()
             {
             }
-            FieldDoubleRo(std::string fieldName, int16_t ver, std::vector<VersionMetaData> &metaData) : FieldDouble(fieldName, ver, metaData) {}  // feature fEmbedMetaData
-            //FieldDoubleRo(FieldStateEnum::FieldState state, double def) : FieldDouble(state, def) {}
-            //FieldDoubleRo(int16_t ver, std::vector<FieldStateEnum::FieldState> states, std::vector<double> defs) : FieldDouble(ver, states, defs) {}
-            double Value()
+            FieldDoubleRo(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData) : FieldDouble(fieldName, ver, metaData) {}  // feature fEmbedMetaData
+            const double Value()
             {
                return FieldDouble::Value();
             };

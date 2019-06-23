@@ -21,17 +21,15 @@ class PlateletConfigAggregate : public BaseAggregate
 
 };
 
-
 class Sample1Aggregate : public BaseAggregate
 {
-private:
-
 public:
    FieldDouble Field1;
    FieldInt32 Field7;
    FieldInt32Ro Field7ro;  // readonly - no setter
    FieldInt32 Field7c;     // constant - setter throws
    FieldInt32 Field7d;     // defaulted
+
 private:
    int16_t GetVer(int16_t major, int16_t minor, int16_t patch)
    {
@@ -56,6 +54,7 @@ private:
          FieldStateEnum::NotSet,
          FieldStateEnum::NotSet
       };
+
       std::string _Field1defaults[3] =
       {
          "0.0",
@@ -69,6 +68,7 @@ private:
          FieldStateEnum::NotSet,
          FieldStateEnum::NotSet,
       };
+
       std::string _Field7defaults[3] =
       {
          "0",
@@ -82,6 +82,7 @@ private:
          FieldStateEnum::NotSet,
          FieldStateEnum::Constant
       };
+
       std::string _Field7rodefaults[3] =
       {
          "1",
@@ -95,6 +96,7 @@ private:
          FieldStateEnum::NotSet,
          FieldStateEnum::Constant
       };
+
       std::string _Field7cdefaults[3] =
       {
          "1",
@@ -108,6 +110,7 @@ private:
          FieldStateEnum::NotSet,
          FieldStateEnum::Default
       };
+
       std::string _Field7ddefaults[3] =
       {
          "0",
@@ -144,18 +147,8 @@ private:
       Field7c = FieldInt32("Field7c", ver, md);
       Field7ro = FieldInt32Ro("Field7ro", ver, md);
    }
-      //Sample1Aggregate(int16_t ver) : BaseAggregate(_majors[ver], _minors[ver], _patchs[ver]),
-      //Field1(ver, _Field1states, _Field1defaults),
-      //Field7(ver, _Field7states, _Field7defaults),
-      //Field7ro(ver, _Field7rostates, _Field7rodefaults),
-      //Field7c(ver, _Field7cstates, _Field7cdefaults),
-      //Field7d(ver, _Field7dstates, _Field7ddefaults) 
-      //{
-      //};
-
+ 
 public:
-  // Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : Sample1Aggregate(GetVer(major, minor, patch)) { }
-   
    Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(GetVer(major, minor, patch))
    {
       init();
@@ -180,8 +173,6 @@ std::vector<int16_t> Sample1Aggregate::_minors = { 0,1,2 };
 std::vector<int16_t> Sample1Aggregate::_patchs = { 0,0,0 };
 
 //*********** CODE GENERATION ENDS HERE **********************
-
-
 
 //********** UNIT TESTS **************************************
 

@@ -9,19 +9,11 @@ namespace Bct
          BaseAggregate::BaseAggregate(const int16_t ver)
             : _ver(ver)
          {
-
          }
-         //BaseAggregate::BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch)
-         //   : _major(major), _minor(minor), _patch(patch)
-         //{
-         //   _version = std::to_string(major) + '.' + std::to_string(minor) + '.' + std::to_string(patch);
-         //}
-
          /**
           * Destructor
           */
          BaseAggregate::~BaseAggregate() {};
-
 
          const std::string& BaseAggregate::getVersion()
          {
@@ -41,7 +33,6 @@ namespace Bct
          {
             return _patch;
          }
-
       }
    }
 }

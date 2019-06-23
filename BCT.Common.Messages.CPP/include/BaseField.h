@@ -22,38 +22,22 @@ namespace Bct
             FieldStateEnum::FieldState _state;
             FieldTypeEnum::FieldType _type;
             std::string _fieldName;
-            std::vector<VersionMetaData> _metaData; // feature fEmbedMetaData
-            int16_t _ver; // feature fEmbedMetaData
+            std::vector<VersionMetaData> _metaData;
+            int16_t _ver;
 
          public:
             BaseField()
             {
             }
-            BaseField(std::string fieldName, FieldTypeEnum::FieldType t, int16_t ver, std::vector<VersionMetaData> &metaData) : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData) // feature fEmbedMetaData
+            BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData) : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData)
             {
-               FieldMeta fm = findFieldMeta(); // feature fEmbedMetaData
+               FieldMeta fm = findFieldMeta();
                FieldStateEnum::FieldState state = fm._fieldState;
                _state = state;
 
             }
-            //BaseField(FieldTypeEnum::FieldType t, FieldStateEnum::FieldState initState, T &val) : _type(t), _state(initState)
-            //{
-            //   Init(val);
-            //};
          private:
-            void Init(T &val)
-            {
-               switch (_state)
-               {
-               case FieldStateEnum::Default:
-               case FieldStateEnum::Constant:
-                  _default = val;
-                  _val = val;
-                  break;
-               }
-            }
-
-            FieldMeta findFieldMeta() // feature fEmbedMetaData
+            const FieldMeta findFieldMeta()
             {
                std::vector<FieldMeta> fm = _metaData[_ver].fieldMetaData;
                for (size_t i = 0; i < fm.size(); i++)
@@ -68,8 +52,8 @@ namespace Bct
 
          public:
             virtual ~BaseField() {};
-            // setter-getter
-            void Value(T v)
+
+            void Value(const T v)
             {
                // TODO: rules to implement here, localization, etc
                if (_state == FieldStateEnum::Constant)
@@ -77,8 +61,7 @@ namespace Bct
                   throw "error: attempting to set constant field"; // TODO localize
                }
                _val = v;
-               FieldMeta fm = findFieldMeta(); // feature fEmbedMetaData
-               FieldStateEnum::FieldState metaState = fm._fieldState;
+               FieldStateEnum::FieldState metaState = findFieldMeta()._fieldState;
                if (metaState == FieldStateEnum::Default)
                {
                   if (_val == _default)
@@ -104,44 +87,46 @@ namespace Bct
                }
                _state = FieldStateEnum::NotSet;
             }
-            T Value()
+
+            const T Value()
             {
                // rules to implement here
-               switch (State())
+               switch (_state)
                {
                case FieldStateEnum::NotSet: // TODO: internationalize 
                   throw "error: value has not been set";
                case FieldStateEnum::Unavailable:
                   throw "error: not available in this version";
-                  break;
-               case FieldStateEnum::Computed:
 
+               case FieldStateEnum::Computed:
+                  // fall through for now
                   break;
                case FieldStateEnum::Default:
                   return _default;
                }
                return _val;
-            };
+            }
 
-            FieldStateEnum::FieldState State()
+            const FieldStateEnum::FieldState State()
             {
                return _state;
             }
-            // conversion
+
             operator T()
             {
                return this->Value();
             }
-            std::string DefaultStr()
+
+            const std::string DefaultStr()
             {
-               return findFieldMeta()._default; // feature fEmbedMetaData
-            };
+               return findFieldMeta()._default;
+            }
+
             protected:
-               void SetDefault(T def)
+               void SetDefault(const T def)
                {
                  _default = def;
                  _val = def;
- 
                }
          };
       }
