@@ -24,7 +24,7 @@ namespace Bct
          class BaseAggregate
          {
          public:
-            BaseAggregate(const int16_t ver);
+            BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch);
 
             virtual ~BaseAggregate();
 
@@ -41,6 +41,7 @@ namespace Bct
             const int16_t Major();
             const int16_t Minor();
             const int16_t Patch();
+            void UpdateVer();
 
          virtual void convertVersion(int16_t major, int16_t minor, int16_t patch) = 0;
 

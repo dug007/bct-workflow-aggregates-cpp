@@ -23,31 +23,19 @@ class PlateletConfigAggregate : public BaseAggregate
 
 class Sample1Aggregate : public BaseAggregate
 {
-public:
-   FieldDouble Field1;
-   FieldInt32 Field7;
-   FieldInt32Ro Field7ro;  // readonly - no setter
-   FieldInt32 Field7c;     // constant - setter throws
-   FieldInt32 Field7d;     // defaulted
-
 private:
-   int16_t GetVer(int16_t major, int16_t minor, int16_t patch)
-   {
-
-      for (size_t i = 0; i < _majors.size(); i++)
-      {
-         if (major == _majors[i] && minor == _minors[i] && patch == _patchs[i])
-         {
-            return (int16_t)i;
-         }
-      }
-      throw "error: invalid version"; // TODO localize
-   }
-
    void init()
    {
-      std::vector<VersionMetaData> &md = _aggregateMetaData;
-      int16_t ver = _ver;
+      std::vector<VersionMetaData> &aggMeta = _aggregateMetaData;
+      int16_t &ver = _ver;
+
+      std::string vers[3] =
+      {
+         "1.0.0",
+         "1.1.0",
+         "1.2.0"
+      };
+
       FieldStateEnum::FieldState _Field1states[3] =
       {
          FieldStateEnum::NotSet,
@@ -120,36 +108,45 @@ private:
 
       for (int16_t i=0; i < 3; i++)
       {
-          FieldMeta Field1_("Field1", _Field1states[i], _Field1defaults[i]);
-          FieldMeta Field7_("Field7", _Field7states[i], _Field7defaults[i]);
-          FieldMeta Field7d_("Field7d", _Field7dstates[i], _Field7ddefaults[i]);
-          FieldMeta Field7c_("Field7c", _Field7cstates[i], _Field7cdefaults[i]);
-          FieldMeta Field7ro_("Field7ro", _Field7rostates[i], _Field7rodefaults[i]);
+         VersionMetaData vmd;
 
-          std::vector<FieldMeta> fieldMetaData;
-          std::vector<AssessmentRule> assessmentRules;
-          std::vector<ComputeRule> computeRules;
+         VersionInfo vi(vers[i]);
 
-          fieldMetaData.push_back(Field1_);
-          fieldMetaData.push_back(Field7_);
-          fieldMetaData.push_back(Field7d_);
-          fieldMetaData.push_back(Field7c_);
-          fieldMetaData.push_back(Field7ro_);
+         vmd.versionInfo = VersionInfo(vers[i]);
 
-          VersionMetaData vmd;
-          vmd.fieldMetaData = fieldMetaData;
-          md.push_back(vmd);
+         FieldMeta Field1_("Field1", _Field1states[i], _Field1defaults[i]);
+         FieldMeta Field7_("Field7", _Field7states[i], _Field7defaults[i]);
+         FieldMeta Field7d_("Field7d", _Field7dstates[i], _Field7ddefaults[i]);
+         FieldMeta Field7c_("Field7c", _Field7cstates[i], _Field7cdefaults[i]);
+         FieldMeta Field7ro_("Field7ro", _Field7rostates[i], _Field7rodefaults[i]);
+
+         vmd.fieldMetaData.push_back(Field1_);
+         vmd.fieldMetaData.push_back(Field7_);
+         vmd.fieldMetaData.push_back(Field7d_);
+         vmd.fieldMetaData.push_back(Field7c_);
+         vmd.fieldMetaData.push_back(Field7ro_);
+
+         aggMeta.push_back(vmd);
       }
 
-      Field1 = FieldDouble("Field1", ver, md);
-      Field7 = FieldInt32("Field7", ver, md);
-      Field7d = FieldInt32("Field7d", ver, md);
-      Field7c = FieldInt32("Field7c", ver, md);
-      Field7ro = FieldInt32Ro("Field7ro", ver, md);
+      UpdateVer(); // determine ver for aggregate based on state of metadata
+
+      Field1 = FieldDouble("Field1", _ver, aggMeta);
+      Field7 = FieldInt32("Field7", _ver, aggMeta);
+      Field7d = FieldInt32("Field7d", _ver, aggMeta);
+      Field7c = FieldInt32("Field7c", _ver, aggMeta);
+      Field7ro = FieldInt32Ro("Field7ro", _ver, aggMeta);
    }
  
 public:
-   Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(GetVer(major, minor, patch))
+
+   FieldDouble Field1;
+   FieldInt32 Field7;
+   FieldInt32Ro Field7ro;  // readonly - no setter
+   FieldInt32 Field7c;     // constant - setter throws
+   FieldInt32 Field7d;     // defaulted
+
+   Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
    {
       init();
    }
@@ -197,8 +194,8 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::Set);
    CHECK_EQUAL(a.Field7.Value(), 3);
    CHECK_EQUAL((int32_t)a.Field7, 3);
-//   CHECK_EQUAL(a.Field7ro.Value(), 5);  // readable but not writeable
-//   CHECK_EQUAL((int32_t)a.Field7ro, 5); // readable but not writeable
+   CHECK_EQUAL(a.Field7ro.Value(), 5);  // readable but not writeable
+   CHECK_EQUAL((int32_t)a.Field7ro, 5); // readable but not writeable
    CHECK_EQUAL(a.Field7ro.State(), FieldStateEnum::FieldState::Constant);
    CHECK_EQUAL(a.Field7c.Value(), 6);  // readable but not writeable
    CHECK_EQUAL((int32_t)a.Field7c, 6); // readable but not writeable
