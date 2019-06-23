@@ -24,10 +24,9 @@ class PlateletConfigAggregate : public BaseAggregate
 class Sample1Aggregate : public BaseAggregate
 {
 private:
-   void init()
+   void initMetaData()
    {
-      std::vector<VersionMetaData> &aggMeta = _aggregateMetaData;
-      int16_t &ver = _ver;
+      std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
 
       std::string vers[3] =
       {
@@ -148,7 +147,7 @@ public:
 
    Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
    {
-      init();
+      initMetaData();
    }
 
    virtual ~Sample1Aggregate() {};

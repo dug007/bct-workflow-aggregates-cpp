@@ -29,7 +29,8 @@ namespace Bct
             BaseField()
             {
             }
-            BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData) : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData)
+            BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData)
+               : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData)
             {
                FieldMeta fm = findFieldMeta();
                FieldStateEnum::FieldState state = fm._fieldState;

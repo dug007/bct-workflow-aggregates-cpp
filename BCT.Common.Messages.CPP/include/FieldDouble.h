@@ -14,7 +14,8 @@ namespace Bct
          {
          public:
             FieldDouble() {};
-            FieldDouble(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData) : BaseField(fieldName, FieldTypeEnum::FieldType::DoubleField, ver, metaData) // feature fEmbedMetaData
+            FieldDouble(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData) :
+               BaseField(fieldName, FieldTypeEnum::FieldType::DoubleField, ver, metaData)
             {
                FieldStateEnum::FieldState state = State();
                if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
