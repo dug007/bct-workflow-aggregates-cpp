@@ -47,9 +47,6 @@
     <ClInclude Include="include\FieldTypeEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\VersionChangeRule.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\ComputeRule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\FieldDoubleRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VersionChangeRule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
