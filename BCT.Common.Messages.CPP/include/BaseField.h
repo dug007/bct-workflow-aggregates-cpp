@@ -11,8 +11,6 @@ namespace Bct
    {
       namespace Aggregates
       {
-         const bool _fEmbedMetaData = true;
-
          template<class T>
          class BaseField
          {
@@ -125,6 +123,7 @@ namespace Bct
 
             const bool HasValue()
             {
+               // TODO handle Computed after field as been computed
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
