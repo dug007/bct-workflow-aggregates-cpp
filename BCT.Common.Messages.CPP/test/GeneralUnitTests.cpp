@@ -158,16 +158,7 @@ public:
       _minor = minor;
       _patch = patch;
    };
-
-private: 
-   static std::vector<int16_t> _majors;
-   static std::vector<int16_t> _minors;
-   static std::vector<int16_t> _patchs;
  };
-
-std::vector<int16_t> Sample1Aggregate::_majors = { 1,1,1 };
-std::vector<int16_t> Sample1Aggregate::_minors = { 0,1,2 };
-std::vector<int16_t> Sample1Aggregate::_patchs = { 0,0,0 };
 
 //*********** CODE GENERATION ENDS HERE **********************
 
