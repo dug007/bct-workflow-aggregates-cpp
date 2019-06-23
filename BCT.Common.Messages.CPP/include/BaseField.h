@@ -123,6 +123,11 @@ namespace Bct
                return findFieldMeta()._default;
             }
 
+            const bool HasValue()
+            {
+               return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
+            }
+
             protected:
                void SetDefault(const T def)
                {
