@@ -600,3 +600,80 @@ Total tests = 1
 Total checks = 24
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(214): error: EXPRESSION: a.Field7c.Value()==999
+
+Total checks = 25
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(214): error: EXPRESSION: a.Field7c.Value()==999
+
+Total checks = 25
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(218): error: EXPRESSION: a.Field7c.Value()==999
+
+Total checks = 25
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(218): error: EXPRESSION: a.Field7c.Value()==999
+
+Total checks = 25
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(236): error: EXPRESSION: a.Field7com.Value()==999
+
+Total checks = 25
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(237): error: EXPRESSION: a.Field7com.Value()==999
+
+Total checks = 25
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     25  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 25
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     25  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 25
+Total tested = 1
+Total tests = 1

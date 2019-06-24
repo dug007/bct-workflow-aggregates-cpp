@@ -106,7 +106,7 @@ namespace Bct
                return _val;
             }
 
-            const FieldStateEnum::FieldState State()
+            virtual const FieldStateEnum::FieldState State()
             {
                return _state;
             }

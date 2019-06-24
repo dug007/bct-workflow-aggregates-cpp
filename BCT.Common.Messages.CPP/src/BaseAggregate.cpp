@@ -29,17 +29,22 @@ namespace Bct
                AbstractField *f = _fieldList[i];
                std::string val = f->ValueString();
                FieldTypeEnum::FieldType type = f->FieldType();
+               FieldStateEnum::FieldState state = f->State();
                std::string fieldName = f->FieldName();
-               auto cRules = _aggregateMetaData[_ver].computeRules;
-               for (size_t j = 0; j < cRules.size(); j++)
+               std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
+               if (state == FieldStateEnum::Computed)
                {
-                  auto cRule = cRules[i];
-                  std::string condition = cRule.Condition();
-                  std::string expression = cRule.Expression();
-                  std::string ruleFieldName = cRule.FieldName();
-                  if (fieldName == ruleFieldName)
+                  for (size_t j = 0; j < cRules.size(); j++)
                   {
-                     // TODO do calculation
+                     auto cRule = cRules[j];
+                     std::string condition = cRule.Condition();
+                     std::string expression = cRule.Expression();
+                     std::string ruleFieldName = cRule.FieldName();
+                     if (fieldName == ruleFieldName)
+                     {
+                        // TODO do calculation
+                        f->ValueString("999");
+                     }
                   }
                }
             }

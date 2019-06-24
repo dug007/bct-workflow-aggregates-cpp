@@ -106,6 +106,20 @@ private:
          "-1"
       };
 
+      FieldStateEnum::FieldState _Field7comstates[3] =
+      {
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet,
+         FieldStateEnum::Computed
+      };
+
+      std::string _Field7comdefaults[3] =
+      {
+         "0",
+         "0",
+         "-1"
+      };
+
       for (int16_t i=0; i < 3; i++)
       {
          VersionMetaData vmd;
@@ -119,12 +133,14 @@ private:
          FieldMeta Field7d_("Field7d", _Field7dstates[i], _Field7ddefaults[i]);
          FieldMeta Field7c_("Field7c", _Field7cstates[i], _Field7cdefaults[i]);
          FieldMeta Field7ro_("Field7ro", _Field7rostates[i], _Field7rodefaults[i]);
+         FieldMeta Field7com_("Field7com", _Field7comstates[i], _Field7comdefaults[i]);
 
          vmd.fieldMetaData.push_back(Field1_);
          vmd.fieldMetaData.push_back(Field7_);
          vmd.fieldMetaData.push_back(Field7d_);
          vmd.fieldMetaData.push_back(Field7c_);
          vmd.fieldMetaData.push_back(Field7ro_);
+         vmd.fieldMetaData.push_back(Field7com_);
 
          aggMeta.push_back(vmd);
       }
@@ -136,12 +152,18 @@ private:
       Field7d = FieldInt32("Field7d", _ver, aggMeta);
       Field7c = FieldInt32("Field7c", _ver, aggMeta);
       Field7ro = FieldInt32Ro("Field7ro", _ver, aggMeta);
+      Field7com = FieldInt32("Field7com", _ver, aggMeta);
 
       _fieldList.push_back(&Field1);
       _fieldList.push_back(&Field7);
       _fieldList.push_back(&Field7d);
       _fieldList.push_back(&Field7c);
       _fieldList.push_back(&Field7ro);
+      _fieldList.push_back(&Field7com);
+
+      // TODO TESTING
+      ComputeRule cr("Field7com", "$True", "dummy");
+      aggMeta[_ver].computeRules.push_back(cr);
 
    }
  
@@ -152,6 +174,7 @@ public:
    FieldInt32Ro Field7ro;  // readonly - no setter
    FieldInt32 Field7c;     // constant - setter throws
    FieldInt32 Field7d;     // defaulted
+   FieldInt32 Field7com;   // computed
 
    Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
    {
@@ -211,4 +234,5 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    a.convertVersion(1,3,0);
    CHECK_EQUAL(a.getVersion(), "1.3.0");
    a.UpdateCalculatedFields();
+   CHECK_EQUAL(a.Field7com.Value(), 999);
 }
