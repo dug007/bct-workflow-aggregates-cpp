@@ -26,11 +26,22 @@ namespace Bct
             size_t count = _fieldList.size();
             for (size_t i = 0; i < count; i++)
             {
-               // TODO finish
                AbstractField *f = _fieldList[i];
                std::string val = f->ValueString();
                FieldTypeEnum::FieldType type = f->FieldType();
                std::string fieldName = f->FieldName();
+               auto cRules = _aggregateMetaData[_ver].computeRules;
+               for (size_t j = 0; j < cRules.size(); j++)
+               {
+                  auto cRule = cRules[i];
+                  std::string condition = cRule.Condition();
+                  std::string expression = cRule.Expression();
+                  std::string ruleFieldName = cRule.FieldName();
+                  if (fieldName == ruleFieldName)
+                  {
+                     // TODO do calculation
+                  }
+               }
             }
          }
 
