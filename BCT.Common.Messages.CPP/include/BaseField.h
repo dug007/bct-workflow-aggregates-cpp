@@ -142,6 +142,22 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
+            virtual const std::string ValueString()
+            {
+               std::stringstream ss;
+               ss << Value();
+               return ss.str();
+            }
+
+            virtual void ValueString(std::string val)
+            {
+               int32_t out;
+               std::stringstream ss;
+               ss << val;
+               ss >> out;
+               ValueInternal(out);
+            }
+
             protected:
                void ValueInternal(const T v)
                {
