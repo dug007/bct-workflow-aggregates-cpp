@@ -23,25 +23,24 @@ namespace Bct
 
          void BaseAggregate::UpdateCalculatedFields()
          {
-            size_t count = _fieldList.size();
-            for (size_t i = 0; i < count; i++)
+            for (size_t i = 0; i < _fieldList.size(); i++)
             {
                AbstractField *f = _fieldList[i];
-               std::string val = f->ValueString();
-               FieldTypeEnum::FieldType type = f->FieldType();
                FieldStateEnum::FieldState state = f->State();
-               std::string fieldName = f->FieldName();
-               std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
                if (state == FieldStateEnum::Computed)
                {
+                  std::string val = f->ValueString();
+                  FieldTypeEnum::FieldType type = f->FieldType();
+                  std::string fieldName = f->FieldName();
+                  std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
                   for (size_t j = 0; j < cRules.size(); j++)
                   {
-                     auto cRule = cRules[j];
-                     std::string condition = cRule.Condition();
-                     std::string expression = cRule.Expression();
+                     ComputeRule cRule = cRules[j];
                      std::string ruleFieldName = cRule.FieldName();
                      if (fieldName == ruleFieldName)
                      {
+                        std::string condition = cRule.Condition();
+                        std::string expression = cRule.Expression();
                         // TODO do calculation
                         f->ValueString("999");
                      }
