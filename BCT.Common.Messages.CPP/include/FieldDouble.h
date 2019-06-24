@@ -38,7 +38,7 @@ namespace Bct
             {
                double out;
                sscanf_s(val.c_str(), "%f", &out);
-               Value(out);
+               ValueInternal(out);
             }
          };
       }

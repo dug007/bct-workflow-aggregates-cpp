@@ -39,7 +39,7 @@ namespace Bct
             {
                int32_t out;
                sscanf_s(val.c_str(), "%d", &out);
-               Value(out);
+               ValueInternal(out);
             }
          };
 

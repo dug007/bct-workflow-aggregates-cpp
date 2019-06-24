@@ -59,6 +59,10 @@ namespace Bct
                {
                   throw "error: attempting to set constant field"; // TODO localize
                }
+               if (_state == FieldStateEnum::Computed)
+               {
+                  throw "error: attempting to set computed field"; // TODO localize
+               }
                _val = v;
                FieldStateEnum::FieldState metaState = findFieldMeta()._fieldState;
                if (metaState == FieldStateEnum::Default)
@@ -78,6 +82,7 @@ namespace Bct
                }
 
             }
+
             void Unset()
             {
                if (_state == FieldStateEnum::Constant)
@@ -138,6 +143,28 @@ namespace Bct
             }
 
             protected:
+               void ValueInternal(const T v)
+               {
+                  _val = v;
+                  FieldStateEnum::FieldState metaState = findFieldMeta()._fieldState;
+                  if (metaState == FieldStateEnum::Default)
+                  {
+                     if (_val == _default)
+                     {
+                        _state = FieldStateEnum::Default;
+                     }
+                     else
+                     {
+                        _state = FieldStateEnum::Set;
+                     }
+                  }
+                  else
+                  {
+                     _state = FieldStateEnum::Set;
+                  }
+
+               }
+
                void SetDefault(const T def)
                {
                  _default = def;
