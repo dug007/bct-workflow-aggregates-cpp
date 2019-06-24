@@ -13,6 +13,7 @@
 #include "VersionChangeRule.h"
 #include "ComputeRule.h"
 #include "FieldMeta.h"
+#include "AbstractField.h"
 
 
 namespace Bct
@@ -41,6 +42,7 @@ namespace Bct
             const int16_t Major();
             const int16_t Minor();
             const int16_t Patch();
+            void UpdateCalculatedFields();
             void UpdateVer();
 
          virtual void convertVersion(int16_t major, int16_t minor, int16_t patch) = 0;
@@ -57,6 +59,8 @@ namespace Bct
 
          protected:
             std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get?
+            std::vector<AbstractField*> _fieldList; // TODO add set/get?
+
             std::string _version;
             int16_t _ver;
             int16_t _major;

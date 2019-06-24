@@ -28,6 +28,18 @@ namespace Bct
                this->Value(val);
                return *this;
             }
+            virtual const std::string ValueString()
+            {
+               std::stringstream ss;
+               ss << Value();
+               return ss.str();
+            }
+            virtual void ValueString(std::string val)
+            {
+               double out;
+               sscanf_s(val.c_str(), "%f", &out);
+               Value(out);
+            }
          };
       }
    }

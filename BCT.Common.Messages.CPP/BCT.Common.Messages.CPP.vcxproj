@@ -26,6 +26,7 @@
     <ClCompile Include="test\GeneralUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AbstractField.h" />
     <ClInclude Include="include\AssessmentRule.h" />
     <ClInclude Include="include\BaseAggregate.h" />
     <ClInclude Include="include\BaseField.h" />

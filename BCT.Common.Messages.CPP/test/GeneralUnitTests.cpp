@@ -5,6 +5,7 @@
 #include "FieldInt32Ro.h"
 #include "FieldDouble.h"
 #include "FieldDoubleRo.h"
+#include "AbstractField.h"
 
 
 //************ CODE GENERATION STARTS HERE ****************
@@ -135,6 +136,13 @@ private:
       Field7d = FieldInt32("Field7d", _ver, aggMeta);
       Field7c = FieldInt32("Field7c", _ver, aggMeta);
       Field7ro = FieldInt32Ro("Field7ro", _ver, aggMeta);
+
+      _fieldList.push_back(&Field1);
+      _fieldList.push_back(&Field7);
+      _fieldList.push_back(&Field7d);
+      _fieldList.push_back(&Field7c);
+      _fieldList.push_back(&Field7ro);
+
    }
  
 public:
@@ -171,7 +179,6 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
    CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
-
    a.Field1 = 2.0;
    a.Field7 = 3;          // via assignment operator
    a.Field7d.Value(4);    // via function
@@ -203,4 +210,5 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.getVersion(), "1.2.0");
    a.convertVersion(1,3,0);
    CHECK_EQUAL(a.getVersion(), "1.3.0");
+   a.UpdateCalculatedFields();
 }

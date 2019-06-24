@@ -536,3 +536,62 @@ Total tests = 1
 Total checks = 24
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(184): error: EXPRESSION: a.Field7d.State()==FieldStateEnum::FieldState::Default
+
+Total checks = 24
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(184): error: EXPRESSION: a.Field7d.State()==FieldStateEnum::FieldState::Default
+
+Total checks = 24
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1

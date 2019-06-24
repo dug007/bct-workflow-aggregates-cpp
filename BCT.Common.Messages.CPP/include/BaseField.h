@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "VersionMetaData.h"
 #include "FieldMeta.h"
+#include "AbstractField.h"
 
 namespace Bct
 {
@@ -12,7 +13,7 @@ namespace Bct
       namespace Aggregates
       {
          template<class T>
-         class BaseField
+         class BaseField : public AbstractField
          {
          private:
             T _val;
@@ -51,7 +52,6 @@ namespace Bct
 
          public:
             virtual ~BaseField() {};
-
             void Value(const T v)
             {
                // TODO: rules to implement here, localization, etc
@@ -114,6 +114,16 @@ namespace Bct
             operator T()
             {
                return this->Value();
+            }
+
+            virtual const std::string FieldName()
+            {
+               return _fieldName;
+            }
+
+            virtual const FieldTypeEnum::FieldType FieldType()
+            {
+               return _type;
             }
 
             const std::string DefaultStr()

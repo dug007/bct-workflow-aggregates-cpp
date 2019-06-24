@@ -52,7 +52,6 @@ namespace Bct
             int16_t _major;
             int16_t _minor;
             int16_t _patch;
-
          };
       }
    }
