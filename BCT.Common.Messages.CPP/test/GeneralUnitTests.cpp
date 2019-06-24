@@ -124,8 +124,6 @@ private:
       {
          VersionMetaData vmd;
 
-         VersionInfo vi(vers[i]);
-
          vmd.versionInfo = VersionInfo(vers[i]);
 
          FieldMeta Field1_("Field1", _Field1states[i], _Field1defaults[i]);
