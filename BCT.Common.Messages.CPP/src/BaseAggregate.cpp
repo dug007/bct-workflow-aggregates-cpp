@@ -1,3 +1,4 @@
+#include <cinttypes>
 #include "BaseAggregate.h"
 
 namespace Bct
@@ -17,9 +18,11 @@ namespace Bct
          const std::string& BaseAggregate::getVersion()
          {
             // TODO: remove _version?
-            _version = std::to_string(_major) + '.' + std::to_string(_minor) + '.' + std::to_string(_patch);
+            std::stringstream ss;
+            ss << _major << '.' << _minor << '.' << _patch;
+            _version = ss.str();
             return _version;
-         };
+          };
 
          void BaseAggregate::UpdateCalculatedFields()
          {
@@ -56,7 +59,7 @@ namespace Bct
             {
                if (ad[i].versionInfo.Major() == Major() && ad[i].versionInfo.Minor() == Minor() && ad[i].versionInfo.Patch() == Patch())
                {
-                  _ver = i;
+                  _ver = (int16_t)i;
                   return;
                }
             }

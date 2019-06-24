@@ -2,6 +2,8 @@
 
 #include <string>
 #include <sstream>
+#include <inttypes.h>
+
 namespace Bct
 {
    namespace Workflow
@@ -17,7 +19,11 @@ namespace Bct
             }
             VersionInfo(const std::string version) : _version(version)
             {
-               sscanf_s(version.c_str(), "%d.%d.%d", &_major, &_minor, &_patch);
+               int32_t m, n, p;
+               sscanf_s(version.c_str(), "%d.%d.%d", &m, &n, &p);
+               _major = m;
+               _minor = n;
+               _patch = p;
             }
 
             VersionInfo(const int16_t major, const int16_t minor, const int16_t patch) : _major(major), _minor(minor), _patch(patch)

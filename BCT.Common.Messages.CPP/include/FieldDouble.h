@@ -37,7 +37,7 @@ namespace Bct
             virtual void ValueString(std::string val)
             {
                double out;
-               sscanf_s(val.c_str(), "%f", &out);
+               sscanf_s(val.c_str(), "%lf", &out);
                ValueInternal(out);
             }
          };
