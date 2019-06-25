@@ -194,41 +194,41 @@ public:
 //********** UNIT TESTS **************************************
 
 
-TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
-{
-   Sample1Aggregate a(1, 2, 0);
-   CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
-   CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
-   a.Field1 = 2.0;
-   a.Field7 = 3;          // via assignment operator
-   a.Field7d.Value(4);    // via function
-   double f1 = a.Field1;  // via conversion operator
-   //a.Field7ro = 3;      //cannot compile - no assignment operator
-   //a.Field7ro.Value(3); //connot compile - setter is private
-   CHECK_ALL_EXCEPTIONS(a.Field7c=3, true);  // throws on assignment
-   CHECK_ALL_EXCEPTIONS(a.Field7c.Value(3), true);  // throws on set
-   CHECK_EQUAL(f1, 2.0);
-   CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(a.Field7.Value(), 3);
-   CHECK_EQUAL((int32_t)a.Field7, 3);
-   CHECK_EQUAL(a.Field7ro.Value(), 5);  // readable but not writeable
-   CHECK_EQUAL((int32_t)a.Field7ro, 5); // readable but not writeable
-   CHECK_EQUAL(a.Field7ro.State(), FieldStateEnum::FieldState::Constant);
-   CHECK_EQUAL(a.Field7c.Value(), 6);  // readable but not writeable
-   CHECK_EQUAL((int32_t)a.Field7c, 6); // readable but not writeable
-   CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
-   CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(a.Field7d.Value(), 4);
-   CHECK_EQUAL((int32_t)a.Field7d, 4);
-   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Set);
-
-   // set back to default
-   a.Field7d = -1;
-   CHECK_EQUAL(a.Field7d.Value(), -1);
-   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
-
-   a.UpdateCalculatedFields();
-   CHECK_EQUAL(a.Field7com.Value(), 23);
-}
+//TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
+//{
+//   Sample1Aggregate a(1, 2, 0);
+//   CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::NotSet);
+//   CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
+//   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
+//   CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
+//   a.Field1 = 2.0;
+//   a.Field7 = 3;          // via assignment operator
+//   a.Field7d.Value(4);    // via function
+//   double f1 = a.Field1;  // via conversion operator
+//   //a.Field7ro = 3;      //cannot compile - no assignment operator
+//   //a.Field7ro.Value(3); //connot compile - setter is private
+//   CHECK_ALL_EXCEPTIONS(a.Field7c=3, true);  // throws on assignment
+//   CHECK_ALL_EXCEPTIONS(a.Field7c.Value(3), true);  // throws on set
+//   CHECK_EQUAL(f1, 2.0);
+//   CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::Set);
+//   CHECK_EQUAL(a.Field7.Value(), 3);
+//   CHECK_EQUAL((int32_t)a.Field7, 3);
+//   CHECK_EQUAL(a.Field7ro.Value(), 5);  // readable but not writeable
+//   CHECK_EQUAL((int32_t)a.Field7ro, 5); // readable but not writeable
+//   CHECK_EQUAL(a.Field7ro.State(), FieldStateEnum::FieldState::Constant);
+//   CHECK_EQUAL(a.Field7c.Value(), 6);  // readable but not writeable
+//   CHECK_EQUAL((int32_t)a.Field7c, 6); // readable but not writeable
+//   CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
+//   CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::Set);
+//   CHECK_EQUAL(a.Field7d.Value(), 4);
+//   CHECK_EQUAL((int32_t)a.Field7d, 4);
+//   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Set);
+//
+//   // set back to default
+//   a.Field7d = -1;
+//   CHECK_EQUAL(a.Field7d.Value(), -1);
+//   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
+//
+//   a.UpdateCalculatedFields();
+//   CHECK_EQUAL(a.Field7com.Value(), 23);
+//}
