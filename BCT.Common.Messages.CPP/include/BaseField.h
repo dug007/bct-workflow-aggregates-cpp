@@ -194,7 +194,7 @@ namespace Bct
                         _state = FieldStateEnum::Set;
                      }
                   }
-                  else
+                  else if (metaState != FieldStateEnum::Computed)
                   {
                      _state = FieldStateEnum::Set;
                   }

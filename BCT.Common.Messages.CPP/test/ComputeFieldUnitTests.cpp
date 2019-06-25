@@ -134,6 +134,6 @@ TEST_MEMBER_FUNCTION(ComputeFieldsUnitTests, ComputeField, int)
 
    Platelet1.UpdateCalculatedFields();
    CHECK_EQUAL(Platelet1.yield.Value(), 2.5e9);
-   CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
 }
 

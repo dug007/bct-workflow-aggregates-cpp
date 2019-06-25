@@ -53,27 +53,24 @@ namespace Bct
             {
                AbstractField *f = _fieldList[i];
                FieldStateEnum::FieldState state = f->State();
-               if (state == FieldStateEnum::Computed)
+               std::string val = f->ValueString();
+               FieldTypeEnum::FieldType type = f->FieldType();
+               std::string fieldName = f->FieldName();
+               std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
+               for (size_t j = 0; j < cRules.size(); j++)
                {
-                  std::string val = f->ValueString();
-                  FieldTypeEnum::FieldType type = f->FieldType();
-                  std::string fieldName = f->FieldName();
-                  std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
-                  for (size_t j = 0; j < cRules.size(); j++)
+                  ComputeRule cRule = cRules[j];
+                  std::string ruleFieldName = cRule.FieldName();
+                  if (fieldName == ruleFieldName)
                   {
-                     ComputeRule cRule = cRules[j];
-                     std::string ruleFieldName = cRule.FieldName();
-                     if (fieldName == ruleFieldName)
-                     {
-                        std::string condition = cRule.Condition();
-                        std::string expression = cRule.Expression();
-                        std::string answerValue;
-                        TypeCode answerType;
-                        RPNEvaluator evaluator;
-                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                        // TODO : check answer type
-                        f->ValueString(answerValue);
-                     }
+                     std::string condition = cRule.Condition();
+                     std::string expression = cRule.Expression();
+                     std::string answerValue;
+                     TypeCode answerType;
+                     RPNEvaluator evaluator;
+                     evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                     // TODO : check answer type
+                     f->ValueString(answerValue);
                   }
                }
             }
