@@ -1,4 +1,3 @@
-#include <cinttypes>
 #include "BaseAggregate.h"
 #include "RPNEvaluator.h"
 
