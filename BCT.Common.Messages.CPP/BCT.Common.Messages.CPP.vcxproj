@@ -28,6 +28,7 @@
     <ClCompile Include="src\Exceptions.cpp" />
     <ClCompile Include="test\BCT.Common.DevComm.Messages.Test.cpp" />
     <ClCompile Include="test\GeneralUnitTests.cpp" />
+    <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\FuncOper.h" />

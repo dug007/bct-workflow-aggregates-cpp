@@ -155,7 +155,7 @@ namespace Bct
 
             virtual void ValueString(std::string val)
             {
-               int32_t out;
+               T out;
                std::stringstream ss;
                ss << val;
                ss >> out;
