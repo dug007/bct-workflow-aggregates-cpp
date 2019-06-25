@@ -63,6 +63,7 @@ namespace Bct
                   if (t == FieldTypeEnum::BoolField)      return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Boolean;
                   if (t == FieldTypeEnum::EnumField)      return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::String;
                   if (t == FieldTypeEnum::AggregateField) return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Object;
+                  return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Empty;
             };
 
          public:

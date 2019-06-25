@@ -48,10 +48,7 @@ namespace Bct
 
             void convertVersion(int16_t major, int16_t minor, int16_t patch)
             {
-               // finsih
-               _major = major;
-               _minor = minor;
-               _patch = patch;
+               // TODO implement
             };
 
          public:

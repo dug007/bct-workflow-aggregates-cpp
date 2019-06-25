@@ -90,3 +90,18 @@ Total tests = 1
 Total checks = 25
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     23  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 23
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     23  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 23
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     23  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 23
+Total tested = 1
+Total tests = 1

@@ -71,7 +71,7 @@ namespace Bct
                         TypeCode answerType;
                         RPNEvaluator evaluator;
                         evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                        // TODO : check answer type
+                        // TODO : check answer type?
                         f->ValueString(answerValue);
                      }
                   }

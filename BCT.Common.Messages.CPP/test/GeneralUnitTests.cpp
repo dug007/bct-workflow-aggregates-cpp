@@ -181,12 +181,7 @@ public:
    }
 
    virtual ~Sample1Aggregate() {};
- /*  void convertVersion(int16_t major, int16_t minor, int16_t patch) 
-   { 
-      _major = major;
-      _minor = minor;
-      _patch = patch;
-   };*/
+ 
  };
 
 //*********** CODE GENERATION ENDS HERE **********************
