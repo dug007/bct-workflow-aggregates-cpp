@@ -229,10 +229,6 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.Field7d.Value(), -1);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
 
-   CHECK_EQUAL(a.getVersion(), "1.2.0");
-   a.convertVersion(1,3,0);
-   CHECK_EQUAL(a.getVersion(), "1.3.0");
-
    a.UpdateCalculatedFields();
    CHECK_EQUAL(a.Field7com.Value(), 23);
 }
