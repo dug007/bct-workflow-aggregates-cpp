@@ -37,7 +37,6 @@ namespace Bct
                FieldStateEnum::FieldState state = fm._fieldState;
                _state = state;
                _typeCode = mapTypeToCode(t);
-
             }
          private:
             const FieldMeta findFieldMeta()

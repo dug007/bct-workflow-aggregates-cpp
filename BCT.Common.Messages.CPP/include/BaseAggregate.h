@@ -45,7 +45,14 @@ namespace Bct
             void UpdateCalculatedFields();
             void UpdateVer();
 
-         virtual void convertVersion(int16_t major, int16_t minor, int16_t patch) = 0;
+
+            void convertVersion(int16_t major, int16_t minor, int16_t patch)
+            {
+               // finsih
+               _major = major;
+               _minor = minor;
+               _patch = patch;
+            };
 
          public:
             // Field types

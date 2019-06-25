@@ -28,7 +28,7 @@ namespace Bct
 
          void BaseAggregate::UpdateCalculatedFields()
          {
-            // populate variable mape
+            // populate variable map
             std::map<std::string, RPNVariable> varMap;
             for (size_t i = 0; i < _fieldList.size(); i++)
             {
@@ -105,6 +105,7 @@ namespace Bct
          {
             return _patch;
          }
+
       }
    }
 }
