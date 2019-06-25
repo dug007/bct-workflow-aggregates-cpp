@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\FuncOper.cpp" />
+    <ClCompile Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\RPNEvaluator.cpp" />
+    <ClCompile Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\stdafx.cpp" />
+    <ClCompile Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\Token.cpp" />
     <ClCompile Include="src\BaseAggregate.cpp" />
     <ClCompile Include="src\BaseField.cpp" />
     <ClCompile Include="src\Exceptions.cpp" />
@@ -26,6 +30,15 @@
     <ClCompile Include="test\GeneralUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\FuncOper.h" />
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\RPNEvaluator.h" />
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\RPNException.h" />
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\RPNVariable.h" />
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\stdafx.h" />
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\targetver.h" />
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\Token.h" />
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\TokenClass.h" />
+    <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\TypeCode.h" />
     <ClInclude Include="include\AbstractField.h" />
     <ClInclude Include="include\AssessmentRule.h" />
     <ClInclude Include="include\BaseAggregate.h" />
@@ -119,11 +132,13 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\src-git\BCT.Common.DevComm.Messages.CPP\BCT.Common.Messages.CPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\Include;$(SolutionDir)BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

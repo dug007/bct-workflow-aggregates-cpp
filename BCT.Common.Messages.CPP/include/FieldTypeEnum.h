@@ -14,16 +14,16 @@ namespace Bct
             //
             enum FieldType
             {
-               None,          // Error condition - denotes unassigned field type
-               UInt32Field,   // unsigned 32-bit integer
-               Int32Field,    // signed 32-bit integer
-               UInt64Field,   // unsigned 64-bit integer
-               Int64Field,    // signed 64-bit integer
-               DoubleField,   // double
-               StringField,   // std::string
-               BoolField,     // boolean
-               EnumField,     // enum
-               AggregateField // nested aggregate
+               None = 0,          // Error condition - denotes unassigned field type
+               UInt32Field=1,   // unsigned 32-bit integer
+               Int32Field=2,    // signed 32-bit integer
+               UInt64Field=3,   // unsigned 64-bit integer
+               Int64Field=4,    // signed 64-bit integer
+               DoubleField=5,   // double
+               StringField=6,   // std::string
+               BoolField=7,     // boolean
+               EnumField=8,     // enum
+               AggregateField=9 // nested aggregate
             };
          }
       }

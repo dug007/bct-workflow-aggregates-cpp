@@ -13,6 +13,7 @@
 #include "ComputeRule.h"
 #include "FieldMeta.h"
 #include "AbstractField.h"
+#include "TypeCode.h"
 
 
 namespace Bct

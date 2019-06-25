@@ -5,6 +5,7 @@
 #include "VersionMetaData.h"
 #include "FieldMeta.h"
 #include "AbstractField.h"
+#include "TypeCode.h"
 
 namespace Bct
 {
@@ -20,6 +21,7 @@ namespace Bct
             T _default;
             FieldStateEnum::FieldState _state;
             FieldTypeEnum::FieldType _type;
+            BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode _typeCode;
             std::string _fieldName;
             std::vector<VersionMetaData> _metaData;
             int16_t _ver;
@@ -34,6 +36,7 @@ namespace Bct
                FieldMeta fm = findFieldMeta();
                FieldStateEnum::FieldState state = fm._fieldState;
                _state = state;
+               _typeCode = mapTypeToCode(t);
 
             }
          private:
@@ -49,6 +52,19 @@ namespace Bct
                }
                throw "error: metadata missing requested version of field";
             }
+            // TODO we need to decide what to do about type system - map it for now
+            const BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode mapTypeToCode(const FieldTypeEnum::FieldType t)
+            {
+                  if (t == FieldTypeEnum::UInt32Field)    return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::UInt32;
+                  if (t == FieldTypeEnum::Int32Field)     return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Int32;
+                  if (t == FieldTypeEnum::UInt64Field)    return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::UInt64;
+                  if (t == FieldTypeEnum::Int64Field)     return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Int64;
+                  if (t == FieldTypeEnum::DoubleField)    return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Double;
+                  if (t == FieldTypeEnum::StringField)    return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::String;
+                  if (t == FieldTypeEnum::BoolField)      return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Boolean;
+                  if (t == FieldTypeEnum::EnumField)      return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::String;
+                  if (t == FieldTypeEnum::AggregateField) return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Object;
+            };
 
          public:
             virtual ~BaseField() {};
@@ -129,6 +145,11 @@ namespace Bct
             virtual const FieldTypeEnum::FieldType FieldType()
             {
                return _type;
+            }
+
+            virtual const BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode TypeCode()
+            {
+               return _typeCode;
             }
 
             const std::string DefaultStr()

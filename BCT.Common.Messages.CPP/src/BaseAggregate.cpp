@@ -1,5 +1,8 @@
 #include <cinttypes>
 #include "BaseAggregate.h"
+#include "RPNEvaluator.h"
+
+using namespace BCTCommonUtilitiesRPNEvaluatorCPPWin;
 
 namespace Bct
 {
@@ -26,6 +29,27 @@ namespace Bct
 
          void BaseAggregate::UpdateCalculatedFields()
          {
+            // populate variable mape
+            std::map<std::string, RPNVariable> varMap;
+            for (size_t i = 0; i < _fieldList.size(); i++)
+            {
+               AbstractField *f = _fieldList[i];
+               std::string strVal;
+               if (f->State() == FieldStateEnum::NotSet)
+               {
+                  strVal = "$Notset"; // TODO make sure this is correct
+               }
+               else if (f->State() == FieldStateEnum::Unavailable)
+               {
+                  strVal = "$Unavailable"; // TODO make sure this is correct
+               }
+               else
+               {
+                  strVal = f->ValueString();
+               }
+               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->TypeCode(), strVal);
+            }
+ 
             for (size_t i = 0; i < _fieldList.size(); i++)
             {
                AbstractField *f = _fieldList[i];
@@ -44,8 +68,12 @@ namespace Bct
                      {
                         std::string condition = cRule.Condition();
                         std::string expression = cRule.Expression();
-                        // TODO do calculation
-                        f->ValueString("999");
+                        std::string answerValue;
+                        TypeCode answerType;
+                        RPNEvaluator evaluator;
+                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                        // TODO : check answer type
+                        f->ValueString(answerValue);
                      }
                   }
                }
