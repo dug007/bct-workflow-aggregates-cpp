@@ -196,6 +196,8 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
    CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
+   CHECK_EQUAL(a.Field7com.State(), FieldStateEnum::FieldState::Computed);
+
    a.Field1 = 2.0;
    a.Field7 = 3;          // via assignment operator
    a.Field7d.Value(4);    // via function
@@ -218,6 +220,8 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.Field7d.Value(), 4);
    CHECK_EQUAL((int32_t)a.Field7d, 4);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Set);
+   CHECK_ALL_EXCEPTIONS(a.Field7com = 3, true);  // throws on assignment
+
 
    // set back to default
    a.Field7d = -1;
@@ -226,4 +230,6 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
 
    a.UpdateCalculatedFields();
    CHECK_EQUAL(a.Field7com.Value(), 23);
+   CHECK_EQUAL(a.Field7com.State(), FieldStateEnum::FieldState::Computed);
+
 }

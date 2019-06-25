@@ -110,3 +110,51 @@ Total tests = 1
 Total checks = 23
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -      7  TESTS  ComputeFieldsUnitTests::ComputeField(int)
+
+Total checks = 7
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     24  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 24
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     25  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 25
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(233): error: EXPRESSION: a.Field7com.State()==FieldStateEnum::FieldState::Computed
+
+Total checks = 26
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(233): error: EXPRESSION: a.Field7com.State()==FieldStateEnum::FieldState::Computed
+
+Total checks = 26
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(233): error: EXPRESSION: a.Field7com.State()==FieldStateEnum::FieldState::Computed
+
+Total checks = 26
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(233): error: EXPRESSION: a.Field7com.State()==FieldStateEnum::FieldState::Computed
+
+Total checks = 26
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     26  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 26
+Total tested = 1
+Total tests = 1
