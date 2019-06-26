@@ -463,6 +463,7 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    Platelet1.UpdateCalculatedFields();
    CHECK_EQUAL(Platelet1.yield.Value(), 2.5e9);
    CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
+   CHECK_ALL_EXCEPTIONS(Platelet1.yield = 3, true); //Tests that computed field cannot be set
 
    //Create new plateletAggregate with vers[1]
    PlateletTemplateAggregrate Platelet2(1, 1, 0);
