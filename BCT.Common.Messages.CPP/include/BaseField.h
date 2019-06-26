@@ -79,24 +79,7 @@ namespace Bct
                {
                   throw "error: attempting to set computed field"; // TODO localize
                }
-               _val = v;
-               FieldStateEnum::FieldState metaState = findFieldMeta()._fieldState;
-               if (metaState == FieldStateEnum::Default)
-               {
-                  if (_val == _default)
-                  {
-                     _state = FieldStateEnum::Default;
-                  }
-                  else
-                  {
-                     _state = FieldStateEnum::Set;
-                  }
-               }
-               else
-               {
-                  _state = FieldStateEnum::Set;
-               }
-
+               ValueInternal(v);
             }
 
             void Unset()

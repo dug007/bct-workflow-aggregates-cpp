@@ -29,7 +29,7 @@ private:
       FieldStateEnum::FieldState _volumeMlStates[2] =
       {
          FieldStateEnum::NotSet,
-         FieldStateEnum::NotSet
+         FieldStateEnum::Computed
       };
 
       std::string _volumeMlDefaults[2] =
@@ -159,11 +159,9 @@ private:
       // Simple computation rules
       ComputeRule cr1("yield", "$True", "cellsPerMl volumeMl *");
       ComputeRule cr2("volumeMl", "$True", "yield cellsPerMl /");
-      ComputeRule cr3("cellsPerMl", "$True", "yield volumeMl /");
 
       aggMeta[_ver].computeRules.push_back(cr1);
       aggMeta[_ver].computeRules.push_back(cr2);
-      aggMeta[_ver].computeRules.push_back(cr3);
 
    }
 
@@ -358,6 +356,7 @@ public:
 
 TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
 {
+   // General unit tests ----------------------------------------------
    Sample1Aggregate a(1, 2, 0);
    CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
@@ -393,31 +392,35 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
 
    a.UpdateCalculatedFields();
    CHECK_EQUAL(a.Field7com.Value(), 23);
- PlateletTemplateAggregrate Platelet1(1, 0, 0);
- CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
- CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
- CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
 
- Platelet1.volumeMl = 500.0;
- Platelet1.cellsPerMl = 5.0e6;
- CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::Set);
- CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   // Design doc example ----------------------------
 
- Platelet1.UpdateCalculatedFields();
- CHECK_EQUAL(Platelet1.yield.Value(), 2.5e9);
- CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
+   PlateletTemplateAggregrate Platelet1(1, 0, 0);
+   CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
 
- PlateletTemplateAggregrate Platelet2(1, 1, 0);
- CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
- CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
- CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::NotSet);
+   Platelet1.volumeMl = 500.0;
+   Platelet1.cellsPerMl = 5.0e6;
+   CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
 
- Platelet2.yield = 2.5e9;
- Platelet2.cellsPerMl = 5.0e6;
- CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Set);
- CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   Platelet1.UpdateCalculatedFields();
+   CHECK_EQUAL(Platelet1.yield.Value(), 2.5e9);
+   CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
 
- //Platelet2.UpdateCalculatedFields();
- //CHECK_EQUAL(Platelet2.volumeMl.Value(), 500.0);
- //CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed);
+   PlateletTemplateAggregrate Platelet2(1, 1, 0);
+   CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed);
+   CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::NotSet);
+
+   Platelet2.yield = 2.5e9;
+   Platelet2.cellsPerMl = 5.0e6;
+
+   CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+
+   Platelet2.UpdateCalculatedFields();
+   CHECK_EQUAL(Platelet2.volumeMl.Value(), 500.0);
+   CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed);
 }
