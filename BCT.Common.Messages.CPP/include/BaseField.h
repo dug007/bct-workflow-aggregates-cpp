@@ -146,14 +146,14 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
-            virtual const std::string ValueString()
+            virtual const std::string ComputedValueString()
             {
                std::stringstream ss;
                ss << Value();
                return ss.str();
             }
 
-            virtual void ValueString(std::string val)
+            virtual void ComputedValueString(std::string val)
             {
                T out;
                std::stringstream ss;
@@ -178,7 +178,7 @@ namespace Bct
                         _state = FieldStateEnum::Set;
                      }
                   }
-                  else if (metaState != FieldStateEnum::Computed)
+                  else
                   {
                      _state = FieldStateEnum::Set;
                   }

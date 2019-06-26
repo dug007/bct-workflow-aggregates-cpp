@@ -44,7 +44,7 @@ namespace Bct
                }
                else
                {
-                  strVal = f->ValueString();
+                  strVal = f->ComputedValueString();
                }
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->TypeCode(), strVal);
             }
@@ -53,7 +53,7 @@ namespace Bct
             {
                AbstractField *f = _fieldList[i];
                FieldStateEnum::FieldState state = f->State();
-               std::string val = f->ValueString();
+               std::string val = f->ComputedValueString();
                FieldTypeEnum::FieldType type = f->FieldType();
                std::string fieldName = f->FieldName();
                std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
@@ -70,7 +70,7 @@ namespace Bct
                      RPNEvaluator evaluator;
                      evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
                      // TODO : check answer type
-                     f->ValueString(answerValue);
+                     f->ComputedValueString(answerValue);
                   }
                }
             }
