@@ -146,23 +146,23 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
-            virtual const std::string ComputedValueString()
-            {
-               std::stringstream ss;
-               ss << Value();
-               return ss.str();
-            }
-
-            virtual void ComputedValueString(std::string val)
-            {
-               T out;
-               std::stringstream ss;
-               ss << val;
-               ss >> out;
-               ValueInternal(out);
-            }
-
             protected:
+               virtual const std::string ComputedValueString()
+               {
+                  std::stringstream ss;
+                  ss << Value();
+                  return ss.str();
+               }
+
+               virtual void ComputedValueString(std::string val)
+               {
+                  T out;
+                  std::stringstream ss;
+                  ss << val;
+                  ss >> out;
+                  ValueInternal(out);
+               }
+
                void ValueInternal(const T v)
                {
                   _val = v;

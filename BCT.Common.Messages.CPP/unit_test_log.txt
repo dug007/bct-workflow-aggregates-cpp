@@ -232,3 +232,11 @@ Total checks = 37
 Total failed checks = 2
 Total tested = 1
 Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(410): error: EXPRESSION: Platelet1.yield.State()==FieldStateEnum::FieldState::Computed
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(425): error: EXPRESSION: Platelet2.volumeMl.State()==FieldStateEnum::FieldState::Computed
+
+Total checks = 37
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
