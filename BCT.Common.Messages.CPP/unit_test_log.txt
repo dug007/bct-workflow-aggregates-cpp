@@ -211,3 +211,27 @@ Total tests = 1
 Total checks = 37
 Total tested = 1
 Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\users\rwalusb3\source\repos\bct.common.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(411): error: EXPRESSION: Platelet2.volumeMl.State()==FieldStateEnum::FieldState::Computed
+
+Total checks = 35
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\users\rwalusb3\source\repos\bct.common.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(411): error: EXPRESSION: Platelet2.volumeMl.State()==FieldStateEnum::FieldState::Computed
+
+Total checks = 35
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     30  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 30
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     35  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 35
+Total tested = 1
+Total tests = 1

@@ -36,7 +36,7 @@ namespace Bct
                std::string strVal;
                if (f->State() == FieldStateEnum::NotSet)
                {
-                  strVal = "$Notset"; // TODO make sure this is correct
+                  strVal = "$NotSet"; // TODO make sure this is correct
                }
                else if (f->State() == FieldStateEnum::Unavailable)
                {
@@ -53,7 +53,6 @@ namespace Bct
             {
                AbstractField *f = _fieldList[i];
                FieldStateEnum::FieldState state = f->State();
-               std::string val = f->ValueString();
                FieldTypeEnum::FieldType type = f->FieldType();
                std::string fieldName = f->FieldName();
                std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
