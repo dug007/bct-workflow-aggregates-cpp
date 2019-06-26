@@ -441,7 +441,7 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
 
    // Design doc example ----------------------------
 
-   //Create plateletAggregate with vers[0]
+   //Create plateletAggregate with version 1.0.0
    PlateletTemplateAggregrate Platelet1(1, 0, 0);
 
    //Test for field that is Unavailable
@@ -465,7 +465,7 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
    CHECK_ALL_EXCEPTIONS(Platelet1.yield = 3, true); //Tests that computed field cannot be set
 
-   //Create new plateletAggregate with vers[1]
+   //Create new plateletAggregate with version 1.1.0
    PlateletTemplateAggregrate Platelet2(1, 1, 0);
 
    //Check new fields that were added to vers[1] that were unavailable in vers[0]
@@ -476,7 +476,6 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::NotSet);
-
 
    ////Test the 3 compute rules given for vers[1]
    ////ComputeRule 1. Compute yield using volumeMl and cellsPerMl
