@@ -29,7 +29,7 @@ private:
       FieldStateEnum::FieldState _volumeMlStates[2] =
       {
          FieldStateEnum::NotSet,
-         FieldStateEnum::Computed
+         FieldStateEnum::NotSet
       };
 
       std::string _volumeMlDefaults[2] =
@@ -110,6 +110,30 @@ private:
          "5.0e6"
       };
 
+      FieldStateEnum::FieldState _minYieldStates[2] =
+      {
+         FieldStateEnum::Unavailable,
+         FieldStateEnum::Constant
+      };
+
+      std::string _minYieldDefaults[2] =
+      {
+         "0.0",
+         "1.0e8"
+      };
+
+      FieldStateEnum::FieldState _maxYieldStates[2] =
+      {
+         FieldStateEnum::Unavailable,
+         FieldStateEnum::Constant
+      };
+
+      std::string _maxYieldDefaults[2] =
+      {
+         "0.0",
+         "2.0e9"
+      };
+
 
       for (int16_t i = 0; i < 2; i++)
       {
@@ -124,6 +148,8 @@ private:
          FieldMeta maxVolumeMl_("maxVolumeMl", _maxVolumeMlStates[i], _maxVolumeMlDefaults[i]);
          FieldMeta minCellsPerMl_("minCellsPerMl", _minCellsPerMlStates[i], _minCellsPerMlDefaults[i]);
          FieldMeta maxCellsPerMl_("maxCellsPerMl", _maxCellsPerMlStates[i], _maxCellsPerMlDefaults[i]);
+         FieldMeta minYield_("minYield", _minYieldStates[i], _minYieldDefaults[i]);
+         FieldMeta maxYield_("maxYield", _maxYieldStates[i], _maxYieldDefaults[i]);
 
          vmd.fieldMetaData.push_back(volumeMl_);
          vmd.fieldMetaData.push_back(cellsPerMl_);
@@ -132,10 +158,27 @@ private:
          vmd.fieldMetaData.push_back(maxVolumeMl_);
          vmd.fieldMetaData.push_back(minCellsPerMl_);
          vmd.fieldMetaData.push_back(maxCellsPerMl_);
+         vmd.fieldMetaData.push_back(minYield_);
+         vmd.fieldMetaData.push_back(maxYield_);
 
 
          aggMeta.push_back(vmd);
       }
+      // Simple computation rules
+      {
+         ComputeRule cr1("yield", "$True", "cellsPerMl volumeMl *");
+         aggMeta[0].computeRules.push_back(cr1);
+      }
+      {
+         ComputeRule cr1("yield", "$Checkrange", "cellsPerMl volumeMl *");
+         ComputeRule cr2("volumeMl", "$True", "yield cellsPerMl /");
+         ComputeRule cr3("cellsPerMl", "$True", "yield volumeMl /");
+         aggMeta[1].computeRules.push_back(cr1);
+         aggMeta[1].computeRules.push_back(cr2);
+         aggMeta[1].computeRules.push_back(cr3);
+      }
+
+
 
       UpdateVer(); // determine ver for aggregate based on state of metadata
 
@@ -146,6 +189,8 @@ private:
       maxVolumeMl = FieldDouble("maxVolumeMl", _ver, aggMeta);
       minCellsPerMl = FieldDouble("minCellsPerMl", _ver, aggMeta);
       maxCellsPerMl = FieldDouble("maxCellsPerMl", _ver, aggMeta);
+      minYield = FieldDouble("minYield", _ver, aggMeta);
+      maxYield = FieldDouble("maxYield", _ver, aggMeta);
 
       _fieldList.push_back(&volumeMl);
       _fieldList.push_back(&cellsPerMl);
@@ -154,14 +199,13 @@ private:
       _fieldList.push_back(&maxVolumeMl);
       _fieldList.push_back(&minCellsPerMl);
       _fieldList.push_back(&maxCellsPerMl);
+      _fieldList.push_back(&minYield);
+      _fieldList.push_back(&maxYield);
 
-
-      // Simple computation rules
-      ComputeRule cr1("yield", "$True", "cellsPerMl volumeMl *");
-      ComputeRule cr2("volumeMl", "$True", "yield cellsPerMl /");
-
-      aggMeta[_ver].computeRules.push_back(cr1);
-      aggMeta[_ver].computeRules.push_back(cr2);
+      
+      //aggMeta[_ver].computeRules.push_back(cr1);
+      //aggMeta[_ver].computeRules.push_back(cr2);
+      //aggMeta[_ver].computeRules.push_back(cr3);
 
    }
 
@@ -173,6 +217,8 @@ public:
    FieldDouble maxVolumeMl;
    FieldDouble minCellsPerMl;
    FieldDouble maxCellsPerMl;
+   FieldDouble minYield;
+   FieldDouble maxYield;
 
 
    PlateletTemplateAggregrate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
@@ -400,6 +446,13 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
 
+   //Test for field that is Unavailable
+   CHECK_EQUAL(Platelet1.minYield.State(), FieldStateEnum::FieldState::Unavailable);
+   CHECK_EQUAL(Platelet1.maxYield.State(), FieldStateEnum::FieldState::Unavailable);
+   CHECK_ALL_EXCEPTIONS(Platelet1.minYield.Value(), true);
+   CHECK_ALL_EXCEPTIONS(Platelet1.maxYield.Value(), true);
+
+   //Test compute function
    Platelet1.volumeMl = 500.0;
    Platelet1.cellsPerMl = 5.0e6;
    CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::Set);
@@ -410,17 +463,20 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
 
    PlateletTemplateAggregrate Platelet2(1, 1, 0);
-   CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed);
+   CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::NotSet);
 
-   Platelet2.yield = 2.5e9;
-   Platelet2.cellsPerMl = 5.0e6;
+   CHECK_EQUAL(Platelet2.minYield.State(), FieldStateEnum::FieldState::Constant);
+   CHECK_EQUAL(Platelet2.maxYield.State(), FieldStateEnum::FieldState::Constant);
 
-   CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   //Platelet2.yield = 2.5e9;
+   //Platelet2.cellsPerMl = 5.0e6;
 
-   Platelet2.UpdateCalculatedFields();
-   CHECK_EQUAL(Platelet2.volumeMl.Value(), 500.0);
-   CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed);
+   //CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Set);
+   //CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+
+   //Platelet2.UpdateCalculatedFields();
+   //CHECK_EQUAL(Platelet2.volumeMl.Value(), 500.0);
+   //CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed);
 }

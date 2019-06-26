@@ -235,3 +235,62 @@ Total tests = 1
 Total checks = 35
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     37  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 37
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     34  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 34
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     35  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 35
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\users\rwalusb3\source\repos\bct.common.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(453): error: EXPRESSION: Platelet2.minYield.State()==FieldStateEnum::FieldState::NotSet
+        c:\users\rwalusb3\source\repos\bct.common.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(454): error: EXPRESSION: Platelet2.maxYield.State()==FieldStateEnum::FieldState::NotSet
+
+Total checks = 37
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     37  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 37
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\users\rwalusb3\source\repos\bct.common.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(440): error: EXPRESSION: Platelet1.maxYield
+
+Total checks = 38
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     38  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 38
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\users\rwalusb3\source\repos\bct.common.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(441): error: EXPRESSION: Platelet1.maxYield
+
+Total checks = 39
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\users\rwalusb3\source\repos\bct.common.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(442): error: EXPRESSION: Platelet1.minYield.Value(3)
+
+Total checks = 40
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     39  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 39
+Total tested = 1
+Total tests = 1
