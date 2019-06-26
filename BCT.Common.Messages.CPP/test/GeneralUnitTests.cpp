@@ -441,10 +441,8 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
 
    // Design doc example ----------------------------
 
+   //Create plateletAggregate with vers[0]
    PlateletTemplateAggregrate Platelet1(1, 0, 0);
-   CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
 
    //Test for field that is Unavailable
    CHECK_EQUAL(Platelet1.minYield.State(), FieldStateEnum::FieldState::Unavailable);
@@ -452,21 +450,27 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_ALL_EXCEPTIONS(Platelet1.minYield.Value(), true);
    CHECK_ALL_EXCEPTIONS(Platelet1.maxYield.Value(), true);
 
+   //Check initial state of fields used in calculation
+   CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
+
    //Test compute function
    Platelet1.volumeMl = 500.0;
    Platelet1.cellsPerMl = 5.0e6;
    CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::Set);
    CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
-
    Platelet1.UpdateCalculatedFields();
    CHECK_EQUAL(Platelet1.yield.Value(), 2.5e9);
    CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
 
+   //Create new plateletAggregate with vers[1]
    PlateletTemplateAggregrate Platelet2(1, 1, 0);
    CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::NotSet);
 
+   //Check new fields that were added to vers[1] that were unavailable in vers[0]
    CHECK_EQUAL(Platelet2.minYield.State(), FieldStateEnum::FieldState::Constant);
    CHECK_EQUAL(Platelet2.maxYield.State(), FieldStateEnum::FieldState::Constant);
 
