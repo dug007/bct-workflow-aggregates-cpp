@@ -79,7 +79,7 @@ namespace Bct
                {
                   throw "error: attempting to set computed field"; // TODO localize
                }
-               ValueInternal(v);
+               ValueInternal(v, false);
             }
 
             void Unset()
@@ -160,10 +160,10 @@ namespace Bct
                   std::stringstream ss;
                   ss << val;
                   ss >> out;
-                  ValueInternal(out);
+                  ValueInternal(out, true);
                }
 
-               void ValueInternal(const T v)
+               void ValueInternal(const T v, bool fromCalculation)
                {
                   _val = v;
                   FieldStateEnum::FieldState metaState = findFieldMeta()._fieldState;
@@ -180,7 +180,14 @@ namespace Bct
                   }
                   else
                   {
-                     _state = FieldStateEnum::Set;
+                     if (fromCalculation)
+                     {
+                        _state = FieldStateEnum::Computed;
+                     }
+                     else
+                     {
+                        _state = FieldStateEnum::Set;
+                     }
                   }
 
                }

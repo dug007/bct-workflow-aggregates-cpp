@@ -53,7 +53,6 @@ namespace Bct
             {
                AbstractField *f = _fieldList[i];
                FieldStateEnum::FieldState state = f->State();
-               std::string val = f->ComputedValueString();
                FieldTypeEnum::FieldType type = f->FieldType();
                std::string fieldName = f->FieldName();
                std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;

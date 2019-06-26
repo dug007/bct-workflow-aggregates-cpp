@@ -324,3 +324,24 @@ Total tests = 1
 Total checks = 40
 Total tested = 1
 Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(619): error: EXPRESSION: Platelet1.yield.State()==FieldStateEnum::FieldState::Computed
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(620): error: EXPRESSION: Platelet1.yield = 3
+
+Total checks = 40
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(619): error: EXPRESSION: Platelet1.yield.State()==FieldStateEnum::FieldState::Computed
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(620): error: EXPRESSION: Platelet1.yield = 3
+
+Total checks = 40
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     40  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 40
+Total tested = 1
+Total tests = 1
