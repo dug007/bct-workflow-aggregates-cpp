@@ -631,7 +631,7 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::NotSet);
 
-   ////Test the 3 compute rules given for vers[1]
+   ////Test the 3 compute rules given for version 1.1.0 which includes condition expression
    ////ComputeRule 1. Compute yield using volumeMl and cellsPerMl
    //Platelet2.volumeMl = 500.0;
    //Platelet2.cellsPerMl = 5.0e6;
