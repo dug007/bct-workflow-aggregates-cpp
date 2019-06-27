@@ -68,6 +68,7 @@ namespace Bct
                      TypeCode answerType;
                      RPNEvaluator evaluator;
                      evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                     varMap[fieldName].VarValue = answerValue;
                      // TODO : check answer type
                      f->ComputedValueString(answerValue);
                   }

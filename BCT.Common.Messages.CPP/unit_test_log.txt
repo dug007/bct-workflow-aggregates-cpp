@@ -357,3 +357,18 @@ Total tests = 1
 Total checks = 40
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     40  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 40
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
