@@ -641,14 +641,14 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    //CHECK_EQUAL(Platelet2.yield.Value(), 2.5e9);
    //CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
-   ////ComputeRule 2. Compute volumeMl using yield and cellsPerMl
-   //Platelet2.yield = 1.0e8;
-   //Platelet2.cellsPerMl = 0.5e6;
-   //CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Set);
-   //CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
-   //Platelet2.UpdateCalculatedFields();
-   //CHECK_EQUAL(Platelet2.volumeMl.Value(), 200.0);
-   //CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+   //ComputeRule 2. Compute volumeMl using yield and cellsPerMl
+   Platelet2.yield = 1.0e8;
+   Platelet2.cellsPerMl = 0.5e6;
+   CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   Platelet2.UpdateCalculatedFields();
+   CHECK_EQUAL(Platelet2.volumeMl.Value(), 200.0);
+   CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
    ////ComputeRule 3. Compute cellsPerMl using yield and volumeMl
    //Platelet2.yield = 1.0e9;
