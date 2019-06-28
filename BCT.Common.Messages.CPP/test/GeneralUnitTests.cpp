@@ -565,9 +565,11 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
    CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
+   CHECK_EQUAL(a.Field1.FieldSetCounter(), 0);
    a.Field1 = 2.0;
    a.Field7 = 3;          // via assignment operator
    a.Field7d.Value(4);    // via function
+   CHECK_EQUAL(a.Field7d.FieldSetCounter(), 3);
    double f1 = a.Field1;  // via conversion operator
    //a.Field7ro = 3;      //cannot compile - no assignment operator
    //a.Field7ro.Value(3); //connot compile - setter is private
@@ -593,8 +595,12 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.Field7d.Value(), -1);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
 
+
    a.UpdateCalculatedFields();
    CHECK_EQUAL(a.Field7com.Value(), 23);
+
+
+
 
    // Design doc example ----------------------------
 

@@ -35,7 +35,7 @@ namespace Bct
             {
             }
             BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData,  AbstractAggregate *aggregate)
-               : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate)
+               : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
                FieldMeta fm = findFieldMeta();
                FieldStateEnum::FieldState state = fm._fieldState;
@@ -150,6 +150,10 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
+            virtual const int16_t FieldSetCounter()
+            {
+               return _fieldSetCounter;
+            }
 
             
             protected:
@@ -173,6 +177,7 @@ namespace Bct
                {
                   _val = v;
                   FieldStateEnum::FieldState metaState = findFieldMeta()._fieldState;
+                  _fieldSetCounter = _aggregate->FieldSetCounter();
                   if (metaState == FieldStateEnum::Default)
                   {
                      if (_val == _default)
@@ -197,17 +202,6 @@ namespace Bct
                   }
 
                }
-
-               virtual int16_t FieldSetCounter()
-               {
-                  return _fieldSetCounter;
-               }
-
-               virtual void FieldSetCounter(int16_t count)
-               {
-                  _fieldSetCounter = count;
-               };
-
 
                void SetDefault(const T def)
                {

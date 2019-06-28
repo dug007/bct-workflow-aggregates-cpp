@@ -360,3 +360,50 @@ Total tests = 1
 Total checks = 40
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     40  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 40
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(568): error: EXPRESSION: a.Field1.FieldSetCounter()==0
+
+Total checks = 41
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     41  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 41
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     42  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 42
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(576): error: EXPRESSION: a.FieldSetCounter()==4
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(577): error: EXPRESSION: a.Field1.FieldSetCounter()==4
+
+Total checks = 44
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     43  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 43
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(572): error: EXPRESSION: a.Field7d.FieldSetCounter()==3
+
+Total checks = 42
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     42  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 42
+Total tested = 1
+Total tests = 1
