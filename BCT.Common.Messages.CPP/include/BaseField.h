@@ -28,13 +28,13 @@ namespace Bct
             std::vector<VersionMetaData> _metaData;
             int16_t _ver;
             int16_t _fieldSetCounter;
-            AbstractAggregate &_aggregate;
+            AbstractAggregate *_aggregate;
 
          public:
             BaseField()
             {
             }
-            BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData, AbstractAggregate &aggregate)
+            BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate)
             {
                FieldMeta fm = findFieldMeta();

@@ -19,7 +19,7 @@ private:
    void initMetaData()
    {
       std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
-      AbstractAggregate &agg = *this;
+      AbstractAggregate *agg = this;
 
       std::string vers[2] =
       {
