@@ -14,6 +14,7 @@
 #include "FieldMeta.h"
 #include "AbstractField.h"
 #include "TypeCode.h"
+#include "AbstractAggregate.h"
 
 
 namespace Bct
@@ -22,7 +23,7 @@ namespace Bct
    {
       namespace Aggregates
       {
-         class BaseAggregate
+         class BaseAggregate : public AbstractAggregate
          {
          public:
             BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch);
@@ -33,6 +34,8 @@ namespace Bct
             // Disallow default constructor
             //
             BaseAggregate();
+
+            int32_t _fieldSetCounter;
 
          public:
             /**
@@ -50,6 +53,8 @@ namespace Bct
             {
                // TODO implement
             };
+
+            int16_t FieldSetCounter();
 
          public:
             // Field types

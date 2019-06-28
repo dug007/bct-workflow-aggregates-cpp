@@ -19,6 +19,7 @@ private:
    void initMetaData()
    {
       std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
+      AbstractAggregate &agg = *this;
 
       std::string vers[2] =
       {
@@ -139,13 +140,13 @@ private:
 
       UpdateVer(); // determine ver for aggregate based on state of metadata
 
-      volumeMl = FieldDouble("volumeMl", _ver, aggMeta);
-      cellsPerMl = FieldDouble("cellsPerMl", _ver, aggMeta);
-      yield = FieldDouble("yield", _ver, aggMeta);
-      minVolumeMl = FieldDouble("minVolumeMl", _ver, aggMeta);
-      maxVolumeMl = FieldDouble("maxVolumeMl", _ver, aggMeta);
-      minCellsPerMl = FieldDouble("minCellsPerMl", _ver, aggMeta);
-      maxCellsPerMl = FieldDouble("maxCellsPerMl", _ver, aggMeta);
+      volumeMl = FieldDouble("volumeMl", _ver, aggMeta, agg);
+      cellsPerMl = FieldDouble("cellsPerMl", _ver, aggMeta, agg);
+      yield = FieldDouble("yield", _ver, aggMeta, agg);
+      minVolumeMl = FieldDouble("minVolumeMl", _ver, aggMeta, agg);
+      maxVolumeMl = FieldDouble("maxVolumeMl", _ver, aggMeta, agg);
+      minCellsPerMl = FieldDouble("minCellsPerMl", _ver, aggMeta, agg);
+      maxCellsPerMl = FieldDouble("maxCellsPerMl", _ver, aggMeta, agg);
 
       _fieldList.push_back(&volumeMl);
       _fieldList.push_back(&cellsPerMl);

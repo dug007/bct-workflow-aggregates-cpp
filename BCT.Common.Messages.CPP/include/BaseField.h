@@ -6,6 +6,8 @@
 #include "FieldMeta.h"
 #include "AbstractField.h"
 #include "TypeCode.h"
+#include "AbstractAggregate.h"
+
 
 namespace Bct
 {
@@ -25,13 +27,15 @@ namespace Bct
             std::string _fieldName;
             std::vector<VersionMetaData> _metaData;
             int16_t _ver;
+            int16_t _fieldSetCounter;
+            AbstractAggregate &_aggregate;
 
          public:
             BaseField()
             {
             }
-            BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData)
-               : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData)
+            BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData, AbstractAggregate &aggregate)
+               : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate)
             {
                FieldMeta fm = findFieldMeta();
                FieldStateEnum::FieldState state = fm._fieldState;
@@ -146,6 +150,8 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
+
+            
             protected:
                virtual const std::string ComputedValueString()
                {
@@ -191,6 +197,17 @@ namespace Bct
                   }
 
                }
+
+               virtual int16_t FieldSetCounter()
+               {
+                  return _fieldSetCounter;
+               }
+
+               virtual void FieldSetCounter(int16_t count)
+               {
+                  _fieldSetCounter = count;
+               };
+
 
                void SetDefault(const T def)
                {

@@ -17,7 +17,7 @@ namespace Bct
             FieldDoubleRo()
             {
             }
-            FieldDoubleRo(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData) : FieldDouble(fieldName, ver, metaData) {}  // feature fEmbedMetaData
+            FieldDoubleRo(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData, AbstractAggregate &aggregate) : FieldDouble(fieldName, ver, metaData, aggregate) {}  // feature fEmbedMetaData
             const double Value()
             {
                return FieldDouble::Value();

@@ -67,9 +67,13 @@ namespace Bct
                      std::string answerValue;
                      TypeCode answerType;
                      RPNEvaluator evaluator;
-                     evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                     // TODO : check answer type
-                     f->ComputedValueString(answerValue);
+                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
+                     if ("true" == answerValue)
+                     {
+
+                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                        f->ComputedValueString(answerValue);
+                     }
                   }
                }
             }
@@ -87,6 +91,12 @@ namespace Bct
                }
             }
             throw "error: invalid version"; // TODO localize
+         }
+
+         int16_t BaseAggregate::FieldSetCounter()
+         {
+            _fieldSetCounter++;
+            return _fieldSetCounter;
          }
 
          const int16_t BaseAggregate::Major()

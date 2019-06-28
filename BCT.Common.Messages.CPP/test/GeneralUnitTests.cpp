@@ -6,6 +6,7 @@
 #include "FieldDouble.h"
 #include "FieldDoubleRo.h"
 #include "AbstractField.h"
+#include "AbstractAggregate.h"
 #include "RPNEvaluator.h"
 
 
@@ -19,7 +20,7 @@ private:
    void initMetaData()
    {
       std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
-
+      AbstractAggregate &agg = *this;
       std::string vers[2] =
       {
          "1.0.0",
@@ -166,13 +167,13 @@ private:
       }
       // Simple computation rules
       {
-         ComputeRule cr1("yield", "$True", "cellsPerMl volumeMl *");
+         ComputeRule cr1("yield", "1 1 ==", "cellsPerMl volumeMl *"); // TODO make $True
          aggMeta[0].computeRules.push_back(cr1);
       }
       {
          ComputeRule cr1("yield", "$Checkrange", "cellsPerMl volumeMl *");
-         ComputeRule cr2("volumeMl", "$True", "yield cellsPerMl /");
-         ComputeRule cr3("cellsPerMl", "$True", "yield volumeMl /");
+         ComputeRule cr2("volumeMl", "1 1 ==", "yield cellsPerMl /"); // TODO make $True
+         ComputeRule cr3("cellsPerMl", "1 1 ==", "yield volumeMl /"); // TRUE 
          aggMeta[1].computeRules.push_back(cr1);
          aggMeta[1].computeRules.push_back(cr2);
          aggMeta[1].computeRules.push_back(cr3);
@@ -182,15 +183,15 @@ private:
 
       UpdateVer(); // determine ver for aggregate based on state of metadata
 
-      volumeMl = FieldDouble("volumeMl", _ver, aggMeta);
-      cellsPerMl = FieldDouble("cellsPerMl", _ver, aggMeta);
-      yield = FieldDouble("yield", _ver, aggMeta);
-      minVolumeMl = FieldDouble("minVolumeMl", _ver, aggMeta);
-      maxVolumeMl = FieldDouble("maxVolumeMl", _ver, aggMeta);
-      minCellsPerMl = FieldDouble("minCellsPerMl", _ver, aggMeta);
-      maxCellsPerMl = FieldDouble("maxCellsPerMl", _ver, aggMeta);
-      minYield = FieldDouble("minYield", _ver, aggMeta);
-      maxYield = FieldDouble("maxYield", _ver, aggMeta);
+      volumeMl = FieldDouble("volumeMl", _ver, aggMeta, agg);
+      cellsPerMl = FieldDouble("cellsPerMl", _ver, aggMeta, agg);
+      yield = FieldDouble("yield", _ver, aggMeta, agg);
+      minVolumeMl = FieldDouble("minVolumeMl", _ver, aggMeta, agg);
+      maxVolumeMl = FieldDouble("maxVolumeMl", _ver, aggMeta, agg);
+      minCellsPerMl = FieldDouble("minCellsPerMl", _ver, aggMeta, agg);
+      maxCellsPerMl = FieldDouble("maxCellsPerMl", _ver, aggMeta, agg);
+      minYield = FieldDouble("minYield", _ver, aggMeta, agg);
+      maxYield = FieldDouble("maxYield", _ver, aggMeta, agg);
 
       _fieldList.push_back(&volumeMl);
       _fieldList.push_back(&cellsPerMl);
@@ -235,6 +236,7 @@ private:
    void initMetaData()
    {
       std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
+      AbstractAggregate &agg = *this;
 
       std::string vers[2] =
       {
@@ -353,13 +355,13 @@ private:
 
       UpdateVer(); // determine ver for aggregate based on state of metadata
 
-      postCellsPerMl = FieldDouble("postCellsPerMl", _ver, aggMeta);
-      minTemplateCount = FieldInt32("minTemplateCount", _ver, aggMeta);
-      maxTemplateCount = FieldInt32("maxTemplateCount", _ver, aggMeta);
-      minPostCellsPerMl = FieldDouble("minPostCellsPerMl", _ver, aggMeta);
-      maxPostCellsPerMl = FieldDouble("maxPostCellsPerMl", _ver, aggMeta);
-      malePostCellsPerMl = FieldDouble("malePostCellsPerMl", _ver, aggMeta);
-      femalePostCellsPerMl = FieldDouble("femalePostCellsPerMl", _ver, aggMeta);
+      postCellsPerMl = FieldDouble("postCellsPerMl", _ver, aggMeta, agg);
+      minTemplateCount = FieldInt32("minTemplateCount", _ver, aggMeta, agg);
+      maxTemplateCount = FieldInt32("maxTemplateCount", _ver, aggMeta, agg);
+      minPostCellsPerMl = FieldDouble("minPostCellsPerMl", _ver, aggMeta, agg);
+      maxPostCellsPerMl = FieldDouble("maxPostCellsPerMl", _ver, aggMeta, agg);
+      malePostCellsPerMl = FieldDouble("malePostCellsPerMl", _ver, aggMeta, agg);
+      femalePostCellsPerMl = FieldDouble("femalePostCellsPerMl", _ver, aggMeta, agg);
 
       _fieldList.push_back(&postCellsPerMl);
       _fieldList.push_back(&minTemplateCount);
@@ -394,6 +396,7 @@ private:
    void initMetaData()
    {
       std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
+      AbstractAggregate &agg = *this;
 
       std::string vers[3] =
       {
@@ -511,12 +514,12 @@ private:
 
       UpdateVer(); // determine ver for aggregate based on state of metadata
 
-      Field1 = FieldDouble("Field1", _ver, aggMeta);
-      Field7 = FieldInt32("Field7", _ver, aggMeta);
-      Field7d = FieldInt32("Field7d", _ver, aggMeta);
-      Field7c = FieldInt32("Field7c", _ver, aggMeta);
-      Field7ro = FieldInt32Ro("Field7ro", _ver, aggMeta);
-      Field7com = FieldInt32("Field7com", _ver, aggMeta);
+      Field1 = FieldDouble("Field1", _ver, aggMeta, agg);
+      Field7 = FieldInt32("Field7", _ver, aggMeta, agg);
+      Field7d = FieldInt32("Field7d", _ver, aggMeta, agg);
+      Field7c = FieldInt32("Field7c", _ver, aggMeta, agg);
+      Field7ro = FieldInt32Ro("Field7ro", _ver, aggMeta, agg);
+      Field7com = FieldInt32("Field7com", _ver, aggMeta, agg);
 
       _fieldList.push_back(&Field1);
       _fieldList.push_back(&Field7);
@@ -526,7 +529,7 @@ private:
       _fieldList.push_back(&Field7com);
 
       // Simple computation rules
-      ComputeRule cr("Field7com", "$True", "Field7 20 +");
+      ComputeRule cr("Field7com", "1 1 ==", "Field7 20 +");
       aggMeta[_ver].computeRules.push_back(cr);
 
    }
@@ -631,15 +634,15 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::NotSet);
 
-   ////Test the 3 compute rules given for vers[1]
-   ////ComputeRule 1. Compute yield using volumeMl and cellsPerMl
-   //Platelet2.volumeMl = 500.0;
-   //Platelet2.cellsPerMl = 5.0e6;
-   //CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Set);
-   //CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
-   //Platelet2.UpdateCalculatedFields();
-   //CHECK_EQUAL(Platelet2.yield.Value(), 2.5e9);
-   //CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+   //Test the 3 compute rules given for vers[1]
+   //ComputeRule 1. Compute yield using volumeMl and cellsPerMl
+   Platelet2.volumeMl = 500.0;
+   Platelet2.cellsPerMl = 5.0e6;
+   CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   Platelet2.UpdateCalculatedFields();
+   CHECK_EQUAL(Platelet2.yield.Value(), 2.5e9);
+   CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
    ////ComputeRule 2. Compute volumeMl using yield and cellsPerMl
    //Platelet2.yield = 1.0e8;

@@ -122,6 +122,9 @@
     <ClInclude Include="..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\TypeCode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\AbstractAggregate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />

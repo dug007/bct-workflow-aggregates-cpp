@@ -3,6 +3,7 @@
 #include <cinttypes>
 #include <vector>
 #include "BaseField.h"
+#include "AbstractAggregate.h"
 
 namespace Bct
 {
@@ -16,7 +17,8 @@ namespace Bct
             FieldInt32()
             {
             }
-            FieldInt32(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData) : BaseField(fieldName, FieldTypeEnum::FieldType::Int32Field, ver, metaData)  // feature fEmbedMetaData
+
+            FieldInt32(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData, AbstractAggregate &aggregate) : BaseField(fieldName, FieldTypeEnum::FieldType::Int32Field, ver, metaData, aggregate)  
             {
                const FieldStateEnum::FieldState state = State();
                if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
@@ -24,6 +26,7 @@ namespace Bct
                   SetDefault(atoi(DefaultStr().c_str()));
                }
             }
+
             FieldInt32& operator=(const int32_t val)
             {
                this->Value(val);
