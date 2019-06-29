@@ -176,7 +176,7 @@ public:
    FieldDouble maxCellsPerMl;
 
 
-   PlateletTemplateAggregrate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
+   PlateletTemplateAggregrate(const std::string version) : BaseAggregate(version)
    {
       initMetaData();
    }

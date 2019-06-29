@@ -26,7 +26,7 @@ namespace Bct
          class BaseAggregate : public AbstractAggregate
          {
          public:
-            BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch);
+            BaseAggregate(const std::string version);
 
             virtual ~BaseAggregate();
 
@@ -42,14 +42,11 @@ namespace Bct
              * Get current version of aggregate
              */
             const std::string& getVersion();
-            const int16_t Major();
-            const int16_t Minor();
-            const int16_t Patch();
             void UpdateCalculatedFields();
             void UpdateVer();
 
 
-            void convertVersion(int16_t major, int16_t minor, int16_t patch)
+            void convertVersion(std::string version)
             {
                // TODO implement
             };
@@ -69,13 +66,10 @@ namespace Bct
          protected:
             std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get?
             std::vector<AbstractField*> _fieldList; // TODO add set/get?
-
+            int32_t _ver;
             std::string _version;
-            int16_t _ver;
-            int16_t _major;
-            int16_t _minor;
-            int16_t _patch;
-         };
+
+       };
       }
    }
 }

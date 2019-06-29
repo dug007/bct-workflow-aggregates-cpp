@@ -18,18 +18,6 @@ namespace Bct
             }
             VersionInfo(const std::string version) : _version(version)
             {
-               int32_t m, n, p;
-               sscanf_s(version.c_str(), "%d.%d.%d", &m, &n, &p);
-               _major = m;
-               _minor = n;
-               _patch = p;
-            }
-
-            VersionInfo(const int16_t major, const int16_t minor, const int16_t patch) : _major(major), _minor(minor), _patch(patch)
-            {
-               std::stringstream ss;
-               ss << _major << '.' << _minor << '.' << _patch;
-               _version = ss.str();
             }
 
             const std::string Version()
@@ -37,26 +25,8 @@ namespace Bct
                return _version;
             }
 
-            const int16_t Major()
-            {
-               return _major;
-            };
-
-            const int16_t Minor()
-            {
-               return _minor;
-            }
-
-            const int16_t Patch()
-            {
-               return _patch;
-            }
-
          private:
             std::string _version;
-            int16_t _major;
-            int16_t _minor;
-            int16_t _patch;
          };
       }
    }

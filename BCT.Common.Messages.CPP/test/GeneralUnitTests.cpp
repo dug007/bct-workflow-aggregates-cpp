@@ -203,11 +203,6 @@ private:
       _fieldList.push_back(&minYield);
       _fieldList.push_back(&maxYield);
 
-      
-      //aggMeta[_ver].computeRules.push_back(cr1);
-      //aggMeta[_ver].computeRules.push_back(cr2);
-      //aggMeta[_ver].computeRules.push_back(cr3);
-
    }
 
 public:
@@ -222,7 +217,7 @@ public:
    FieldDouble maxYield;
 
 
-   PlateletTemplateAggregrate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
+   PlateletTemplateAggregrate(const std::string version) : BaseAggregate (version)
    {
       initMetaData();
    }
@@ -382,7 +377,7 @@ public:
    FieldDouble malePostCellsPerMl;
    FieldDouble femalePostCellsPerMl;
 
-   PlateletConfigAggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
+   PlateletConfigAggregate(const std::string version) : BaseAggregate(version)
    {
       initMetaData();
    }
@@ -571,7 +566,7 @@ public:
    FieldInt32 Field7com;   // computed
    FieldInt32 Field7x;     // extra field for tests
 
-   Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
+   Sample1Aggregate(const std::string version) : BaseAggregate(version)
    {
       initMetaData();
    }
@@ -588,7 +583,7 @@ public:
 TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
 {
    // General unit tests ----------------------------------------------
-   Sample1Aggregate a(1, 2, 0);
+   Sample1Aggregate a("1.2.0");
    CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
@@ -639,7 +634,7 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    // Design doc example ----------------------------
 
    //Create plateletAggregate with version 1.0.0
-   PlateletTemplateAggregrate Platelet_100(1, 0, 0);
+   PlateletTemplateAggregrate Platelet_100("1.0.0");
 
    //Test for field that is Unavailable
    CHECK_EQUAL(Platelet_100.minYield.State(), FieldStateEnum::FieldState::Unavailable);
@@ -663,7 +658,7 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
 
 
    //Create new plateletAggregate with version 1.1.0
-   PlateletTemplateAggregrate Platelet_110(1, 1, 0);
+   PlateletTemplateAggregrate Platelet_110("1.1.0");
 
    //Check new fields that were added to vers[1] that were unavailable in vers[0]
    CHECK_EQUAL(Platelet_110.minYield.State(), FieldStateEnum::FieldState::Constant);

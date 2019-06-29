@@ -9,7 +9,7 @@ namespace Bct
    {
       namespace Aggregates
       {
-         BaseAggregate::BaseAggregate(const int16_t major, const int16_t minor, const int16_t patch) : _major(major), _minor(minor), _patch(patch)
+         BaseAggregate::BaseAggregate(const std::string version) : _version(version)
          {
          }
          /**
@@ -19,10 +19,6 @@ namespace Bct
 
          const std::string& BaseAggregate::getVersion()
          {
-            // TODO: remove _version?
-            std::stringstream ss;
-            ss << _major << '.' << _minor << '.' << _patch;
-            _version = ss.str();
             return _version;
           };
 
@@ -85,7 +81,7 @@ namespace Bct
             std::vector<VersionMetaData> &ad = _aggregateMetaData;
             for (size_t i = 0; i < ad.size(); i++)
             {
-               if (ad[i].versionInfo.Major() == Major() && ad[i].versionInfo.Minor() == Minor() && ad[i].versionInfo.Patch() == Patch())
+               if (ad[i].versionInfo.Version() == _version)
                {
                   _ver = (int16_t)i;
                   return;
@@ -99,20 +95,6 @@ namespace Bct
             _fieldSetCounter++;
             return _fieldSetCounter;
          }
-
-         const int16_t BaseAggregate::Major()
-         {
-            return _major;
-         }
-         const int16_t BaseAggregate::Minor()
-         {
-            return _minor;
-         }
-         const int16_t BaseAggregate::Patch()
-         {
-            return _patch;
-         }
-
       }
    }
 }
