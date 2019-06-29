@@ -30,6 +30,10 @@ namespace Bct
             int16_t _fieldSetCounter;
             AbstractAggregate *_aggregate;
 
+            virtual FieldStateEnum::FieldState &StateRef()
+            {
+               return _state;
+            }
          public:
             BaseField()
             {

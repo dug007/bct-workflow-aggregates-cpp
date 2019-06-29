@@ -46,7 +46,9 @@ namespace Bct
                {
                   strVal = f->ComputedValueString();
                }
-               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->TypeCode(), strVal);
+
+               FieldStateEnum::FieldState &state = f->StateRef();
+               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->TypeCode(), strVal, state, f->FieldSetCounter());
             }
  
             for (size_t i = 0; i < _fieldList.size(); i++)
@@ -70,7 +72,6 @@ namespace Bct
                      evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
                      if ("true" == answerValue)
                      {
-
                         evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
                         f->ComputedValueString(answerValue);
                      }

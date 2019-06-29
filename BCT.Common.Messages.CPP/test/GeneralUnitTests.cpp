@@ -390,6 +390,9 @@ public:
    virtual ~PlateletConfigAggregate() {};
 };
 
+
+//*****************************************************************
+
 class Sample1Aggregate : public BaseAggregate
 {
 private:
@@ -489,6 +492,21 @@ private:
          "-1"
       };
 
+      FieldStateEnum::FieldState _Field7xstates[3] =
+      {
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet,
+         FieldStateEnum::NotSet
+      };
+
+      std::string _Field7xdefaults[3] =
+      {
+         "0",
+         "0",
+         "0"
+      };
+
+
       for (int16_t i=0; i < 3; i++)
       {
          VersionMetaData vmd;
@@ -501,6 +519,7 @@ private:
          FieldMeta Field7c_("Field7c", _Field7cstates[i], _Field7cdefaults[i]);
          FieldMeta Field7ro_("Field7ro", _Field7rostates[i], _Field7rodefaults[i]);
          FieldMeta Field7com_("Field7com", _Field7comstates[i], _Field7comdefaults[i]);
+         FieldMeta Field7x_("Field7x", _Field7xstates[i], _Field7xdefaults[i]);
 
          vmd.fieldMetaData.push_back(Field1_);
          vmd.fieldMetaData.push_back(Field7_);
@@ -508,6 +527,7 @@ private:
          vmd.fieldMetaData.push_back(Field7c_);
          vmd.fieldMetaData.push_back(Field7ro_);
          vmd.fieldMetaData.push_back(Field7com_);
+         vmd.fieldMetaData.push_back(Field7x_);
 
          aggMeta.push_back(vmd);
       }
@@ -520,6 +540,7 @@ private:
       Field7c = FieldInt32("Field7c", _ver, aggMeta, agg);
       Field7ro = FieldInt32Ro("Field7ro", _ver, aggMeta, agg);
       Field7com = FieldInt32("Field7com", _ver, aggMeta, agg);
+      Field7x = FieldInt32("Field7x", _ver, aggMeta, agg);
 
       _fieldList.push_back(&Field1);
       _fieldList.push_back(&Field7);
@@ -527,10 +548,16 @@ private:
       _fieldList.push_back(&Field7c);
       _fieldList.push_back(&Field7ro);
       _fieldList.push_back(&Field7com);
+      _fieldList.push_back(&Field7x);
 
       // Simple computation rules
-      ComputeRule cr("Field7com", "1 1 ==", "Field7 20 +");
-      aggMeta[_ver].computeRules.push_back(cr);
+      ComputeRule cr1("Field1", "1 1 ==", "Field1 20.0 +");
+      ComputeRule cr2("Field7", "Field7x Field7d $EnteredLater", "Field7x");
+      ComputeRule cr3("Field7", "Field7d Field7x $EnteredLater", "Field7d");
+
+      aggMeta[_ver].computeRules.push_back(cr1);
+      aggMeta[_ver].computeRules.push_back(cr2);
+      aggMeta[_ver].computeRules.push_back(cr3);
 
    }
  
@@ -542,6 +569,7 @@ public:
    FieldInt32 Field7c;     // constant - setter throws
    FieldInt32 Field7d;     // defaulted
    FieldInt32 Field7com;   // computed
+   FieldInt32 Field7x;     // extra field for tests
 
    Sample1Aggregate(int16_t major, int16_t minor, int16_t patch) : BaseAggregate(major, minor, patch)
    {
@@ -595,11 +623,17 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    CHECK_EQUAL(a.Field7d.Value(), -1);
    CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
 
-
    a.UpdateCalculatedFields();
-   CHECK_EQUAL(a.Field7com.Value(), 23);
+   CHECK_EQUAL(a.Field1.Value(), 22.0);
 
-
+   // Testing $EnteredLater
+   a.Field7x = 98;
+   a.Field7d = 99;
+   a.UpdateCalculatedFields();    // "Field7d Field7x $EnteredLater", "Field7d")
+   CHECK_EQUAL(a.Field7.Value(), a.Field7d.Value());
+   a.Field7x = a.Field7x.Value();
+   a.UpdateCalculatedFields();    // "Field7x Field7d $EnteredLater", "Field7x")
+   CHECK_EQUAL(a.Field7.Value(), a.Field7x.Value());
 
 
    // Design doc example ----------------------------

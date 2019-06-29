@@ -372,3 +372,178 @@ Total tests = 1
 Total checks = 44
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     42  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 42
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(604): error: EXPRESSION: a.Field7com.Value()==23
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(605): error: EXPRESSION: a.Field7.State()==FieldStateEnum::FieldState::Set
+
+Total checks = 44
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(604): error: EXPRESSION: a.Field7com.Value()==23
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(605): error: EXPRESSION: a.Field7.State()==FieldStateEnum::FieldState::Set
+
+Total checks = 44
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(604): error: EXPRESSION: a.Field7com.Value()==23
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(605): error: EXPRESSION: a.Field7.State()==FieldStateEnum::FieldState::Set
+
+Total checks = 44
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(604): error: EXPRESSION: a.Field1.Value()==22.0
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(605): error: EXPRESSION: a.Field7.State()==FieldStateEnum::FieldState::Set
+
+Total checks = 44
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(605): error: EXPRESSION: a.Field7.State()==FieldStateEnum::FieldState::Set
+
+Total checks = 44
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(605): error: EXPRESSION: a.Field7.State()==FieldStateEnum::FieldState::Set
+
+Total checks = 44
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(605): error: EXPRESSION: a.Field7.State()==FieldStateEnum::FieldState::NotSet
+
+Total checks = 44
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(602): error: EXPRESSION: a.Field7.Value()==a.Field7c.Value()
+
+Total checks = 43
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     43  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 43
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(602): error: EXPRESSION: a.Field7.Value()==a.Field7d.Value()
+
+Total checks = 43
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     43  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 43
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(602): error: EXPRESSION: a.Field7.Value()==a.Field7d.Value()
+
+Total checks = 43
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     43  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 43
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(628): error: EXPRESSION: a.Field7x.FieldSetCounter()==2
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(630): error: EXPRESSION: a.Field7.Value()==a.Field7d.Value()
+
+Total checks = 45
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(628): error: EXPRESSION: a.Field7x.FieldSetCounter()==2
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(630): error: EXPRESSION: a.Field7.Value()==a.Field7d.Value()
+
+Total checks = 45
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(628): error: EXPRESSION: a.Field7x.FieldSetCounter()==2
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(630): error: EXPRESSION: a.Field7.Value()==a.Field7d.Value()
+
+Total checks = 45
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      2  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(627): error: EXPRESSION: a.Field7.Value()==99
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(632): error: EXPRESSION: a.Field1.Value()==22.0
+
+Total checks = 44
+Total failed checks = 2
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(634): error: EXPRESSION: a.Field1.Value()==22.0
+
+Total checks = 44
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(627): error: EXPRESSION: a.Field7.Value()==99
+
+Total checks = 45
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1

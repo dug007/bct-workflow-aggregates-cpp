@@ -20,6 +20,10 @@ namespace Bct
             virtual const std::string ComputedValueString() = 0;
             virtual void ComputedValueString(std::string val) = 0;
             friend class BaseAggregate;
+
+         private:
+            virtual FieldStateEnum::FieldState &StateRef() = 0;
+
          };
       }
    }
