@@ -171,9 +171,9 @@ private:
          aggMeta[0].computeRules.push_back(cr1);
       }
       {
-         ComputeRule cr1("yield", "cellsPerMl $IsSet volumeMl $IsSet &&", "cellsPerMl volumeMl *");
-         ComputeRule cr2("volumeMl", "cellsPerMl $IsSet yield $IsSet &&", "yield cellsPerMl /");
-         ComputeRule cr3("cellsPerMl", "yield $IsSet volumeMl $IsSet &&", "yield volumeMl /");
+         ComputeRule cr1("yield", "volumeMl yield $EnteredLater", "cellsPerMl volumeMl *");
+         ComputeRule cr3("cellsPerMl", "volumeMl cellsPerMl $EnteredLater yield cellsPerMl $EnteredLater &&", "yield volumeMl /");
+         ComputeRule cr2("volumeMl", "cellsPerMl volumeMl $EnteredLater yield volumeMl $EnteredLater &&", "yield cellsPerMl /");
          aggMeta[1].computeRules.push_back(cr1);
          aggMeta[1].computeRules.push_back(cr2);
          aggMeta[1].computeRules.push_back(cr3);
@@ -639,66 +639,81 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    // Design doc example ----------------------------
 
    //Create plateletAggregate with version 1.0.0
-   PlateletTemplateAggregrate Platelet1(1, 0, 0);
+   PlateletTemplateAggregrate Platelet_100(1, 0, 0);
 
    //Test for field that is Unavailable
-   CHECK_EQUAL(Platelet1.minYield.State(), FieldStateEnum::FieldState::Unavailable);
-   CHECK_EQUAL(Platelet1.maxYield.State(), FieldStateEnum::FieldState::Unavailable);
-   CHECK_ALL_EXCEPTIONS(Platelet1.minYield.Value(), true);
-   CHECK_ALL_EXCEPTIONS(Platelet1.maxYield.Value(), true);
+   CHECK_EQUAL(Platelet_100.minYield.State(), FieldStateEnum::FieldState::Unavailable);
+   CHECK_EQUAL(Platelet_100.maxYield.State(), FieldStateEnum::FieldState::Unavailable);
+   CHECK_ALL_EXCEPTIONS(Platelet_100.minYield.Value(), true);
+   CHECK_ALL_EXCEPTIONS(Platelet_100.maxYield.Value(), true);
 
    //Check initial state of fields used in calculation
-   CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet_100.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet_100.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet_100.yield.State(), FieldStateEnum::FieldState::NotSet);
 
    //Test compute function
-   Platelet1.volumeMl = 500.0;
-   Platelet1.cellsPerMl = 5.0e6;
-   CHECK_EQUAL(Platelet1.volumeMl.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(Platelet1.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
-   Platelet1.UpdateCalculatedFields();
-   CHECK_EQUAL(Platelet1.yield.Value(), 2.5e9);
-   CHECK_EQUAL(Platelet1.yield.State(), FieldStateEnum::FieldState::Computed);
-   CHECK_ALL_EXCEPTIONS(Platelet1.yield = 3, true); //Tests that computed field cannot be set
+   Platelet_100.volumeMl = 500.0;
+   Platelet_100.cellsPerMl = 5.0e6;
+   CHECK_EQUAL(Platelet_100.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet_100.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   Platelet_100.UpdateCalculatedFields();
+   CHECK_EQUAL(Platelet_100.yield.Value(), 2.5e9);
+   CHECK_EQUAL(Platelet_100.yield.State(), FieldStateEnum::FieldState::Computed);
+
 
    //Create new plateletAggregate with version 1.1.0
-   PlateletTemplateAggregrate Platelet2(1, 1, 0);
+   PlateletTemplateAggregrate Platelet_110(1, 1, 0);
 
    //Check new fields that were added to vers[1] that were unavailable in vers[0]
-   CHECK_EQUAL(Platelet2.minYield.State(), FieldStateEnum::FieldState::Constant);
-   CHECK_EQUAL(Platelet2.maxYield.State(), FieldStateEnum::FieldState::Constant);
+   CHECK_EQUAL(Platelet_110.minYield.State(), FieldStateEnum::FieldState::Constant);
+   CHECK_EQUAL(Platelet_110.maxYield.State(), FieldStateEnum::FieldState::Constant);
 
    //Check initial state for values used in calculations
-   CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
+   CHECK_EQUAL(Platelet_110.yield.State(), FieldStateEnum::FieldState::NotSet);
 
-   ////Test the 3 compute rules given for version 1.1.0 which includes condition expression
-   ////ComputeRule 1. Compute yield using volumeMl and cellsPerMl
-   //Platelet2.volumeMl = 500.0;
-   //Platelet2.cellsPerMl = 5.0e6;
-   //CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Set);
-   //CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
-   //Platelet2.UpdateCalculatedFields();
-   //CHECK_EQUAL(Platelet2.yield.Value(), 2.5e9);
-   //CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+   //Test the 3 compute rules given for version 1.1.0 which includes condition expression
+   //ComputeRule 1. Compute yield using volumeMl and cellsPerMl
+   //Field: Yield
+   //   Condition : $EnteredLater(VolumeMl, Yield) && $EnteredLater(CellsPerMl, Yield)
+   //   Expression :  VolumeMl * CellsPerMl
+   Platelet_110.yield = 0.0;
+   Platelet_110.volumeMl = 500.0;
+   Platelet_110.cellsPerMl = 5.0e6;
+   double expectedYield = Platelet_110.volumeMl.Value() * Platelet_110.cellsPerMl.Value();
+   CHECK_EQUAL(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   Platelet_110.UpdateCalculatedFields();
+   CHECK_EQUAL(Platelet_110.yield.Value(), expectedYield);
+   CHECK_EQUAL(Platelet_110.yield.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
-   //ComputeRule 2. Compute volumeMl using yield and cellsPerMl
-   //Platelet2.yield = 1.0e8;
-   //Platelet2.cellsPerMl = 0.5e6;
-   //CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Set);
-   //CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
-   //Platelet2.UpdateCalculatedFields();
-   //CHECK_EQUAL(Platelet2.volumeMl.Value(), 200.0);
-   //CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+   // ComputeRule 2. Compute volumeMl using yield and cellsPerMl
+   //Field: VolumeMl
+   //   Condition : $EnteredLater(CellsPerMl, VolumeMl) && $EnteredLater(Yield, VolumeMl)
+   //   Expression : Yield / CellsPerMl
+   Platelet_110.volumeMl = 0.0;
+   Platelet_110.yield = 1.0e8;
+   Platelet_110.cellsPerMl = 0.5e6;
+   double expectedVolumeMl = Platelet_110.yield.Value() / Platelet_110.cellsPerMl.Value();
+   CHECK_EQUAL(Platelet_110.yield.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   Platelet_110.UpdateCalculatedFields();
+   CHECK_EQUAL(Platelet_110.volumeMl.Value(), expectedVolumeMl);
+   CHECK_EQUAL(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
-   ////ComputeRule 3. Compute cellsPerMl using yield and volumeMl
-   //Platelet2.yield = 1.0e9;
-   //Platelet2.volumeMl = 250.0;
-   //CHECK_EQUAL(Platelet2.yield.State(), FieldStateEnum::FieldState::Set);
-   //CHECK_EQUAL(Platelet2.volumeMl.State(), FieldStateEnum::FieldState::Set);
-   //Platelet2.UpdateCalculatedFields();
-   //CHECK_EQUAL(Platelet2.cellsPerMl.Value(), 4.0e6);
-   //CHECK_EQUAL(Platelet2.cellsPerMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+   //ComputeRule 3. Compute cellsPerMl using yield and volumeMl
+   //Field: CellsPerMl
+   //   Condition : $EnteredLater(VolumeMl, CellsPerMl) && $EnteredLater(Yield, CellsPerMl)
+   //   Expression :   Yield / VolumeMl
+   Platelet_110.cellsPerMl = 0.0;
+   Platelet_110.yield = 1.0e9;
+   Platelet_110.volumeMl = 250.0;
+   double expectedCellsPerMl = Platelet_110.yield.Value() / Platelet_110.volumeMl.Value();
+   CHECK_EQUAL(Platelet_110.yield.State(), FieldStateEnum::FieldState::Set);
+   CHECK_EQUAL(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   Platelet_110.UpdateCalculatedFields();
+   CHECK_EQUAL(Platelet_110.cellsPerMl.Value(), expectedCellsPerMl);
+   CHECK_EQUAL(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 }

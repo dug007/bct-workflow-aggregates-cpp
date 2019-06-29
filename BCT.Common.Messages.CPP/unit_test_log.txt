@@ -547,3 +547,104 @@ Total tests = 1
 Total checks = 44
 Total tested = 1
 Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     44  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 44
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     48  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 48
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     48  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 48
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     48  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 48
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(663): error: EXPRESSION: Platelet_100.yield = 3
+
+Total checks = 52
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     51  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 51
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     55  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 55
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     55  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 55
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(713): error: EXPRESSION: Platelet_110.cellsPerMl.Value()==Platelet_110.yield.Value() / Platelet_110.volumeMl.Value()
+
+Total checks = 55
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     55  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 55
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     55  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 55
+Total tested = 1
+Total tests = 1
+     (1)  FAILED -      1  FAILED GeneralUnitTests::General(int)
+        c:\src-git\bct.common.devcomm.messages.cpp\bct.common.messages.cpp\test\generalunittests.cpp(713): error: EXPRESSION: Platelet_110.cellsPerMl.Value()==Platelet_110.yield.Value() / Platelet_110.volumeMl.Value()
+
+Total checks = 56
+Total failed checks = 1
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     56  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 56
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     55  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 55
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     55  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 55
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     55  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 55
+Total tested = 1
+Total tests = 1
+     (1) SUCCESS -     55  TESTS  GeneralUnitTests::General(int)
+
+Total checks = 55
+Total tested = 1
+Total tests = 1

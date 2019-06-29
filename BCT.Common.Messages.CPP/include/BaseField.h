@@ -83,10 +83,6 @@ namespace Bct
                {
                   throw "error: attempting to set constant field"; // TODO localize
                }
-               if (_state == FieldStateEnum::Computed)
-               {
-                  throw "error: attempting to set computed field"; // TODO localize
-               }
                ValueInternal(v, false);
             }
 
