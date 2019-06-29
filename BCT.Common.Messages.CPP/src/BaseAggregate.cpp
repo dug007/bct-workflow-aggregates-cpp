@@ -90,7 +90,7 @@ namespace Bct
             throw "error: invalid version"; // TODO localize
          }
 
-         int16_t BaseAggregate::FieldSetCounter()
+         uint32_t BaseAggregate::FieldSetCounter()
          {
             _fieldSetCounter++;
             return _fieldSetCounter;

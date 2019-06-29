@@ -35,7 +35,7 @@ namespace Bct
             //
             BaseAggregate();
 
-            int32_t _fieldSetCounter;
+            uint32_t _fieldSetCounter;
 
          public:
             /**
@@ -51,7 +51,7 @@ namespace Bct
                // TODO implement
             };
 
-            int16_t FieldSetCounter();
+            uint32_t FieldSetCounter();
 
          public:
             // Field types
@@ -68,7 +68,6 @@ namespace Bct
             std::vector<AbstractField*> _fieldList; // TODO add set/get?
             int32_t _ver;
             std::string _version;
-
        };
       }
    }

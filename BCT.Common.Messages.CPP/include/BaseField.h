@@ -27,7 +27,7 @@ namespace Bct
             std::string _fieldName;
             std::vector<VersionMetaData> _metaData;
             int16_t _ver;
-            int16_t _fieldSetCounter;
+            uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;
 
             virtual FieldStateEnum::FieldState &StateRef()
@@ -150,7 +150,7 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
-            virtual const int16_t FieldSetCounter()
+            virtual const uint32_t FieldSetCounter()
             {
                return _fieldSetCounter;
             }

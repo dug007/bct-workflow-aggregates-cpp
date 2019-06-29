@@ -9,7 +9,7 @@ namespace Bct
          class AbstractAggregate
          {
          public:
-            virtual int16_t FieldSetCounter() = 0;
+            virtual uint32_t FieldSetCounter() = 0;
          };
       }
    }
