@@ -1,4 +1,4 @@
-#include "test/Test.hpp"
+#include "gtest/gtest.h"
 #include "BaseAggregate.h"
 #include "BaseField.h"
 #include "FieldInt32.h"
@@ -580,55 +580,55 @@ public:
 //********** UNIT TESTS **************************************
 
 
-TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
+TEST(GeneralUnitTests, General)
 {
    // General unit tests ----------------------------------------------
    Sample1Aggregate a("1.2.0");
-   CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
-   CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
-   CHECK_EQUAL(a.Field1.FieldSetCounter(), 0);
+   EXPECT_EQ(a.Field1.State(), FieldStateEnum::FieldState::NotSet);
+   EXPECT_EQ(a.Field7.State(), FieldStateEnum::FieldState::NotSet);
+   EXPECT_EQ(a.Field7d.State(), FieldStateEnum::FieldState::Default);
+   EXPECT_EQ(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
+   EXPECT_EQ(a.Field1.FieldSetCounter(), 0);
    a.Field1 = 2.0;
    a.Field7 = 3;          // via assignment operator
    a.Field7d.Value(4);    // via function
-   CHECK_EQUAL(a.Field7d.FieldSetCounter(), 3);
+   EXPECT_EQ(a.Field7d.FieldSetCounter(), 3);
    double f1 = a.Field1;  // via conversion operator
    //a.Field7ro = 3;      //cannot compile - no assignment operator
    //a.Field7ro.Value(3); //connot compile - setter is private
-   CHECK_ALL_EXCEPTIONS(a.Field7c=3, true);  // throws on assignment
-   CHECK_ALL_EXCEPTIONS(a.Field7c.Value(3), true);  // throws on set
-   CHECK_EQUAL(f1, 2.0);
-   CHECK_EQUAL(a.Field1.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(a.Field7.Value(), 3);
-   CHECK_EQUAL((int32_t)a.Field7, 3);
-   CHECK_EQUAL(a.Field7ro.Value(), 5);  // readable but not writeable
-   CHECK_EQUAL((int32_t)a.Field7ro, 5); // readable but not writeable
-   CHECK_EQUAL(a.Field7ro.State(), FieldStateEnum::FieldState::Constant);
-   CHECK_EQUAL(a.Field7c.Value(), 6);  // readable but not writeable
-   CHECK_EQUAL((int32_t)a.Field7c, 6); // readable but not writeable
-   CHECK_EQUAL(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
-   CHECK_EQUAL(a.Field7.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(a.Field7d.Value(), 4);
-   CHECK_EQUAL((int32_t)a.Field7d, 4);
-   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_THROW(a.Field7c=3, char*);  // throws on assignment
+   EXPECT_THROW(a.Field7c.Value(3), char*);  // throws on set
+   EXPECT_EQ(f1, 2.0);
+   EXPECT_EQ(a.Field1.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(a.Field7.Value(), 3);
+   EXPECT_EQ((int32_t)a.Field7, 3);
+   EXPECT_EQ(a.Field7ro.Value(), 5);  // readable but not writeable
+   EXPECT_EQ((int32_t)a.Field7ro, 5); // readable but not writeable
+   EXPECT_EQ(a.Field7ro.State(), FieldStateEnum::FieldState::Constant);
+   EXPECT_EQ(a.Field7c.Value(), 6);  // readable but not writeable
+   EXPECT_EQ((int32_t)a.Field7c, 6); // readable but not writeable
+   EXPECT_EQ(a.Field7c.State(), FieldStateEnum::FieldState::Constant);
+   EXPECT_EQ(a.Field7.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(a.Field7d.Value(), 4);
+   EXPECT_EQ((int32_t)a.Field7d, 4);
+   EXPECT_EQ(a.Field7d.State(), FieldStateEnum::FieldState::Set);
 
    // set back to default
    a.Field7d = -1;
-   CHECK_EQUAL(a.Field7d.Value(), -1);
-   CHECK_EQUAL(a.Field7d.State(), FieldStateEnum::FieldState::Default);
+   EXPECT_EQ(a.Field7d.Value(), -1);
+   EXPECT_EQ(a.Field7d.State(), FieldStateEnum::FieldState::Default);
 
    a.UpdateCalculatedFields();
-   CHECK_EQUAL(a.Field1.Value(), 22.0);
+   EXPECT_EQ(a.Field1.Value(), 22.0);
 
    // Testing $EnteredLater
    a.Field7x = 98;
    a.Field7d = 99;
    a.UpdateCalculatedFields();    // "Field7d Field7x $EnteredLater", "Field7d")
-   CHECK_EQUAL(a.Field7.Value(), a.Field7d.Value());
+   EXPECT_EQ(a.Field7.Value(), a.Field7d.Value());
    a.Field7x = a.Field7x.Value();
    a.UpdateCalculatedFields();    // "Field7x Field7d $EnteredLater", "Field7x")
-   CHECK_EQUAL(a.Field7.Value(), a.Field7x.Value());
+   EXPECT_EQ(a.Field7.Value(), a.Field7x.Value());
 
 
    // Design doc example ----------------------------
@@ -637,15 +637,15 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    PlateletTemplateAggregrate Platelet_100("1.0.0");
 
    //Test for field that is Unavailable
-   CHECK_EQUAL(Platelet_100.minYield.State(), FieldStateEnum::FieldState::Unavailable);
-   CHECK_EQUAL(Platelet_100.maxYield.State(), FieldStateEnum::FieldState::Unavailable);
-   CHECK_ALL_EXCEPTIONS(Platelet_100.minYield.Value(), true);
-   CHECK_ALL_EXCEPTIONS(Platelet_100.maxYield.Value(), true);
+   EXPECT_EQ(Platelet_100.minYield.State(), FieldStateEnum::FieldState::Unavailable);
+   EXPECT_EQ(Platelet_100.maxYield.State(), FieldStateEnum::FieldState::Unavailable);
+   EXPECT_THROW(Platelet_100.minYield.Value(), char*);
+   EXPECT_THROW(Platelet_100.maxYield.Value(), char*);
 
    //Check initial state of fields used in calculation
-   CHECK_EQUAL(Platelet_100.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet_100.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet_100.yield.State(), FieldStateEnum::FieldState::NotSet);
+   EXPECT_EQ(Platelet_100.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
+   EXPECT_EQ(Platelet_100.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
+   EXPECT_EQ(Platelet_100.yield.State(), FieldStateEnum::FieldState::NotSet);
 
    //Test compute function for 1.0.0
    //Field: Yield
@@ -655,24 +655,24 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    Platelet_100.volumeMl = 500.0;
    Platelet_100.cellsPerMl = 5.0e6;
    double expectedYield100 = Platelet_100.volumeMl.Value() * Platelet_100.cellsPerMl.Value();
-   CHECK_EQUAL(Platelet_100.volumeMl.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(Platelet_100.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_100.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_100.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
    Platelet_100.UpdateCalculatedFields();
-   CHECK_EQUAL(Platelet_100.yield.Value(), expectedYield100);
-   CHECK_EQUAL(Platelet_100.yield.State(), FieldStateEnum::FieldState::Computed);
+   EXPECT_EQ(Platelet_100.yield.Value(), expectedYield100);
+   EXPECT_EQ(Platelet_100.yield.State(), FieldStateEnum::FieldState::Computed);
 
 
    //Create new plateletAggregate with version 1.1.0
    PlateletTemplateAggregrate Platelet_110("1.1.0");
 
    //Check new fields that were added to vers[1] that were unavailable in vers[0]
-   CHECK_EQUAL(Platelet_110.minYield.State(), FieldStateEnum::FieldState::Constant);
-   CHECK_EQUAL(Platelet_110.maxYield.State(), FieldStateEnum::FieldState::Constant);
+   EXPECT_EQ(Platelet_110.minYield.State(), FieldStateEnum::FieldState::Constant);
+   EXPECT_EQ(Platelet_110.maxYield.State(), FieldStateEnum::FieldState::Constant);
 
    //Check initial state for values used in calculations
-   CHECK_EQUAL(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
-   CHECK_EQUAL(Platelet_110.yield.State(), FieldStateEnum::FieldState::NotSet);
+   EXPECT_EQ(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::NotSet);
+   EXPECT_EQ(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::NotSet);
+   EXPECT_EQ(Platelet_110.yield.State(), FieldStateEnum::FieldState::NotSet);
 
    //Test the 3 compute rules given for version 1.1.0 which includes condition expression
    //ComputeRule 1. Compute yield using volumeMl and cellsPerMl
@@ -683,11 +683,11 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    Platelet_110.volumeMl = 500.0;
    Platelet_110.cellsPerMl = 5.0e6;
    double expectedYield110 = Platelet_110.volumeMl.Value() * Platelet_110.cellsPerMl.Value();
-   CHECK_EQUAL(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
    Platelet_110.UpdateCalculatedFields();
-   CHECK_EQUAL(Platelet_110.yield.Value(), expectedYield110);
-   CHECK_EQUAL(Platelet_110.yield.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+   EXPECT_EQ(Platelet_110.yield.Value(), expectedYield110);
+   EXPECT_EQ(Platelet_110.yield.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
    // ComputeRule 2. Compute volumeMl using yield and cellsPerMl
    //Field: VolumeMl
@@ -697,11 +697,11 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    Platelet_110.yield = 1.0e8;
    Platelet_110.cellsPerMl = 0.5e6;
    double expectedVolumeMl = Platelet_110.yield.Value() / Platelet_110.cellsPerMl.Value();
-   CHECK_EQUAL(Platelet_110.yield.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_110.yield.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
    Platelet_110.UpdateCalculatedFields();
-   CHECK_EQUAL(Platelet_110.volumeMl.Value(), expectedVolumeMl);
-   CHECK_EQUAL(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+   EXPECT_EQ(Platelet_110.volumeMl.Value(), expectedVolumeMl);
+   EXPECT_EQ(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
    //ComputeRule 3. Compute cellsPerMl using yield and volumeMl
    //Field: CellsPerMl
@@ -711,9 +711,9 @@ TEST_MEMBER_FUNCTION(GeneralUnitTests, General, int)
    Platelet_110.yield = 1.0e9;
    Platelet_110.volumeMl = 250.0;
    double expectedCellsPerMl = Platelet_110.yield.Value() / Platelet_110.volumeMl.Value();
-   CHECK_EQUAL(Platelet_110.yield.State(), FieldStateEnum::FieldState::Set);
-   CHECK_EQUAL(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_110.yield.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_110.volumeMl.State(), FieldStateEnum::FieldState::Set);
    Platelet_110.UpdateCalculatedFields();
-   CHECK_EQUAL(Platelet_110.cellsPerMl.Value(), expectedCellsPerMl);
-   CHECK_EQUAL(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+   EXPECT_EQ(Platelet_110.cellsPerMl.Value(), expectedCellsPerMl);
+   EXPECT_EQ(Platelet_110.cellsPerMl.State(), FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 }
