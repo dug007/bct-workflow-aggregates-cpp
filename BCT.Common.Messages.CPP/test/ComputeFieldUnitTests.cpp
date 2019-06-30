@@ -385,7 +385,7 @@ public:
 //********** UNIT TESTS **************************************
 
 
-TEST(ComputedFieldUnitTests, ComputedFields)
+TEST(ComputedFieldTests, PlateletTemplateAggregrate100)
 {
    // Design doc example ----------------------------
 
@@ -411,13 +411,15 @@ TEST(ComputedFieldUnitTests, ComputedFields)
    Platelet_100.volumeMl = 500.0;
    Platelet_100.cellsPerMl = 5.0e6;
    double expectedYield100 = Platelet_100.volumeMl.Value() * Platelet_100.cellsPerMl.Value();
-   EXPECT_EQ(Platelet_100.volumeMl.State(), FieldStateEnum::FieldState::Set);
+   EXPECT_EQ(Platelet_100.volumeMl.State(), FieldStateEnum::FieldState::Set) ;
    EXPECT_EQ(Platelet_100.cellsPerMl.State(), FieldStateEnum::FieldState::Set);
    Platelet_100.UpdateCalculatedFields();
    EXPECT_EQ(Platelet_100.yield.Value(), expectedYield100);
    EXPECT_EQ(Platelet_100.yield.State(), FieldStateEnum::FieldState::Computed);
+}
 
-
+TEST(ComputedFieldTests, PlateletTemplateAggregrate110)
+{
    //Create new plateletAggregate with version 1.1.0
    PlateletTemplateAggregrate Platelet_110("1.1.0");
 
