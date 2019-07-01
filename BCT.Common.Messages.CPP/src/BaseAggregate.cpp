@@ -1,7 +1,7 @@
 #include "BaseAggregate.h"
 #include "RPNEvaluator.h"
 
-using namespace BCTCommonUtilitiesRPNEvaluatorCPPWin;
+using namespace BCTCommonUtilitiesRPNEvaluatorCPPWin; 
 
 namespace Bct
 {
