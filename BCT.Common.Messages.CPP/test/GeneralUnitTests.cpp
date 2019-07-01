@@ -225,8 +225,8 @@ TEST_CASE("GeneralUnitTests", "[test]")
    double f1 = a.Field1;  // via conversion operator
    //a.Field7ro = 3;      //cannot compile - no assignment operator
    //a.Field7ro.Value(3); //connot compile - setter is private
-   //EXPECT_THROW(a.Field7c=3, char*);  // throws on assignment
-   //EXPECT_THROW(a.Field7c.Value(3), char*);  // throws on set
+   CHECK_THROWS_AS(a.Field7c=3, char*);  // throws on assignment
+   CHECK_THROWS_AS(a.Field7c.Value(3), char*);  // throws on set
    CHECK(f1 == 2.0);
    CHECK(a.Field1.State() == FieldStateEnum::FieldState::Set);
    CHECK(a.Field7.Value() == 3);
