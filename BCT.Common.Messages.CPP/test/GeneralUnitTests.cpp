@@ -209,7 +209,7 @@ public:
 //********** UNIT TESTS **************************************
 
 
-TEST_CASE("GeneralUnitTests", "[test]")
+TEST_CASE("General", "[test]")
 {
    // General unit tests ----------------------------------------------
    Sample1Aggregate a("1.2.0");
