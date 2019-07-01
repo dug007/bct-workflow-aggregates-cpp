@@ -387,7 +387,7 @@ public:
 
 TEST(ComputedFieldTests, PlateletTemplateAggregrate100)
 {
-   // Design doc example ----------------------------
+   // Design doc example version 1.0.0 ----------------------------
 
    //Create plateletAggregate with version 1.0.0
    PlateletTemplateAggregrate Platelet_100("1.0.0");
