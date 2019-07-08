@@ -160,7 +160,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -183,6 +183,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -204,6 +205,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
