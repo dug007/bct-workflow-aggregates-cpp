@@ -168,7 +168,7 @@
     <ClInclude Include="include\FieldInt32Ro.h" />
     <ClInclude Include="include\FieldMeta.h" />
     <ClInclude Include="include\FieldStateEnum.h" />
-    <ClInclude Include="include\FieldTypeEnum.h" />
+    <ClInclude Include="include\TypeEnum.h" />
     <ClInclude Include="include\VersionChangeRule.h" />
     <ClInclude Include="include\VersionInfo.h" />
     <ClInclude Include="include\VersionMetaData.h" />

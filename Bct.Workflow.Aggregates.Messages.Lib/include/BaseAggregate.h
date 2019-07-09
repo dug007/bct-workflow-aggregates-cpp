@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <sstream>
 #include "FieldStateEnum.h"
-#include "FieldTypeEnum.h"
+#include "TypeEnum.h"
 #include "BaseAggregate.h"
 #include "AssessmentRule.h"
 #include "VersionMetaData.h"
@@ -13,7 +13,6 @@
 #include "ComputeRule.h"
 #include "FieldMeta.h"
 #include "AbstractField.h"
-#include "TypeCode.h"
 #include "AbstractAggregate.h"
 
 
@@ -55,13 +54,13 @@ namespace Bct
 
          public:
             // Field types
-            typedef int32_t Int32Field;
-            typedef int64_t Int64Field;
-            typedef uint32_t UInt32Field;
-            typedef uint64_t UInt64Field;
-            typedef double DoubleField;
-            typedef std::string StringField;
-            typedef bool BoolField;
+            typedef int32_t Int32Type;
+            typedef int64_t Int64Type;
+            typedef uint32_t UInt32Type;
+            typedef uint64_t UInt64Type;
+            typedef double DoubleType;
+            typedef std::string StringType;
+            typedef bool BoolType;
 
          protected:
             std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get? - User Story 126596

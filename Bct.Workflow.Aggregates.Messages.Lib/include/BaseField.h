@@ -5,7 +5,6 @@
 #include "VersionMetaData.h"
 #include "FieldMeta.h"
 #include "AbstractField.h"
-#include "TypeCode.h"
 #include "AbstractAggregate.h"
 
 
@@ -22,8 +21,7 @@ namespace Bct
             T _val;
             T _default;
             FieldStateEnum::FieldState _state;
-            FieldTypeEnum::FieldType _type;
-            BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode _typeCode;
+            TypeEnum::Type _type;
             std::string _fieldName;
             std::vector<VersionMetaData> _metaData;
             int16_t _ver;
@@ -38,13 +36,12 @@ namespace Bct
             BaseField()
             {
             }
-            BaseField(const std::string fieldName, const FieldTypeEnum::FieldType t, const int16_t ver, const std::vector<VersionMetaData> &metaData,  AbstractAggregate *aggregate)
+            BaseField(const std::string fieldName, const TypeEnum::Type t, const int16_t ver, const std::vector<VersionMetaData> &metaData,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
                FieldMeta fm = findFieldMeta();
                FieldStateEnum::FieldState state = fm._fieldState;
                _state = state;
-               _typeCode = mapTypeToCode(t);
             }
          private:
             const FieldMeta findFieldMeta()
@@ -59,20 +56,6 @@ namespace Bct
                }
                throw "error: metadata missing requested version of field";
             }
-            // TODO we need to decide what to do about type system - map it for now
-            const BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode mapTypeToCode(const FieldTypeEnum::FieldType t)
-            {
-                  if (t == FieldTypeEnum::UInt32Field)    return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::UInt32;
-                  if (t == FieldTypeEnum::Int32Field)     return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Int32;
-                  if (t == FieldTypeEnum::UInt64Field)    return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::UInt64;
-                  if (t == FieldTypeEnum::Int64Field)     return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Int64;
-                  if (t == FieldTypeEnum::DoubleField)    return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Double;
-                  if (t == FieldTypeEnum::StringField)    return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::String;
-                  if (t == FieldTypeEnum::BoolField)      return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Boolean;
-                  if (t == FieldTypeEnum::EnumField)      return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::String;
-                  if (t == FieldTypeEnum::AggregateField) return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Object;
-                  return BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode::Empty;
-            };
 
          public:
             virtual ~BaseField() {};
@@ -128,14 +111,9 @@ namespace Bct
                return _fieldName;
             }
 
-            virtual const FieldTypeEnum::FieldType FieldType()
+            virtual const TypeEnum::Type Type()
             {
                return _type;
-            }
-
-            virtual const BCTCommonUtilitiesRPNEvaluatorCPPWin::TypeCode TypeCode()
-            {
-               return _typeCode;
             }
 
             const std::string DefaultStr()
