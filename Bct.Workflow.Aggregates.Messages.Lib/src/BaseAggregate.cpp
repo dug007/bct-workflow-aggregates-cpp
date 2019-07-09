@@ -1,8 +1,6 @@
 #include "BaseAggregate.h"
 #include "RPNEvaluator.h"
 
-using namespace BCTCommonUtilitiesRPNEvaluatorCPPWin; 
-
 namespace Bct
 {
    namespace Workflow
@@ -44,14 +42,14 @@ namespace Bct
                }
 
                FieldStateEnum::FieldState &state = f->StateRef();
-               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->TypeCode(), strVal, state, f->FieldSetCounter());
+               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
  
             for (size_t i = 0; i < _fieldList.size(); i++)
             {
                AbstractField *f = _fieldList[i];
                FieldStateEnum::FieldState state = f->State();
-               FieldTypeEnum::FieldType type = f->FieldType();
+               TypeEnum::Type type = f->Type();
                std::string fieldName = f->FieldName();
                std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
                for (size_t j = 0; j < cRules.size(); j++)
@@ -63,7 +61,7 @@ namespace Bct
                      std::string condition = cRule.Condition();
                      std::string expression = cRule.Expression();
                      std::string answerValue;
-                     TypeCode answerType;
+                     TypeEnum::Type answerType;
                      RPNEvaluator evaluator;
                      evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
                      if ("true" == answerValue)
