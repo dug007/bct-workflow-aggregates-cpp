@@ -32,11 +32,11 @@ namespace Bct
                std::string strVal;
                if (f->State() == FieldStateEnum::NotSet)
                {
-                  strVal = "$Notset"; // TODO make sure this is correct
+                  strVal = "$Notset"; // TODO make sure this is correct - User Story 126600
                }
                else if (f->State() == FieldStateEnum::Unavailable)
                {
-                  strVal = "$Unavailable"; // TODO make sure this is correct
+                  strVal = "$Unavailable"; // TODO make sure this is correct - User Story 126600
                }
                else
                {
@@ -87,7 +87,7 @@ namespace Bct
                   return;
                }
             }
-            throw "error: invalid version"; // TODO localize
+            throw "error: invalid version"; // TODO: internationalize - User Story 126598
          }
 
          uint32_t BaseAggregate::FieldSetCounter()

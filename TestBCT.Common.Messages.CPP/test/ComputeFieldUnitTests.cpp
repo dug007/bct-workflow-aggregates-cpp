@@ -163,7 +163,7 @@ private:
       }
       // Simple computation rules
       {
-         ComputeRule cr1("yield", "1 1 ==", "cellsPerMl volumeMl *"); // TODO make $True
+         ComputeRule cr1("yield", "1 1 ==", "cellsPerMl volumeMl *"); // TODO make $True - User Story 126600
          aggMeta[0].computeRules.push_back(cr1);
       }
       {

@@ -78,10 +78,9 @@ namespace Bct
             virtual ~BaseField() {};
             void Value(const T v)
             {
-               // TODO: rules to implement here, localization, etc
                if (_state == FieldStateEnum::Constant)
                {
-                  throw "error: attempting to set constant field"; // TODO localize
+                  throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
                }
                ValueInternal(v, false);
             }
@@ -90,23 +89,23 @@ namespace Bct
             {
                if (_state == FieldStateEnum::Constant)
                {
-                  throw "error: attempting to set constant field"; // TODO localize
+                  throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
                }
                _state = FieldStateEnum::NotSet;
             }
 
             const T Value()
             {
-               // rules to implement here
+               // rules to implement here - User Story 12698
                switch (_state)
                {
-               case FieldStateEnum::NotSet: // TODO: internationalize 
+               case FieldStateEnum::NotSet: // TODO: internationalize - User Story 126598
                   throw "error: value has not been set";
-               case FieldStateEnum::Unavailable:
+               case FieldStateEnum::Unavailable: // TODO: internationalize - User Story 126598
                   throw "error: not available in this version";
 
                case FieldStateEnum::Computed:
-                  // fall through for now
+                  // fall through for now - User Story 126598
                   break;
                case FieldStateEnum::Default:
                   return _default;
@@ -146,7 +145,7 @@ namespace Bct
 
             const bool HasValue()
             {
-               // TODO handle Computed after field as been computed
+               // TODO handle Computed after field as been computed - User Story 126600
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
