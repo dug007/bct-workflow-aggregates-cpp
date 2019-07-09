@@ -48,7 +48,7 @@ namespace Bct
 
             void convertVersion(std::string version)
             {
-               // TODO implement
+               // TODO implement - User Story 126595
             };
 
             uint32_t FieldSetCounter();
@@ -64,8 +64,8 @@ namespace Bct
             typedef bool BoolField;
 
          protected:
-            std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get?
-            std::vector<AbstractField*> _fieldList; // TODO add set/get?
+            std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get? - User Story 126596
+            std::vector<AbstractField*> _fieldList; // TODO add set/get? - User Story 126596
             int32_t _ver;
             std::string _version;
        };
