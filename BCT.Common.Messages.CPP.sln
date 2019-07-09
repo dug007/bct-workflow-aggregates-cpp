@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestBCT.Common.Messages.CPP", "BCT.Common.Messages.CPP\BCT.Common.Messages.CPP.vcxproj", "{5A1C1F08-8E45-43A8-B935-7CA3D165EFBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestBCT.Common.Messages.CPP", "TestBCT.Common.Messages.CPP\TestBCT.Common.Messages.CPP.vcxproj", "{5A1C1F08-8E45-43A8-B935-7CA3D165EFBD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{769B01E0-D114-41C7-B562-FF1318F44892}"
 	ProjectSection(SolutionItems) = preProject
