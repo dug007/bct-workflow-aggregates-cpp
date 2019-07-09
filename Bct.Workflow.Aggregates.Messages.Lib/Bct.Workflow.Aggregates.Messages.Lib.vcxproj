@@ -155,16 +155,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="include\AbstractAggregate.h" />
+    <ClInclude Include="include\AbstractField.h" />
+    <ClInclude Include="include\AssessmentRule.h" />
+    <ClInclude Include="include\BaseAggregate.h" />
+    <ClInclude Include="include\BaseField.h" />
+    <ClInclude Include="include\ComputeRule.h" />
+    <ClInclude Include="include\Exceptions.h" />
+    <ClInclude Include="include\FieldDouble.h" />
+    <ClInclude Include="include\FieldDoubleRo.h" />
+    <ClInclude Include="include\FieldInt32.h" />
+    <ClInclude Include="include\FieldInt32Ro.h" />
+    <ClInclude Include="include\FieldMeta.h" />
+    <ClInclude Include="include\FieldStateEnum.h" />
+    <ClInclude Include="include\FieldTypeEnum.h" />
+    <ClInclude Include="include\VersionChangeRule.h" />
+    <ClInclude Include="include\VersionInfo.h" />
+    <ClInclude Include="include\VersionMetaData.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="src\BaseAggregate.cpp" />
+    <ClCompile Include="src\BaseField.cpp" />
+    <ClCompile Include="src\Exceptions.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
