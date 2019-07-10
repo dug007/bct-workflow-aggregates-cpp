@@ -2,6 +2,10 @@
 
 #include <string>
 
+/*!
+ * Class for assessment rules.
+ * 
+ */
 class AssessmentRule
 {
 public:
