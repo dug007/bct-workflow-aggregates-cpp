@@ -6,9 +6,13 @@
  * Class for assessment rules.
  * 
  */
+/// <summary>
+/// Class for assessment rules.
+/// </summary>
 class AssessmentRule
 {
 public:
+
    AssessmentRule(std::string ruleId, std::string condition, std::string expression) : _ruleId(ruleId), _condition(condition), _expression(expression) {};
    std::string RuleId() { return _ruleId; }
    std::string Condition() { return _condition; }

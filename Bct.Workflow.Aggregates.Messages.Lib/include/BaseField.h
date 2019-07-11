@@ -28,7 +28,7 @@ namespace Bct
             uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;
 
-            virtual FieldStateEnum::FieldState &StateRef()
+            virtual FieldStateEnum::FieldState &StateRef() const
             {
                return _state;
             }
@@ -110,43 +110,45 @@ namespace Bct
                return this->Value();
             }
 
-            virtual const std::string FieldName()
+            virtual const std::string FieldName() const
             {
                return _fieldName;
             }
 
-            virtual const TypeEnum::Type Type()
+            virtual const TypeEnum::Type Type() const
             {
                return _type;
             }
 
-            const std::string DefaultStr()
+            const std::string DefaultStr() const
             {
                return findFieldMeta()._default;
             }
 
-            const bool HasValue()
+            const bool HasValue() const
             {
                // TODO handle Computed after field as been computed - User Story 126600
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
-            virtual const uint32_t FieldSetCounter()
+            virtual const uint32_t FieldSetCounter() const
             {
                return _fieldSetCounter;
             }
 
             
             protected:
-               virtual const std::string ComputedValueString()
+               virtual const std::string ComputedValueString() const
                {
+                  // TODO Use serialization library for string<->type conversion - User Story 126886
                   std::stringstream ss;
                   ss << Value();
                   return ss.str();
                }
 
-               virtual void ComputedValueString(std::string val)
+               virtual void ComputedValueString(std::string val) const
                {
+                  // TODO Use serialization library for string<->type conversion - User Story 126886
                   T out;
                   std::stringstream ss;
                   ss << val;
