@@ -175,9 +175,9 @@ private:
       _fieldList.push_back(&Field7x);
 
       // Simple computation rules
-      ComputeRule cr1("Field1", "1 1 ==", "Field1 20.0 +");
-      ComputeRule cr2("Field7", "Field7x Field7d $EnteredLater", "Field7x");
-      ComputeRule cr3("Field7", "Field7d Field7x $EnteredLater", "Field7d");
+      ComputeRule cr1("Field1Id1", "Field1", "1 1 ==", "Field1 20.0 +");
+      ComputeRule cr2("Field7Id1", "Field7", "Field7x Field7d $EnteredLater", "Field7x");
+      ComputeRule cr3("Field7Id2", "Field7", "Field7d Field7x $EnteredLater", "Field7d");
 
       aggMeta[_ver].computeRules.push_back(cr1);
       aggMeta[_ver].computeRules.push_back(cr2);

@@ -163,13 +163,13 @@ private:
       }
       // Simple computation rules
       {
-         ComputeRule cr1("yield", "1 1 ==", "cellsPerMl volumeMl *"); // TODO make $True - User Story 126600
+         ComputeRule cr1("yieldId1", "yield", "1 1 ==", "cellsPerMl volumeMl *"); // TODO make $True - User Story 126600
          aggMeta[0].computeRules.push_back(cr1);
       }
       {
-         ComputeRule cr1("yield", "volumeMl yield $EnteredLater", "cellsPerMl volumeMl *");
-         ComputeRule cr3("cellsPerMl", "volumeMl cellsPerMl $EnteredLater yield cellsPerMl $EnteredLater &&", "yield volumeMl /");
-         ComputeRule cr2("volumeMl", "cellsPerMl volumeMl $EnteredLater yield volumeMl $EnteredLater &&", "yield cellsPerMl /");
+         ComputeRule cr1("yieldId2", "yield", "volumeMl yield $EnteredLater", "cellsPerMl volumeMl *");
+         ComputeRule cr3("cellsPerMlId1", "cellsPerMl", "volumeMl cellsPerMl $EnteredLater yield cellsPerMl $EnteredLater &&", "yield volumeMl /");
+         ComputeRule cr2("volumeMlId1", "volumeMl", "cellsPerMl volumeMl $EnteredLater yield volumeMl $EnteredLater &&", "yield cellsPerMl /");
          aggMeta[1].computeRules.push_back(cr1);
          aggMeta[1].computeRules.push_back(cr2);
          aggMeta[1].computeRules.push_back(cr3);
