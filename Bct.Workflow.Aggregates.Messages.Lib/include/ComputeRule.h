@@ -8,6 +8,9 @@ namespace Bct
    {
       namespace Aggregates
       {
+         /// <summary>
+         /// Do it
+         /// </summary>
          class ComputeRule
          {
          public:

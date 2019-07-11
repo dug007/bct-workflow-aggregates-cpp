@@ -59,6 +59,10 @@ namespace Bct
 
          public:
             virtual ~BaseField() {};
+            /// <summary>
+            /// Test
+            /// </summary>
+            /// <param name="v">more stuff</param>
             void Value(const T v)
             {
                if (_state == FieldStateEnum::Constant)

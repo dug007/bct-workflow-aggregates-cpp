@@ -25,6 +25,10 @@ namespace Bct
          class BaseAggregate : public AbstractAggregate
          {
          public:
+            /// <summary>
+            /// Constructs base aggregate.
+            /// </summary>
+            /// <param name="version">The version to be constucted, such as 1.2.3</param>
             BaseAggregate(const std::string version);
 
             virtual ~BaseAggregate();
@@ -40,11 +44,18 @@ namespace Bct
             /**
              * Get current version of aggregate
              */
+            /// <summary>
+            /// Get current version of aggregate.
+            /// </summary>
+            /// <returns></returns>
             const std::string& getVersion();
             void UpdateCalculatedFields();
             void UpdateVer();
 
-
+            /// <summary>
+            /// Convertes to the specified version.
+            /// </summary>
+            /// <param name="version">The </param>
             void convertVersion(std::string version)
             {
                // TODO implement - User Story 126595
