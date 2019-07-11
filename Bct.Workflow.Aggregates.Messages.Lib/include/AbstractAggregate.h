@@ -21,7 +21,7 @@ namespace Bct
             /// store an instance copy for that field. The intent is to have a running increasing counter for each field
             /// to determine the order that field setters are used. This is important for calculated fields to decide
             /// which fields are the most recently set.
-            /// </remarks>
+            /// </remarks> 
             /// <returns>The field set counter incremented by 1 since that last time this function was called.</returns>
             virtual uint32_t FieldSetCounter() = 0;
          };
