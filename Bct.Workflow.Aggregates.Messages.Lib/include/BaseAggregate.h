@@ -4,6 +4,10 @@
 #include <map>
 #include <stdint.h>
 #include <sstream>
+
+#include "AbstractAggregate.h"
+
+
 #include "FieldStateEnum.h"
 #include "TypeEnum.h"
 #include "BaseAggregate.h"
@@ -13,7 +17,6 @@
 #include "ComputeRule.h"
 #include "FieldMeta.h"
 #include "AbstractField.h"
-#include "AbstractAggregate.h"
 
 
 namespace Bct
@@ -41,13 +44,10 @@ namespace Bct
             uint32_t _fieldSetCounter;
 
          public:
-            /**
-             * Get current version of aggregate
-             */
             /// <summary>
             /// Get current version of aggregate.
             /// </summary>
-            /// <returns></returns>
+            /// <returns>Aggregate version.</returns>
             const std::string& getVersion();
             void UpdateCalculatedFields();
             void UpdateVer();
@@ -55,12 +55,15 @@ namespace Bct
             /// <summary>
             /// Convertes to the specified version.
             /// </summary>
-            /// <param name="version">The </param>
+            /// <param name="version">The new version</param>
             void convertVersion(std::string version)
             {
                // TODO implement - User Story 126595
             };
-
+            /// <summary>
+            /// Increments the global field set counter and returns the result.
+            /// </summary>
+            /// <returns>The incremented field set counter.</returns>
             uint32_t FieldSetCounter();
 
          public:
