@@ -177,7 +177,7 @@ private:
 
 
 
-      UpdateVer(); // determine ver for aggregate based on state of metadata
+      SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
       volumeMl = FieldDouble("volumeMl", _ver, aggMeta, agg);
       cellsPerMl = FieldDouble("cellsPerMl", _ver, aggMeta, agg);
@@ -344,7 +344,7 @@ private:
          aggMeta.push_back(vmd);
       }
 
-      UpdateVer(); // determine ver for aggregate based on state of metadata
+      SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
       postCellsPerMl = FieldDouble("postCellsPerMl", _ver, aggMeta, agg);
       minTemplateCount = FieldInt32("minTemplateCount", _ver, aggMeta, agg);

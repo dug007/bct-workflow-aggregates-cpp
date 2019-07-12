@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 
+#include "TypeEnum.h"
+#include "FieldStateEnum.h"
+
 namespace Bct
 {
    namespace Workflow
@@ -17,24 +20,24 @@ namespace Bct
             /// Pure virtual function to return the name of this field as constructed.
             /// </summary>
             /// <returns>The name of this field.</returns>
-            virtual std::string FieldName()  = 0;
+            virtual std::string FieldName() const = 0;
             /// <summary>
             /// Pure virtual function to return the type enum of this field.
             /// </summary>
             /// <returns>Type enum of this field.</returns>
-            virtual TypeEnum::Type Type()  = 0;
+            virtual TypeEnum::Type Type() const = 0;
             /// <summary>
             /// Pure virtual function the return the field state of this field.
             /// </summary>
             /// <returns>The field state of this field.</returns>
-            virtual FieldStateEnum::FieldState State()  = 0;
+            virtual FieldStateEnum::FieldState State() const = 0;
             /// <summary>
             /// Pure virtual function to return the current field set counter value. Implementers should just return
             /// the current value of the field set counter. The field set counter is increased each time this field is
             /// set, and this function just returns the current value.
             /// </summary>
             /// <returns>The current field set counter for this field.</returns>
-            virtual uint32_t FieldSetCounter() = 0;
+            virtual uint32_t FieldSetCounter() const = 0;
          protected:
             /// <summary>
             /// Virtual function to return the string representation of the value of this field. This function is
@@ -43,7 +46,7 @@ namespace Bct
             /// this function is the BaseAggregate, which needs this function for RPN calculations.
             /// </summary>
             /// <returns>The string representation of the value of this field.</returns>
-            virtual  std::string ComputedValueString()  = 0;
+            virtual  std::string ComputedValueString() const = 0;
             /// <summary>
             /// Virtual function to set the value of this field using its string representation. This function is
             /// intended to be used internally for evaluating RPN expressions and not for public set/get operations.
@@ -51,7 +54,7 @@ namespace Bct
             /// this function is the BaseAggregate, which needs this function for RPN calculations.
             /// </summary>
             /// <param name="val">The string representation of the value of this field.</param>
-            virtual void ComputedValueString(std::string val) = 0;
+            virtual void ComputedValueString(const std::string &val) = 0;
             friend class BaseAggregate;
 
          private:

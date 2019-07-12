@@ -2,21 +2,10 @@
 
 #include <vector>
 #include <map>
-#include <stdint.h>
-#include <sstream>
 
 #include "AbstractAggregate.h"
-
-
-#include "FieldStateEnum.h"
-#include "TypeEnum.h"
-#include "BaseAggregate.h"
-#include "AssessmentRule.h"
-#include "VersionMetaData.h"
-#include "VersionChangeRule.h"
-#include "ComputeRule.h"
-#include "FieldMeta.h"
 #include "AbstractField.h"
+#include "VersionMetaData.h"
 
 
 namespace Bct
@@ -49,17 +38,29 @@ namespace Bct
             /// </summary>
             /// <returns>Aggregate version.</returns>
             const std::string& getVersion();
-            void UpdateCalculatedFields();
-            void UpdateVer();
 
             /// <summary>
-            /// Convertes to the specified version.
+            /// Updates all calculated fields for this aggregate.
             /// </summary>
-            /// <param name="version">The new version</param>
+            void UpdateCalculatedFields();
+
+            /// <summary>
+            /// Sets the internal current version to the version as constructed.
+            /// 
+            /// The aggregate constructor can be called before metadata is initialized. This function is used to set the internal version to
+            /// point to the metadata version as requested by the constructor. This function should be called after metadata is initialized.
+            /// </summary>
+            void SyncCurrentVersion();
+
+            /// <summary>
+            /// Convertes current version to the specified version.
+            /// </summary>
+            /// <param name="version">The new current version</param>
             void convertVersion(std::string version)
             {
                // TODO implement - User Story 126595
             };
+
             /// <summary>
             /// Increments the global field set counter and returns the result.
             /// </summary>
@@ -68,13 +69,13 @@ namespace Bct
 
          public:
             // Field types
-            typedef int32_t Int32Type;
-            typedef int64_t Int64Type;
-            typedef uint32_t UInt32Type;
-            typedef uint64_t UInt64Type;
-            typedef double DoubleType;
-            typedef std::string StringType;
-            typedef bool BoolType;
+            //typedef int32_t_ Int32Type_;
+            //typedef int64_t_ Int64Type;
+            //typedef uint32_t_ UInt32Type;
+            //typedef uint64_t_ UInt64Type;
+            //typedef double_ DoubleType;
+            //typedef std::string_ StringType;
+            //typedef bool_ BoolType;
 
          protected:
             std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get? - User Story 126596

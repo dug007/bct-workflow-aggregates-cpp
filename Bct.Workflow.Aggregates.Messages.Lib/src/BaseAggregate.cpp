@@ -1,5 +1,11 @@
 #include "BaseAggregate.h"
+
+#include <stdint.h>
+#include <sstream>
+
+#include "FieldStateEnum.h"
 #include "RPNEvaluator.h"
+
 
 namespace Bct
 {
@@ -74,7 +80,7 @@ namespace Bct
             }
          }
 
-         void BaseAggregate::UpdateVer()
+         void BaseAggregate::SyncCurrentVersion()
          {
             std::vector<VersionMetaData> &ad = _aggregateMetaData;
             for (size_t i = 0; i < ad.size(); i++)

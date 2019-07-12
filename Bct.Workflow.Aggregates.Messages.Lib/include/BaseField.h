@@ -60,9 +60,9 @@ namespace Bct
          public:
             virtual ~BaseField() {};
             /// <summary>
-            /// Test
+            /// 
             /// </summary>
-            /// <param name="v">more stuff</param>
+            /// <param name="v"></param>
             void Value(const T v)
             {
                if (_state == FieldStateEnum::Constant)
@@ -81,7 +81,7 @@ namespace Bct
                _state = FieldStateEnum::NotSet;
             }
 
-            const T Value()
+            T Value() const
             {
                // rules to implement here - User Story 12698
                switch (_state)
@@ -100,7 +100,7 @@ namespace Bct
                return _val;
             }
 
-            virtual  FieldStateEnum::FieldState State()
+            virtual  FieldStateEnum::FieldState State() const
             {
                return _state;
             }
@@ -110,12 +110,12 @@ namespace Bct
                return this->Value();
             }
 
-            virtual  std::string FieldName() 
+            virtual  std::string FieldName() const
             {
                return _fieldName;
             }
 
-            virtual  TypeEnum::Type Type() 
+            virtual  TypeEnum::Type Type() const
             {
                return _type;
             }
@@ -131,14 +131,14 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
-            virtual uint32_t FieldSetCounter()
+            virtual uint32_t FieldSetCounter() const
             {
                return _fieldSetCounter;
             }
 
             
             protected:
-               virtual  std::string ComputedValueString() 
+               virtual  std::string ComputedValueString() const
                {
                   // TODO Use serialization library for string<->type conversion - User Story 126886
                   std::stringstream ss;
@@ -146,7 +146,7 @@ namespace Bct
                   return ss.str();
                }
 
-               virtual void ComputedValueString(std::string val) 
+               virtual void ComputedValueString(const std::string & val)
                {
                   // TODO Use serialization library for string<->type conversion - User Story 126886
                   T out;

@@ -156,7 +156,7 @@ private:
          aggMeta.push_back(vmd);
       }
 
-      UpdateVer(); // determine ver for aggregate based on state of metadata
+      SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
       Field1 = FieldDouble("Field1", _ver, aggMeta, agg);
       Field7 = FieldInt32("Field7", _ver, aggMeta, agg);
