@@ -179,6 +179,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AssessmentRule.cpp" />
     <ClCompile Include="src\BaseAggregate.cpp" />
     <ClCompile Include="src\BaseField.cpp" />
     <ClCompile Include="src\Exceptions.cpp" />

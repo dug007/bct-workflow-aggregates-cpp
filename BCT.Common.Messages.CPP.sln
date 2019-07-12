@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{769B01E0-D114-41C7-B562-FF1318F44892}"
 	ProjectSection(SolutionItems) = preProject
 		BCT.Common.Messages.CPP.runsettings = BCT.Common.Messages.CPP.runsettings
+		DoxyGen\Doxyfile = DoxyGen\Doxyfile
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.Messages.Lib", "Bct.Workflow.Aggregates.Messages.Lib\Bct.Workflow.Aggregates.Messages.Lib.vcxproj", "{A9850E36-2543-4EDE-80B0-5B27EF64859F}"
