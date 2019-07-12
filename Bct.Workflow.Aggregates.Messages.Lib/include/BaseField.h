@@ -28,7 +28,7 @@ namespace Bct
             uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;
 
-            virtual FieldStateEnum::FieldState &StateRef() const
+            virtual FieldStateEnum::FieldState &StateRef() 
             {
                return _state;
             }
@@ -44,7 +44,7 @@ namespace Bct
                _state = state;
             }
          private:
-            const FieldMeta findFieldMeta()
+            FieldMeta & findFieldMeta()
             {
                std::vector<FieldMeta> fm = _metaData[_ver].fieldMetaData;
                for (size_t i = 0; i < fm.size(); i++)
@@ -100,7 +100,7 @@ namespace Bct
                return _val;
             }
 
-            virtual const FieldStateEnum::FieldState State()
+            virtual  FieldStateEnum::FieldState State()
             {
                return _state;
             }
@@ -110,17 +110,17 @@ namespace Bct
                return this->Value();
             }
 
-            virtual const std::string FieldName() const
+            virtual  std::string FieldName() 
             {
                return _fieldName;
             }
 
-            virtual const TypeEnum::Type Type() const
+            virtual  TypeEnum::Type Type() 
             {
                return _type;
             }
 
-            const std::string DefaultStr() const
+            std::string DefaultStr() const
             {
                return findFieldMeta()._default;
             }
@@ -131,14 +131,14 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
-            virtual const uint32_t FieldSetCounter() const
+            virtual uint32_t FieldSetCounter()
             {
                return _fieldSetCounter;
             }
 
             
             protected:
-               virtual const std::string ComputedValueString() const
+               virtual  std::string ComputedValueString() 
                {
                   // TODO Use serialization library for string<->type conversion - User Story 126886
                   std::stringstream ss;
@@ -146,7 +146,7 @@ namespace Bct
                   return ss.str();
                }
 
-               virtual void ComputedValueString(std::string val) const
+               virtual void ComputedValueString(std::string val) 
                {
                   // TODO Use serialization library for string<->type conversion - User Story 126886
                   T out;
