@@ -9,6 +9,9 @@ namespace Bct
    {
       namespace Aggregates
       {
+         /// <summary>
+         /// Metadata for a single field.
+         /// </summary>
          class FieldMeta
          {
          public:

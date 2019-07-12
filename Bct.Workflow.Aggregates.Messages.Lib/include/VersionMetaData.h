@@ -14,6 +14,14 @@ namespace Bct
    {
       namespace Aggregates
       {
+         /// <summary>
+         /// Metadata across all versions. 
+         /// 
+         /// Each type of metadata is stored sparsely in a vector of that type. Each metadata item in these vectors
+         /// contains the version index that metadata item is associated with. When an aggregate is constucted for a current
+         /// version, the aggregate constructor searches for metadata items associated with the current version and initializes
+         /// the aggregate with that metadata.
+         /// </summary>
          struct VersionMetaData
          {
             std::vector <VersionInfo> versionInfo;
