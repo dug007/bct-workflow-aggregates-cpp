@@ -49,7 +49,7 @@ namespace Bct
                std::vector<FieldMeta> fm = _metaData[_ver].fieldMetaData;
                for (size_t i = 0; i < fm.size(); i++)
                {
-                  if (fm[i]._fieldName == _fieldName)
+                  if (fm[i].FieldName() == _fieldName)
                   {
                      return fm[i];
                   }
@@ -159,7 +159,7 @@ namespace Bct
                void ValueInternal(const T v, bool fromCalculation)
                {
                   _val = v;
-                  FieldStateEnum::FieldState metaState = findFieldMeta()._fieldState;
+                  FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
                   _fieldSetCounter = _aggregate->FieldSetCounter();
                   if (metaState == FieldStateEnum::Default)
                   {

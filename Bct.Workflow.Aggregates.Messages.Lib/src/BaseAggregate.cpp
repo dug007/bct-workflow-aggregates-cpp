@@ -99,6 +99,27 @@ namespace Bct
             _fieldSetCounter++;
             return _fieldSetCounter;
          }
+
+         std::vector<VersionMetaData> & BaseAggregate::AggregateMetaData()
+         {
+            return _aggregateMetaData;
+         }
+
+         std::vector<AbstractField*> & BaseAggregate::FieldList()
+         {
+            return _fieldList;
+         }
+
+         int32_t BaseAggregate::Ver()
+         {
+            return _ver;
+         }
+
+         const std::string & BaseAggregate::Version()
+         {
+            return _version;
+         }
+
       }
    }
 }

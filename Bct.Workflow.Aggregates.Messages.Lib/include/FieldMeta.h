@@ -13,10 +13,12 @@ namespace Bct
          {
          public:
             FieldMeta(const std::string fieldName, const FieldStateEnum::FieldState fieldState, const std::string def) : _fieldName(fieldName), _fieldState(fieldState), _default(def) {};
-
-            std::string _fieldName;
-            FieldStateEnum::FieldState _fieldState;
+            std::string FieldName();
             std::string _default;
+            FieldStateEnum::FieldState _fieldState;
+
+         private:
+            std::string _fieldName;
          };
 
       }

@@ -183,6 +183,7 @@
     <ClCompile Include="src\BaseAggregate.cpp" />
     <ClCompile Include="src\BaseField.cpp" />
     <ClCompile Include="src\Exceptions.cpp" />
+    <ClCompile Include="src\FieldMeta.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\BCT.Common.Utilities.RPNEvaluatorCPPWinLib.vcxproj">

@@ -3,7 +3,7 @@
 #include <string>
 
 /// <summary>
-/// Class for assessment rules.
+/// Assessment rule. An assessment rule is used by a user interface to asess if the values for fields are valid.
 /// </summary>
 class AssessmentRule
 {

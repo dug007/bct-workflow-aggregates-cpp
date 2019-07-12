@@ -14,6 +14,9 @@ namespace Bct
    {
       namespace Aggregates
       {
+         /// <summary>
+         /// Base aggregate. All aggregates must derive from this base class.
+         /// </summary>
          class BaseAggregate : public AbstractAggregate
          {
          public:
@@ -25,14 +28,6 @@ namespace Bct
 
             virtual ~BaseAggregate();
 
-         private:
-            // Disallow default constructor
-            //
-            BaseAggregate();
-
-            uint32_t _fieldSetCounter;
-
-         public:
             /// <summary>
             /// Get current version of aggregate.
             /// </summary>
@@ -62,12 +57,13 @@ namespace Bct
             };
 
             /// <summary>
-            /// Increments the global field set counter and returns the result.
+            /// Increments the global field set counter and returns the result. Field setters can call this to get their
+            /// latest counter.
             /// </summary>
             /// <returns>The incremented field set counter.</returns>
             uint32_t FieldSetCounter();
 
-         public:
+            // TODO: determine best way to define - User Story 126907
             // Field types
             //typedef int32_t_ Int32Type_;
             //typedef int64_t_ Int64Type;
@@ -78,11 +74,40 @@ namespace Bct
             //typedef bool_ BoolType;
 
          protected:
-            std::vector<VersionMetaData> _aggregateMetaData; // TODO add set/get? - User Story 126596
-            std::vector<AbstractField*> _fieldList; // TODO add set/get? - User Story 126596
+            /// <summary>
+            /// Returns the aggregate metatdata.
+            /// </summary>
+            /// <returns>Aggregate metadata</returns>
+            std::vector<VersionMetaData> & AggregateMetaData();
+            /// <summary>
+            /// Returns the list of fields in this aggregate.
+            /// </summary>
+            /// <returns>Field list.</returns>
+            std::vector<AbstractField*> & FieldList();
+            /// <summary>
+            /// Returns the current version index for this aggregate.
+            /// </summary>
+            /// <returns>Current version index.</returns>
+            int32_t Ver();
+            /// <summary>
+            /// Returns the current version string for this aggregate.
+            /// </summary>
+            /// <returns>Current verson string.</returns>
+            const std::string & Version();
+
+         private:
+            std::vector<VersionMetaData> _aggregateMetaData;
+            std::vector<AbstractField*> _fieldList;
             int32_t _ver;
             std::string _version;
-       };
+            uint32_t _fieldSetCounter;
+
+            // Disallow default constructor
+            //
+            BaseAggregate();
+
+
+         };
       }
    }
 }

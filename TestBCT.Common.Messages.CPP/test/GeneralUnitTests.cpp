@@ -22,7 +22,7 @@ class Sample1Aggregate : public BaseAggregate
 private:
    void initMetaData()
    {
-      std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
+      std::vector<VersionMetaData> &aggMeta = AggregateMetaData();
       AbstractAggregate *agg = this;
 
       std::string vers[3] =
@@ -158,30 +158,30 @@ private:
 
       SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
-      Field1 = FieldDouble("Field1", _ver, aggMeta, agg);
-      Field7 = FieldInt32("Field7", _ver, aggMeta, agg);
-      Field7d = FieldInt32("Field7d", _ver, aggMeta, agg);
-      Field7c = FieldInt32("Field7c", _ver, aggMeta, agg);
-      Field7ro = FieldInt32Ro("Field7ro", _ver, aggMeta, agg);
-      Field7com = FieldInt32("Field7com", _ver, aggMeta, agg);
-      Field7x = FieldInt32("Field7x", _ver, aggMeta, agg);
+      Field1 = FieldDouble("Field1", Ver(), aggMeta, agg);
+      Field7 = FieldInt32("Field7", Ver(), aggMeta, agg);
+      Field7d = FieldInt32("Field7d", Ver(), aggMeta, agg);
+      Field7c = FieldInt32("Field7c", Ver(), aggMeta, agg);
+      Field7ro = FieldInt32Ro("Field7ro", Ver(), aggMeta, agg);
+      Field7com = FieldInt32("Field7com", Ver(), aggMeta, agg);
+      Field7x = FieldInt32("Field7x", Ver(), aggMeta, agg);
 
-      _fieldList.push_back(&Field1);
-      _fieldList.push_back(&Field7);
-      _fieldList.push_back(&Field7d);
-      _fieldList.push_back(&Field7c);
-      _fieldList.push_back(&Field7ro);
-      _fieldList.push_back(&Field7com);
-      _fieldList.push_back(&Field7x);
+      FieldList().push_back(&Field1);
+      FieldList().push_back(&Field7);
+      FieldList().push_back(&Field7d);
+      FieldList().push_back(&Field7c);
+      FieldList().push_back(&Field7ro);
+      FieldList().push_back(&Field7com);
+      FieldList().push_back(&Field7x);
 
       // Simple computation rules
       ComputeRule cr1("Field1Id1", "Field1", "1 1 ==", "Field1 20.0 +");
       ComputeRule cr2("Field7Id1", "Field7", "Field7x Field7d $EnteredLater", "Field7x");
       ComputeRule cr3("Field7Id2", "Field7", "Field7d Field7x $EnteredLater", "Field7d");
 
-      aggMeta[_ver].computeRules.push_back(cr1);
-      aggMeta[_ver].computeRules.push_back(cr2);
-      aggMeta[_ver].computeRules.push_back(cr3);
+      aggMeta[Ver()].computeRules.push_back(cr1);
+      aggMeta[Ver()].computeRules.push_back(cr2);
+      aggMeta[Ver()].computeRules.push_back(cr3);
 
    }
  

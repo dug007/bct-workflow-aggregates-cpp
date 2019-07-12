@@ -15,7 +15,7 @@ class PlateletTemplateAggregrate : public BaseAggregate
 private:
    void initMetaData()
    {
-      std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
+      std::vector<VersionMetaData> &aggMeta = AggregateMetaData();
       AbstractAggregate *agg = this;
       std::string vers[2] =
       {
@@ -179,25 +179,25 @@ private:
 
       SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
-      volumeMl = FieldDouble("volumeMl", _ver, aggMeta, agg);
-      cellsPerMl = FieldDouble("cellsPerMl", _ver, aggMeta, agg);
-      yield = FieldDouble("yield", _ver, aggMeta, agg);
-      minVolumeMl = FieldDouble("minVolumeMl", _ver, aggMeta, agg);
-      maxVolumeMl = FieldDouble("maxVolumeMl", _ver, aggMeta, agg);
-      minCellsPerMl = FieldDouble("minCellsPerMl", _ver, aggMeta, agg);
-      maxCellsPerMl = FieldDouble("maxCellsPerMl", _ver, aggMeta, agg);
-      minYield = FieldDouble("minYield", _ver, aggMeta, agg);
-      maxYield = FieldDouble("maxYield", _ver, aggMeta, agg);
+      volumeMl = FieldDouble("volumeMl", Ver(), aggMeta, agg);
+      cellsPerMl = FieldDouble("cellsPerMl", Ver(), aggMeta, agg);
+      yield = FieldDouble("yield", Ver(), aggMeta, agg);
+      minVolumeMl = FieldDouble("minVolumeMl", Ver(), aggMeta, agg);
+      maxVolumeMl = FieldDouble("maxVolumeMl", Ver(), aggMeta, agg);
+      minCellsPerMl = FieldDouble("minCellsPerMl", Ver(), aggMeta, agg);
+      maxCellsPerMl = FieldDouble("maxCellsPerMl", Ver(), aggMeta, agg);
+      minYield = FieldDouble("minYield", Ver(), aggMeta, agg);
+      maxYield = FieldDouble("maxYield", Ver(), aggMeta, agg);
 
-      _fieldList.push_back(&volumeMl);
-      _fieldList.push_back(&cellsPerMl);
-      _fieldList.push_back(&yield);
-      _fieldList.push_back(&minVolumeMl);
-      _fieldList.push_back(&maxVolumeMl);
-      _fieldList.push_back(&minCellsPerMl);
-      _fieldList.push_back(&maxCellsPerMl);
-      _fieldList.push_back(&minYield);
-      _fieldList.push_back(&maxYield);
+      FieldList().push_back(&volumeMl);
+      FieldList().push_back(&cellsPerMl);
+      FieldList().push_back(&yield);
+      FieldList().push_back(&minVolumeMl);
+      FieldList().push_back(&maxVolumeMl);
+      FieldList().push_back(&minCellsPerMl);
+      FieldList().push_back(&maxCellsPerMl);
+      FieldList().push_back(&minYield);
+      FieldList().push_back(&maxYield);
 
    }
 
@@ -226,7 +226,7 @@ class PlateletConfigAggregate : public BaseAggregate
 private:
    void initMetaData()
    {
-      std::vector<VersionMetaData> &aggMeta = _aggregateMetaData; // ref to metadata
+      std::vector<VersionMetaData> &aggMeta = AggregateMetaData();
       AbstractAggregate *agg = this;
 
       std::string vers[2] =
@@ -346,21 +346,21 @@ private:
 
       SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
-      postCellsPerMl = FieldDouble("postCellsPerMl", _ver, aggMeta, agg);
-      minTemplateCount = FieldInt32("minTemplateCount", _ver, aggMeta, agg);
-      maxTemplateCount = FieldInt32("maxTemplateCount", _ver, aggMeta, agg);
-      minPostCellsPerMl = FieldDouble("minPostCellsPerMl", _ver, aggMeta, agg);
-      maxPostCellsPerMl = FieldDouble("maxPostCellsPerMl", _ver, aggMeta, agg);
-      malePostCellsPerMl = FieldDouble("malePostCellsPerMl", _ver, aggMeta, agg);
-      femalePostCellsPerMl = FieldDouble("femalePostCellsPerMl", _ver, aggMeta, agg);
+      postCellsPerMl = FieldDouble("postCellsPerMl", Ver(), aggMeta, agg);
+      minTemplateCount = FieldInt32("minTemplateCount", Ver(), aggMeta, agg);
+      maxTemplateCount = FieldInt32("maxTemplateCount", Ver(), aggMeta, agg);
+      minPostCellsPerMl = FieldDouble("minPostCellsPerMl", Ver(), aggMeta, agg);
+      maxPostCellsPerMl = FieldDouble("maxPostCellsPerMl", Ver(), aggMeta, agg);
+      malePostCellsPerMl = FieldDouble("malePostCellsPerMl", Ver(), aggMeta, agg);
+      femalePostCellsPerMl = FieldDouble("femalePostCellsPerMl", Ver(), aggMeta, agg);
 
-      _fieldList.push_back(&postCellsPerMl);
-      _fieldList.push_back(&minTemplateCount);
-      _fieldList.push_back(&maxTemplateCount);
-      _fieldList.push_back(&minPostCellsPerMl);
-      _fieldList.push_back(&maxPostCellsPerMl);
-      _fieldList.push_back(&malePostCellsPerMl);
-      _fieldList.push_back(&femalePostCellsPerMl);
+      FieldList().push_back(&postCellsPerMl);
+      FieldList().push_back(&minTemplateCount);
+      FieldList().push_back(&maxTemplateCount);
+      FieldList().push_back(&minPostCellsPerMl);
+      FieldList().push_back(&maxPostCellsPerMl);
+      FieldList().push_back(&malePostCellsPerMl);
+      FieldList().push_back(&femalePostCellsPerMl);
 
    }
 

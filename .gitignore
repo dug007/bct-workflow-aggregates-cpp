@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /Documentation
+/Bct.Workflow.Aggregates.Messages.Lib/Documentation
