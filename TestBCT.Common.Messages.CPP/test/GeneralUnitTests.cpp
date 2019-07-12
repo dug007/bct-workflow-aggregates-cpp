@@ -22,7 +22,7 @@ class Sample1Aggregate : public BaseAggregate
 private:
    void initMetaData()
    {
-      std::vector<VersionMetaData> &aggMeta = AggregateMetaData();
+      VersionMetaData &aggMeta = AggregateMetaData();
       AbstractAggregate *agg = this;
 
       std::string vers[3] =
@@ -133,27 +133,23 @@ private:
 
       for (int16_t i=0; i < 3; i++)
       {
-         VersionMetaData vmd;
+         aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
 
-         vmd.versionInfo = VersionInfo(vers[i]);
+         FieldMeta Field1_("Field1", _Field1states[i], _Field1defaults[i], i);
+         FieldMeta Field7_("Field7", _Field7states[i], _Field7defaults[i], i);
+         FieldMeta Field7d_("Field7d", _Field7dstates[i], _Field7ddefaults[i], i);
+         FieldMeta Field7c_("Field7c", _Field7cstates[i], _Field7cdefaults[i], i);
+         FieldMeta Field7ro_("Field7ro", _Field7rostates[i], _Field7rodefaults[i], i);
+         FieldMeta Field7com_("Field7com", _Field7comstates[i], _Field7comdefaults[i], i);
+         FieldMeta Field7x_("Field7x", _Field7xstates[i], _Field7xdefaults[i], i);
 
-         FieldMeta Field1_("Field1", _Field1states[i], _Field1defaults[i]);
-         FieldMeta Field7_("Field7", _Field7states[i], _Field7defaults[i]);
-         FieldMeta Field7d_("Field7d", _Field7dstates[i], _Field7ddefaults[i]);
-         FieldMeta Field7c_("Field7c", _Field7cstates[i], _Field7cdefaults[i]);
-         FieldMeta Field7ro_("Field7ro", _Field7rostates[i], _Field7rodefaults[i]);
-         FieldMeta Field7com_("Field7com", _Field7comstates[i], _Field7comdefaults[i]);
-         FieldMeta Field7x_("Field7x", _Field7xstates[i], _Field7xdefaults[i]);
-
-         vmd.fieldMetaData.push_back(Field1_);
-         vmd.fieldMetaData.push_back(Field7_);
-         vmd.fieldMetaData.push_back(Field7d_);
-         vmd.fieldMetaData.push_back(Field7c_);
-         vmd.fieldMetaData.push_back(Field7ro_);
-         vmd.fieldMetaData.push_back(Field7com_);
-         vmd.fieldMetaData.push_back(Field7x_);
-
-         aggMeta.push_back(vmd);
+         aggMeta.fieldMetaData.push_back(Field1_);
+         aggMeta.fieldMetaData.push_back(Field7_);
+         aggMeta.fieldMetaData.push_back(Field7d_);
+         aggMeta.fieldMetaData.push_back(Field7c_);
+         aggMeta.fieldMetaData.push_back(Field7ro_);
+         aggMeta.fieldMetaData.push_back(Field7com_);
+         aggMeta.fieldMetaData.push_back(Field7x_);
       }
 
       SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
@@ -179,9 +175,9 @@ private:
       ComputeRule cr2("Field7Id1", "Field7", "Field7x Field7d $EnteredLater", "Field7x");
       ComputeRule cr3("Field7Id2", "Field7", "Field7d Field7x $EnteredLater", "Field7d");
 
-      aggMeta[Ver()].computeRules.push_back(cr1);
-      aggMeta[Ver()].computeRules.push_back(cr2);
-      aggMeta[Ver()].computeRules.push_back(cr3);
+      aggMeta.computeRules.push_back(cr1);
+      aggMeta.computeRules.push_back(cr2);
+      aggMeta.computeRules.push_back(cr3);
 
    }
  

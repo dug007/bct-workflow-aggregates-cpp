@@ -17,7 +17,7 @@ namespace Bct
             using FieldInt32::Value; // hide set/get
          public:
             FieldInt32Ro() {}
-            FieldInt32Ro(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData, AbstractAggregate *aggregate) : FieldInt32(fieldName, ver, metaData, aggregate)
+            FieldInt32Ro(const std::string fieldName, const int16_t ver, VersionMetaData &metaData, AbstractAggregate *aggregate) : FieldInt32(fieldName, ver, metaData, aggregate)
             {
             }
             int32_t Value()

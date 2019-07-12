@@ -16,7 +16,7 @@ namespace Bct
       {
          struct VersionMetaData
          {
-            VersionInfo versionInfo;
+            std::vector <VersionInfo> versionInfo;
             std::vector<FieldMeta> fieldMetaData;
             std::vector<AssessmentRule> assessmentRules;
             std::vector<ComputeRule> computeRules;

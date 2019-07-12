@@ -57,7 +57,7 @@ namespace Bct
                FieldStateEnum::FieldState state = f->State();
                TypeEnum::Type type = f->Type();
                std::string fieldName = f->FieldName();
-               std::vector<ComputeRule> cRules = _aggregateMetaData[_ver].computeRules;
+               std::vector<ComputeRule> cRules = _aggregateMetaData.computeRules;
                for (size_t j = 0; j < cRules.size(); j++)
                {
                   ComputeRule cRule = cRules[j];
@@ -82,10 +82,10 @@ namespace Bct
 
          void BaseAggregate::SyncCurrentVersion()
          {
-            std::vector<VersionMetaData> &ad = _aggregateMetaData;
-            for (size_t i = 0; i < ad.size(); i++)
+            VersionMetaData &ad = _aggregateMetaData;
+            for (size_t i = 0; i < ad.versionInfo.size(); i++)
             {
-               if (ad[i].versionInfo.Version() == _version)
+               if (ad.versionInfo[i].Version() == _version)
                {
                   _ver = (int16_t)i;
                   return;
@@ -100,7 +100,7 @@ namespace Bct
             return _fieldSetCounter;
          }
 
-         std::vector<VersionMetaData> & BaseAggregate::AggregateMetaData()
+         VersionMetaData & BaseAggregate::AggregateMetaData()
          {
             return _aggregateMetaData;
          }

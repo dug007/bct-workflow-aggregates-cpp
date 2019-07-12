@@ -18,7 +18,8 @@ namespace Bct
             {
             }
 
-            FieldInt32(const std::string fieldName, const int16_t ver, const std::vector<VersionMetaData> &metaData, AbstractAggregate *aggregate) : BaseField(fieldName, TypeEnum::Type::Int32Type, ver, metaData, aggregate)  
+            FieldInt32(const std::string fieldName, const int16_t ver, VersionMetaData &metaData, AbstractAggregate *aggregate)
+               : BaseField(fieldName, TypeEnum::Type::Int32Type, ver, metaData, aggregate)  
             {
                const FieldStateEnum::FieldState state = State();
                if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)

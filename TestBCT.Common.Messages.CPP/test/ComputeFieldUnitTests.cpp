@@ -15,7 +15,7 @@ class PlateletTemplateAggregrate : public BaseAggregate
 private:
    void initMetaData()
    {
-      std::vector<VersionMetaData> &aggMeta = AggregateMetaData();
+      VersionMetaData &aggMeta = AggregateMetaData();
       AbstractAggregate *agg = this;
       std::string vers[2] =
       {
@@ -131,48 +131,42 @@ private:
          "2.0e9"
       };
 
-
       for (int16_t i = 0; i < 2; i++)
       {
-         VersionMetaData vmd;
+         aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
 
-         vmd.versionInfo = VersionInfo(vers[i]);
+         FieldMeta volumeMl_("volumeMl", _volumeMlStates[i], _volumeMlDefaults[i], i);
+         FieldMeta cellsPerMl_("cellsPerMl", _cellsPerMlStates[i], _cellsPerMlDefaults[i], i);
+         FieldMeta yield_("yield", _yieldStates[i], _yieldDefaults[i], i);
+         FieldMeta minVolumeMl_("minVolumeMl", _minVolumeMlStates[i], _minVolumeMlDefaults[i], i);
+         FieldMeta maxVolumeMl_("maxVolumeMl", _maxVolumeMlStates[i], _maxVolumeMlDefaults[i], i);
+         FieldMeta minCellsPerMl_("minCellsPerMl", _minCellsPerMlStates[i], _minCellsPerMlDefaults[i], i);
+         FieldMeta maxCellsPerMl_("maxCellsPerMl", _maxCellsPerMlStates[i], _maxCellsPerMlDefaults[i], i);
+         FieldMeta minYield_("minYield", _minYieldStates[i], _minYieldDefaults[i], i);
+         FieldMeta maxYield_("maxYield", _maxYieldStates[i], _maxYieldDefaults[i], i);
 
-         FieldMeta volumeMl_("volumeMl", _volumeMlStates[i], _volumeMlDefaults[i]);
-         FieldMeta cellsPerMl_("cellsPerMl", _cellsPerMlStates[i], _cellsPerMlDefaults[i]);
-         FieldMeta yield_("yield", _yieldStates[i], _yieldDefaults[i]);
-         FieldMeta minVolumeMl_("minVolumeMl", _minVolumeMlStates[i], _minVolumeMlDefaults[i]);
-         FieldMeta maxVolumeMl_("maxVolumeMl", _maxVolumeMlStates[i], _maxVolumeMlDefaults[i]);
-         FieldMeta minCellsPerMl_("minCellsPerMl", _minCellsPerMlStates[i], _minCellsPerMlDefaults[i]);
-         FieldMeta maxCellsPerMl_("maxCellsPerMl", _maxCellsPerMlStates[i], _maxCellsPerMlDefaults[i]);
-         FieldMeta minYield_("minYield", _minYieldStates[i], _minYieldDefaults[i]);
-         FieldMeta maxYield_("maxYield", _maxYieldStates[i], _maxYieldDefaults[i]);
-
-         vmd.fieldMetaData.push_back(volumeMl_);
-         vmd.fieldMetaData.push_back(cellsPerMl_);
-         vmd.fieldMetaData.push_back(yield_);
-         vmd.fieldMetaData.push_back(minVolumeMl_);
-         vmd.fieldMetaData.push_back(maxVolumeMl_);
-         vmd.fieldMetaData.push_back(minCellsPerMl_);
-         vmd.fieldMetaData.push_back(maxCellsPerMl_);
-         vmd.fieldMetaData.push_back(minYield_);
-         vmd.fieldMetaData.push_back(maxYield_);
-
-
-         aggMeta.push_back(vmd);
+         aggMeta.fieldMetaData.push_back(volumeMl_);
+         aggMeta.fieldMetaData.push_back(cellsPerMl_);
+         aggMeta.fieldMetaData.push_back(yield_);
+         aggMeta.fieldMetaData.push_back(minVolumeMl_);
+         aggMeta.fieldMetaData.push_back(maxVolumeMl_);
+         aggMeta.fieldMetaData.push_back(minCellsPerMl_);
+         aggMeta.fieldMetaData.push_back(maxCellsPerMl_);
+         aggMeta.fieldMetaData.push_back(minYield_);
+         aggMeta.fieldMetaData.push_back(maxYield_);
       }
       // Simple computation rules
       {
          ComputeRule cr1("yieldId1", "yield", "1 1 ==", "cellsPerMl volumeMl *"); // TODO make $True - User Story 126600
-         aggMeta[0].computeRules.push_back(cr1);
+         aggMeta.computeRules.push_back(cr1);
       }
       {
          ComputeRule cr1("yieldId2", "yield", "volumeMl yield $EnteredLater", "cellsPerMl volumeMl *");
          ComputeRule cr3("cellsPerMlId1", "cellsPerMl", "volumeMl cellsPerMl $EnteredLater yield cellsPerMl $EnteredLater &&", "yield volumeMl /");
          ComputeRule cr2("volumeMlId1", "volumeMl", "cellsPerMl volumeMl $EnteredLater yield volumeMl $EnteredLater &&", "yield cellsPerMl /");
-         aggMeta[1].computeRules.push_back(cr1);
-         aggMeta[1].computeRules.push_back(cr2);
-         aggMeta[1].computeRules.push_back(cr3);
+         aggMeta.computeRules.push_back(cr1);
+         aggMeta.computeRules.push_back(cr2);
+         aggMeta.computeRules.push_back(cr3);
       }
 
 
@@ -226,7 +220,7 @@ class PlateletConfigAggregate : public BaseAggregate
 private:
    void initMetaData()
    {
-      std::vector<VersionMetaData> &aggMeta = AggregateMetaData();
+      VersionMetaData &aggMeta = AggregateMetaData();
       AbstractAggregate *agg = this;
 
       std::string vers[2] =
@@ -318,30 +312,26 @@ private:
          "100.0"
       };
 
+
       for (int16_t i = 0; i < 2; i++)
       {
-         VersionMetaData vmd;
+         aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
 
-         vmd.versionInfo = VersionInfo(vers[i]);
+         FieldMeta postCellsPerMl_("postCellsPerMl", _postCellsPerMlStates[i], _postCellsPerMlDefaults[i], i);
+         FieldMeta minTemplateCount_("minTemplateCount", _minTemplateCountStates[i], _minTemplateCountDefaults[i], i);
+         FieldMeta maxTemplateCount_("maxTemplateCount", _maxTemplateCountStates[i], _maxTemplateCountDefaults[i], i);
+         FieldMeta minPostCellsPerMl_("minPostCellsPerMl", _minPostCellsPerMlStates[i], _minPostCellsPerMlDefaults[i], i);
+         FieldMeta maxPostCellsPerMl_("maxPostCellsPerMl", _maxPostCellsPerMlStates[i], _maxPostCellsPerMlDefaults[i], i);
+         FieldMeta malePostCellsPerMl_("malePostCellsPerMl", _malePostCellsPerMlStates[i], _malePostCellsPerMlDefaults[i], i);
+         FieldMeta femalePostCellsPerMl_("femalePostCellsPerMl", _femalePostCellsPerMlStates[i], _femalePostCellsPerMlDefaults[i], i);
 
-         FieldMeta postCellsPerMl_("postCellsPerMl", _postCellsPerMlStates[i], _postCellsPerMlDefaults[i]);
-         FieldMeta minTemplateCount_("minTemplateCount", _minTemplateCountStates[i], _minTemplateCountDefaults[i]);
-         FieldMeta maxTemplateCount_("maxTemplateCount", _maxTemplateCountStates[i], _maxTemplateCountDefaults[i]);
-         FieldMeta minPostCellsPerMl_("minPostCellsPerMl", _minPostCellsPerMlStates[i], _minPostCellsPerMlDefaults[i]);
-         FieldMeta maxPostCellsPerMl_("maxPostCellsPerMl", _maxPostCellsPerMlStates[i], _maxPostCellsPerMlDefaults[i]);
-         FieldMeta malePostCellsPerMl_("malePostCellsPerMl", _malePostCellsPerMlStates[i], _malePostCellsPerMlDefaults[i]);
-         FieldMeta femalePostCellsPerMl_("femalePostCellsPerMl", _femalePostCellsPerMlStates[i], _femalePostCellsPerMlDefaults[i]);
-
-         vmd.fieldMetaData.push_back(postCellsPerMl_);
-         vmd.fieldMetaData.push_back(minTemplateCount_);
-         vmd.fieldMetaData.push_back(maxTemplateCount_);
-         vmd.fieldMetaData.push_back(minPostCellsPerMl_);
-         vmd.fieldMetaData.push_back(maxPostCellsPerMl_);
-         vmd.fieldMetaData.push_back(malePostCellsPerMl_);
-         vmd.fieldMetaData.push_back(femalePostCellsPerMl_);
-
-
-         aggMeta.push_back(vmd);
+         aggMeta.fieldMetaData.push_back(postCellsPerMl_);
+         aggMeta.fieldMetaData.push_back(minTemplateCount_);
+         aggMeta.fieldMetaData.push_back(maxTemplateCount_);
+         aggMeta.fieldMetaData.push_back(minPostCellsPerMl_);
+         aggMeta.fieldMetaData.push_back(maxPostCellsPerMl_);
+         aggMeta.fieldMetaData.push_back(malePostCellsPerMl_);
+         aggMeta.fieldMetaData.push_back(femalePostCellsPerMl_);
       }
 
       SyncCurrentVersion(); // determine ver for aggregate based on state of metadata

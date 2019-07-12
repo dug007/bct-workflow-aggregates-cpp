@@ -78,7 +78,7 @@ namespace Bct
             /// Returns the aggregate metatdata.
             /// </summary>
             /// <returns>Aggregate metadata</returns>
-            std::vector<VersionMetaData> & AggregateMetaData();
+            VersionMetaData & AggregateMetaData();
             /// <summary>
             /// Returns the list of fields in this aggregate.
             /// </summary>
@@ -96,7 +96,7 @@ namespace Bct
             const std::string & Version();
 
          private:
-            std::vector<VersionMetaData> _aggregateMetaData;
+            VersionMetaData _aggregateMetaData;
             std::vector<AbstractField*> _fieldList;
             int32_t _ver;
             std::string _version;

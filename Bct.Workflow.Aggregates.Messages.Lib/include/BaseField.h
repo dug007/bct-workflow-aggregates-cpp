@@ -38,7 +38,7 @@ namespace Bct
             /// <param name="ver">Version this field is associated with.</param>
             /// <param name="metaData"></param>
             /// <param name="aggregate"></param>
-            BaseField(const std::string fieldName, const TypeEnum::Type t, const int16_t ver, const std::vector<VersionMetaData> &metaData,  AbstractAggregate *aggregate)
+            BaseField(const std::string fieldName, const TypeEnum::Type t, const int16_t ver, VersionMetaData &metaData,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
                FieldMeta fm = findFieldMeta();
@@ -200,17 +200,17 @@ namespace Bct
             FieldStateEnum::FieldState _state;
             TypeEnum::Type _type;
             std::string _fieldName;
-            std::vector<VersionMetaData> _metaData;
+            VersionMetaData _metaData;
             int16_t _ver;
             uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;
 
             const FieldMeta findFieldMeta()
             {
-               std::vector<FieldMeta> fm = _metaData[_ver].fieldMetaData;
+               std::vector<FieldMeta> fm = _metaData.fieldMetaData;
                for (size_t i = 0; i < fm.size(); i++)
                {
-                  if (fm[i].FieldName() == _fieldName)
+                  if (fm[i].FieldName() == _fieldName && fm[i]._ver == _ver)
                   {
                      return fm[i];
                   }
