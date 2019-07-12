@@ -34,13 +34,15 @@ namespace Bct
             /// Constructor.
             /// </summary>
             /// <param name="fieldName">Name of this field.</param>
-            /// <param name="t">Type of this field.</param>
-            /// <param name="ver">Version this field is associated with.</param>
+            /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
+            /// <param name="ver">Version of aggregate this field is associated with.</param>
             /// <param name="metaData"></param>
             /// <param name="aggregate"></param>
             BaseField(const std::string fieldName, const TypeEnum::Type t, const int16_t ver, VersionMetaData &metaData,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
+               // search for the metadata for matching version and field name, then initialize this field
+               // with that located metadata instance
                FieldMeta fm = findFieldMeta();
                FieldStateEnum::FieldState state = fm._fieldState;
                _state = state;
