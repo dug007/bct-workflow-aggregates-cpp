@@ -44,7 +44,7 @@ namespace Bct
                _state = state;
             }
          private:
-            FieldMeta & findFieldMeta()
+            const FieldMeta findFieldMeta()
             {
                std::vector<FieldMeta> fm = _metaData[_ver].fieldMetaData;
                for (size_t i = 0; i < fm.size(); i++)
@@ -120,7 +120,7 @@ namespace Bct
                return _type;
             }
 
-            std::string DefaultStr() const
+            const std::string DefaultStr()
             {
                return findFieldMeta()._default;
             }
