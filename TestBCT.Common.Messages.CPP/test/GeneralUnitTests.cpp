@@ -131,10 +131,13 @@ private:
       };
 
 
-      for (int16_t i=0; i < 3; i++)
+      for (int16_t i = 0; i < 3; i++)
       {
          aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
+      }
 
+      for (int16_t i = 0; i < 3; i++)
+      {
          FieldMeta Field1_("Field1", _Field1states[i], _Field1defaults[i], i);
          FieldMeta Field7_("Field7", _Field7states[i], _Field7defaults[i], i);
          FieldMeta Field7d_("Field7d", _Field7dstates[i], _Field7ddefaults[i], i);
@@ -143,8 +146,13 @@ private:
          FieldMeta Field7com_("Field7com", _Field7comstates[i], _Field7comdefaults[i], i);
          FieldMeta Field7x_("Field7x", _Field7xstates[i], _Field7xdefaults[i], i);
 
-         aggMeta.fieldMetaData.push_back(Field1_);
-         aggMeta.fieldMetaData.push_back(Field7_);
+         // This could be a sparse array - this example is fixed to 3 versions, but here we are
+         // leaving out the aggregate data for the first version
+         if (i != 1)
+         {
+            aggMeta.fieldMetaData.push_back(Field1_);
+            aggMeta.fieldMetaData.push_back(Field7_);
+         }
          aggMeta.fieldMetaData.push_back(Field7d_);
          aggMeta.fieldMetaData.push_back(Field7c_);
          aggMeta.fieldMetaData.push_back(Field7ro_);
