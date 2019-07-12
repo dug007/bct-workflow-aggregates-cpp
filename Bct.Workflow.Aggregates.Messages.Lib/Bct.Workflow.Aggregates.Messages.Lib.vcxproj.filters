@@ -74,9 +74,6 @@
     <ClCompile Include="src\BaseAggregate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseField.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Exceptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

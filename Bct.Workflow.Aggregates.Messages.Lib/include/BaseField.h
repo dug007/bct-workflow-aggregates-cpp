@@ -2,10 +2,11 @@
 
 #include <vector>
 #include <algorithm>
-#include "VersionMetaData.h"
-#include "FieldMeta.h"
-#include "AbstractField.h"
+
 #include "AbstractAggregate.h"
+#include "AbstractField.h"
+#include "FieldMeta.h"
+#include "VersionMetaData.h"
 
 
 namespace Bct
@@ -14,28 +15,29 @@ namespace Bct
    {
       namespace Aggregates
       {
+         /// <summary>
+         /// Base template class for scalar fields. All scalar fields must derive from this class.
+         /// </summary>
          template<class T>
          class BaseField : public AbstractField
          {
-         private:
-            T _val;
-            T _default;
-            FieldStateEnum::FieldState _state;
-            TypeEnum::Type _type;
-            std::string _fieldName;
-            std::vector<VersionMetaData> _metaData;
-            int16_t _ver;
-            uint32_t _fieldSetCounter;
-            AbstractAggregate *_aggregate;
 
-            virtual FieldStateEnum::FieldState &StateRef() 
-            {
-               return _state;
-            }
          public:
+            /// <summary>
+            /// Constructor.
+            /// </summary>
             BaseField()
             {
             }
+
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="fieldName">Name of this field.</param>
+            /// <param name="t">Type of this field.</param>
+            /// <param name="ver">Version this field is associated with.</param>
+            /// <param name="metaData"></param>
+            /// <param name="aggregate"></param>
             BaseField(const std::string fieldName, const TypeEnum::Type t, const int16_t ver, const std::vector<VersionMetaData> &metaData,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
@@ -43,22 +45,11 @@ namespace Bct
                FieldStateEnum::FieldState state = fm._fieldState;
                _state = state;
             }
-         private:
-            const FieldMeta findFieldMeta()
-            {
-               std::vector<FieldMeta> fm = _metaData[_ver].fieldMetaData;
-               for (size_t i = 0; i < fm.size(); i++)
-               {
-                  if (fm[i].FieldName() == _fieldName)
-                  {
-                     return fm[i];
-                  }
-               }
-               throw "error: metadata missing requested version of field";
-            }
 
-         public:
             virtual ~BaseField() {};
+
+            // Set/Get --------------------->
+
             /// <summary>
             /// 
             /// </summary>
@@ -70,15 +61,6 @@ namespace Bct
                   throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
                }
                ValueInternal(v, false);
-            }
-
-            void Unset()
-            {
-               if (_state == FieldStateEnum::Constant)
-               {
-                  throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
-               }
-               _state = FieldStateEnum::NotSet;
             }
 
             T Value() const
@@ -100,15 +82,23 @@ namespace Bct
                return _val;
             }
 
-            virtual  FieldStateEnum::FieldState State() const
+            void Unset()
             {
-               return _state;
+               if (_state == FieldStateEnum::Constant)
+               {
+                  throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
+               }
+               _state = FieldStateEnum::NotSet;
             }
 
-            operator T()
+            // Set/Get ------------------------------<
+
+            operator T() const
             {
                return this->Value();
             }
+
+            // AbstractField ------------>
 
             virtual  std::string FieldName() const
             {
@@ -119,6 +109,18 @@ namespace Bct
             {
                return _type;
             }
+
+            virtual  FieldStateEnum::FieldState State() const
+            {
+               return _state;
+            }
+
+            virtual uint32_t FieldSetCounter() const
+            {
+               return _fieldSetCounter;
+            }
+
+            // AbstractField -------------------<
 
             const std::string DefaultStr()
             {
@@ -131,66 +133,95 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
-            virtual uint32_t FieldSetCounter() const
+         protected:
+
+            // AbstractField ----------->
+
+            virtual  std::string ComputedValueString() const
             {
-               return _fieldSetCounter;
+               // TODO Use serialization library for string<->type conversion - User Story 126886
+               std::stringstream ss;
+               ss << Value();
+               return ss.str();
             }
 
-            
-            protected:
-               virtual  std::string ComputedValueString() const
-               {
-                  // TODO Use serialization library for string<->type conversion - User Story 126886
-                  std::stringstream ss;
-                  ss << Value();
-                  return ss.str();
-               }
+            virtual void ComputedValueString(const std::string & val)
+            {
+               // TODO Use serialization library for string<->type conversion - User Story 126886
+               T out;
+               std::stringstream ss;
+               ss << val;
+               ss >> out;
+               ValueInternal(out, true);
+            }
 
-               virtual void ComputedValueString(const std::string & val)
-               {
-                  // TODO Use serialization library for string<->type conversion - User Story 126886
-                  T out;
-                  std::stringstream ss;
-                  ss << val;
-                  ss >> out;
-                  ValueInternal(out, true);
-               }
+            // AbstractField ---------<
 
-               void ValueInternal(const T v, bool fromCalculation)
+            void ValueInternal(const T v, bool fromCalculation)
+            {
+               _val = v;
+               FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
+               _fieldSetCounter = _aggregate->FieldSetCounter();
+               if (metaState == FieldStateEnum::Default)
                {
-                  _val = v;
-                  FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
-                  _fieldSetCounter = _aggregate->FieldSetCounter();
-                  if (metaState == FieldStateEnum::Default)
+                  if (_val == _default)
                   {
-                     if (_val == _default)
-                     {
-                        _state = FieldStateEnum::Default;
-                     }
-                     else
-                     {
-                        _state = FieldStateEnum::Set;
-                     }
+                     _state = FieldStateEnum::Default;
                   }
                   else
                   {
-                     if (fromCalculation)
-                     {
-                        _state = FieldStateEnum::Computed;
-                     }
-                     else
-                     {
-                        _state = FieldStateEnum::Set;
-                     }
+                     _state = FieldStateEnum::Set;
                   }
-
                }
-
-               void SetDefault(const T def)
+               else
                {
-                 _default = def;
-                 _val = def;
+                  if (fromCalculation)
+                  {
+                     _state = FieldStateEnum::Computed;
+                  }
+                  else
+                  {
+                     _state = FieldStateEnum::Set;
+                  }
                }
+
+            }
+
+            void SetDefault(const T def)
+            {
+               _default = def;
+               _val = def;
+            }
+
+         private:
+
+            T _val;
+            T _default;
+            FieldStateEnum::FieldState _state;
+            TypeEnum::Type _type;
+            std::string _fieldName;
+            std::vector<VersionMetaData> _metaData;
+            int16_t _ver;
+            uint32_t _fieldSetCounter;
+            AbstractAggregate *_aggregate;
+
+            const FieldMeta findFieldMeta()
+            {
+               std::vector<FieldMeta> fm = _metaData[_ver].fieldMetaData;
+               for (size_t i = 0; i < fm.size(); i++)
+               {
+                  if (fm[i].FieldName() == _fieldName)
+                  {
+                     return fm[i];
+                  }
+               }
+               throw "error: metadata missing requested version of field";
+            }
+
+            virtual FieldStateEnum::FieldState &StateRef()
+            {
+               return _state;
+            }
          };
       }
    }

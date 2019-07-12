@@ -181,7 +181,6 @@
   <ItemGroup>
     <ClCompile Include="src\AssessmentRule.cpp" />
     <ClCompile Include="src\BaseAggregate.cpp" />
-    <ClCompile Include="src\BaseField.cpp" />
     <ClCompile Include="src\Exceptions.cpp" />
     <ClCompile Include="src\FieldMeta.cpp" />
   </ItemGroup>
