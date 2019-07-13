@@ -153,13 +153,13 @@ namespace Bct
 
             SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
-            postCellsPerMl.initMeta(Ver());
-            minTemplateCount.initMeta(Ver());
-            maxTemplateCount.initMeta(Ver());
-            minPostCellsPerMl.initMeta(Ver());
-            maxPostCellsPerMl.initMeta(Ver());
-            malePostCellsPerMl.initMeta(Ver());
-            femalePostCellsPerMl.initMeta(Ver());
+            postCellsPerMl.initMetaData(Ver());
+            minTemplateCount.initMetaData(Ver());
+            maxTemplateCount.initMetaData(Ver());
+            minPostCellsPerMl.initMetaData(Ver());
+            maxPostCellsPerMl.initMetaData(Ver());
+            malePostCellsPerMl.initMetaData(Ver());
+            femalePostCellsPerMl.initMetaData(Ver());
          }
       }
    }

@@ -177,13 +177,13 @@ namespace Bct
 
             SyncCurrentVersion(); // determine ver for aggregate based on metadata
 
-            Field1.initMeta(Ver());
-            Field7.initMeta(Ver());
-            Field7d.initMeta(Ver());
-            Field7c.initMeta(Ver());
-            Field7ro.initMeta(Ver());
-            Field7com.initMeta(Ver());
-            Field7x.initMeta(Ver());
+            Field1.initMetaData(Ver());
+            Field7.initMetaData(Ver());
+            Field7d.initMetaData(Ver());
+            Field7c.initMetaData(Ver());
+            Field7ro.initMetaData(Ver());
+            Field7com.initMetaData(Ver());
+            Field7x.initMetaData(Ver());
 
             // Simple computation rules
             ComputeRule cr1("Field1Id1", "Field1", "1 1 ==", "Field1 20.0 +");

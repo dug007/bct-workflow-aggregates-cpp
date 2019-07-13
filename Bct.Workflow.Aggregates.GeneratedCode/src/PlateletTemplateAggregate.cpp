@@ -196,15 +196,15 @@ namespace Bct
 
             SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
-            volumeMl.initMeta(Ver());
-            cellsPerMl.initMeta(Ver());
-            yield.initMeta(Ver());
-            minVolumeMl.initMeta(Ver());
-            maxVolumeMl.initMeta(Ver());
-            minCellsPerMl.initMeta(Ver());
-            maxCellsPerMl.initMeta(Ver());
-            minYield.initMeta(Ver());
-            maxYield.initMeta(Ver());
+            volumeMl.initMetaData(Ver());
+            cellsPerMl.initMetaData(Ver());
+            yield.initMetaData(Ver());
+            minVolumeMl.initMetaData(Ver());
+            maxVolumeMl.initMetaData(Ver());
+            minCellsPerMl.initMetaData(Ver());
+            maxCellsPerMl.initMetaData(Ver());
+            minYield.initMetaData(Ver());
+            maxYield.initMetaData(Ver());
          }
       }
    }

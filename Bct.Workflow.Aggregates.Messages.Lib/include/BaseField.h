@@ -37,7 +37,7 @@ namespace Bct
             {
              }
 
-            void initMeta(int16_t ver)
+            void initMetaData(int16_t ver)
             {
                _ver = ver;
 
