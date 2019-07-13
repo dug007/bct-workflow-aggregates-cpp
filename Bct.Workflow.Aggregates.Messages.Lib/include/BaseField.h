@@ -29,15 +29,14 @@ namespace Bct
             /// </summary>
             /// <param name="fieldName">Name of this field.</param>
             /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
-            /// <param name="ver">Version of aggregate this field is associated with.</param>
             /// <param name="metaData">Metadata vector.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
             BaseField(const std::string fieldName, const TypeEnum::Type t, VersionMetaData & metaData,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
-             }
+            }
 
-            void initMetaData(int16_t ver)
+            void initMetaData(int32_t ver)
             {
                _ver = ver;
 
@@ -49,7 +48,12 @@ namespace Bct
 
                if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
                {
-                  SetDefault(atof(DefaultStr().c_str()));
+                  // TODO Use serialization library for string<->type conversion - User Story 126886
+                  T out;
+                  std::stringstream ss;
+                  ss << DefaultStr();
+                  ss >> out;
+                  SetDefault(out);
                }
             }
 

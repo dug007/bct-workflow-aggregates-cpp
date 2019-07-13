@@ -16,6 +16,8 @@ namespace Bct
          {
          private:
             void initMetaData();
+            static VersionMetaData s_metaData;
+            static bool s_initialized;
 
          public:
             FieldDouble postCellsPerMl;
@@ -29,6 +31,7 @@ namespace Bct
             PlateletConfigAggregate(const std::string version);
             virtual ~PlateletConfigAggregate();
          };
+
       }
    }
 }

@@ -24,7 +24,8 @@ namespace Bct
             /// Constructs base aggregate.
             /// </summary>
             /// <param name="version">The version to be constucted, such as 1.2.3</param>
-            BaseAggregate(const std::string version);
+            /// <param name="metaData">The aggregate metadata.</param>
+            BaseAggregate(const std::string version, VersionMetaData & metaData);
 
             virtual ~BaseAggregate();
 
@@ -96,9 +97,9 @@ namespace Bct
             const std::string & Version();
 
          private:
-            VersionMetaData _aggregateMetaData;
+            VersionMetaData & _aggregateMetaData;
             std::vector<AbstractField*> _fieldList;
-            int32_t _ver;
+            int16_t _ver;
             std::string _version;
             uint32_t _fieldSetCounter;
 

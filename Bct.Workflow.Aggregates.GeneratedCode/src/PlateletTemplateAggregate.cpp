@@ -9,7 +9,7 @@ namespace Bct
       namespace Aggregates
       {
          PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string version) :
-            BaseAggregate(version),
+            BaseAggregate(version, s_metaData),
             volumeMl("volumeMl", AggregateMetaData(), this),
             cellsPerMl("cellsPerMl", AggregateMetaData(), this),
             yield("yield", AggregateMetaData(), this),
@@ -205,7 +205,13 @@ namespace Bct
             maxCellsPerMl.initMetaData(Ver());
             minYield.initMetaData(Ver());
             maxYield.initMetaData(Ver());
+
+            s_initialized = true;
          }
+
+         VersionMetaData PlateletTemplateAggregate::s_metaData;
+         bool PlateletTemplateAggregate::s_initialized = false;
+
       }
    }
 }

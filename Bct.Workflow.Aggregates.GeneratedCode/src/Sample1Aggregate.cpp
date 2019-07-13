@@ -2,6 +2,8 @@
 //************ CODE GENERATION STARTS HERE ****************
 
 #include "Sample1Aggregate.h"
+#include "AbstractAggregate.h"
+
 
 namespace Bct
 {
@@ -10,7 +12,7 @@ namespace Bct
       namespace Aggregates
       {
          Sample1Aggregate::Sample1Aggregate(const std::string version) :
-            BaseAggregate(version),
+            BaseAggregate(version, s_metaData),
             Field1("Field1", AggregateMetaData(), this),
             Field7("Field7", AggregateMetaData(), this),
             Field7d("Field7d", AggregateMetaData(), this),
@@ -27,8 +29,10 @@ namespace Bct
             FieldList().push_back(&Field7ro);
             FieldList().push_back(&Field7com);
             FieldList().push_back(&Field7x);
-
-            initMetaData();
+            if (!s_initialized)
+            {
+               initMetaData();
+            }
          }
 
          Sample1Aggregate::~Sample1Aggregate()
@@ -193,7 +197,12 @@ namespace Bct
             aggMeta.computeRules.push_back(cr1);
             aggMeta.computeRules.push_back(cr2);
             aggMeta.computeRules.push_back(cr3);
+
+            s_initialized = true;
          };
+
+         VersionMetaData Sample1Aggregate::s_metaData;
+         bool Sample1Aggregate::s_initialized = false;
       };
    }
 }

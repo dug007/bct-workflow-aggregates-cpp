@@ -7,7 +7,6 @@
 #include "FieldDouble.h"
 #include "FieldDoubleRo.h"
 #include "AbstractField.h"
-#include "AbstractAggregate.h"
 
 namespace Bct
 {
@@ -19,6 +18,8 @@ namespace Bct
          {
          private:
             void initMetaData();
+            static VersionMetaData s_metaData;
+            static bool s_initialized;
 
          public:
 

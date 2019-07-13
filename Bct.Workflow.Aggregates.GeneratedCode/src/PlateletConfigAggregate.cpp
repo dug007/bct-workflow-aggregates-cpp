@@ -11,7 +11,7 @@ namespace Bct
       {
  
          PlateletConfigAggregate::PlateletConfigAggregate(const std::string version) :
-            BaseAggregate(version),
+            BaseAggregate(version, s_metaData),
             postCellsPerMl("postCellsPerMl", AggregateMetaData(), this),
             minTemplateCount("minTemplateCount", AggregateMetaData(), this),
             maxTemplateCount("maxTemplateCount", AggregateMetaData(), this),
@@ -160,7 +160,13 @@ namespace Bct
             maxPostCellsPerMl.initMetaData(Ver());
             malePostCellsPerMl.initMetaData(Ver());
             femalePostCellsPerMl.initMetaData(Ver());
+
+            s_initialized = true;
          }
+
+         VersionMetaData PlateletConfigAggregate::s_metaData;
+         bool PlateletConfigAggregate::s_initialized = false;
+
       }
    }
 }
