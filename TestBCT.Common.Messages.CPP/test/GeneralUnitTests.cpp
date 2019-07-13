@@ -17,9 +17,15 @@ using namespace Bct::Workflow::Aggregates;
 
 //*****************************************************************
 
+VersionMetaData Sample1Aggregate::s_aggregateMetaData;
+bool Sample1Aggregate::s_initialized = false;
+
 class Sample1Aggregate : public BaseAggregate
 {
 private:
+   static VersionMetaData s_aggregateMetaData;
+   static bool s_initialized;
+
    void initMetaData()
    {
       VersionMetaData &aggMeta = AggregateMetaData();
@@ -187,6 +193,7 @@ private:
       aggMeta.computeRules.push_back(cr2);
       aggMeta.computeRules.push_back(cr3);
 
+      s_initialized = true;
    }
  
 public:
