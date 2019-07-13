@@ -97,6 +97,13 @@ namespace Bct
                return _val;
             }
 
+            T operator=(const T val)
+            {
+               this->Value(val);
+               return *this;
+            }
+
+
             void Unset()
             {
                if (_state == FieldStateEnum::Constant)

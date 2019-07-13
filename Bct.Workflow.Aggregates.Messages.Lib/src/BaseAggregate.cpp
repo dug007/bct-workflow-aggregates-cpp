@@ -101,7 +101,7 @@ namespace Bct
             return _fieldSetCounter;
          }
 
-         VersionMetaData & BaseAggregate::AggregateMetaData()
+         VersionMetaData & BaseAggregate::MetaData()
          {
             return _aggregateMetaData;
          }

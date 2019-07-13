@@ -12,13 +12,13 @@ namespace Bct
  
          PlateletConfigAggregate::PlateletConfigAggregate(const std::string version) :
             BaseAggregate(version, s_metaData),
-            postCellsPerMl("postCellsPerMl", AggregateMetaData(), this),
-            minTemplateCount("minTemplateCount", AggregateMetaData(), this),
-            maxTemplateCount("maxTemplateCount", AggregateMetaData(), this),
-            minPostCellsPerMl("minPostCellsPerMl", AggregateMetaData(), this),
-            maxPostCellsPerMl("maxPostCellsPerMl", AggregateMetaData(), this),
-            malePostCellsPerMl("malePostCellsPerMl", AggregateMetaData(), this),
-            femalePostCellsPerMl("femalePostCellsPerMl", AggregateMetaData(), this)
+            postCellsPerMl("postCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
+            minTemplateCount("minTemplateCount", TypeEnum::Int32Type, MetaData(), this),
+            maxTemplateCount("maxTemplateCount", TypeEnum::Int32Type, MetaData(), this),
+            minPostCellsPerMl("minPostCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
+            maxPostCellsPerMl("maxPostCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
+            malePostCellsPerMl("malePostCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
+            femalePostCellsPerMl("femalePostCellsPerMl", TypeEnum::DoubleType, MetaData(), this)
          {
             FieldList().push_back(&postCellsPerMl);
             FieldList().push_back(&minTemplateCount);
@@ -37,7 +37,7 @@ namespace Bct
 
          void PlateletConfigAggregate::initMetaData()
          {
-            VersionMetaData &aggMeta = AggregateMetaData();
+            VersionMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;
 
             std::string vers[2] =

@@ -20,13 +20,13 @@ namespace Bct
             static bool s_initialized;
 
          public:
-            FieldDouble postCellsPerMl;
-            FieldInt32 minTemplateCount;
-            FieldInt32 maxTemplateCount;
-            FieldDouble minPostCellsPerMl;
-            FieldDouble maxPostCellsPerMl;
-            FieldDouble malePostCellsPerMl;
-            FieldDouble femalePostCellsPerMl;
+            BaseField<double>  postCellsPerMl;
+            BaseField<int32_t> minTemplateCount;
+            BaseField<int32_t> maxTemplateCount;
+            BaseField<double>  minPostCellsPerMl;
+            BaseField<double>  maxPostCellsPerMl;
+            BaseField<double>  malePostCellsPerMl;
+            BaseField<double>  femalePostCellsPerMl;
 
             PlateletConfigAggregate(const std::string version);
             virtual ~PlateletConfigAggregate();

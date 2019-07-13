@@ -2,6 +2,7 @@
 
 #include "BaseAggregate.h"
 #include "BaseField.h"
+#include "BaseFieldRo.h"
 #include "FieldInt32.h"
 #include "FieldInt32Ro.h"
 #include "FieldDouble.h"
@@ -23,13 +24,13 @@ namespace Bct
 
          public:
 
-            FieldDouble Field1;
-            FieldInt32 Field7;
-            FieldInt32Ro Field7ro;  // readonly - no setter
-            FieldInt32 Field7c;     // constant - setter throws
-            FieldInt32 Field7d;     // defaulted
-            FieldInt32 Field7com;   // computed
-            FieldInt32 Field7x;     // extra field for tests
+            BaseField<double>    Field1;
+            BaseField<int32_t>   Field7;
+            BaseFieldRo<int32_t> Field7ro;    // readonly - no setter
+            BaseField<int32_t>   Field7c;     // constant - setter throws
+            BaseField<int32_t>   Field7d;     // defaulted
+            BaseField<int32_t>   Field7com;   // computed
+            BaseField<int32_t>   Field7x;     // extra field for tests
 
             Sample1Aggregate(const std::string version);
             virtual ~Sample1Aggregate();

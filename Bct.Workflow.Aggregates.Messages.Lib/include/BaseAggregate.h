@@ -79,7 +79,7 @@ namespace Bct
             /// Returns the aggregate metatdata.
             /// </summary>
             /// <returns>Aggregate metadata</returns>
-            VersionMetaData & AggregateMetaData();
+            VersionMetaData & MetaData();
             /// <summary>
             /// Returns the list of fields in this aggregate.
             /// </summary>

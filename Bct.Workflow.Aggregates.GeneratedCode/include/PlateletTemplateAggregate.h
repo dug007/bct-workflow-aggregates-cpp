@@ -22,15 +22,15 @@ namespace Bct
 
          public:
 
-            FieldDouble volumeMl;
-            FieldDouble cellsPerMl;
-            FieldDouble yield;
-            FieldDouble minVolumeMl;
-            FieldDouble maxVolumeMl;
-            FieldDouble minCellsPerMl;
-            FieldDouble maxCellsPerMl;
-            FieldDouble minYield;
-            FieldDouble maxYield;
+            BaseField<double> volumeMl;
+            BaseField<double> cellsPerMl;
+            BaseField<double> yield;
+            BaseField<double> minVolumeMl;
+            BaseField<double> maxVolumeMl;
+            BaseField<double> minCellsPerMl;
+            BaseField<double> maxCellsPerMl;
+            BaseField<double> minYield;
+            BaseField<double> maxYield;
 
             PlateletTemplateAggregate(const std::string version);
 

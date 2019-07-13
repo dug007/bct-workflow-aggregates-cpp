@@ -13,13 +13,13 @@ namespace Bct
       {
          Sample1Aggregate::Sample1Aggregate(const std::string version) :
             BaseAggregate(version, s_metaData),
-            Field1("Field1", AggregateMetaData(), this),
-            Field7("Field7", AggregateMetaData(), this),
-            Field7d("Field7d", AggregateMetaData(), this),
-            Field7c("Field7c", AggregateMetaData(), this),
-            Field7ro("Field7ro", AggregateMetaData(), this),
-            Field7com("Field7com", AggregateMetaData(), this),
-            Field7x("Field7x", AggregateMetaData(), this)
+            Field1("Field1", TypeEnum::DoubleType, MetaData(), this),
+            Field7("Field7", TypeEnum::Int32Type, MetaData(), this),
+            Field7d("Field7d", TypeEnum::Int32Type, MetaData(), this),
+            Field7c("Field7c", TypeEnum::Int32Type, MetaData(), this),
+            Field7ro("Field7ro", TypeEnum::Int32Type, MetaData(), this),
+            Field7com("Field7com", TypeEnum::Int32Type, MetaData(), this),
+            Field7x("Field7x", TypeEnum::Int32Type, MetaData(), this)
          {
 
             FieldList().push_back(&Field1);
@@ -41,7 +41,7 @@ namespace Bct
 
          void Sample1Aggregate::initMetaData()
          {
-            VersionMetaData &aggMeta = AggregateMetaData();
+            VersionMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;
 
             std::string vers[3] =
