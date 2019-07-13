@@ -9,6 +9,16 @@ namespace Bct
    {
       namespace Aggregates
       {
+         Sample1Aggregate::Sample1Aggregate(const std::string version)
+            : BaseAggregate(version)
+         {
+            initMetaData();
+         }
+
+         Sample1Aggregate::~Sample1Aggregate()
+         {
+         };
+
          void Sample1Aggregate::initMetaData()
          {
             VersionMetaData &aggMeta = AggregateMetaData();
@@ -176,15 +186,6 @@ namespace Bct
             aggMeta.computeRules.push_back(cr2);
             aggMeta.computeRules.push_back(cr3);
          };
-
-         Sample1Aggregate::Sample1Aggregate(const std::string version)
-            : BaseAggregate(version)
-         {
-            initMetaData();
-         }
-
-         Sample1Aggregate::~Sample1Aggregate() {};
-
       };
    }
 }
