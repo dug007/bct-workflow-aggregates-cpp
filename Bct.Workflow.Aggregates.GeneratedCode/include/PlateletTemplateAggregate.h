@@ -1,10 +1,7 @@
 #pragma once
 
 #include "BaseAggregate.h"
-#include "FieldInt32.h"
-#include "FieldInt32Ro.h"
-#include "FieldDouble.h"
-#include "FieldDoubleRo.h"
+#include "BaseField.h"
 
 
 namespace Bct

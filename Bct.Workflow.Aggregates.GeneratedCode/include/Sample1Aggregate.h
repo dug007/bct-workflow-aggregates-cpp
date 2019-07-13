@@ -3,10 +3,7 @@
 #include "BaseAggregate.h"
 #include "BaseField.h"
 #include "BaseFieldRo.h"
-#include "FieldInt32.h"
-#include "FieldInt32Ro.h"
-#include "FieldDouble.h"
-#include "FieldDoubleRo.h"
+
 #include "AbstractField.h"
 
 namespace Bct

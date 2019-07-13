@@ -1,10 +1,7 @@
 #include "Sample1Aggregate.h"
 #include "BaseAggregate.h"
 #include "BaseField.h"
-#include "FieldInt32.h"
-#include "FieldInt32Ro.h"
-#include "FieldDouble.h"
-#include "FieldDoubleRo.h"
+
 #include "AbstractField.h"
 #include "AbstractAggregate.h"
 #define CATCH_CONFIG_MAIN

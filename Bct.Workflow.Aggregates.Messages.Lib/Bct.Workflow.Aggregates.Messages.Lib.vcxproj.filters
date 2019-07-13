@@ -39,18 +39,6 @@
     <ClInclude Include="include\Exceptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FieldDouble.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FieldDoubleRo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FieldInt32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FieldInt32Ro.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\FieldMeta.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -2,10 +2,6 @@
 #include "PlateletTemplateAggregate.h"
 
 #include "BaseAggregate.h"
-#include "FieldInt32.h"
-#include "FieldInt32Ro.h"
-#include "FieldDouble.h"
-#include "FieldDoubleRo.h"
 #include "catch.hpp"
 
 using namespace Bct::Workflow::Aggregates;
