@@ -35,6 +35,31 @@ namespace Bct
             }
          }
 
+         Sample1Aggregate::Sample1Aggregate() :
+            BaseAggregate(s_metaData),
+            Field1("Field1", TypeEnum::DoubleType, MetaData(), this),
+            Field7("Field7", TypeEnum::Int32Type, MetaData(), this),
+            Field7d("Field7d", TypeEnum::Int32Type, MetaData(), this),
+            Field7c("Field7c", TypeEnum::Int32Type, MetaData(), this),
+            Field7ro("Field7ro", TypeEnum::Int32Type, MetaData(), this),
+            Field7com("Field7com", TypeEnum::Int32Type, MetaData(), this),
+            Field7x("Field7x", TypeEnum::Int32Type, MetaData(), this)
+         {
+
+            FieldList().push_back(&Field1);
+            FieldList().push_back(&Field7);
+            FieldList().push_back(&Field7d);
+            FieldList().push_back(&Field7c);
+            FieldList().push_back(&Field7ro);
+            FieldList().push_back(&Field7com);
+            FieldList().push_back(&Field7x);
+            if (!s_initialized)
+            {
+               initMetaData();
+            }
+         }
+
+
          Sample1Aggregate::~Sample1Aggregate()
          {
          };

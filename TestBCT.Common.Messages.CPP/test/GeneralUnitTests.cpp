@@ -13,7 +13,7 @@ using namespace Bct::Workflow::Aggregates;
 TEST_CASE("General", "[test]")
 {
    // General unit tests ----------------------------------------------
-   Sample1Aggregate a("1.2.0");
+   Sample1Aggregate a;
    CHECK(a.Field1.State() == FieldStateEnum::FieldState::NotSet);
    CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
    CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Default);

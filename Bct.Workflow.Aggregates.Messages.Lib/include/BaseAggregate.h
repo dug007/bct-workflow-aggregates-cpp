@@ -27,6 +27,12 @@ namespace Bct
             /// <param name="metaData">The aggregate metadata.</param>
             BaseAggregate(const std::string version, VersionMetaData & metaData);
 
+            /// <summary>
+            /// Constructor. This constucts the mose recent version.
+            /// </summary>
+            /// <param name="metaData">The aggregate metadata.</param>
+            BaseAggregate(VersionMetaData & metaData);
+
             virtual ~BaseAggregate();
 
             /// <summary>

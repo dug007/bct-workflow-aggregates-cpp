@@ -17,6 +17,11 @@ namespace Bct
             _version(version), _aggregateMetaData(metaData)
          {
          }
+
+         BaseAggregate::BaseAggregate(VersionMetaData & metaData) :
+            _ver(-1), _aggregateMetaData(metaData)
+         {
+         }
          /**
           * Destructor
           */
@@ -84,12 +89,21 @@ namespace Bct
          void BaseAggregate::SyncCurrentVersion()
          {
             VersionMetaData &ad = _aggregateMetaData;
-            for (size_t i = 0; i < ad.versionInfo.size(); i++)
+            if (_ver == -1) // seek most recent version
             {
-               if (ad.versionInfo[i].Version() == _version)
+               _ver = ad.versionInfo.size()-1;
+               _version = ad.versionInfo[_ver].Version();
+               return;
+            }
+            else
+            {
+               for (size_t i = 0; i < ad.versionInfo.size(); i++)
                {
-                  _ver = (int16_t)i;
-                  return;
+                  if (ad.versionInfo[i].Version() == _version)
+                  {
+                     _ver = (int16_t)i;
+                     return;
+                  }
                }
             }
             throw "error: invalid version"; // TODO: internationalize - User Story 126598
