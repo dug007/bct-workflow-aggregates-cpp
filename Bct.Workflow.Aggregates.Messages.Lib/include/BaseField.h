@@ -250,7 +250,7 @@ namespace Bct
                }
 
             }
-
+            
             const FieldMeta findFieldMeta()
             {
                std::vector<FieldMeta> fm = _metaData.fieldMetaData;
