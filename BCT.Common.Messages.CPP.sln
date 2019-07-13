@@ -16,7 +16,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.Mes
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BCT.Common.Utilities.RPNEvaluatorCPPWinLib", "..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\BCT.Common.Utilities.RPNEvaluatorCPPWinLib.vcxproj", "{1C98A85D-F3C3-4665-885C-DE6DC3780B4D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeneratedCode", "GeneratedCode\GeneratedCode.vcxproj", "{9B10266C-1CC1-418B-8390-E860603184B3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.GeneratedCode", "Bct.Workflow.Aggregates.GeneratedCode\Bct.Workflow.Aggregates.GeneratedCode.vcxproj", "{9B10266C-1CC1-418B-8390-E860603184B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
