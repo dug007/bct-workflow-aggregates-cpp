@@ -23,12 +23,6 @@ namespace Bct
          {
 
          public:
-            /// <summary>
-            /// Constructor.
-            /// </summary>
-            BaseField()
-            {
-            }
 
             /// <summary>
             /// Constructor.
@@ -38,14 +32,25 @@ namespace Bct
             /// <param name="ver">Version of aggregate this field is associated with.</param>
             /// <param name="metaData">Metadata vector.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(const std::string fieldName, const TypeEnum::Type t, const int16_t ver, VersionMetaData & metaData,  AbstractAggregate *aggregate)
-               : _fieldName(fieldName), _type(t),  _ver(ver), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
+            BaseField(const std::string fieldName, const TypeEnum::Type t, VersionMetaData & metaData,  AbstractAggregate *aggregate)
+               : _fieldName(fieldName), _type(t), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
+             }
+
+            void initMeta(int16_t ver)
+            {
+               _ver = ver;
+
                // search for the metadata for corresponding version and field name, then initialize this field
                // with that located metadata instance
                FieldMeta fm = findFieldMeta();
                FieldStateEnum::FieldState state = fm._fieldState;
                _state = state;
+
+               if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
+               {
+                  SetDefault(atof(DefaultStr().c_str()));
+               }
             }
 
             virtual ~BaseField() {};
@@ -216,7 +221,7 @@ namespace Bct
             FieldStateEnum::FieldState _state;
             TypeEnum::Type _type;
             std::string _fieldName;
-            VersionMetaData _metaData;
+            VersionMetaData & _metaData;
             int16_t _ver;
             uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;

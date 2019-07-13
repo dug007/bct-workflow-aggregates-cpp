@@ -8,9 +8,29 @@ namespace Bct
    {
       namespace Aggregates
       {
-
-         PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string version) : BaseAggregate(version)
+         PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string version) :
+            BaseAggregate(version),
+            volumeMl("volumeMl", AggregateMetaData(), this),
+            cellsPerMl("cellsPerMl", AggregateMetaData(), this),
+            yield("yield", AggregateMetaData(), this),
+            minVolumeMl("minVolumeMl", AggregateMetaData(), this),
+            maxVolumeMl("maxVolumeMl", AggregateMetaData(), this),
+            minCellsPerMl("minCellsPerMl", AggregateMetaData(), this),
+            maxCellsPerMl("maxCellsPerMl", AggregateMetaData(), this),
+            minYield("minYield", AggregateMetaData(), this),
+            maxYield("maxYield", AggregateMetaData(), this)
          {
+
+            FieldList().push_back(&volumeMl);
+            FieldList().push_back(&cellsPerMl);
+            FieldList().push_back(&yield);
+            FieldList().push_back(&minVolumeMl);
+            FieldList().push_back(&maxVolumeMl);
+            FieldList().push_back(&minCellsPerMl);
+            FieldList().push_back(&maxCellsPerMl);
+            FieldList().push_back(&minYield);
+            FieldList().push_back(&maxYield);
+
             initMetaData();
          }
 
@@ -174,30 +194,17 @@ namespace Bct
                aggMeta.computeRules.push_back(cr3);
             }
 
-
-
             SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
-            volumeMl = FieldDouble("volumeMl", Ver(), aggMeta, agg);
-            cellsPerMl = FieldDouble("cellsPerMl", Ver(), aggMeta, agg);
-            yield = FieldDouble("yield", Ver(), aggMeta, agg);
-            minVolumeMl = FieldDouble("minVolumeMl", Ver(), aggMeta, agg);
-            maxVolumeMl = FieldDouble("maxVolumeMl", Ver(), aggMeta, agg);
-            minCellsPerMl = FieldDouble("minCellsPerMl", Ver(), aggMeta, agg);
-            maxCellsPerMl = FieldDouble("maxCellsPerMl", Ver(), aggMeta, agg);
-            minYield = FieldDouble("minYield", Ver(), aggMeta, agg);
-            maxYield = FieldDouble("maxYield", Ver(), aggMeta, agg);
-
-            FieldList().push_back(&volumeMl);
-            FieldList().push_back(&cellsPerMl);
-            FieldList().push_back(&yield);
-            FieldList().push_back(&minVolumeMl);
-            FieldList().push_back(&maxVolumeMl);
-            FieldList().push_back(&minCellsPerMl);
-            FieldList().push_back(&maxCellsPerMl);
-            FieldList().push_back(&minYield);
-            FieldList().push_back(&maxYield);
-
+            volumeMl.initMeta(Ver());
+            cellsPerMl.initMeta(Ver());
+            yield.initMeta(Ver());
+            minVolumeMl.initMeta(Ver());
+            maxVolumeMl.initMeta(Ver());
+            minCellsPerMl.initMeta(Ver());
+            maxCellsPerMl.initMeta(Ver());
+            minYield.initMeta(Ver());
+            maxYield.initMeta(Ver());
          }
       }
    }

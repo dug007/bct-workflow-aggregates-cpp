@@ -14,11 +14,8 @@ namespace Bct
          private:
             using FieldDouble::Value; // hide value set/get
          public:
-            FieldDoubleRo()
-            {
-            }
-            FieldDoubleRo(const std::string fieldName, const int16_t ver, VersionMetaData &metaData, AbstractAggregate *aggregate)
-               : FieldDouble(fieldName, ver, metaData, aggregate) {}
+            FieldDoubleRo(const std::string fieldName,  VersionMetaData &metaData, AbstractAggregate *aggregate)
+               : FieldDouble(fieldName, metaData, aggregate) {}
             const double Value()
             {
                return FieldDouble::Value();

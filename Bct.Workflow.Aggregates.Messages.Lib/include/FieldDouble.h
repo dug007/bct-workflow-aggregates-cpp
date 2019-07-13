@@ -13,9 +13,8 @@ namespace Bct
          class FieldDouble : public BaseField<double>
          {
          public:
-            FieldDouble() {};
-            FieldDouble(const std::string fieldName, const int16_t ver, VersionMetaData &metaData, AbstractAggregate *aggregate) :
-               BaseField(fieldName, TypeEnum::DoubleType, ver, metaData, aggregate)
+            FieldDouble(const std::string fieldName,  VersionMetaData &metaData, AbstractAggregate *aggregate) :
+               BaseField(fieldName, TypeEnum::DoubleType, metaData, aggregate)
             {
                FieldStateEnum::FieldState state = State();
                if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)

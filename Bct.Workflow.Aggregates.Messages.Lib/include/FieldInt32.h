@@ -14,12 +14,8 @@ namespace Bct
          class FieldInt32 : public BaseField<int32_t>
          {
          public:
-            FieldInt32()
-            {
-            }
-
-            FieldInt32(const std::string fieldName, const int16_t ver, VersionMetaData &metaData, AbstractAggregate *aggregate)
-               : BaseField(fieldName, TypeEnum::Type::Int32Type, ver, metaData, aggregate)  
+            FieldInt32(const std::string fieldName, VersionMetaData &metaData, AbstractAggregate *aggregate)
+               : BaseField(fieldName, TypeEnum::Type::Int32Type, metaData, aggregate)  
             {
                const FieldStateEnum::FieldState state = State();
                if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)

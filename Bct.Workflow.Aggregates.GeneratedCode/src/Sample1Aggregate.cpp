@@ -9,9 +9,25 @@ namespace Bct
    {
       namespace Aggregates
       {
-         Sample1Aggregate::Sample1Aggregate(const std::string version)
-            : BaseAggregate(version)
+         Sample1Aggregate::Sample1Aggregate(const std::string version) :
+            BaseAggregate(version),
+            Field1("Field1", AggregateMetaData(), this),
+            Field7("Field7", AggregateMetaData(), this),
+            Field7d("Field7d", AggregateMetaData(), this),
+            Field7c("Field7c", AggregateMetaData(), this),
+            Field7ro("Field7ro", AggregateMetaData(), this),
+            Field7com("Field7com", AggregateMetaData(), this),
+            Field7x("Field7x", AggregateMetaData(), this)
          {
+
+            FieldList().push_back(&Field1);
+            FieldList().push_back(&Field7);
+            FieldList().push_back(&Field7d);
+            FieldList().push_back(&Field7c);
+            FieldList().push_back(&Field7ro);
+            FieldList().push_back(&Field7com);
+            FieldList().push_back(&Field7x);
+
             initMetaData();
          }
 
@@ -161,21 +177,13 @@ namespace Bct
 
             SyncCurrentVersion(); // determine ver for aggregate based on metadata
 
-            Field1 = FieldDouble("Field1", Ver(), aggMeta, agg);
-            Field7 = FieldInt32("Field7", Ver(), aggMeta, agg);
-            Field7d = FieldInt32("Field7d", Ver(), aggMeta, agg);
-            Field7c = FieldInt32("Field7c", Ver(), aggMeta, agg);
-            Field7ro = FieldInt32Ro("Field7ro", Ver(), aggMeta, agg);
-            Field7com = FieldInt32("Field7com", Ver(), aggMeta, agg);
-            Field7x = FieldInt32("Field7x", Ver(), aggMeta, agg);
-
-            FieldList().push_back(&Field1);
-            FieldList().push_back(&Field7);
-            FieldList().push_back(&Field7d);
-            FieldList().push_back(&Field7c);
-            FieldList().push_back(&Field7ro);
-            FieldList().push_back(&Field7com);
-            FieldList().push_back(&Field7x);
+            Field1.initMeta(Ver());
+            Field7.initMeta(Ver());
+            Field7d.initMeta(Ver());
+            Field7c.initMeta(Ver());
+            Field7ro.initMeta(Ver());
+            Field7com.initMeta(Ver());
+            Field7x.initMeta(Ver());
 
             // Simple computation rules
             ComputeRule cr1("Field1Id1", "Field1", "1 1 ==", "Field1 20.0 +");

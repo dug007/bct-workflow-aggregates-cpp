@@ -9,8 +9,25 @@ namespace Bct
    {
       namespace Aggregates
       {
-         PlateletConfigAggregate::PlateletConfigAggregate(const std::string version) : BaseAggregate(version)
+ 
+         PlateletConfigAggregate::PlateletConfigAggregate(const std::string version) :
+            BaseAggregate(version),
+            postCellsPerMl("postCellsPerMl", AggregateMetaData(), this),
+            minTemplateCount("minTemplateCount", AggregateMetaData(), this),
+            maxTemplateCount("maxTemplateCount", AggregateMetaData(), this),
+            minPostCellsPerMl("minPostCellsPerMl", AggregateMetaData(), this),
+            maxPostCellsPerMl("maxPostCellsPerMl", AggregateMetaData(), this),
+            malePostCellsPerMl("malePostCellsPerMl", AggregateMetaData(), this),
+            femalePostCellsPerMl("femalePostCellsPerMl", AggregateMetaData(), this)
          {
+            FieldList().push_back(&postCellsPerMl);
+            FieldList().push_back(&minTemplateCount);
+            FieldList().push_back(&maxTemplateCount);
+            FieldList().push_back(&minPostCellsPerMl);
+            FieldList().push_back(&maxPostCellsPerMl);
+            FieldList().push_back(&malePostCellsPerMl);
+            FieldList().push_back(&femalePostCellsPerMl);
+
             initMetaData();
          }
 
@@ -136,22 +153,13 @@ namespace Bct
 
             SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
 
-            postCellsPerMl = FieldDouble("postCellsPerMl", Ver(), aggMeta, agg);
-            minTemplateCount = FieldInt32("minTemplateCount", Ver(), aggMeta, agg);
-            maxTemplateCount = FieldInt32("maxTemplateCount", Ver(), aggMeta, agg);
-            minPostCellsPerMl = FieldDouble("minPostCellsPerMl", Ver(), aggMeta, agg);
-            maxPostCellsPerMl = FieldDouble("maxPostCellsPerMl", Ver(), aggMeta, agg);
-            malePostCellsPerMl = FieldDouble("malePostCellsPerMl", Ver(), aggMeta, agg);
-            femalePostCellsPerMl = FieldDouble("femalePostCellsPerMl", Ver(), aggMeta, agg);
-
-            FieldList().push_back(&postCellsPerMl);
-            FieldList().push_back(&minTemplateCount);
-            FieldList().push_back(&maxTemplateCount);
-            FieldList().push_back(&minPostCellsPerMl);
-            FieldList().push_back(&maxPostCellsPerMl);
-            FieldList().push_back(&malePostCellsPerMl);
-            FieldList().push_back(&femalePostCellsPerMl);
-
+            postCellsPerMl.initMeta(Ver());
+            minTemplateCount.initMeta(Ver());
+            maxTemplateCount.initMeta(Ver());
+            minPostCellsPerMl.initMeta(Ver());
+            maxPostCellsPerMl.initMeta(Ver());
+            malePostCellsPerMl.initMeta(Ver());
+            femalePostCellsPerMl.initMeta(Ver());
          }
       }
    }
