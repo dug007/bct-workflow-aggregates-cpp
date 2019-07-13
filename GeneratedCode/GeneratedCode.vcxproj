@@ -155,12 +155,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\PlateletConfigAggregate.h" />
+    <ClInclude Include="include\PlateletTemplateAggregate.h" />
+    <ClInclude Include="include\Sample1Aggregate.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bct.Workflow.Aggregates.Messages.Lib\Bct.Workflow.Aggregates.Messages.Lib.vcxproj">
       <Project>{a9850e36-2543-4ede-80b0-5b27ef64859f}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\PlateletConfigAggregate.cpp" />
+    <ClCompile Include="src\PlateletTemplateAggregate.cpp" />
+    <ClCompile Include="src\Sample1Aggregate.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
