@@ -270,9 +270,9 @@ namespace Bct
             FieldMeta findFieldMeta()
             {
                std::vector<FieldMeta> fm = _metaData.fieldMetaData;
-               for (size_t i = 0; i < fm.size(); i++)
+               for (size_t i = fm.size()-1; i >= 0; i--)
                {
-                  if (fm[i].FieldName() == _fieldName && fm[i]._ver == _ver)
+                  if (fm[i].FieldName() == _fieldName && fm[i]._ver <= _ver)
                   {
                      return fm[i];
                   }
