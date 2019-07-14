@@ -15,6 +15,13 @@ namespace Bct
          class FieldMeta
          {
          public:
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="fieldName">Field name of associated field for this metadata.</param>
+            /// <param name="fieldState">Initial state of associated field.</param>
+            /// <param name="def">Default value of associated field.</param>
+            /// <param name="ver">Version the metadata is associated with.</param>
             FieldMeta(const std::string fieldName, const FieldStateEnum::FieldState fieldState, const std::string def, int16_t ver) :
                _fieldName(fieldName), _fieldState(fieldState), _default(def), _ver(ver) {};
             std::string FieldName();
