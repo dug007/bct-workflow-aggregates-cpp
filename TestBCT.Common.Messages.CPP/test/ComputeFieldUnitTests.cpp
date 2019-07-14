@@ -1,5 +1,7 @@
 #include "PlateletConfigAggregate.h"
 #include "PlateletTemplateAggregate.h"
+#include "AggComputeField.h"
+
 
 #include "BaseAggregate.h"
 #include "catch.hpp"
@@ -98,4 +100,26 @@ TEST_CASE("PlateletTemplateAggregate110", "[test]")
    Platelet_110.UpdateCalculatedFields();
    CHECK(Platelet_110.cellsPerMl.Value() == expectedCellsPerMl);
    CHECK(Platelet_110.cellsPerMl.State() == FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
+}
+
+TEST_CASE("ComputeRuleVersion", "[test]")
+{
+   AggComputeField a0("1.0.0");
+   AggComputeField a1("1.1.0");
+   AggComputeField a2("1.2.0");
+   AggComputeField a3("1.3.0");
+   AggComputeField a4("1.4.0");
+
+
+   a0.UpdateCalculatedFields();
+   a1.UpdateCalculatedFields();
+   a2.UpdateCalculatedFields();
+   a3.UpdateCalculatedFields();
+   a4.UpdateCalculatedFields();
+
+   CHECK(a0.field1.Value() == 2);
+   CHECK(a1.field1.Value() == 3);
+   CHECK(a2.field1.Value() == 4);
+   CHECK(a3.field1.Value() == 5);
+   CHECK(a4.field1.Value() == 5);
 }

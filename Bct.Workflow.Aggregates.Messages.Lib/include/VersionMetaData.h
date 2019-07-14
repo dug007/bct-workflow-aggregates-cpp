@@ -22,8 +22,9 @@ namespace Bct
          /// version, the aggregate constructor searches for metadata items associated with the current version and initializes
          /// the aggregate with that metadata.
          /// </summary>
-         struct VersionMetaData
+         class VersionMetaData
          {
+         public:
             std::vector <VersionInfo> versionInfo;
             std::vector<FieldMeta> fieldMetaData;
             std::vector<AssessmentRule> assessmentRules;

@@ -21,16 +21,19 @@ namespace Bct
             /// </summary>
             /// <returns>The name of this field.</returns>
             virtual std::string FieldName() const = 0;
+
             /// <summary>
             /// Pure virtual function to return the type enum of this field.
             /// </summary>
             /// <returns>Type enum of this field.</returns>
             virtual TypeEnum::Type Type() const = 0;
+
             /// <summary>
             /// Pure virtual function the return the field state of this field.
             /// </summary>
             /// <returns>The field state of this field.</returns>
             virtual FieldStateEnum::FieldState State() const = 0;
+
             /// <summary>
             /// Pure virtual function to return the current field set counter value. Implementers should just return
             /// the current value of the field set counter. The field set counter is increased each time this field is
@@ -47,6 +50,7 @@ namespace Bct
             /// </summary>
             /// <returns>The string representation of the value of this field.</returns>
             virtual  std::string ComputedValueString() const = 0;
+
             /// <summary>
             /// Virtual function to set the value of this field using its string representation. This function is
             /// intended to be used internally for evaluating RPN expressions and not for public set/get operations.
@@ -55,6 +59,13 @@ namespace Bct
             /// </summary>
             /// <param name="val">The string representation of the value of this field.</param>
             virtual void ComputedValueString(const std::string &val) = 0;
+
+            /// <summary>
+            /// Virtual function to initialize this field to the metadata for the current version. The metadata must have already been loaded. This function
+            /// is usually called in the aggregate constructor after metadata has been loaded.
+            /// </summary>
+            /// <param name="ver">Current version.</param>
+            virtual void initMetaData(int16_t ver) = 0;
             friend class BaseAggregate;
 
          private:

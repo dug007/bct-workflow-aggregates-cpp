@@ -33,6 +33,8 @@ namespace Bct
             {
                initMetaData();
             }
+
+            SyncCurrentVersion();
          }
 
          Sample1Aggregate::Sample1Aggregate() :
@@ -57,6 +59,7 @@ namespace Bct
             {
                initMetaData();
             }
+            SyncCurrentVersion();
          }
 
 
@@ -175,12 +178,12 @@ namespace Bct
             };
 
 
-            for (int16_t i = 0; i < 3; i++)
+            for (int16_t i = 0; i <std::size(vers); i++)
             {
                aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
             }
 
-            for (int16_t i = 0; i < 3; i++)
+            for (int16_t i = 0; i < std::size(vers); i++)
             {
                FieldMeta Field1_("Field1", _Field1states[i], _Field1defaults[i], i);
                FieldMeta Field7_("Field7", _Field7states[i], _Field7defaults[i], i);
@@ -204,20 +207,10 @@ namespace Bct
                aggMeta.fieldMetaData.push_back(Field7x_);
             }
 
-            SyncCurrentVersion(); // determine ver for aggregate based on metadata
-
-            Field1.initMetaData(Ver());
-            Field7.initMetaData(Ver());
-            Field7d.initMetaData(Ver());
-            Field7c.initMetaData(Ver());
-            Field7ro.initMetaData(Ver());
-            Field7com.initMetaData(Ver());
-            Field7x.initMetaData(Ver());
-
             // Simple computation rules
-            ComputeRule cr1("Field1Id1", "Field1", "1 1 ==", "Field1 20.0 +");
-            ComputeRule cr2("Field7Id1", "Field7", "Field7x Field7d $EnteredLater", "Field7x");
-            ComputeRule cr3("Field7Id2", "Field7", "Field7d Field7x $EnteredLater", "Field7d");
+            ComputeRule cr1("Field1Id1", "Field1", "1 1 ==", "Field1 20.0 +", ".0.1.2.");
+            ComputeRule cr2("Field7Id1", "Field7", "Field7x Field7d $EnteredLater", "Field7x", ".0.1.2.");
+            ComputeRule cr3("Field7Id2", "Field7", "Field7d Field7x $EnteredLater", "Field7d", ".0.1.2.");
 
             aggMeta.computeRules.push_back(cr1);
             aggMeta.computeRules.push_back(cr2);

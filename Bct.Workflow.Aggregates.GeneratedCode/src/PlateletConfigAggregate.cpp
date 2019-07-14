@@ -28,7 +28,11 @@ namespace Bct
             FieldList().push_back(&malePostCellsPerMl);
             FieldList().push_back(&femalePostCellsPerMl);
 
-            initMetaData();
+            if (!s_initialized)
+            {
+               initMetaData();
+            }
+            SyncCurrentVersion();
          }
 
          PlateletConfigAggregate::~PlateletConfigAggregate()
@@ -130,7 +134,7 @@ namespace Bct
             };
 
 
-            for (int16_t i = 0; i < 2; i++)
+            for (size_t i = 0; i < std::size(vers); i++)
             {
                aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
 
@@ -150,16 +154,6 @@ namespace Bct
                aggMeta.fieldMetaData.push_back(malePostCellsPerMl_);
                aggMeta.fieldMetaData.push_back(femalePostCellsPerMl_);
             }
-
-            SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
-
-            postCellsPerMl.initMetaData(Ver());
-            minTemplateCount.initMetaData(Ver());
-            maxTemplateCount.initMetaData(Ver());
-            minPostCellsPerMl.initMetaData(Ver());
-            maxPostCellsPerMl.initMetaData(Ver());
-            malePostCellsPerMl.initMetaData(Ver());
-            femalePostCellsPerMl.initMetaData(Ver());
 
             s_initialized = true;
          }

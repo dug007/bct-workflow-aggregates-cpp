@@ -31,7 +31,11 @@ namespace Bct
             FieldList().push_back(&minYield);
             FieldList().push_back(&maxYield);
 
-            initMetaData();
+            if (!s_initialized)
+            {
+               initMetaData();
+            }
+            SyncCurrentVersion();
          }
 
          PlateletTemplateAggregate::~PlateletTemplateAggregate()
@@ -42,6 +46,7 @@ namespace Bct
          {
             VersionMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;
+
             std::string vers[2] =
             {
                "1.0.0",
@@ -156,7 +161,8 @@ namespace Bct
                "2.0e9"
             };
 
-            for (int16_t i = 0; i < 2; i++)
+
+            for (int16_t  i = 0; i < std::size(vers); i++)
             {
                aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
 
@@ -182,29 +188,17 @@ namespace Bct
             }
             // Simple computation rules
             {
-               ComputeRule cr1("yieldId1", "yield", "1 1 ==", "cellsPerMl volumeMl *"); // TODO make $True - User Story 126600
+               ComputeRule cr1("yieldId1", "yield", "1 1 ==", "cellsPerMl volumeMl *", ".0.1."); // TODO make $True - User Story 126600
                aggMeta.computeRules.push_back(cr1);
             }
             {
-               ComputeRule cr1("yieldId2", "yield", "volumeMl yield $EnteredLater", "cellsPerMl volumeMl *");
-               ComputeRule cr3("cellsPerMlId1", "cellsPerMl", "volumeMl cellsPerMl $EnteredLater yield cellsPerMl $EnteredLater &&", "yield volumeMl /");
-               ComputeRule cr2("volumeMlId1", "volumeMl", "cellsPerMl volumeMl $EnteredLater yield volumeMl $EnteredLater &&", "yield cellsPerMl /");
+               ComputeRule cr1("yieldId2", "yield", "volumeMl yield $EnteredLater", "cellsPerMl volumeMl *", ".0.1.");
+               ComputeRule cr3("cellsPerMlId1", "cellsPerMl", "volumeMl cellsPerMl $EnteredLater yield cellsPerMl $EnteredLater &&", "yield volumeMl /", ".0.1.");
+               ComputeRule cr2("volumeMlId1", "volumeMl", "cellsPerMl volumeMl $EnteredLater yield volumeMl $EnteredLater &&", "yield cellsPerMl /", ".0.1.");
                aggMeta.computeRules.push_back(cr1);
                aggMeta.computeRules.push_back(cr2);
                aggMeta.computeRules.push_back(cr3);
             }
-
-            SyncCurrentVersion(); // determine ver for aggregate based on state of metadata
-
-            volumeMl.initMetaData(Ver());
-            cellsPerMl.initMetaData(Ver());
-            yield.initMetaData(Ver());
-            minVolumeMl.initMetaData(Ver());
-            maxVolumeMl.initMetaData(Ver());
-            minCellsPerMl.initMetaData(Ver());
-            maxCellsPerMl.initMetaData(Ver());
-            minYield.initMetaData(Ver());
-            maxYield.initMetaData(Ver());
 
             s_initialized = true;
          }

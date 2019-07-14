@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AggComputeField.cpp" />
     <ClCompile Include="test\GeneralUnitTests.cpp" />
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
   </ItemGroup>
@@ -32,6 +33,9 @@
     <ProjectReference Include="..\Bct.Workflow.Aggregates.Messages.Lib\Bct.Workflow.Aggregates.Messages.Lib.vcxproj">
       <Project>{a9850e36-2543-4ede-80b0-5b27ef64859f}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\AggComputeField.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

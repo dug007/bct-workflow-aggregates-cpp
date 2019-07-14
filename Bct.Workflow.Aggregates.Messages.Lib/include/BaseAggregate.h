@@ -47,14 +47,6 @@ namespace Bct
             void UpdateCalculatedFields();
 
             /// <summary>
-            /// Sets the internal current version to the version as constructed.
-            /// 
-            /// The aggregate constructor can be called before metadata is initialized. This function is used to set the internal version to
-            /// point to the metadata version as requested by the constructor. This function should be called after metadata is initialized.
-            /// </summary>
-            void SyncCurrentVersion();
-
-            /// <summary>
             /// Convertes current version to the specified version.
             /// </summary>
             /// <param name="version">The new current version</param>
@@ -82,20 +74,33 @@ namespace Bct
 
          protected:
             /// <summary>
+            /// Sets the internal current version as appropriate.
+            /// 
+            /// The aggregate constructor can be called before metadata is initialized. This function is used to set the internal version to
+            /// point to the metadata version as requested by the constructor. This function should be called after metadata is initialized.
+            /// 
+            /// If _ver is -1, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
+            /// </summary>
+            void SyncCurrentVersion();
+
+            /// <summary>
             /// Returns the aggregate metatdata.
             /// </summary>
             /// <returns>Aggregate metadata</returns>
             VersionMetaData & MetaData();
+
             /// <summary>
             /// Returns the list of fields in this aggregate.
             /// </summary>
             /// <returns>Field list.</returns>
             std::vector<AbstractField*> & FieldList();
+
             /// <summary>
             /// Returns the current version index for this aggregate.
             /// </summary>
             /// <returns>Current version index.</returns>
             int32_t Ver();
+
             /// <summary>
             /// Returns the current version string for this aggregate.
             /// </summary>

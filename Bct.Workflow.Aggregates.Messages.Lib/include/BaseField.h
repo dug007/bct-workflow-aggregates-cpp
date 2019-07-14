@@ -36,27 +36,6 @@ namespace Bct
             {
             }
 
-            void initMetaData(int32_t ver)
-            {
-               _ver = ver;
-
-               // search for the metadata for corresponding version and field name, then initialize this field
-               // with that located metadata instance
-               FieldMeta fm = findFieldMeta();
-               FieldStateEnum::FieldState state = fm._fieldState;
-               _state = state;
-
-               if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
-               {
-                  // TODO Use serialization library for string<->type conversion - User Story 126886
-                  T out;
-                  std::stringstream ss;
-                  ss << DefaultStr();
-                  ss >> out;
-                  SetDefault(out);
-               }
-            }
-
             virtual ~BaseField() {};
 
             // Set/Get --------------------->
@@ -160,6 +139,27 @@ namespace Bct
             virtual uint32_t FieldSetCounter() const
             {
                return _fieldSetCounter;
+            }
+
+            virtual void initMetaData(int16_t ver)
+            {
+               _ver = ver;
+
+               // search for the metadata for corresponding version and field name, then initialize this field
+               // with that located metadata instance
+               FieldMeta fm = findFieldMeta();
+               FieldStateEnum::FieldState state = fm._fieldState;
+               _state = state;
+
+               if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
+               {
+                  // TODO Use serialization library for string<->type conversion - User Story 126886
+                  T out;
+                  std::stringstream ss;
+                  ss << DefaultStr();
+                  ss >> out;
+                  SetDefault(out);
+               }
             }
 
             // AbstractField -------------------<

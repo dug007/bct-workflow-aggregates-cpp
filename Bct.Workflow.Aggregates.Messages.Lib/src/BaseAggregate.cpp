@@ -70,16 +70,19 @@ namespace Bct
                   std::string ruleFieldName = cRule.FieldName();
                   if (fieldName == ruleFieldName)
                   {
-                     std::string condition = cRule.Condition();
-                     std::string expression = cRule.Expression();
-                     std::string answerValue;
-                     TypeEnum::Type answerType;
-                     RPNEvaluator evaluator;
-                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                     if ("true" == answerValue)
+                     if (cRule.InVersion(Ver()))
                      {
-                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                        f->ComputedValueString(answerValue);
+                        std::string condition = cRule.Condition();
+                        std::string expression = cRule.Expression();
+                        std::string answerValue;
+                        TypeEnum::Type answerType;
+                        RPNEvaluator evaluator;
+                        evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
+                        if ("true" == answerValue)
+                        {
+                           evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                           f->ComputedValueString(answerValue);
+                        }
                      }
                   }
                }
@@ -93,20 +96,29 @@ namespace Bct
             {
                _ver = ad.versionInfo.size()-1;
                _version = ad.versionInfo[_ver].Version();
-               return;
             }
             else
             {
+               bool found = false;
                for (size_t i = 0; i < ad.versionInfo.size(); i++)
                {
                   if (ad.versionInfo[i].Version() == _version)
                   {
                      _ver = (int16_t)i;
-                     return;
+                     found = true;
                   }
                }
+               if (!found)
+               {
+                  throw "error: invalid version"; // TODO: internationalize - User Story 126598
+               }
             }
-            throw "error: invalid version"; // TODO: internationalize - User Story 126598
+
+            // initialize fields to current version
+            for (size_t i = 0; i < _fieldList.size(); i++)
+            {
+               _fieldList[i]->initMetaData(Ver());
+            }
          }
 
          uint32_t BaseAggregate::FieldSetCounter()
