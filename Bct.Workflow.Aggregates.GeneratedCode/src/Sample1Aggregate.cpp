@@ -178,12 +178,12 @@ namespace Bct
             };
 
 
-            for (int16_t i = 0; i <std::size(vers); i++)
+            for (uint16_t i = 0; i <std::size(vers); i++)
             {
                aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
             }
 
-            for (int16_t i = 0; i < std::size(vers); i++)
+            for (uint16_t i = 0; i < std::size(vers); i++)
             {
                FieldMeta Field1_("Field1", _Field1states[i], _Field1defaults[i], i);
                FieldMeta Field7_("Field7", _Field7states[i], _Field7defaults[i], i);

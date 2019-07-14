@@ -47,7 +47,7 @@ namespace Bct
                "1.4.0"
             };
 
-            for (int16_t i = 0; i < std::size(vers); i++)
+            for (uint16_t i = 0; i < std::size(vers); i++)
             {
                MetaData().versionInfo.push_back(VersionInfo(vers[i]));
             }

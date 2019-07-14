@@ -162,7 +162,7 @@ namespace Bct
             };
 
 
-            for (int16_t  i = 0; i < std::size(vers); i++)
+            for (uint16_t  i = 0; i < std::size(vers); i++)
             {
                aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
 

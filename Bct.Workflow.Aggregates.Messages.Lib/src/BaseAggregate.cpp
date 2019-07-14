@@ -94,7 +94,7 @@ namespace Bct
             VersionMetaData &ad = _aggregateMetaData;
             if (_ver == -1) // seek most recent version
             {
-               _ver = ad.versionInfo.size()-1;
+               _ver = static_cast<uint16_t>(ad.versionInfo.size()-1);
                _version = ad.versionInfo[_ver].Version();
             }
             else
