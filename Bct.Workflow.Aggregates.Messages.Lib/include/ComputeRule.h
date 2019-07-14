@@ -9,12 +9,13 @@ namespace Bct
       namespace Aggregates
       {
          /// <summary>
-         /// Do it
+         /// 
          /// </summary>
          class ComputeRule
          {
          public:
-            ComputeRule(std::string id, std::string field, std::string condition, std::string expression) : _id(id), _field(field), _condition(condition), _expression(expression) {};
+            ComputeRule(std::string id, std::string field, std::string condition, std::string expression) :
+               _id(id), _field(field), _condition(condition), _expression(expression) {};
             std::string FieldName()
             {
                return _field;
