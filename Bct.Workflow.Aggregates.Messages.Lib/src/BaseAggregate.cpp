@@ -141,6 +141,10 @@ namespace Bct
                         }
                      }
                   }
+                  else
+                  {
+                     throw "error: not in version";  // TODO: assessment rule not in version - User Story 127481
+                  }
                }
             }
             return result;

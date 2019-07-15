@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AggComputeField.cpp" />
+    <ClCompile Include="src\AggAssess.cpp" />
+    <ClCompile Include="src\AssessUnitTests.cpp" />
     <ClCompile Include="test\GeneralUnitTests.cpp" />
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
   </ItemGroup>
@@ -35,6 +37,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AggAssess.h" />
     <ClInclude Include="include\AggComputeField.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
