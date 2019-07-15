@@ -8,7 +8,7 @@ namespace Bct
    {
       namespace Aggregates
       {
-         PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string version) :
+         PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string &version) :
             BaseAggregate(version, &s_metaData),
             volumeMl("volumeMl", TypeEnum::DoubleType, MetaData(), this),
             cellsPerMl("cellsPerMl", TypeEnum::DoubleType, MetaData(), this),

@@ -181,6 +181,7 @@
     <ClCompile Include="src\ComputeRule.cpp" />
     <ClCompile Include="src\Exceptions.cpp" />
     <ClCompile Include="src\FieldMeta.cpp" />
+    <ClCompile Include="src\VersionInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\BCT.Common.Utilities.RPNEvaluatorCPPWinLib.vcxproj">

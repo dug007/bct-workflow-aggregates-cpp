@@ -10,7 +10,7 @@ namespace Bct
       namespace Aggregates
       {
  
-         PlateletConfigAggregate::PlateletConfigAggregate(const std::string version) :
+         PlateletConfigAggregate::PlateletConfigAggregate(const std::string &version) :
             BaseAggregate(version, &s_metaData),
             postCellsPerMl("postCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
             minTemplateCount("minTemplateCount", TypeEnum::Int32Type, MetaData(), this),

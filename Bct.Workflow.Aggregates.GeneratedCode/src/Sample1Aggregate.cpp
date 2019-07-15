@@ -11,7 +11,7 @@ namespace Bct
    {
       namespace Aggregates
       {
-         Sample1Aggregate::Sample1Aggregate(const std::string version) :
+         Sample1Aggregate::Sample1Aggregate(const std::string &version) :
             BaseAggregate(version, &s_metaData),
             Field1("Field1", TypeEnum::DoubleType, MetaData(), this),
             Field7("Field7", TypeEnum::Int32Type, MetaData(), this),

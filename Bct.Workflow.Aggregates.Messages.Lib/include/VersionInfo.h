@@ -18,26 +18,19 @@ namespace Bct
             /// <summary>
             /// Constructor.
             /// </summary>
-            VersionInfo()
-            {
+            VersionInfo();
 
-            }
             /// <summary>
             /// Sets the string value of the version.
             /// </summary>
-            /// <param name="version"></param>
-            VersionInfo(const std::string version) : _version(version)
-            {
-            }
+            /// <param name="version">Version string.</param>
+            VersionInfo(const std::string &version);
 
             /// <summary>
             /// Gets the string value of the version.
             /// </summary>
             /// <returns></returns>
-            std::string Version()
-            {
-               return _version;
-            }
+            std::string Version();
 
          private:
             std::string _version;

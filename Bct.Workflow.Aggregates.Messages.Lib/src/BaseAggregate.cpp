@@ -13,7 +13,7 @@ namespace Bct
    {
       namespace Aggregates
       {
-         BaseAggregate::BaseAggregate(const std::string version, VersionMetaData * metaData) :
+         BaseAggregate::BaseAggregate(const std::string &version, VersionMetaData * metaData) :
             _version(version), _aggregateMetaData(*metaData)
          {
          }

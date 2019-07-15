@@ -25,7 +25,7 @@ namespace Bct
             BaseField<double>  malePostCellsPerMl;
             BaseField<double>  femalePostCellsPerMl;
 
-            PlateletConfigAggregate(const std::string version);
+            PlateletConfigAggregate(const std::string &version);
             virtual ~PlateletConfigAggregate();
          };
 

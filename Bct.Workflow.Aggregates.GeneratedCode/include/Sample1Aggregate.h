@@ -30,7 +30,7 @@ namespace Bct
             BaseField<int32_t>   Field7x;     // extra field for tests
 
             Sample1Aggregate();
-            Sample1Aggregate(const std::string version);
+            Sample1Aggregate(const std::string &version);
             virtual ~Sample1Aggregate();
          };
 

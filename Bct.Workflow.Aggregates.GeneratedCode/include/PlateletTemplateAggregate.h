@@ -13,9 +13,9 @@ namespace Bct
          class PlateletTemplateAggregate : public BaseAggregate
          {
          private:
-            void initMetaData();
             static VersionMetaData s_metaData;
             static bool s_initialized;
+            void initMetaData();
 
          public:
 
@@ -29,8 +29,7 @@ namespace Bct
             BaseField<double> minYield;
             BaseField<double> maxYield;
 
-            PlateletTemplateAggregate(const std::string version);
-
+            PlateletTemplateAggregate(const std::string &version);
             virtual ~PlateletTemplateAggregate();
          };
       }

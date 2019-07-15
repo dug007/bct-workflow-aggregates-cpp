@@ -25,7 +25,7 @@ namespace Bct
             BaseField<int32_t>   field1;
 
             AggComputeField();
-            AggComputeField(const std::string version);
+            AggComputeField(const std::string &version);
             static void initMetaData(VersionMetaData *metaData);
          };
       }
