@@ -9,11 +9,15 @@ namespace Bct
    {
       namespace Aggregates
       {
+         /// <summary>
+         /// Aggregate for ComputeRuleVersion unit test. This provides a simple single field aggregate to test at different versions in metadata.
+         /// This class also demonstrates an alternative to other sample unit tests that allows metadata to be initialized separately from the aggregate.
+         /// The key difference from other code generation samples is that the VersionMetaData is a pointer rather than a reference. 
+         /// </summary>
          class AggComputeField : public BaseAggregate
          {
          private:
-            void initMetaData();
-            static VersionMetaData s_metaData;
+            static VersionMetaData *s_metaData;
             static bool s_initialized;
 
          public:
@@ -22,6 +26,7 @@ namespace Bct
 
             AggComputeField();
             AggComputeField(const std::string version);
+            static void initMetaData(VersionMetaData *metaData);
          };
       }
    }

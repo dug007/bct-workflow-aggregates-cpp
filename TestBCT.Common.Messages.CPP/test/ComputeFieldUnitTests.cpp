@@ -102,8 +102,55 @@ TEST_CASE("PlateletTemplateAggregate110", "[test]")
    CHECK(Platelet_110.cellsPerMl.State() == FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 }
 
+
+// this class is the metadata for the ComputeRuleVersion unit test
+class AggComputeFieldMetaData
+{
+public:
+
+   VersionMetaData metaData;
+
+   AggComputeFieldMetaData()
+   {
+      std::string vers[5] =
+      {
+         "1.0.0",
+         "1.1.0",
+         "1.2.0",
+         "1.3.0",
+         "1.4.0"
+      };
+
+      for (uint16_t i = 0; i < std::size(vers); i++)
+      {
+         metaData.versionInfo.push_back(VersionInfo(vers[i]));
+      }
+
+      // One set of field metadata for all version
+      FieldMeta field1Meta("field1", FieldStateEnum::NotSet, "0", 0);
+      metaData.fieldMetaData.push_back(field1Meta);
+
+
+      ComputeRule cr0("field1v0", "field1", "1 1 ==", "1 1 +", ".0.");
+      ComputeRule cr1("field1v1", "field1", "1 1 ==", "1 2 +", ".1.");
+      ComputeRule cr2("field1v2", "field1", "1 1 ==", "1 3 +", ".2.");
+      ComputeRule cr3_4("field1v3_4", "field1", "1 1 ==", "1 4 +", ".3.4.");
+
+      metaData.computeRules.push_back(cr0);
+      metaData.computeRules.push_back(cr1);
+      metaData.computeRules.push_back(cr2);
+      metaData.computeRules.push_back(cr3_4);
+   };
+};
+
+
 TEST_CASE("ComputeRuleVersion", "[test]")
 {
+   // Setup metadata then initialize aggregate class with this metadata
+   // AggComputeFieldMetaData is defined above
+   AggComputeFieldMetaData separateMetaData;
+   AggComputeField::initMetaData(&separateMetaData.metaData);
+
    AggComputeField a0("1.0.0");
    AggComputeField a1("1.1.0");
    AggComputeField a2("1.2.0");

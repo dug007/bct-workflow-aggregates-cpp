@@ -11,7 +11,7 @@ namespace Bct
       {
  
          PlateletConfigAggregate::PlateletConfigAggregate(const std::string version) :
-            BaseAggregate(version, s_metaData),
+            BaseAggregate(version, &s_metaData),
             postCellsPerMl("postCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
             minTemplateCount("minTemplateCount", TypeEnum::Int32Type, MetaData(), this),
             maxTemplateCount("maxTemplateCount", TypeEnum::Int32Type, MetaData(), this),
