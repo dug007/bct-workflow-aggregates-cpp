@@ -10,7 +10,7 @@ namespace Bct
       namespace Aggregates
       {
          /// <summary>
-         /// Aggregate for ComputeRuleVersion unit test. This provides a simple single field aggregate to test at different versions in metadata.
+         /// Aggregate for ComputeRuleVersion unit test. This provides a simple 2-field aggregate to test at different versions in metadata.
          /// This class also demonstrates an alternative to other sample unit tests that allows metadata to be initialized separately from the aggregate.
          /// The key difference from other code generation samples is that the VersionMetaData is a pointer rather than a reference. 
          /// </summary>
