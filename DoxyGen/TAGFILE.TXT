@@ -65,42 +65,49 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>AssessmentRule</name>
-    <filename>class_assessment_rule.html</filename>
+    <name>Bct::Workflow::Aggregates::AssessmentRule</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</filename>
     <member kind="function">
       <type></type>
       <name>AssessmentRule</name>
-      <anchorfile>class_assessment_rule.html</anchorfile>
-      <anchor>a244bc0339d239b72512640958679fb86</anchor>
-      <arglist>(std::string ruleId, std::string stringId, std::string condition, std::string expression)</arglist>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a0bb6ff17f02a40f34a3cd809a1913a8b</anchor>
+      <arglist>(std::string ruleId, std::string stringId, std::string condition, std::string expression, std::string versions)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
       <name>RuleId</name>
-      <anchorfile>class_assessment_rule.html</anchorfile>
-      <anchor>a7d4ced84744250895419f4b6d578e2c2</anchor>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>ab4f22607a16a36557893547207f1c4ab</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
       <name>StringId</name>
-      <anchorfile>class_assessment_rule.html</anchorfile>
-      <anchor>a975f42d131afcbcb924e3353a9d626c1</anchor>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a4c72b462743945c57fd8ac2b70ecb1fb</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
       <name>Condition</name>
-      <anchorfile>class_assessment_rule.html</anchorfile>
-      <anchor>a7561a258e13f7f109b4911848d30227e</anchor>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a87100439dc55f5259ac98e2b21a7b9b2</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
       <name>Expression</name>
-      <anchorfile>class_assessment_rule.html</anchorfile>
-      <anchor>aadacecdf6157d89500ec98ad158bc6a3</anchor>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a3fb36dc29c440d2da398e9b11e63a0b1</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>InVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a619e90752f753add255bdf462e21e56d</anchor>
+      <arglist>(int16_t ver)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -111,15 +118,15 @@
       <type></type>
       <name>BaseAggregate</name>
       <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
-      <anchor>ab1a385d4a44facf10e9d483015b42854</anchor>
-      <arglist>(const std::string version, VersionMetaData &amp;metaData)</arglist>
+      <anchor>a76ec56e75f9d5e2afc632b0449367561</anchor>
+      <arglist>(const std::string &amp;version, VersionMetaData *metaData)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>BaseAggregate</name>
       <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
-      <anchor>a3cb684c3da4a655bf50a0c22339807b3</anchor>
-      <arglist>(VersionMetaData &amp;metaData)</arglist>
+      <anchor>acc200e6549da5c63b2fced4608734183</anchor>
+      <arglist>(VersionMetaData *metaData)</arglist>
     </member>
     <member kind="function">
       <type>const std::string &amp;</type>
@@ -416,8 +423,8 @@
       <type></type>
       <name>VersionInfo</name>
       <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_version_info.html</anchorfile>
-      <anchor>a7e4f663db80403e21801016b73e4adf0</anchor>
-      <arglist>(const std::string version)</arglist>
+      <anchor>a980cb52efd744a402883eb12ae6e4fd8</anchor>
+      <arglist>(const std::string &amp;version)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
