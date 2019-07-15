@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseAggregate.h"
 #include "BaseField.h"
-#include "VersionMetaData.h"
+#include "AggregateMetaData.h"
 
 namespace Bct
 {

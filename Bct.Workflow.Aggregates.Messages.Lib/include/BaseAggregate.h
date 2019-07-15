@@ -5,7 +5,7 @@
 
 #include "AbstractAggregate.h"
 #include "AbstractField.h"
-#include "VersionMetaData.h"
+#include "AggregateMetaData.h"
 
 
 namespace Bct

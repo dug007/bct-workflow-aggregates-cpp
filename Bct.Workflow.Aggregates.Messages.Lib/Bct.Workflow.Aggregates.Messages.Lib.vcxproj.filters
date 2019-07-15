@@ -51,13 +51,13 @@
     <ClInclude Include="include\VersionInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\VersionMetaData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\TypeEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\BaseFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AggregateMetaData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
