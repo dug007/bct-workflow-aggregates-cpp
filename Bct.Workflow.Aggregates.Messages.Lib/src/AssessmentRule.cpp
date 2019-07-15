@@ -17,7 +17,7 @@ namespace Bct
             return _ruleId;
          }
 
-         std::string AssessmentRule::StringId() const
+         const std::string &AssessmentRule::StringId() const
          {
             return _stringId;
          }

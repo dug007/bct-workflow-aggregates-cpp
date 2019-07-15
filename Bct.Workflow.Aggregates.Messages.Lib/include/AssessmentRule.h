@@ -34,7 +34,7 @@ namespace Bct
             /// Gets string id for localization.
             /// </summary>
             /// <returns>Localization string id.</returns>
-            std::string StringId() const;
+            const std::string &StringId() const;
 
             /// <summary>
             /// Gets condition.

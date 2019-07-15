@@ -20,19 +20,19 @@ namespace Bct
             /// Pure virtual function to return the name of this field as constructed.
             /// </summary>
             /// <returns>The name of this field.</returns>
-            virtual std::string FieldName() const = 0;
+            virtual const std::string &FieldName() const = 0;
 
             /// <summary>
             /// Pure virtual function to return the type enum of this field.
             /// </summary>
             /// <returns>Type enum of this field.</returns>
-            virtual TypeEnum::Type Type() const = 0;
+            virtual const TypeEnum::Type &Type() const = 0;
 
             /// <summary>
             /// Pure virtual function the return the field state of this field.
             /// </summary>
             /// <returns>The field state of this field.</returns>
-            virtual FieldStateEnum::FieldState State() const = 0;
+            virtual const FieldStateEnum::FieldState &State() const = 0;
 
             /// <summary>
             /// Pure virtual function to return the current field set counter value. Implementers should just return
@@ -40,7 +40,7 @@ namespace Bct
             /// set, and this function just returns the current value.
             /// </summary>
             /// <returns>The current field set counter for this field.</returns>
-            virtual uint32_t FieldSetCounter() const = 0;
+            virtual const uint32_t &FieldSetCounter() const = 0;
          protected:
             /// <summary>
             /// Virtual function to return the string representation of the value of this field. This function is
@@ -49,7 +49,7 @@ namespace Bct
             /// this function is the BaseAggregate, which needs this function for RPN calculations.
             /// </summary>
             /// <returns>The string representation of the value of this field.</returns>
-            virtual  std::string ComputedValueString() const = 0;
+            virtual std::string ComputedValueString() const = 0;
 
             /// <summary>
             /// Virtual function to set the value of this field using its string representation. This function is

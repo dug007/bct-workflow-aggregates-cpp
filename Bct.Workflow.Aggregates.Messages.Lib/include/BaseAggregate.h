@@ -39,7 +39,7 @@ namespace Bct
             /// Get current version of aggregate.
             /// </summary>
             /// <returns>Aggregate version.</returns>
-            const std::string& getVersion();
+            const std::string& getVersion() const;
 
             /// <summary>
             /// Updates all calculated fields for this aggregate.
@@ -60,7 +60,7 @@ namespace Bct
             /// latest counter.
             /// </summary>
             /// <returns>The incremented field set counter.</returns>
-            uint32_t FieldSetCounter();
+            const uint32_t &FieldSetCounter();
 
             // TODO: determine best way to define - User Story 126907
             // Field types
@@ -99,13 +99,13 @@ namespace Bct
             /// Returns the current version index for this aggregate.
             /// </summary>
             /// <returns>Current version index.</returns>
-            int32_t Ver();
+            int32_t Ver() const;
 
             /// <summary>
             /// Returns the current version string for this aggregate.
             /// </summary>
             /// <returns>Current verson string.</returns>
-            const std::string & Version();
+            const std::string & Version() const;
 
          private:
             VersionMetaData & _aggregateMetaData;

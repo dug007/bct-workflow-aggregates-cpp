@@ -27,7 +27,7 @@ namespace Bct
           */
          BaseAggregate::~BaseAggregate() {};
 
-         const std::string& BaseAggregate::getVersion()
+         const std::string& BaseAggregate::getVersion() const
          {
             return _version;
           };
@@ -121,7 +121,7 @@ namespace Bct
             }
          }
 
-         uint32_t BaseAggregate::FieldSetCounter()
+         const uint32_t &BaseAggregate::FieldSetCounter()
          {
             _fieldSetCounter++;
             return _fieldSetCounter;
@@ -137,12 +137,12 @@ namespace Bct
             return _fieldList;
          }
 
-         int32_t BaseAggregate::Ver()
+         int32_t BaseAggregate::Ver() const
          {
             return _ver;
          }
 
-         const std::string & BaseAggregate::Version()
+         const std::string & BaseAggregate::Version() const
          {
             return _version;
          }

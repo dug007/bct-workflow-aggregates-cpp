@@ -21,7 +21,6 @@ namespace Bct
          template<class T>
          class BaseField : public AbstractField
          {
-
          public:
 
             /// <summary>
@@ -57,7 +56,7 @@ namespace Bct
             /// Get the value of this field.
             /// </summary>
             /// <returns>The value of this field.</returns>
-            T Value() const
+            const T &Value() const
             {
                // rules to implement here - User Story 12698
                switch (_state)
@@ -109,7 +108,7 @@ namespace Bct
             /// Get the name of this field.
             /// </summary>
             /// <returns>Name of this field.</returns>
-            virtual  std::string FieldName() const
+            virtual const std::string &FieldName() const
             {
                return _fieldName;
             }
@@ -118,7 +117,7 @@ namespace Bct
             /// Get the type of this field.
             /// </summary>
             /// <returns>Type of this field.</returns>
-            virtual  TypeEnum::Type Type() const
+            virtual const TypeEnum::Type &Type() const
             {
                return _type;
             }
@@ -127,7 +126,7 @@ namespace Bct
             /// Get the state of this field.
             /// </summary>
             /// <returns>State of this field.</returns>
-            virtual  FieldStateEnum::FieldState State() const
+            virtual const FieldStateEnum::FieldState &State() const
             {
                return _state;
             }
@@ -136,7 +135,7 @@ namespace Bct
             /// Get the field set counter for this field. This provides the relative order of when fields were last set.
             /// </summary>
             /// <returns>Field set counter.</returns>
-            virtual uint32_t FieldSetCounter() const
+            virtual const uint32_t &FieldSetCounter() const
             {
                return _fieldSetCounter;
             }
@@ -177,7 +176,7 @@ namespace Bct
             /// Determins if this field has a value.
             /// </summary>
             /// <returns>true if the field has a  value, false if the field does not hava a value.</returns>
-            bool HasValue() const
+            const bool &HasValue() const
             {
                // TODO handle Computed after field as been computed - User Story 126600
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
@@ -191,7 +190,7 @@ namespace Bct
             /// Gets the string representation value of this field. This function is not public and is only needed for RPN computations.
             /// </summary>
             /// <returns>String representation of this field.</returns>
-            virtual  std::string ComputedValueString() const
+            virtual std::string ComputedValueString() const
             {
                // TODO Use serialization library for string<->type conversion - User Story 126886
                std::stringstream ss;
