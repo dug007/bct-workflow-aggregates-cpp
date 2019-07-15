@@ -78,10 +78,8 @@ TEST_CASE("AssessRulesTest", "[test]")
    // assessv1 is not in v0
    CHECK_THROWS_AS(a0.Assess("assessv1"), char*);
 
-
    // run all assessments
-   AssessmentResult mixed = a0.Assess("*"); // all rules
-
+   AssessmentResult mixed = a0.Assess("*"); // run all rules
 
    CHECK(mixed.isSuccess() == false);
    CHECK(mixed.getErrorIds().size() == 1);
