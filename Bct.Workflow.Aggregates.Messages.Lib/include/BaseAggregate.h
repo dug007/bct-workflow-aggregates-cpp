@@ -25,13 +25,13 @@ namespace Bct
             /// </summary>
             /// <param name="version">The version to be constucted, such as 1.2.3</param>
             /// <param name="metaData">The aggregate metadata.</param>
-            BaseAggregate(const std::string &version, VersionMetaData * metaData);
+            BaseAggregate(const std::string &version, AggregateMetaData * metaData);
 
             /// <summary>
             /// Constructor. This constucts the mose recent version.
             /// </summary>
             /// <param name="metaData">The aggregate metadata.</param>
-            BaseAggregate(VersionMetaData * metaData);
+            BaseAggregate(AggregateMetaData * metaData);
 
             virtual ~BaseAggregate();
 
@@ -87,7 +87,7 @@ namespace Bct
             /// Returns the aggregate metatdata.
             /// </summary>
             /// <returns>Aggregate metadata</returns>
-            VersionMetaData & MetaData();
+            AggregateMetaData & MetaData();
 
             /// <summary>
             /// Returns the list of fields in this aggregate.
@@ -108,7 +108,7 @@ namespace Bct
             const std::string & Version() const;
 
          private:
-            VersionMetaData & _aggregateMetaData;
+            AggregateMetaData & _aggregateMetaData;
             std::vector<AbstractField*> _fieldList;
             int16_t _ver;
             std::string _version;

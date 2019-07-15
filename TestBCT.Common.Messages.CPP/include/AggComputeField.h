@@ -17,7 +17,7 @@ namespace Bct
          class AggComputeField : public BaseAggregate
          {
          private:
-            static VersionMetaData *s_metaData;
+            static AggregateMetaData *s_metaData;
             static bool s_initialized;
 
          public:
@@ -27,7 +27,7 @@ namespace Bct
 
             AggComputeField();
             AggComputeField(const std::string &version);
-            static void initMetaData(VersionMetaData *metaData);
+            static void initMetaData(AggregateMetaData *metaData);
          };
       }
    }

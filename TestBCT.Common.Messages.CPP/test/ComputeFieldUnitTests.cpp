@@ -108,7 +108,7 @@ class AggComputeFieldMetaData
 {
 public:
 
-   VersionMetaData metaData;
+   AggregateMetaData metaData;
 
    AggComputeFieldMetaData()
    {

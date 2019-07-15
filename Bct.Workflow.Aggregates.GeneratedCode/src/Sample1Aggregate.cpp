@@ -69,7 +69,7 @@ namespace Bct
 
          void Sample1Aggregate::initMetaData()
          {
-            VersionMetaData &aggMeta = MetaData();
+            AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;
 
             std::string vers[3] =
@@ -219,7 +219,7 @@ namespace Bct
             s_initialized = true;
          };
 
-         VersionMetaData Sample1Aggregate::s_metaData;
+         AggregateMetaData Sample1Aggregate::s_metaData;
          bool Sample1Aggregate::s_initialized = false;
       };
    }

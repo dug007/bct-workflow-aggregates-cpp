@@ -13,7 +13,7 @@ namespace Bct
          class PlateletTemplateAggregate : public BaseAggregate
          {
          private:
-            static VersionMetaData s_metaData;
+            static AggregateMetaData s_metaData;
             static bool s_initialized;
             void initMetaData();
 

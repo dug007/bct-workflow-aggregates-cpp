@@ -13,7 +13,7 @@ namespace Bct
          {
          private:
             void initMetaData();
-            static VersionMetaData s_metaData;
+            static AggregateMetaData s_metaData;
             static bool s_initialized;
 
          public:

@@ -32,14 +32,14 @@ namespace Bct
             SyncCurrentVersion();
          }
 
-         void AggComputeField::initMetaData(VersionMetaData  *metaData)
+         void AggComputeField::initMetaData(AggregateMetaData  *metaData)
          {
             s_metaData = metaData;
             s_initialized = true;
          }
 
          bool AggComputeField::s_initialized = false;
-         VersionMetaData *AggComputeField::s_metaData;
+         AggregateMetaData *AggComputeField::s_metaData;
       };
    }
 }

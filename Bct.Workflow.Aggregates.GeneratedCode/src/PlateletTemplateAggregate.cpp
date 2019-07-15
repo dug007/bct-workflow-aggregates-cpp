@@ -44,7 +44,7 @@ namespace Bct
 
          void PlateletTemplateAggregate::initMetaData()
          {
-            VersionMetaData &aggMeta = MetaData();
+            AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;
 
             std::string vers[2] =
@@ -203,7 +203,7 @@ namespace Bct
             s_initialized = true;
          }
 
-         VersionMetaData PlateletTemplateAggregate::s_metaData;
+         AggregateMetaData PlateletTemplateAggregate::s_metaData;
          bool PlateletTemplateAggregate::s_initialized = false;
 
       }

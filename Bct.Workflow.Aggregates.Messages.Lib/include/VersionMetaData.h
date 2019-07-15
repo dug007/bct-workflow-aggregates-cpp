@@ -22,7 +22,7 @@ namespace Bct
          /// version, the aggregate constructor searches for metadata items associated with the current version and initializes
          /// the aggregate with that metadata.
          /// </summary>
-         class VersionMetaData
+         class AggregateMetaData
          {
          public:
             std::vector <VersionInfo> versionInfo;

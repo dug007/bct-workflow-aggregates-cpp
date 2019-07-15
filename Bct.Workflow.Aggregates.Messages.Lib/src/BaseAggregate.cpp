@@ -13,12 +13,12 @@ namespace Bct
    {
       namespace Aggregates
       {
-         BaseAggregate::BaseAggregate(const std::string &version, VersionMetaData * metaData) :
+         BaseAggregate::BaseAggregate(const std::string &version, AggregateMetaData * metaData) :
             _version(version), _aggregateMetaData(*metaData)
          {
          }
 
-         BaseAggregate::BaseAggregate(VersionMetaData *metaData) :
+         BaseAggregate::BaseAggregate(AggregateMetaData *metaData) :
             _ver(-1), _aggregateMetaData(*metaData)
          {
          }
@@ -91,7 +91,7 @@ namespace Bct
 
          void BaseAggregate::SyncCurrentVersion()
          {
-            VersionMetaData &ad = _aggregateMetaData;
+            AggregateMetaData &ad = _aggregateMetaData;
             if (_ver == -1) // seek most recent version
             {
                _ver = static_cast<uint16_t>(ad.versionInfo.size()-1);
@@ -127,7 +127,7 @@ namespace Bct
             return _fieldSetCounter;
          }
 
-         VersionMetaData & BaseAggregate::MetaData()
+         AggregateMetaData & BaseAggregate::MetaData()
          {
             return _aggregateMetaData;
          }

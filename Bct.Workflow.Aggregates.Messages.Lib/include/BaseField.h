@@ -30,7 +30,7 @@ namespace Bct
             /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
             /// <param name="metaData">Metadata vector.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(const std::string fieldName, const TypeEnum::Type t, VersionMetaData & metaData,  AbstractAggregate *aggregate)
+            BaseField(const std::string fieldName, const TypeEnum::Type t, AggregateMetaData & metaData,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
             }
@@ -231,7 +231,7 @@ namespace Bct
             FieldStateEnum::FieldState _state;
             TypeEnum::Type _type;
             std::string _fieldName;
-            VersionMetaData & _metaData;
+            AggregateMetaData & _metaData;
             int16_t _ver;
             uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;
