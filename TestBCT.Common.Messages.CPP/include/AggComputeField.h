@@ -23,6 +23,7 @@ namespace Bct
          public:
 
             BaseField<int32_t>   field1;
+            BaseField<int32_t>   field2;
 
             AggComputeField();
             AggComputeField(const std::string &version);

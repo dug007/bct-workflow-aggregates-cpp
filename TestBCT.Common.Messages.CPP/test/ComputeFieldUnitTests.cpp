@@ -127,13 +127,15 @@ public:
       }
 
       // One set of field metadata for all version
-      FieldMeta field1Meta("field1", FieldStateEnum::Default, "21", 0);
+      FieldMeta field1Meta("field1", FieldStateEnum::Default, "0", 0);
+      FieldMeta field2Meta("field2", FieldStateEnum::Default, "21", 0);
       metaData.fieldMetaData.push_back(field1Meta);
+      metaData.fieldMetaData.push_back(field2Meta);
 
-      ComputeRule cr0("field1v0",     "field1", "field1 21 ==", "field1 1 +", ".0.");       // version 0 computes 22
-      ComputeRule cr1("field1v1",     "field1", "field1 21 ==", "field1 2 +", ".1.");       // version 1 computes 23
-      ComputeRule cr2("field1v2",     "field1", "field1 21 ==", "field1 3 +", ".2.");       // version 2 computes 24
-      ComputeRule cr3_4("field1v3_4", "field1", "field1 21 ==", "field1 4 +", ".3.4.");     // version 3 and 4 computes 25
+      ComputeRule cr0("field1v0",     "field1", "field2 21 ==", "field2 1 +", ".0.");       // version 0 computes 22
+      ComputeRule cr1("field1v1",     "field1", "field2 21 ==", "field2 2 +", ".1.");       // version 1 computes 23
+      ComputeRule cr2("field1v2",     "field1", "field2 21 ==", "field2 3 +", ".2.");       // version 2 computes 24
+      ComputeRule cr3_4("field1v3_4", "field1", "field2 21 ==", "field2 4 +", ".3.4.");     // version 3 and 4 computes 25
 
       metaData.computeRules.push_back(cr0);
       metaData.computeRules.push_back(cr1);
