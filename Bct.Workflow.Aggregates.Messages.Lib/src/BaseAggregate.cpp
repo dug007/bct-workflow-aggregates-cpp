@@ -122,7 +122,7 @@ namespace Bct
             for (size_t j = 0; j < aRules.size(); j++)
             {
                AssessmentRule aRule = aRules[j];
-               if (aRule.RuleId() == id)
+               if (aRule.RuleId() == id || id == "*")
                {
                   if (aRule.InVersion(Ver()))
                   {
@@ -137,18 +137,19 @@ namespace Bct
                         evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
                         if (answerValue != "true")
                         {
-                           result.addError(id, answerValue);
+                           result.addError(aRule.RuleId(), answerValue);
                         }
                      }
                   }
-                  else
+                  else if (id != "*")
                   {
-                     throw "error: not in version";  // TODO: assessment rule not in version - User Story 127481
+                     throw "error: assessment rule not in version";  // TODO: assessment rule not in version - User Story 127481
                   }
                }
             }
             return result;
          }
+
          void BaseAggregate::SyncCurrentVersion()
          {
             AggregateMetaData &ad = _aggregateMetaData;
