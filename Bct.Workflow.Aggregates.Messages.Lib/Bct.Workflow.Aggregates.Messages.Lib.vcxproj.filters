@@ -60,6 +60,9 @@
     <ClInclude Include="include\AggregateMetaData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\AssessmentResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseAggregate.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\VersionInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessmentResult.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
