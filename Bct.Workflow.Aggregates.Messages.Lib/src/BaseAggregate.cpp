@@ -119,11 +119,13 @@ namespace Bct
             }
 
             std::vector<AssessmentRule> aRules = _aggregateMetaData.assessmentRules;
+            bool ruleExists = false;
             for (size_t j = 0; j < aRules.size(); j++)
             {
                AssessmentRule aRule = aRules[j];
                if (aRule.RuleId() == id || id == "*")
                {
+                  ruleExists = true;
                   if (aRule.InVersion(Ver()))
                   {
                      std::string condition = aRule.Condition();
@@ -146,6 +148,10 @@ namespace Bct
                      throw "error: assessment rule not in version";  // TODO: assessment rule not in version - User Story 127481
                   }
                }
+            }
+            if (!ruleExists)
+            {
+               throw "error: assessment rule not found in any version";  // TODO: assessment rule not in version - User Story 127481
             }
             return result;
          }

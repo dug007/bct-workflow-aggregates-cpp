@@ -63,6 +63,9 @@
     <ClInclude Include="include\AssessmentResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\VersionMetaData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseAggregate.cpp">

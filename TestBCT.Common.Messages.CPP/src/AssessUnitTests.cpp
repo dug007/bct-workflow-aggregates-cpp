@@ -26,11 +26,16 @@ public:
       for (uint16_t i = 0; i < std::size(vers); i++)
       {
          metaData.versionInfo.push_back(VersionInfo(vers[i]));
+         VersionMetaData vm;
+         metaData.versionMetaData.push_back(vm);
       }
 
       // One set of field metadata for all version
       FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", 0);
       FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", 0);
+
+      //metaData.versionMetaData[0].fieldMetaData.push_back(field1Meta);
+      //metaData.versionMetaData[0].fieldMetaData.push_back(field2Meta);
       metaData.fieldMetaData.push_back(field1Meta);
       metaData.fieldMetaData.push_back(field2Meta);
 
@@ -42,6 +47,7 @@ public:
       metaData.assessmentRules.push_back(ar0);
       metaData.assessmentRules.push_back(ar1);
       metaData.assessmentRules.push_back(ar2);
+      metaData.assessmentRules.push_back(ar3);
    };
 };
 

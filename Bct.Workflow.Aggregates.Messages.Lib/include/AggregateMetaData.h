@@ -7,6 +7,7 @@
 #include "FieldMeta.h"
 #include "AssessmentRule.h"
 #include "ComputeRule.h"
+#include "VersionMetaData.h"
 
 namespace Bct
 {
@@ -26,6 +27,7 @@ namespace Bct
          {
          public:
             std::vector <VersionInfo> versionInfo;
+            std::vector<VersionMetaData> versionMetaData;
             std::vector<FieldMeta> fieldMetaData;
             std::vector<AssessmentRule> assessmentRules;
             std::vector<ComputeRule> computeRules;
