@@ -48,6 +48,8 @@ namespace Bct
                return "EnumType";
             case VariableType:
                return "VariableType";
+			case SByte:
+				return "SByte";
             default:
                return "Empty";
             }
