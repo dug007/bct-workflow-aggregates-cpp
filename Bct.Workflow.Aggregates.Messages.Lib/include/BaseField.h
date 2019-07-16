@@ -30,7 +30,7 @@ namespace Bct
             /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
             /// <param name="metaData">Metadata vector.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(const std::string fieldName, const TypeEnum::Type t, AggregateMetaData & metaData,  AbstractAggregate *aggregate)
+            BaseField(const std::string &fieldName, const TypeEnum::Type &t, AggregateMetaData & metaData,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
             {
             }
@@ -43,7 +43,7 @@ namespace Bct
             /// Set the value of this field.
             /// </summary>
             /// <param name="v">Value to give this field.</param>
-            void Value(const T v)
+            void Value(const T &v)
             {
                if (_state == FieldStateEnum::Constant)
                {
@@ -75,7 +75,7 @@ namespace Bct
                return _val;
             }
 
-            T operator=(const T val)
+            T operator=(const T &val)
             {
                this->Value(val);
                return *this;
@@ -218,7 +218,7 @@ namespace Bct
             /// Sets default value.
             /// </summary>
             /// <param name="def">Default value.</param>
-            void SetDefault(const T def)
+            void SetDefault(const T &def)
             {
                _default = def;
                _val = def;
@@ -236,7 +236,7 @@ namespace Bct
             uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;
 
-            void ValueInternal(const T v, bool fromCalculation)
+            void ValueInternal(const T &v, bool fromCalculation)
             {
                _val = v;
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
@@ -266,7 +266,7 @@ namespace Bct
 
             }
             
-            FieldMeta findFieldMeta()
+            FieldMeta findFieldMeta() const
             {
                std::vector<FieldMeta> fm = _metaData.fieldMetaData;
                for (size_t i = fm.size()-1; i >= 0; i--)
