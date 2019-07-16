@@ -22,8 +22,17 @@ namespace Bct
          class VersionMetaData
          {
          public:
+            /// <summary>
+            /// Field metadata for a specific version. 
+            /// </summary>
             std::vector<FieldMeta> fieldMetaData;
+            /// <summary>
+            /// Assessment rule metadata for a specific version.
+            /// </summary>
             std::vector<AssessmentRule> assessmentRules;
+            /// <summary>
+            /// Compute rule metadata for a specific version.
+            /// </summary>
             std::vector<ComputeRule> computeRules;
          };
       }

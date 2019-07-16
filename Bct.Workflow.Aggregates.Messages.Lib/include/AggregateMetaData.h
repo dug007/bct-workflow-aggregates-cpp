@@ -18,18 +18,32 @@ namespace Bct
          /// <summary>
          /// Metadata across all versions. 
          /// 
-         /// Each type of metadata is stored sparsely in a vector of that type. Each metadata item in these vectors
-         /// contains the version index that metadata item is associated with. When an aggregate is constucted for a current
-         /// version, the aggregate constructor searches for metadata items associated with the current version and initializes
-         /// the aggregate with that metadata.
+         /// Each type of metadata is stored sparsely in a vector of that type.
          /// </summary>
          class AggregateMetaData
          {
          public:
+            /// <summary>
+            /// Version info for versions. The vector is ordered by increasing version. The vector index IS the ver value.
+            /// </summary>
             std::vector <VersionInfo> versionInfo;
+            /// <summary>
+            /// Version metadata for specific versions. The vector is ordered by increasing version. The vector index IS the ver value.
+            /// </summary>
             std::vector<VersionMetaData> versionMetaData;
+            /// <summary>
+            /// Field metadata. The vector is ordered by increasing version in major order, and field in minor order. The vector index IS NOT the ver value. 
+            /// Searching backwards matching both version and field name results in locating the most recent version of a particular field first.
+            /// backward
+            /// </summary>
             std::vector<FieldMeta> fieldMetaData;
+            /// <summary>
+            /// Assessment rule metadata. The vector order is NOT the ver value.
+            /// </summary>
             std::vector<AssessmentRule> assessmentRules;
+            /// <summary>
+            /// Compute rule metadata.The vector order is NOT the ver value.
+            /// </summary>
             std::vector<ComputeRule> computeRules;
          };
       }
