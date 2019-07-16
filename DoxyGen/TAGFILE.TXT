@@ -193,6 +193,13 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
+      <type>AssessmentResult</type>
+      <name>Assess</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a2dda29d0da92ddc2c111a16da765a0b1</anchor>
+      <arglist>(const std::string &amp;id)</arglist>
+    </member>
+    <member kind="function">
       <type>void</type>
       <name>convertVersion</name>
       <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
@@ -483,6 +490,10 @@
       <anchor>a4ac558e57ba28c64fde4ff47e1eb2369</anchor>
       <arglist>()</arglist>
     </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::VersionMetaData</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_version_meta_data.html</filename>
   </compound>
   <compound kind="namespace">
     <name>Bct::Workflow::Aggregates::FieldStateEnum</name>
