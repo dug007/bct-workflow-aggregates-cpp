@@ -179,14 +179,23 @@ namespace Bct
                FieldMeta maxYield_("maxYield", _maxYieldStates[i], _maxYieldDefaults[i], i);
 
                aggMeta.fieldMetaData.push_back(volumeMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(cellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(yield_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(minVolumeMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(maxVolumeMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(minCellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(maxCellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(minYield_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(maxYield_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
             }
             // Simple computation rules
             {

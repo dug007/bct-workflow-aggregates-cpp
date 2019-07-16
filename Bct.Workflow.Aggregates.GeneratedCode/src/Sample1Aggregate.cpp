@@ -200,13 +200,20 @@ namespace Bct
                if (i != 1)
                {
                   aggMeta.fieldMetaData.push_back(Field1_);
+                  aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                   aggMeta.fieldMetaData.push_back(Field7_);
+                  aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                }
                aggMeta.fieldMetaData.push_back(Field7d_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7c_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7ro_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7com_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7x_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
             }
 
             // Simple computation rules

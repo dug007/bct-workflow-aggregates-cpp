@@ -34,6 +34,20 @@ namespace Bct
             /// Compute rule metadata for a specific version.
             /// </summary>
             std::vector<ComputeRule> computeRules;
+
+            /// <summary>
+            /// Field metadata for a specific version. 
+            /// </summary>
+            std::vector<int16_t> fieldMetaDataI;
+            /// <summary>
+            /// Assessment rule metadata for a specific version.
+            /// </summary>
+            std::vector<int16_t> assessmentRulesI;
+            /// <summary>
+            /// Compute rule metadata for a specific version.
+            /// </summary>
+            std::vector<int16_t> computeRulesI;
+
          };
       }
    }

@@ -34,10 +34,20 @@ public:
       FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", 0);
       FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", 0);
 
-      metaData.versionMetaData[0].fieldMetaData.push_back(field1Meta);
-      metaData.versionMetaData[0].fieldMetaData.push_back(field2Meta);
+      //metaData.versionMetaData[0].fieldMetaData.push_back(field1Meta);
+      //metaData.versionMetaData[0].fieldMetaData.push_back(field2Meta);
       metaData.fieldMetaData.push_back(field1Meta);
+      metaData.versionMetaData[0].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
+      metaData.versionMetaData[1].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
+      metaData.versionMetaData[2].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
+      metaData.versionMetaData[3].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
+      metaData.versionMetaData[4].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
       metaData.fieldMetaData.push_back(field2Meta);
+      metaData.versionMetaData[0].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
+      metaData.versionMetaData[1].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
+      metaData.versionMetaData[2].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
+      metaData.versionMetaData[3].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
+      metaData.versionMetaData[4].fieldMetaDataI.push_back((int16_t)metaData.versionMetaData.size() - 1);
 
       AssessmentRule ar0("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==", ".0.");
       AssessmentRule ar1("assessv1", "assessv1", "field2 10 ==", "field1 field2 !=", ".1.");

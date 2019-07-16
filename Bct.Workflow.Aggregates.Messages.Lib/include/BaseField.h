@@ -268,12 +268,15 @@ namespace Bct
             
             FieldMeta findFieldMeta()
             {
-               std::vector<FieldMeta> fm = _metaData.fieldMetaData;
-               for (size_t i = fm.size()-1; i >= 0; i--)
+               std::vector<FieldMeta> fm = _metaData.versionMetaData[_ver].fieldMetaData;
+               if (fm.size() > 0)
                {
-                  if (fm[i].FieldName() == _fieldName && fm[i]._ver <= _ver)
+                  for (size_t i = fm.size() - 1; i >= 0; i--)
                   {
-                     return fm[i];
+                     if (fm[i].FieldName() == _fieldName && fm[i]._ver <= _ver)
+                     {
+                        return fm[i];
+                     }
                   }
                }
                throw "error: metadata missing requested version of field";
