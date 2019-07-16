@@ -34,8 +34,8 @@ public:
       FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", 0);
       FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", 0);
 
-      //metaData.versionMetaData[0].fieldMetaData.push_back(field1Meta);
-      //metaData.versionMetaData[0].fieldMetaData.push_back(field2Meta);
+      metaData.versionMetaData[0].fieldMetaData.push_back(field1Meta);
+      metaData.versionMetaData[0].fieldMetaData.push_back(field2Meta);
       metaData.fieldMetaData.push_back(field1Meta);
       metaData.fieldMetaData.push_back(field2Meta);
 
@@ -44,9 +44,9 @@ public:
       AssessmentRule ar2("assessv2", "assessv2", "field2 10 ==", "field1 field2 + 11 ==", ".2.");
       AssessmentRule ar3("assessv012", "assessv012", "field2 10 ==", "field1 field2 + 1 - 10 ==", ".0.1.2.");
 
-      metaData.assessmentRules.push_back(ar0);
-      metaData.assessmentRules.push_back(ar1);
-      metaData.assessmentRules.push_back(ar2);
+      metaData.versionMetaData[0].assessmentRules.push_back(ar0);
+      metaData.versionMetaData[1].assessmentRules.push_back(ar1);
+      metaData.versionMetaData[2].assessmentRules.push_back(ar2);
       metaData.assessmentRules.push_back(ar3);
    };
 };

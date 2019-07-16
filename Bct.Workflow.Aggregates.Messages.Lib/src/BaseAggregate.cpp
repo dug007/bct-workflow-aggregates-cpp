@@ -118,16 +118,41 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
 
-            std::vector<AssessmentRule> aRules = _aggregateMetaData.assessmentRules;
-            bool ruleExists = false;
+            bool foundRule = false;
+            // first try exact version vector
+            std::vector<AssessmentRule> &aRulesV = _aggregateMetaData.versionMetaData[Ver()].assessmentRules;
+            for (size_t j = 0; j < aRulesV.size(); j++)
+            {
+               AssessmentRule aRule = aRulesV[j];
+               if (aRule.RuleId() == id || id == "*")
+               {
+                  foundRule = true;
+                  std::string condition = aRule.Condition();
+                  std::string expression = aRule.Expression();
+                  std::string answerValue;
+                  TypeEnum::Type answerType;
+                  RPNEvaluator evaluator;
+                  evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
+                  if ("true" == answerValue)
+                  {
+                     evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                     if (answerValue != "true")
+                     {
+                        result.addError(aRule.RuleId(), answerValue);
+                     }
+                  }
+               }
+            }
+            // now try multiple version vector
+            std::vector<AssessmentRule> &aRules = _aggregateMetaData.assessmentRules;
             for (size_t j = 0; j < aRules.size(); j++)
             {
                AssessmentRule aRule = aRules[j];
                if (aRule.RuleId() == id || id == "*")
                {
-                  ruleExists = true;
                   if (aRule.InVersion(Ver()))
                   {
+                     foundRule = true;
                      std::string condition = aRule.Condition();
                      std::string expression = aRule.Expression();
                      std::string answerValue;
@@ -143,16 +168,13 @@ namespace Bct
                         }
                      }
                   }
-                  else if (id != "*")
-                  {
-                     throw "error: assessment rule not in version";  // TODO: assessment rule not in version - User Story 127481
-                  }
                }
             }
-            if (!ruleExists)
+            if (!foundRule)
             {
                throw "error: assessment rule not found in any version";  // TODO: assessment rule not in version - User Story 127481
             }
+
             return result;
          }
 

@@ -137,6 +137,8 @@ namespace Bct
             for (uint16_t i = 0; i < std::size(vers); i++)
             {
                aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
+               VersionMetaData vm;
+               aggMeta.versionMetaData.push_back(vm);
 
                FieldMeta postCellsPerMl_("postCellsPerMl", _postCellsPerMlStates[i], _postCellsPerMlDefaults[i], i);
                FieldMeta minTemplateCount_("minTemplateCount", _minTemplateCountStates[i], _minTemplateCountDefaults[i], i);

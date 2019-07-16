@@ -124,6 +124,8 @@ public:
       for (uint16_t i = 0; i < std::size(vers); i++)
       {
          metaData.versionInfo.push_back(VersionInfo(vers[i]));
+         VersionMetaData vm;
+         metaData.versionMetaData.push_back(vm);
       }
 
       // One set of field metadata for all version
