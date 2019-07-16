@@ -6,6 +6,7 @@
 #include "AbstractAggregate.h"
 #include "AbstractField.h"
 #include "AggregateMetaData.h"
+#include "AssessmentResult.h"
 
 
 namespace Bct
@@ -46,6 +47,13 @@ namespace Bct
             /// </summary>
             void UpdateCalculatedFields();
 
+            /// <summary>
+            /// Run one or all assessment rules.
+            /// </summary>
+            /// <param name="id">The id of the assessment rule to run or * to run all assessment rules</param>
+            /// <returns>The result of the assessment.</returns>
+            AssessmentResult Assess(const std::string &id);
+            
             /// <summary>
             /// Convertes current version to the specified version.
             /// </summary>

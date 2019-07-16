@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="include\AbstractAggregate.h" />
     <ClInclude Include="include\AbstractField.h" />
+    <ClInclude Include="include\AssessmentResult.h" />
     <ClInclude Include="include\AssessmentRule.h" />
     <ClInclude Include="include\BaseAggregate.h" />
     <ClInclude Include="include\BaseField.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AssessmentResult.cpp" />
     <ClCompile Include="src\AssessmentRule.cpp" />
     <ClCompile Include="src\BaseAggregate.cpp" />
     <ClCompile Include="src\ComputeRule.cpp" />

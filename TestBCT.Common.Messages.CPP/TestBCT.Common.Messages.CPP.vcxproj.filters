@@ -24,12 +24,21 @@
     <ClCompile Include="AggComputeField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AggAssess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AggComputeField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AggAssess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

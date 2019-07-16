@@ -69,6 +69,52 @@
     <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_aggregate_meta_data.html</filename>
   </compound>
   <compound kind="class">
+    <name>Bct::Workflow::Aggregates::AssessmentResult</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>AssessmentResult</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a6cba048ebac29c09406ce507c2426c49</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addError</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a0f94e8f2133110c9bc95fbaf8ac81cb2</anchor>
+      <arglist>(std::string id, std::string context)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>getErrorIds</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a99cb180f37ff28e3feb979f608078075</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>getContexts</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a96f94b2e0c9b15a2525e81dd72ee8cc3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isSuccess</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a3fcc90c446bb91d8599be5de015323dd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isFailure</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a2360f98ff5c267c2364373b716fd2e89</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>Bct::Workflow::Aggregates::AssessmentRule</name>
     <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</filename>
     <member kind="function">
@@ -145,6 +191,13 @@
       <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
       <anchor>ab66418f34b99152721aa34fb605811fd</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>AssessmentResult</type>
+      <name>Assess</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a2dda29d0da92ddc2c111a16da765a0b1</anchor>
+      <arglist>(const std::string &amp;id)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -437,6 +490,10 @@
       <anchor>a4ac558e57ba28c64fde4ff47e1eb2369</anchor>
       <arglist>()</arglist>
     </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::VersionMetaData</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_version_meta_data.html</filename>
   </compound>
   <compound kind="namespace">
     <name>Bct::Workflow::Aggregates::FieldStateEnum</name>

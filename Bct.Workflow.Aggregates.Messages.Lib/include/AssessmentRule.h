@@ -9,7 +9,7 @@ namespace Bct
       namespace Aggregates
       {
          /// <summary>
-         /// Assessment rule. An assessment rule is used by a user interface to asess if the values for fields are valid.
+         /// Assessment rule. An assessment rule is used by a user interface to assess if the values for fields are valid.
          /// </summary>
          class AssessmentRule
          {
