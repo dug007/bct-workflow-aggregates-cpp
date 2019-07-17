@@ -195,26 +195,21 @@ namespace Bct
                FieldMeta Field7com_("Field7com", _Field7comstates[i], _Field7comdefaults[i], i);
                FieldMeta Field7x_("Field7x", _Field7xstates[i], _Field7xdefaults[i], i);
 
-               // This could be a sparse array - this example is fixed to 3 versions, but here we are
-               // leaving out the aggregate data for the first version
-               if (i != 1)
-               {
-                  aggMeta.fieldMetaData.push_back(Field1_);
-                  aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
-                  aggMeta.fieldMetaData.push_back(Field7_);
-                  aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
-               }
+               aggMeta.fieldMetaData.push_back(Field1_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
+               aggMeta.fieldMetaData.push_back(Field7_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7d_);
-               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7c_);
-               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7ro_);
-               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7com_);
-               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7x_);
-               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.versionMetaData.size() - 1);
-            }
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
+           }
 
             // Simple computation rules
             ComputeRule cr1("Field1Id1", "Field1", "1 1 ==", "Field1 20.0 +", ".0.1.2.");

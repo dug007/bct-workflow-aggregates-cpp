@@ -268,14 +268,15 @@ namespace Bct
             
             FieldMeta findFieldMeta()
             {
-               std::vector<FieldMeta> fm = _metaData.versionMetaData[_ver].fieldMetaData;
-               if (fm.size() > 0)
+               std::vector<int16_t> fmi = _metaData.versionMetaData[_ver].fieldMetaDataI;
+               if (fmi.size() > 0)
                {
-                  for (size_t i = fm.size() - 1; i >= 0; i--)
+                  for (size_t i = fmi.size() - 1; i >= 0; i--)
                   {
-                     if (fm[i].FieldName() == _fieldName && fm[i]._ver <= _ver)
+                     FieldMeta fm = _metaData.fieldMetaData[fmi[i]];
+                     if (fm.FieldName() == _fieldName && fm._ver <= _ver)
                      {
-                        return fm[i];
+                        return fm;
                      }
                   }
                }
