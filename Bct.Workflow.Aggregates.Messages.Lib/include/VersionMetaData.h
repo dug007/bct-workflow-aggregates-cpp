@@ -17,34 +17,23 @@ namespace Bct
          /// <summary>
          /// Metadata for single version. 
          /// 
-         /// Each type of metadata is stored sparsely in a vector of that type. 
+         /// Each type of metadata is stored in this class in a vector of that type. Each instance of this class is stored
+         /// in a vector in AggregateMetaData. The index in that vector is the ver, so each instance of this class
+         /// is the metadata for that ver.
          /// </summary>
          class VersionMetaData
          {
          public:
             /// <summary>
-            /// Field metadata for a specific version. 
-            /// </summary>
-            std::vector<FieldMeta> fieldMetaData;
-            /// <summary>
-            /// Assessment rule metadata for a specific version.
-            /// </summary>
-            std::vector<AssessmentRule> assessmentRules;
-            /// <summary>
-            /// Compute rule metadata for a specific version.
-            /// </summary>
-            std::vector<ComputeRule> computeRules;
-
-            /// <summary>
-            /// Field metadata for a specific version. 
+            /// Index into a field metadata item. 
             /// </summary>
             std::vector<int16_t> fieldMetaDataI;
             /// <summary>
-            /// Assessment rule metadata for a specific version.
+            /// Index into a assessment rule metadata item.
             /// </summary>
             std::vector<int16_t> assessmentRulesI;
             /// <summary>
-            /// Compute rule metadata for a specific version.
+            /// Index into a compute rule metadata item.
             /// </summary>
             std::vector<int16_t> computeRulesI;
 
