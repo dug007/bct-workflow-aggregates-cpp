@@ -217,8 +217,17 @@ namespace Bct
             ComputeRule cr3("Field7Id2", "Field7", "Field7d Field7x $EnteredLater", "Field7d", ".0.1.2.");
 
             aggMeta.computeRules.push_back(cr1);
+            aggMeta.versionMetaData[0].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
+            aggMeta.versionMetaData[1].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
+            aggMeta.versionMetaData[2].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
             aggMeta.computeRules.push_back(cr2);
+            aggMeta.versionMetaData[0].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
+            aggMeta.versionMetaData[1].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
+            aggMeta.versionMetaData[2].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
             aggMeta.computeRules.push_back(cr3);
+            aggMeta.versionMetaData[0].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
+            aggMeta.versionMetaData[1].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
+            aggMeta.versionMetaData[2].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
 
             s_initialized = true;
          };

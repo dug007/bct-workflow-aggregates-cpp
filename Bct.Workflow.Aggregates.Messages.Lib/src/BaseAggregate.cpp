@@ -59,39 +59,37 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
  
-            for (size_t i = 0; i < _fieldList.size(); i++)
+            std::vector<int16_t> &cRulesV = _aggregateMetaData.versionMetaData[Ver()].computeRulesI;
+            for (size_t iRule = 0; iRule < cRulesV.size(); iRule++) // over rules in current version
             {
-               AbstractField *f = _fieldList[i];
-               FieldStateEnum::FieldState state = f->State();
-               TypeEnum::Type type = f->Type();
-               std::string fieldName = f->FieldName();
-               std::vector<ComputeRule> cRules = _aggregateMetaData.computeRules;
-               for (size_t j = 0; j < cRules.size(); j++)
+               ComputeRule cRule = _aggregateMetaData.computeRules[cRulesV[iRule]]; // indirection
+               for (size_t iField = 0; iField < _fieldList.size(); iField++) // over fields
                {
-                  ComputeRule cRule = cRules[j];
+                  // find field calcuation in current version
+                  AbstractField *f = _fieldList[iField];
+                  FieldStateEnum::FieldState state = f->State();
+                  TypeEnum::Type type = f->Type();
+                  std::string fieldName = f->FieldName();
                   std::string ruleFieldName = cRule.FieldName();
                   if (fieldName == ruleFieldName)
                   {
-                     if (cRule.InVersion(Ver()))
+                     std::string condition = cRule.Condition();
+                     std::string expression = cRule.Expression();
+                     std::string answerValue;
+                     TypeEnum::Type answerType;
+                     RPNEvaluator evaluator;
+                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
+                     if ("true" == answerValue)
                      {
-                        std::string condition = cRule.Condition();
-                        std::string expression = cRule.Expression();
-                        std::string answerValue;
-                        TypeEnum::Type answerType;
-                        RPNEvaluator evaluator;
-                        evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                        if ("true" == answerValue)
-                        {
-                           evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                           f->ComputedValueString(answerValue);
-                        }
+                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                        f->ComputedValueString(answerValue);
                      }
                   }
                }
             }
          }
 
-         AssessmentResult BaseAggregate::Assess(const std::string &id)
+         AssessmentResult BaseAggregate::Assess()
          {
             AssessmentResult result;
 
@@ -118,63 +116,25 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
 
-            bool foundRule = false;
-            // first try exact version vector
-            std::vector<AssessmentRule> &aRulesV = _aggregateMetaData.versionMetaData[Ver()].assessmentRules;
+            std::vector<int16_t> &aRulesV = _aggregateMetaData.versionMetaData[Ver()].assessmentRulesI;
             for (size_t j = 0; j < aRulesV.size(); j++)
             {
-               AssessmentRule aRule = aRulesV[j];
-               if (aRule.RuleId() == id || id == "*")
+               AssessmentRule aRule = _aggregateMetaData.assessmentRules[aRulesV[j]]; // indirection
+               std::string condition = aRule.Condition();
+               std::string expression = aRule.Expression();
+               std::string answerValue;
+               TypeEnum::Type answerType;
+               RPNEvaluator evaluator;
+               evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
+               if ("true" == answerValue)
                {
-                  foundRule = true;
-                  std::string condition = aRule.Condition();
-                  std::string expression = aRule.Expression();
-                  std::string answerValue;
-                  TypeEnum::Type answerType;
-                  RPNEvaluator evaluator;
-                  evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                  if ("true" == answerValue)
+                  evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                  if (answerValue != "true")
                   {
-                     evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                     if (answerValue != "true")
-                     {
-                        result.addError(aRule.RuleId(), answerValue);
-                     }
+                     result.addError(aRule.RuleId(), answerValue);
                   }
                }
             }
-            // now try multiple version vector
-            std::vector<AssessmentRule> &aRules = _aggregateMetaData.assessmentRules;
-            for (size_t j = 0; j < aRules.size(); j++)
-            {
-               AssessmentRule aRule = aRules[j];
-               if (aRule.RuleId() == id || id == "*")
-               {
-                  if (aRule.InVersion(Ver()))
-                  {
-                     foundRule = true;
-                     std::string condition = aRule.Condition();
-                     std::string expression = aRule.Expression();
-                     std::string answerValue;
-                     TypeEnum::Type answerType;
-                     RPNEvaluator evaluator;
-                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                     if ("true" == answerValue)
-                     {
-                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                        if (answerValue != "true")
-                        {
-                           result.addError(aRule.RuleId(), answerValue);
-                        }
-                     }
-                  }
-               }
-            }
-            if (!foundRule)
-            {
-               throw "error: assessment rule not found in any version";  // TODO: assessment rule not in version - User Story 127481
-            }
-
             return result;
          }
 

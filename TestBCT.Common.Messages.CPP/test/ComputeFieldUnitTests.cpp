@@ -156,9 +156,14 @@ public:
       ComputeRule cr3_4("field1v3_4", "field1", "field2 21 ==", "field2 4 +", ".3.4.");     // version 3 and 4 computes 25
 
       metaData.computeRules.push_back(cr0);
+      metaData.versionMetaData[0].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
       metaData.computeRules.push_back(cr1);
+      metaData.versionMetaData[1].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
       metaData.computeRules.push_back(cr2);
+      metaData.versionMetaData[2].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
       metaData.computeRules.push_back(cr3_4);
+      metaData.versionMetaData[3].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
+      metaData.versionMetaData[4].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
    };
 };
 
