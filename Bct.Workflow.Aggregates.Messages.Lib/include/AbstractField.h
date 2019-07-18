@@ -70,7 +70,6 @@ namespace Bct
 
          private:
             virtual FieldStateEnum::FieldState &StateRef()  = 0;
-
          };
       }
    }
