@@ -38,7 +38,7 @@ public:
 
       metaData.fieldMetaData.push_back(field1Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt); // since is is for all versions no need for more vectors
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
 
       metaData.fieldMetaData.push_back(field2Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
