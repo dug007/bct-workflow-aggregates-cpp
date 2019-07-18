@@ -31,25 +31,17 @@ public:
       }
 
       // One set of field metadata for all version
-      FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", 0);
-      FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", 0);
+      FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", -1); // -1 means all versions
+      FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", -1);
 
       int16_t k, cnt;
 
       metaData.fieldMetaData.push_back(field1Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt); // since is is for all versions no need for more vectors
 
       metaData.fieldMetaData.push_back(field2Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
 
       AssessmentRule ar0("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==", ".0.");      // fails

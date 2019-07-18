@@ -21,7 +21,7 @@ namespace Bct
             /// <param name="fieldName">Field name of associated field for this metadata.</param>
             /// <param name="fieldState">Initial state of associated field.</param>
             /// <param name="def">Default value of associated field.</param>
-            /// <param name="ver">Version the metadata is associated with.</param>
+            /// <param name="ver">Version the metadata is associated with or -1 if the metadata is in every version. If -1, then the metadata only needs to placed in version 0 vector.</param>
             FieldMeta(const std::string fieldName, const FieldStateEnum::FieldState fieldState, const std::string def, int16_t ver) :
                _fieldName(fieldName), _fieldState(fieldState), _default(def), _ver(ver) {};
             std::string FieldName();
