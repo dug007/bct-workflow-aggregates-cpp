@@ -149,12 +149,19 @@ namespace Bct
                FieldMeta femalePostCellsPerMl_("femalePostCellsPerMl", _femalePostCellsPerMlStates[i], _femalePostCellsPerMlDefaults[i], i);
 
                aggMeta.fieldMetaData.push_back(postCellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(minTemplateCount_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(maxTemplateCount_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(minPostCellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(maxPostCellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(malePostCellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(femalePostCellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
             }
 
             s_initialized = true;

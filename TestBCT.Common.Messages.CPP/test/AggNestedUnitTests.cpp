@@ -1,5 +1,4 @@
-#include "AssessmentRule.h"
-#include "AggAssess.h"
+#include "AggNested.h"
 #include "BaseAggregate.h"
 #include "catch.hpp"
 
@@ -14,13 +13,11 @@ public:
 
    AggAssessmentMetaData()
    {
-      std::string vers[5] =
+      std::string vers[3] =
       {
          "1.0.0",
          "1.1.0",
          "1.2.0",
-         "1.3.0",
-         "1.4.0"
       };
 
       for (uint16_t i = 0; i < std::size(vers); i++)
@@ -30,9 +27,11 @@ public:
          metaData.versionMetaData.push_back(vm);
       }
 
-      // One set of field metadata for all version
-      FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", -1); // -1 means all versions
+      FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", -1);  // -1 means all versions
       FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", -1);
+      FieldMeta field300Meta("field3", FieldStateEnum::Constant, 0, 0);  // v0 parent, v0 child
+      FieldMeta field311Meta("field3", FieldStateEnum::Constant, 1, 1);  // v1 parent, v1 child
+      FieldMeta field321Meta("field3", FieldStateEnum::Constant, 2, 1);  // v2 parent, v1 child
 
       int16_t k, cnt;
 
@@ -42,6 +41,20 @@ public:
 
       metaData.fieldMetaData.push_back(field2Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
+
+      k = 0;
+
+      metaData.fieldMetaData.push_back(field300Meta);
+      cnt = (int16_t)metaData.fieldMetaData.size() - 1;
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+
+      metaData.fieldMetaData.push_back(field311Meta);
+      cnt = (int16_t)metaData.fieldMetaData.size() - 1;
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+
+      metaData.fieldMetaData.push_back(field321Meta);
+      cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
 
       AssessmentRule ar0("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==", ".0.");      // fails
@@ -63,23 +76,25 @@ public:
 };
 
 
-TEST_CASE("AssessRulesTest", "[test]")
+TEST_CASE("AggNestedUnitTests", "[test]")
 {
    // Setup metadata then initialize aggregate class with this metadata
    // AggComputeFieldMetaData is defined above
    AggAssessmentMetaData separateMetaData;
-   AggAssess::initMetaData(&separateMetaData.metaData);
+   AggNested::initMetaData(&separateMetaData.metaData);
 
-   AggAssess a0("1.0.0");
-   AggAssess a1("1.1.0");
-   AggAssess a2("1.2.0");
+   AggNested a0("1.0.0");
+   AggNested a1("1.1.0");
+   AggNested a2("1.2.0");
 
    // prove assessment all work in their versions
    AssessmentResult r0 = a0.Assess();
    AssessmentResult r1 = a1.Assess();
-   AssessmentResult r2 = a2.Assess();
 
    CHECK(r0.isSuccess() == false); // field1 field2 ==
    CHECK(r1.isSuccess() == true);  // field1 field2 !=
-   CHECK(r2.isSuccess() == true);  // field1 field2 + 11 ==
+
+   CHECK(a0.field3.getVersion() == "1.0.0");
+   CHECK(a1.field3.getVersion() == "1.1.0");
+   CHECK(a2.field3.getVersion() == "1.1.0");
 }
