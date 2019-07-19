@@ -23,6 +23,15 @@ TEST_CASE("PlateletTemplateAggregate100", "[test]")
    CHECK(Platelet_100.maxYield.State() == FieldStateEnum::FieldState::Unavailable);
    CHECK_THROWS_AS(Platelet_100.minYield.Value(), NotAbleToGet); 
    CHECK_THROWS_AS(Platelet_100.maxYield.Value(), NotAbleToGet);
+   try
+   {
+      Platelet_100.maxYield.Value();
+   }
+   catch (NotAbleToGet exc)
+   {
+      std::string message = "Bct::Workflow::Aggregates::NotAbleToGet: aggregate=class Bct::Workflow::Aggregates::PlateletTemplateAggregate fieldName=maxYield fieldState=Unavailable";
+      CHECK(exc.what() == message);
+   }
 
    //Check initial state of fields used in calculation
    CHECK(Platelet_100.volumeMl.State() == FieldStateEnum::FieldState::NotSet);
