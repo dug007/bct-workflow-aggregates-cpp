@@ -34,7 +34,7 @@ TEST_CASE("General", "[test]")
    }
    catch (NotAbleToSet exc)
    {
-      std::string message = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=BaseField fieldName=Field7c fieldState=Constant";
+      std::string message = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate fieldName=Field7c fieldState=Constant";
       CHECK(exc.what() == message);
    }
    CHECK(f1 == 2.0);
