@@ -28,6 +28,15 @@ TEST_CASE("General", "[test]")
    //a.Field7ro.Value(3); //connot compile - setter is private
    CHECK_THROWS_AS(a.Field7c=3, NotAbleToSet);  // throws on assignment
    CHECK_THROWS_AS(a.Field7c.Value(3), NotAbleToSet);  // throws on set
+   try
+   {
+      a.Field7c.Value(5);
+   }
+   catch (NotAbleToSet exc)
+   {
+      std::string message = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=BaseField fieldName=Field7c fieldState=Constant";
+      CHECK(exc.what() == message);
+   }
    CHECK(f1 == 2.0);
    CHECK(a.Field1.State() == FieldStateEnum::FieldState::Set);
    CHECK(a.Field7.Value() == 3);

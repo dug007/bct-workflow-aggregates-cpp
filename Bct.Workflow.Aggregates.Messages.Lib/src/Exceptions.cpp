@@ -52,8 +52,9 @@ namespace Bct
          {
             try
             {
-               std::ostringstream errorMessageBuilder(_errorMessage);
-               errorMessageBuilder << "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=" << _aggregateName << " fieldName=" << _fieldName << " fieldState=" << _fieldState;
+               //std::ostringstream errorMessageBuilder(_errorMessage);
+               //errorMessageBuilder << "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=" << _aggregateName << " fieldName=" << _fieldName << " fieldState=" << _fieldState;
+               _errorMessage = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=" + _aggregateName + " fieldName=" + _fieldName + " fieldState=" + _fieldState;
             }
             catch (...)
             {
