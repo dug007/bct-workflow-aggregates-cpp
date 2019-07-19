@@ -38,6 +38,26 @@ namespace Bct
                /// </summary>
                Computed
             };
+			static const char* FieldStateString(FieldState state)
+			{
+				switch (state)
+				{
+				case Unavailable:
+					return "Unavailable";
+				case NotSet:
+					return "NotSet";
+				case Set:
+					return "Set";
+				case Constant:
+					return "Constant";
+				case Default:
+					return "Default";
+				case Computed:
+					return "Computed";
+				}
+			}
+
+			
          }
       }
    }

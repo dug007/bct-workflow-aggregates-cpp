@@ -7,6 +7,7 @@
 #include "AbstractField.h"
 #include "FieldMeta.h"
 #include "AggregateMetaData.h"
+#include "Exceptions.h"
 
 
 namespace Bct
@@ -47,7 +48,7 @@ namespace Bct
             {
                if (_state == FieldStateEnum::Constant)
                {
-                  throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
+                  throw NotAbleToSet(this.FieldName, this.FieldName, State); // TODO internalize - User Story 126598
                }
                ValueInternal(v, false);
             }
@@ -86,7 +87,7 @@ namespace Bct
             {
                if (_state == FieldStateEnum::Constant)
                {
-                  throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
+                  throw NotAbleToSet(this, this, State); // TODO internalize - User Story 126598
                }
                _state = FieldStateEnum::NotSet;
             }
