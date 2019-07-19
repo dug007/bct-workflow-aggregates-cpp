@@ -277,7 +277,7 @@ namespace Bct
                      FieldMeta fm = _metaData.fieldMetaData[fmi0[i]]; // indirection
                      if (fm.FieldName() == _fieldName)
                      {
-                        if (fm._ver == -1 || (_ver == 0 && fm._ver == 0))
+                        if (fm._parentVer == -1 || (_ver == 0 && fm._parentVer == 0))
                         {
                            return fm;
                         }
@@ -295,7 +295,7 @@ namespace Bct
                   for (size_t i = 0; i < fmi.size(); i++)
                   {
                      FieldMeta fm = _metaData.fieldMetaData[fmi[i]]; // indirection
-                     if (fm.FieldName() == _fieldName && fm._ver <= _ver)
+                     if (fm.FieldName() == _fieldName && fm._parentVer <= _ver)
                      {
                         return fm;
                      }

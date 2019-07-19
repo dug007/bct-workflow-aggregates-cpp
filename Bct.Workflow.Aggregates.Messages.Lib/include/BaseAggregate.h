@@ -34,6 +34,8 @@ namespace Bct
             /// <param name="metaData">The aggregate metadata.</param>
             BaseAggregate(AggregateMetaData * metaData);
 
+            BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent);
+
             virtual ~BaseAggregate();
 
             /// <summary>
@@ -121,11 +123,14 @@ namespace Bct
             int16_t _ver;
             std::string _version;
             uint32_t _fieldSetCounter;
+            BaseAggregate * _parent;
+            std::string _fieldName;
 
             // Disallow default constructor
             //
             BaseAggregate();
 
+            FieldMeta findFieldMeta(AggregateMetaData parentMD);
 
          };
       }

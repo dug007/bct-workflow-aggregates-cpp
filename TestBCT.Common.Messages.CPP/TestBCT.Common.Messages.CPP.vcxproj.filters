@@ -33,6 +33,9 @@
     <ClCompile Include="src\AggNested.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test\AggNestedUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />

@@ -23,6 +23,7 @@
     <ClCompile Include="src\AggAssess.cpp" />
     <ClCompile Include="src\AggNested.cpp" />
     <ClCompile Include="src\AssessUnitTests.cpp" />
+    <ClCompile Include="test\AggNestedUnitTests.cpp" />
     <ClCompile Include="test\GeneralUnitTests.cpp" />
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
   </ItemGroup>
