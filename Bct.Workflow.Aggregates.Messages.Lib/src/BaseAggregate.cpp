@@ -24,6 +24,97 @@ namespace Bct
             _ver(-1), _aggregateMetaData(*metaData)
          {
          }
+
+         BaseAggregate::BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent) :
+            _fieldName(fieldName), _ver(-2), _aggregateMetaData(*metaData), _parent(parent)
+         {
+         }
+
+         FieldMeta BaseAggregate::findFieldMeta(AggregateMetaData parentMD)
+         {
+            // check metadata marked version -1 for all versions in the version 0 vector
+            std::vector<int16_t> fmi0 = parentMD.versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
+            if (fmi0.size() > 0)
+            {
+               for (size_t i = 0; i < fmi0.size(); i++)
+               {
+                  FieldMeta fm = parentMD.fieldMetaData[fmi0[i]]; // indirection
+                  if (fm.FieldName() == _fieldName)
+                  {
+                     if (fm._parentVer == -1 || (_ver == 0 && fm._parentVer == 0))
+                     {
+                        return fm;
+                     }
+                     else
+                     {
+                        break;
+                     }
+                  }
+               }
+            }
+
+            std::vector<int16_t> fmi = parentMD.versionMetaData[_ver].fieldMetaDataI; // indirection vector for version
+            if (fmi.size() > 0)
+            {
+               for (size_t i = 0; i < fmi.size(); i++)
+               {
+                  FieldMeta fm = parentMD.fieldMetaData[fmi[i]]; // indirection
+                  if (fm.FieldName() == _fieldName && fm._parentVer <= _ver)
+                  {
+                     return fm;
+                  }
+               }
+            }
+            throw "error: metadata missing requested version of aggregate";  // TODO
+         }
+
+
+         void BaseAggregate::SyncCurrentVersion()
+         {
+            if (_ver == -1) // seek most recent version
+            {
+               AggregateMetaData &thisMd = _aggregateMetaData;
+               _ver = static_cast<uint16_t>(thisMd.versionInfo.size() - 1);
+               _version = thisMd.versionInfo[_ver].Version();
+            }
+            else if (_parent != nullptr && _ver == -2) // use metadata of parent aggregate
+            {
+               bool found = false;
+               FieldMeta meta = findFieldMeta(_parent->MetaData());
+               _ver = meta._childVer;
+               _version = _aggregateMetaData.versionInfo[_ver].Version();
+
+               if (!found)
+               {
+                  throw "error: invalid version"; // TODO: internationalize - User Story 126598
+               }
+            }
+            else // use constuctor value
+            {
+               bool found = false;
+               AggregateMetaData &thisMd = _aggregateMetaData;
+               for (size_t i = 0; i < thisMd.versionInfo.size(); i++)
+               {
+                  if (thisMd.versionInfo[i].Version() == _version)
+                  {
+                     _ver = (int16_t)i;
+                     found = true;
+                  }
+               }
+               if (!found)
+               {
+                  throw "error: invalid version"; // TODO: internationalize - User Story 126598
+               }
+            }
+
+            // initialize fields to current version
+            for (size_t i = 0; i < _fieldList.size(); i++)
+            {
+               _fieldList[i]->initMetaData(Ver());
+            }
+         }
+
+
          /**
           * Destructor
           */
@@ -32,7 +123,7 @@ namespace Bct
          const std::string& BaseAggregate::getVersion() const
          {
             return _version;
-          };
+         };
 
          void BaseAggregate::UpdateCalculatedFields()
          {
@@ -59,39 +150,37 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
  
-            for (size_t i = 0; i < _fieldList.size(); i++)
+            std::vector<int16_t> &cRulesV = _aggregateMetaData.versionMetaData[Ver()].computeRulesI;
+            for (size_t iRule = 0; iRule < cRulesV.size(); iRule++) // over rules in current version
             {
-               AbstractField *f = _fieldList[i];
-               FieldStateEnum::FieldState state = f->State();
-               TypeEnum::Type type = f->Type();
-               std::string fieldName = f->FieldName();
-               std::vector<ComputeRule> cRules = _aggregateMetaData.computeRules;
-               for (size_t j = 0; j < cRules.size(); j++)
+               ComputeRule cRule = _aggregateMetaData.computeRules[cRulesV[iRule]]; // indirection
+               for (size_t iField = 0; iField < _fieldList.size(); iField++) // over fields
                {
-                  ComputeRule cRule = cRules[j];
+                  // find field calcuation in current version
+                  AbstractField *f = _fieldList[iField];
+                  FieldStateEnum::FieldState state = f->State();
+                  TypeEnum::Type type = f->Type();
+                  std::string fieldName = f->FieldName();
                   std::string ruleFieldName = cRule.FieldName();
                   if (fieldName == ruleFieldName)
                   {
-                     if (cRule.InVersion(Ver()))
+                     std::string condition = cRule.Condition();
+                     std::string expression = cRule.Expression();
+                     std::string answerValue;
+                     TypeEnum::Type answerType;
+                     RPNEvaluator evaluator;
+                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
+                     if ("true" == answerValue)
                      {
-                        std::string condition = cRule.Condition();
-                        std::string expression = cRule.Expression();
-                        std::string answerValue;
-                        TypeEnum::Type answerType;
-                        RPNEvaluator evaluator;
-                        evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                        if ("true" == answerValue)
-                        {
-                           evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                           f->ComputedValueString(answerValue);
-                        }
+                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                        f->ComputedValueString(answerValue);
                      }
                   }
                }
             }
          }
 
-         AssessmentResult BaseAggregate::Assess(const std::string &id)
+         AssessmentResult BaseAggregate::Assess()
          {
             AssessmentResult result;
 
@@ -118,96 +207,26 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
 
-            bool foundRule = false;
-            // first try exact version vector
-            std::vector<AssessmentRule> &aRulesV = _aggregateMetaData.versionMetaData[Ver()].assessmentRules;
+            std::vector<int16_t> &aRulesV = _aggregateMetaData.versionMetaData[Ver()].assessmentRulesI;
             for (size_t j = 0; j < aRulesV.size(); j++)
             {
-               AssessmentRule aRule = aRulesV[j];
-               if (aRule.RuleId() == id || id == "*")
+               AssessmentRule aRule = _aggregateMetaData.assessmentRules[aRulesV[j]]; // indirection
+               std::string condition = aRule.Condition();
+               std::string expression = aRule.Expression();
+               std::string answerValue;
+               TypeEnum::Type answerType;
+               RPNEvaluator evaluator;
+               evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
+               if ("true" == answerValue)
                {
-                  foundRule = true;
-                  std::string condition = aRule.Condition();
-                  std::string expression = aRule.Expression();
-                  std::string answerValue;
-                  TypeEnum::Type answerType;
-                  RPNEvaluator evaluator;
-                  evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                  if ("true" == answerValue)
+                  evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                  if (answerValue != "true")
                   {
-                     evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                     if (answerValue != "true")
-                     {
-                        result.addError(aRule.RuleId(), answerValue);
-                     }
+                     result.addError(aRule.RuleId(), answerValue);
                   }
                }
             }
-            // now try multiple version vector
-            std::vector<AssessmentRule> &aRules = _aggregateMetaData.assessmentRules;
-            for (size_t j = 0; j < aRules.size(); j++)
-            {
-               AssessmentRule aRule = aRules[j];
-               if (aRule.RuleId() == id || id == "*")
-               {
-                  if (aRule.InVersion(Ver()))
-                  {
-                     foundRule = true;
-                     std::string condition = aRule.Condition();
-                     std::string expression = aRule.Expression();
-                     std::string answerValue;
-                     TypeEnum::Type answerType;
-                     RPNEvaluator evaluator;
-                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                     if ("true" == answerValue)
-                     {
-                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                        if (answerValue != "true")
-                        {
-                           result.addError(aRule.RuleId(), answerValue);
-                        }
-                     }
-                  }
-               }
-            }
-            if (!foundRule)
-            {
-               throw "error: assessment rule not found in any version";  // TODO: assessment rule not in version - User Story 127481
-            }
-
             return result;
-         }
-
-         void BaseAggregate::SyncCurrentVersion()
-         {
-            AggregateMetaData &ad = _aggregateMetaData;
-            if (_ver == -1) // seek most recent version
-            {
-               _ver = static_cast<uint16_t>(ad.versionInfo.size()-1);
-               _version = ad.versionInfo[_ver].Version();
-            }
-            else
-            {
-               bool found = false;
-               for (size_t i = 0; i < ad.versionInfo.size(); i++)
-               {
-                  if (ad.versionInfo[i].Version() == _version)
-                  {
-                     _ver = (int16_t)i;
-                     found = true;
-                  }
-               }
-               if (!found)
-               {
-                  throw "error: invalid version"; // TODO: internationalize - User Story 126598
-               }
-            }
-
-            // initialize fields to current version
-            for (size_t i = 0; i < _fieldList.size(); i++)
-            {
-               _fieldList[i]->initMetaData(Ver());
-            }
          }
 
          const uint32_t &BaseAggregate::FieldSetCounter()

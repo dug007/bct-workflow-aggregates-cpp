@@ -27,6 +27,7 @@ namespace Bct
 
             AggComputeField();
             AggComputeField(const std::string &version);
+            AggComputeField(const std::string &fieldName, BaseAggregate * parent);
             static void initMetaData(AggregateMetaData *metaData);
          };
       }

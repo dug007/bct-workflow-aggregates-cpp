@@ -131,8 +131,24 @@ public:
       // One set of field metadata for all version
       FieldMeta field1Meta("field1", FieldStateEnum::Default, "0", 0);
       FieldMeta field2Meta("field2", FieldStateEnum::Default, "21", 0);
+
+      int16_t k, cnt;
+
       metaData.fieldMetaData.push_back(field1Meta);
+      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+
       metaData.fieldMetaData.push_back(field2Meta);
+      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
 
       ComputeRule cr0("field1v0",     "field1", "field2 21 ==", "field2 1 +", ".0.");       // version 0 computes 22
       ComputeRule cr1("field1v1",     "field1", "field2 21 ==", "field2 2 +", ".1.");       // version 1 computes 23
@@ -140,9 +156,14 @@ public:
       ComputeRule cr3_4("field1v3_4", "field1", "field2 21 ==", "field2 4 +", ".3.4.");     // version 3 and 4 computes 25
 
       metaData.computeRules.push_back(cr0);
+      metaData.versionMetaData[0].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
       metaData.computeRules.push_back(cr1);
+      metaData.versionMetaData[1].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
       metaData.computeRules.push_back(cr2);
+      metaData.versionMetaData[2].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
       metaData.computeRules.push_back(cr3_4);
+      metaData.versionMetaData[3].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
+      metaData.versionMetaData[4].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
    };
 };
 

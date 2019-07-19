@@ -32,6 +32,17 @@ namespace Bct
             SyncCurrentVersion();
          }
 
+         AggComputeField::AggComputeField(const std::string &fieldName, BaseAggregate * parent) :
+            BaseAggregate(fieldName, s_metaData, this),
+            field1("field1", TypeEnum::Int32Type, MetaData(), this),
+            field2("field2", TypeEnum::Int32Type, MetaData(), this)
+         {
+            FieldList().push_back(&field1);
+            FieldList().push_back(&field2);
+            SyncCurrentVersion();
+         }
+
+
          void AggComputeField::initMetaData(AggregateMetaData  *metaData)
          {
             s_metaData = metaData;
