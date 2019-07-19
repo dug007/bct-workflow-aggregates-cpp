@@ -48,7 +48,7 @@ namespace Bct
             {
                if (_state == FieldStateEnum::Constant)
                {
-                  throw NotAbleToSet(this.FieldName, this.FieldName, State); // TODO internalize - User Story 126598
+                  throw NotAbleToSet::NotAbleToSet("BaseField", FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
                }
                ValueInternal(v, false);
             }
@@ -87,7 +87,7 @@ namespace Bct
             {
                if (_state == FieldStateEnum::Constant)
                {
-                  throw NotAbleToSet(this, this, State); // TODO internalize - User Story 126598
+                  throw NotAbleToSet("BaseField", FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
                }
                _state = FieldStateEnum::NotSet;
             }
