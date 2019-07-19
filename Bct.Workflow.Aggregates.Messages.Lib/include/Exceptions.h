@@ -47,6 +47,22 @@ namespace Bct
             std::string _aggregateName;
             std::string _requestedVersion;
          };
+         class NotAbleToSet : public std::exception
+         {
+         public:
+            NotAbleToSet(const std::string& aggregateName, const std::string& fieldName, const std::string& fieldState);
+            virtual ~NotAbleToSet();
+            virtual const char * what() const;
+            const std::string& aggregateName() const;
+            const std::string& fieldName() const;
+            const std::string& fieldState() const;
+
+         private:
+            std::string _errorMessage;
+            std::string _aggregateName;
+            std::string _fieldName;
+            std::string _fieldState;
+         };
       }
    }
 }
