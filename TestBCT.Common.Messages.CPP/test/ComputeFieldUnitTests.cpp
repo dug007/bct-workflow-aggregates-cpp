@@ -21,8 +21,8 @@ TEST_CASE("PlateletTemplateAggregate100", "[test]")
    //Test for field that is Unavailable
    CHECK(Platelet_100.minYield.State() == FieldStateEnum::FieldState::Unavailable);
    CHECK(Platelet_100.maxYield.State() == FieldStateEnum::FieldState::Unavailable);
-   CHECK_THROWS_AS(Platelet_100.minYield.Value(), char*);
-   CHECK_THROWS_AS(Platelet_100.maxYield.Value(), char*);
+   CHECK_THROWS_AS(Platelet_100.minYield.Value(), NotAbleToGet);
+   CHECK_THROWS_AS(Platelet_100.maxYield.Value(), NotAbleToGet);
 
    //Check initial state of fields used in calculation
    CHECK(Platelet_100.volumeMl.State() == FieldStateEnum::FieldState::NotSet);
