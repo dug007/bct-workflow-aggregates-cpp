@@ -76,25 +76,25 @@ public:
 };
 
 
-TEST_CASE("AggNestedUnitTests", "[test]")
-{
-   // Setup metadata then initialize aggregate class with this metadata
-   // AggComputeFieldMetaData is defined above
-   AggAssessmentMetaData separateMetaData;
-   AggNested::initMetaData(&separateMetaData.metaData);
-
-   AggNested a0("1.0.0");
-   AggNested a1("1.1.0");
-   AggNested a2("1.2.0");
-
-   // prove assessment all work in their versions
-   AssessmentResult r0 = a0.Assess();
-   AssessmentResult r1 = a1.Assess();
-
-   CHECK(r0.isSuccess() == false); // field1 field2 ==
-   CHECK(r1.isSuccess() == true);  // field1 field2 !=
-
-   CHECK(a0.field3.getVersion() == "1.0.0");
-   CHECK(a1.field3.getVersion() == "1.1.0");
-   CHECK(a2.field3.getVersion() == "1.1.0");
-}
+//TEST_CASE("AggNestedUnitTests", "[test]")
+//{
+//   // Setup metadata then initialize aggregate class with this metadata
+//   // AggComputeFieldMetaData is defined above
+//   AggAssessmentMetaData separateMetaData;
+//   AggNested::initMetaData(&separateMetaData.metaData);
+//
+//   AggNested a0("1.0.0");
+//   AggNested a1("1.1.0");
+//   AggNested a2("1.2.0");
+//
+//   // prove assessment all work in their versions
+//   AssessmentResult r0 = a0.Assess();
+//   AssessmentResult r1 = a1.Assess();
+//
+//   CHECK(r0.isSuccess() == false); // field1 field2 ==
+//   CHECK(r1.isSuccess() == true);  // field1 field2 !=
+//
+//   CHECK(a0.field3.getVersion() == "1.0.0");
+//   CHECK(a1.field3.getVersion() == "1.1.0");
+//   CHECK(a2.field3.getVersion() == "1.1.0");
+//}

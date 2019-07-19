@@ -48,7 +48,7 @@ namespace Bct
             {
                if (_state == FieldStateEnum::Constant)
                {
-				   std::string aggName = typeid(*_aggregate).name();
+				      std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet::NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
                }
                ValueInternal(v, false);
@@ -60,14 +60,19 @@ namespace Bct
             /// <returns>The value of this field.</returns>
             const T &Value() const
             {
-               // rules to implement here - User Story 12698
+               // rules to implement here - User Story 126598
                switch (_state)
                {
                case FieldStateEnum::NotSet: // TODO: internationalize - User Story 126598
-                  throw "error: value has not been set";
+               {
+                  std::string aggName_ValNotSet = typeid(*_aggregate).name();
+                  throw NotAbleToGet::NotAbleToGet(aggName_ValNotSet, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
+               }
                case FieldStateEnum::Unavailable: // TODO: internationalize - User Story 126598
-                  throw "error: not available in this version";
-
+               {
+                  std::string aggName_ValUnavail = typeid(*_aggregate).name();
+                  throw NotAbleToGet::NotAbleToGet(aggName_ValUnavail, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
+               }
                case FieldStateEnum::Computed:
                   // fall through for now - User Story 126598
                   break;
