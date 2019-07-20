@@ -156,10 +156,12 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    CHECK(r0a.isSuccess() == false); // intField1 intField2 ==
    CHECK(r1a.isSuccess() == true);  // intField1 intField2 !=
 
+   // prove versions as specified
    CHECK(a0.aggField.getVersion() == "1.0.0");
    CHECK(a1.aggField.getVersion() == "1.1.0");
    CHECK(a2.aggField.getVersion() == "1.1.0");
 
+   // prove in all versions
    CHECK(a0.aggFieldV2.getVersion() == "1.2.0");
    CHECK(a1.aggFieldV2.getVersion() == "1.2.0");
    CHECK(a2.aggFieldV2.getVersion() == "1.2.0");
