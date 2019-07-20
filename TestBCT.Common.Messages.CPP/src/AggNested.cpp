@@ -13,35 +13,35 @@ namespace Bct
       {
          AggNested::AggNested(const std::string &version) :
             BaseAggregate(version, s_metaData),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this),
-            field3("field3", this)
+            intField1("intField1", TypeEnum::Int32Type, MetaData(), this),
+            intField2("intField2", TypeEnum::Int32Type, MetaData(), this),
+            aggField("aggField", this)
 
          {
-            FieldList().push_back(&field1);
-            FieldList().push_back(&field2);
-            AggList().push_back(&field3);
+            FieldList().push_back(&intField1);
+            FieldList().push_back(&intField2);
+            AggList().push_back(&aggField);
             SyncVersion();
          }
 
          AggNested::AggNested() :
             BaseAggregate(s_metaData),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this),
-            field3("field3", this)
+            intField1("intField1", TypeEnum::Int32Type, MetaData(), this),
+            intField2("intField2", TypeEnum::Int32Type, MetaData(), this),
+            aggField("aggField", this)
 
          {
-            FieldList().push_back(&field1);
-            FieldList().push_back(&field2);
-            AggList().push_back(&field3);
+            FieldList().push_back(&intField1);
+            FieldList().push_back(&intField2);
+            AggList().push_back(&aggField);
             SyncVersion();
          }
 
-         void AggNested::initMetaData(AggregateMetaData  *metaData, AggregateMetaData *field3MetaData)
+         void AggNested::initMetaData(AggregateMetaData  *metaData, AggregateMetaData *aggFieldMetaData)
          {
             s_metaData = metaData;
             s_initialized = true;
-            AggComputeField::initMetaData(field3MetaData);
+            AggComputeField::initMetaData(aggFieldMetaData);
          }
 
          bool AggNested::s_initialized = false;

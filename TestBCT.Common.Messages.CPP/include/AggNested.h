@@ -18,9 +18,9 @@ namespace Bct
 
          public:
 
-            BaseField<int32_t>   field1;
-            BaseField<int32_t>   field2;
-            AggComputeField      field3;
+            BaseField<int32_t>   intField1;
+            BaseField<int32_t>   intField2;
+            AggComputeField      aggField;
 
             AggNested();
             AggNested(const std::string &version);

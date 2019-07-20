@@ -27,40 +27,40 @@ public:
          metaData.versionMetaData.push_back(vm);
       }
 
-      FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", -1);  // -1 means all versions
-      FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", -1);
-      FieldMeta field300Meta("field3", FieldStateEnum::Constant, 0, 0);  // v0 parent, v0 child
-      FieldMeta field311Meta("field3", FieldStateEnum::Constant, 1, 1);  // v1 parent, v1 child
-      FieldMeta field321Meta("field3", FieldStateEnum::Constant, 2, 1);  // v2 parent, v1 child
+      FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", -1);  // -1 means all versions
+      FieldMeta intField2Meta("intField2", FieldStateEnum::Default, "10", -1);
+      FieldMeta aggField00Meta("aggField", FieldStateEnum::Constant, 0, 0);  // v0 parent, v0 child
+      FieldMeta aggField11Meta("aggField", FieldStateEnum::Constant, 1, 1);  // v1 parent, v1 child
+      FieldMeta aggField21Meta("aggField", FieldStateEnum::Constant, 2, 1);  // v2 parent, v1 child
 
       int16_t k, cnt;
 
-      metaData.fieldMetaData.push_back(field1Meta);
+      metaData.fieldMetaData.push_back(intField1Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
 
-      metaData.fieldMetaData.push_back(field2Meta);
+      metaData.fieldMetaData.push_back(intField2Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
 
       k = 0;
 
-      metaData.fieldMetaData.push_back(field300Meta);
+      metaData.fieldMetaData.push_back(aggField00Meta);
       cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
 
-      metaData.fieldMetaData.push_back(field311Meta);
+      metaData.fieldMetaData.push_back(aggField11Meta);
       cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
 
-      metaData.fieldMetaData.push_back(field321Meta);
+      metaData.fieldMetaData.push_back(aggField21Meta);
       cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
 
-      AssessmentRule ar0("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==", ".0.");      // fails
-      AssessmentRule ar1("assessv1", "assessv1", "field2 10 ==", "field1 field2 !=", ".1.");      // passes
-      AssessmentRule ar2("assessv2", "assessv2", "field2 10 ==", "field1 field2 + 11 ==", ".2."); // passes
-      AssessmentRule ar3("assessv012", "assessv012", "field2 10 ==", "field1 field2 + 1 - 10 ==", ".0.1.2.");
+      AssessmentRule ar0("assessv0", "assessv0", "intField2 10 ==", "intField1 intField2 ==", ".0.");      // fails
+      AssessmentRule ar1("assessv1", "assessv1", "intField2 10 ==", "intField1 intField2 !=", ".1.");      // passes
+      AssessmentRule ar2("assessv2", "assessv2", "intField2 10 ==", "intField1 intField2 + 11 ==", ".2."); // passes
+      AssessmentRule ar3("assessv012", "assessv012", "intField2 10 ==", "intField1 intField2 + 1 - 10 ==", ".0.1.2.");
 
       metaData.assessmentRules.push_back(ar0);
       metaData.versionMetaData[0].assessmentRulesI.push_back((int16_t)metaData.assessmentRules.size() - 1);
@@ -100,23 +100,23 @@ public:
       }
 
       // One set of field metadata for all version
-      FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", -1); // -1 means all versions
-      FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", -1);
+      FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", -1); // -1 means all versions
+      FieldMeta intField2Meta("intField2", FieldStateEnum::Default, "10", -1);
 
       int16_t k, cnt;
 
-      metaData.fieldMetaData.push_back(field1Meta);
+      metaData.fieldMetaData.push_back(intField1Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
 
-      metaData.fieldMetaData.push_back(field2Meta);
+      metaData.fieldMetaData.push_back(intField2Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
 
-      AssessmentRule ar0("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==", ".0.");      // fails
-      AssessmentRule ar1("assessv1", "assessv1", "field2 10 ==", "field1 field2 !=", ".1.");      // passes
-      AssessmentRule ar2("assessv2", "assessv2", "field2 10 ==", "field1 field2 + 11 ==", ".2."); // passes
-      AssessmentRule ar3("assessv012", "assessv012", "field2 10 ==", "field1 field2 + 1 - 10 ==", ".0.1.2.");
+      AssessmentRule ar0("assessv0", "assessv0", "intField2 10 ==", "intField1 intField2 ==", ".0.");      // fails
+      AssessmentRule ar1("assessv1", "assessv1", "intField2 10 ==", "intField1 intField2 !=", ".1.");      // passes
+      AssessmentRule ar2("assessv2", "assessv2", "intField2 10 ==", "intField1 intField2 + 11 ==", ".2."); // passes
+      AssessmentRule ar3("assessv012", "assessv012", "intField2 10 ==", "intField1 intField2 + 1 - 10 ==", ".0.1.2.");
 
       metaData.assessmentRules.push_back(ar0);
       metaData.versionMetaData[0].assessmentRulesI.push_back((int16_t)metaData.assessmentRules.size() - 1);
@@ -148,17 +148,17 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    AssessmentResult r0a = a0.Assess();
    AssessmentResult r1a = a1.Assess();
 
-   CHECK(r0a.isSuccess() == false); // field1 field2 ==
-   CHECK(r1a.isSuccess() == true);  // field1 field2 !=
+   CHECK(r0a.isSuccess() == false); // intField1 intField2 ==
+   CHECK(r1a.isSuccess() == true);  // intField1 intField2 !=
 
-   CHECK(a0.field3.getVersion() == "1.0.0");
-   CHECK(a1.field3.getVersion() == "1.1.0");
-   CHECK(a2.field3.getVersion() == "1.1.0");
+   CHECK(a0.aggField.getVersion() == "1.0.0");
+   CHECK(a1.aggField.getVersion() == "1.1.0");
+   CHECK(a2.aggField.getVersion() == "1.1.0");
 
-   // prove nested field3 behaves same way
-   AssessmentResult r0b = a0.field3.Assess();
-   AssessmentResult r1b = a1.field3.Assess();
+   // prove nested aggField behaves same way
+   AssessmentResult r0b = a0.aggField.Assess();
+   AssessmentResult r1b = a1.aggField.Assess();
 
-   CHECK(r0b.isSuccess() == false); // field1 field2 ==
-   CHECK(r1b.isSuccess() == true);  // field1 field2 !=
+   CHECK(r0b.isSuccess() == false); // intField1 intField2 ==
+   CHECK(r1b.isSuccess() == true);  // intField1 intField2 !=
 }

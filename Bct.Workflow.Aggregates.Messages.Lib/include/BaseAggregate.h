@@ -65,8 +65,6 @@ namespace Bct
                // TODO implement - User Story 126595
             };
 
-            virtual void SyncChildVersion(int16_t parentVer);
-
             /// <summary>
             /// Increments the global field set counter and returns the result. Field setters can call this to get their
             /// latest counter.
@@ -86,14 +84,21 @@ namespace Bct
 
          protected:
             /// <summary>
-            /// Sets the internal current version as appropriate.
+            /// Sets the current version as appropriate.
             /// 
-            /// The aggregate constructor can be called before metadata is initialized. This function is used to set the internal version to
-            /// point to the metadata version as requested by the constructor. This function should be called after metadata is initialized.
+            /// This function is used to set the current version. 
             /// 
             /// If _ver is -1, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
             /// </summary>
             void SyncVersion();
+
+            /// <summary>
+            /// Sets the current version of a nested child aggregate based on this parent's current version and metadata.
+            /// 
+            /// This function should be called after this aggregate has a version, which should be after SyncVersion() is called. Each child aggregate should be intialized with this function.
+            /// </summary>
+            /// <param name="parentVer"></param>
+            virtual void SyncChildVersion(int16_t parentVer);
 
             /// <summary>
             /// Returns the aggregate metatdata.
