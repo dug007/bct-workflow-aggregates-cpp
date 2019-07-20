@@ -34,7 +34,7 @@ namespace Bct
             /// <param name="metaData">The aggregate metadata.</param>
             BaseAggregate(AggregateMetaData * metaData);
 
-            BaseAggregate(const std::string &fieldName, BaseAggregate * parent);
+            BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent);
 
             virtual ~BaseAggregate();
 
@@ -65,14 +65,14 @@ namespace Bct
                // TODO implement - User Story 126595
             };
 
-            virtual void SyncChildVersion() ;
+            virtual void SyncChildVersion(int16_t parentVer);
 
             /// <summary>
             /// Increments the global field set counter and returns the result. Field setters can call this to get their
             /// latest counter.
             /// </summary>
             /// <returns>The incremented field set counter.</returns>
-            const uint32_t &FieldSetCounter();
+            virtual const uint32_t &FieldSetCounter();
 
             // TODO: determine best way to define - User Story 126907
             // Field types
@@ -93,9 +93,7 @@ namespace Bct
             /// 
             /// If _ver is -1, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
             /// </summary>
-            void SyncRootVersion();
-
-            virtual void SyncChildVersion(int16_t parentVer);
+            void SyncVersion();
 
             /// <summary>
             /// Returns the aggregate metatdata.
@@ -108,6 +106,12 @@ namespace Bct
             /// </summary>
             /// <returns>Field list.</returns>
             std::vector<AbstractField*> & FieldList();
+
+            /// <summary>
+            /// Returns the list of nested aggregates in the aggregate;
+            /// </summary>
+            /// <returns>Aggregate list.</returns>
+            std::vector<AbstractAggregate*> & AggList();
 
             /// <summary>
             /// Returns the current version index for this aggregate.
@@ -124,6 +128,7 @@ namespace Bct
          private:
             AggregateMetaData & _aggregateMetaData;
             std::vector<AbstractField*> _fieldList;
+            std::vector<AbstractAggregate*> _aggList;
             int16_t _ver;
             std::string _version;
             uint32_t _fieldSetCounter;

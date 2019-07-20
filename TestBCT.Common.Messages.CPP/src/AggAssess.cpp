@@ -18,7 +18,7 @@ namespace Bct
 
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncRootVersion();
+            SyncVersion();
          }
 
          AggAssess::AggAssess() :
@@ -29,7 +29,7 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncRootVersion();
+            SyncVersion();
          }
 
          void AggAssess::initMetaData(AggregateMetaData  *metaData)

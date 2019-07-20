@@ -20,7 +20,8 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncRootVersion();
+            AggList().push_back(&field3);
+            SyncVersion();
          }
 
          AggNested::AggNested() :
@@ -32,7 +33,8 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncRootVersion();
+            AggList().push_back(&field3);
+            SyncVersion();
          }
 
          void AggNested::initMetaData(AggregateMetaData  *metaData, AggregateMetaData *field3MetaData)

@@ -25,8 +25,8 @@ namespace Bct
          {
          }
 
-         BaseAggregate::BaseAggregate(const std::string &fieldName, BaseAggregate * parent) :
-            _fieldName(fieldName), _ver(-2), _aggregateMetaData(parent->MetaData()), _parent(parent)
+         BaseAggregate::BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent) :
+            _fieldName(fieldName), _ver(-2), _aggregateMetaData(*metaData), _parent(parent)
          {
          }
 
@@ -41,7 +41,7 @@ namespace Bct
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi0[i]]; // indirection
                   if (fm.FieldName() == _fieldName)
                   {
-                     if (fm._parentVer == -1 || (_ver == 0 && fm._parentVer == 0))
+                     if (fm._parentVer == -1 || (parentVer == 0 && fm._parentVer == 0))
                      {
                         return fm;
                      }
@@ -53,13 +53,13 @@ namespace Bct
                }
             }
 
-            std::vector<int16_t> &fmi = _parent->MetaData().versionMetaData[_ver].fieldMetaDataI; // indirection vector for version
+            std::vector<int16_t> &fmi = _parent->MetaData().versionMetaData[parentVer].fieldMetaDataI; // indirection vector for version
             if (fmi.size() > 0)
             {
                for (size_t i = 0; i < fmi.size(); i++)
                {
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi[i]]; // indirection
-                  if (fm.FieldName() == _fieldName && fm._parentVer <= _ver)
+                  if (fm.FieldName() == _fieldName && fm._parentVer <= parentVer)
                   {
                      return fm;
                   }
@@ -70,18 +70,12 @@ namespace Bct
 
          void BaseAggregate::SyncChildVersion(int16_t parentVer)
          {
-            bool found = false;
-            FieldMeta &meta = findFieldMeta(Ver());
+            FieldMeta &meta = findFieldMeta(parentVer);
             _ver = meta._childVer;
             _version = _aggregateMetaData.versionInfo[_ver].Version();
-
-            if (!found)
-            {
-               throw "error: invalid version"; // TODO: internationalize - User Story 126598
-            }
          }
 
-         void BaseAggregate::SyncRootVersion()
+         void BaseAggregate::SyncVersion()
          {
             if (_parent == nullptr)
             {
@@ -115,7 +109,11 @@ namespace Bct
             {
                _fieldList[i]->initMetaData(Ver());
             }
-            for (size_t i = 0; i < )
+            // initialize nested aggregates to current version of parent
+            for (size_t i = 0; i < _aggList.size(); i++)
+            {
+               _aggList[i]->SyncChildVersion(Ver());
+            }
          }
 
 
@@ -247,6 +245,11 @@ namespace Bct
          std::vector<AbstractField*> & BaseAggregate::FieldList()
          {
             return _fieldList;
+         }
+
+         std::vector<AbstractAggregate*> & BaseAggregate::AggList()
+         {
+            return _aggList;
          }
 
          int32_t BaseAggregate::Ver() const
