@@ -18,7 +18,7 @@ namespace Bct
 
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncCurrentVersion();
+            SyncRootVersion();
          }
 
          AggComputeField::AggComputeField() :
@@ -29,17 +29,17 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncCurrentVersion();
+            SyncRootVersion();
          }
 
          AggComputeField::AggComputeField(const std::string &fieldName, BaseAggregate * parent) :
-            BaseAggregate(fieldName, s_metaData, this),
+            BaseAggregate(fieldName, parent),
             field1("field1", TypeEnum::Int32Type, MetaData(), this),
             field2("field2", TypeEnum::Int32Type, MetaData(), this)
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncCurrentVersion();
+            SyncRootVersion();
          }
 
 

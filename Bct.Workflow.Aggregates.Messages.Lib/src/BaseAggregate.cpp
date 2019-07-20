@@ -25,20 +25,20 @@ namespace Bct
          {
          }
 
-         BaseAggregate::BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent) :
-            _fieldName(fieldName), _ver(-2), _aggregateMetaData(*metaData), _parent(parent)
+         BaseAggregate::BaseAggregate(const std::string &fieldName, BaseAggregate * parent) :
+            _fieldName(fieldName), _ver(-2), _aggregateMetaData(parent->MetaData()), _parent(parent)
          {
          }
 
-         FieldMeta BaseAggregate::findFieldMeta(AggregateMetaData parentMD)
+         FieldMeta &BaseAggregate::findFieldMeta(int16_t parentVer)
          {
             // check metadata marked version -1 for all versions in the version 0 vector
-            std::vector<int16_t> fmi0 = parentMD.versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
+            std::vector<int16_t> &fmi0 = _parent->MetaData().versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
             if (fmi0.size() > 0)
             {
                for (size_t i = 0; i < fmi0.size(); i++)
                {
-                  FieldMeta fm = parentMD.fieldMetaData[fmi0[i]]; // indirection
+                  FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi0[i]]; // indirection
                   if (fm.FieldName() == _fieldName)
                   {
                      if (fm._parentVer == -1 || (_ver == 0 && fm._parentVer == 0))
@@ -53,12 +53,12 @@ namespace Bct
                }
             }
 
-            std::vector<int16_t> fmi = parentMD.versionMetaData[_ver].fieldMetaDataI; // indirection vector for version
+            std::vector<int16_t> &fmi = _parent->MetaData().versionMetaData[_ver].fieldMetaDataI; // indirection vector for version
             if (fmi.size() > 0)
             {
                for (size_t i = 0; i < fmi.size(); i++)
                {
-                  FieldMeta fm = parentMD.fieldMetaData[fmi[i]]; // indirection
+                  FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi[i]]; // indirection
                   if (fm.FieldName() == _fieldName && fm._parentVer <= _ver)
                   {
                      return fm;
@@ -68,42 +68,45 @@ namespace Bct
             throw "error: metadata missing requested version of aggregate";  // TODO
          }
 
-
-         void BaseAggregate::SyncCurrentVersion()
+         void BaseAggregate::SyncChildVersion(int16_t parentVer)
          {
-            if (_ver == -1) // seek most recent version
-            {
-               AggregateMetaData &thisMd = _aggregateMetaData;
-               _ver = static_cast<uint16_t>(thisMd.versionInfo.size() - 1);
-               _version = thisMd.versionInfo[_ver].Version();
-            }
-            else if (_parent != nullptr && _ver == -2) // use metadata of parent aggregate
-            {
-               bool found = false;
-               FieldMeta meta = findFieldMeta(_parent->MetaData());
-               _ver = meta._childVer;
-               _version = _aggregateMetaData.versionInfo[_ver].Version();
+            bool found = false;
+            FieldMeta &meta = findFieldMeta(Ver());
+            _ver = meta._childVer;
+            _version = _aggregateMetaData.versionInfo[_ver].Version();
 
-               if (!found)
-               {
-                  throw "error: invalid version"; // TODO: internationalize - User Story 126598
-               }
-            }
-            else // use constuctor value
+            if (!found)
             {
-               bool found = false;
-               AggregateMetaData &thisMd = _aggregateMetaData;
-               for (size_t i = 0; i < thisMd.versionInfo.size(); i++)
+               throw "error: invalid version"; // TODO: internationalize - User Story 126598
+            }
+         }
+
+         void BaseAggregate::SyncRootVersion()
+         {
+            if (_parent == nullptr)
+            {
+               if (_ver == -1) // seek most recent version
                {
-                  if (thisMd.versionInfo[i].Version() == _version)
-                  {
-                     _ver = (int16_t)i;
-                     found = true;
-                  }
+                  AggregateMetaData &thisMd = _aggregateMetaData;
+                  _ver = static_cast<uint16_t>(thisMd.versionInfo.size() - 1);
+                  _version = thisMd.versionInfo[_ver].Version();
                }
-               if (!found)
+               else // use constuctor value
                {
-                  throw "error: invalid version"; // TODO: internationalize - User Story 126598
+                  bool found = false;
+                  AggregateMetaData &thisMd = _aggregateMetaData;
+                  for (size_t i = 0; i < thisMd.versionInfo.size(); i++)
+                  {
+                     if (thisMd.versionInfo[i].Version() == _version)
+                     {
+                        _ver = (int16_t)i;
+                        found = true;
+                     }
+                  }
+                  if (!found)
+                  {
+                     throw "error: invalid version"; // TODO: internationalize - User Story 126598
+                  }
                }
             }
 
@@ -112,6 +115,7 @@ namespace Bct
             {
                _fieldList[i]->initMetaData(Ver());
             }
+            for (size_t i = 0; i < )
          }
 
 

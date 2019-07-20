@@ -6,13 +6,13 @@
 using namespace Bct::Workflow::Aggregates;
 
 // this class is the metadata for the ComputeRuleVersion unit test
-class AggAssessmentMetaData
+class ChildMetaData
 {
 public:
 
    AggregateMetaData metaData;
 
-   AggAssessmentMetaData()
+   ChildMetaData()
    {
       std::string vers[5] =
       {
@@ -67,7 +67,7 @@ TEST_CASE("AssessRulesTest", "[test]")
 {
    // Setup metadata then initialize aggregate class with this metadata
    // AggComputeFieldMetaData is defined above
-   AggAssessmentMetaData separateMetaData;
+   ChildMetaData separateMetaData;
    AggAssess::initMetaData(&separateMetaData.metaData);
 
    AggAssess a0("1.0.0");

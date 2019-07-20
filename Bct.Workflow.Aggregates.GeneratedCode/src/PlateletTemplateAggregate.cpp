@@ -35,7 +35,7 @@ namespace Bct
             {
                initMetaData();
             }
-            SyncCurrentVersion();
+            SyncRootVersion();
          }
 
          PlateletTemplateAggregate::~PlateletTemplateAggregate()

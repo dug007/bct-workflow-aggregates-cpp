@@ -24,7 +24,7 @@ namespace Bct
 
             AggNested();
             AggNested(const std::string &version);
-            static void initMetaData(AggregateMetaData *metaData);
+            static void initMetaData(AggregateMetaData  *metaData, AggregateMetaData *field3MetaData);
 
             AggComputeField aggComputeField;
          };

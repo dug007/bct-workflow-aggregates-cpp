@@ -13,6 +13,8 @@ namespace Bct
          class AbstractAggregate
          {
          public:
+            virtual void SyncChildVersion(int16_t parentVer) = 0;
+
             /// <summary>
             /// Pure virtual function to return the current field set count for this aggregate. 
             /// </summary>

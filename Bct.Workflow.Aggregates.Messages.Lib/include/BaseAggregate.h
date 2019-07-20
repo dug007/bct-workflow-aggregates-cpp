@@ -34,7 +34,7 @@ namespace Bct
             /// <param name="metaData">The aggregate metadata.</param>
             BaseAggregate(AggregateMetaData * metaData);
 
-            BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent);
+            BaseAggregate(const std::string &fieldName, BaseAggregate * parent);
 
             virtual ~BaseAggregate();
 
@@ -65,6 +65,8 @@ namespace Bct
                // TODO implement - User Story 126595
             };
 
+            virtual void SyncChildVersion() ;
+
             /// <summary>
             /// Increments the global field set counter and returns the result. Field setters can call this to get their
             /// latest counter.
@@ -91,7 +93,9 @@ namespace Bct
             /// 
             /// If _ver is -1, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
             /// </summary>
-            void SyncCurrentVersion();
+            void SyncRootVersion();
+
+            virtual void SyncChildVersion(int16_t parentVer);
 
             /// <summary>
             /// Returns the aggregate metatdata.
@@ -130,7 +134,7 @@ namespace Bct
             //
             BaseAggregate();
 
-            FieldMeta findFieldMeta(AggregateMetaData parentMD);
+            FieldMeta &findFieldMeta(int16_t parentVer);
 
          };
       }
