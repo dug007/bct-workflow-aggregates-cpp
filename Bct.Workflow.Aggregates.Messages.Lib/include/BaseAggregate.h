@@ -22,6 +22,13 @@ namespace Bct
          {
          public:
             /// <summary>
+            /// Used as a requested version to indicate the metadata item should be included in all versions of the parent.
+            /// 
+            /// Example:  FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", );
+            /// </summary>
+            static const int16_t InAllVersions = -1;
+
+            /// <summary>
             /// Constructs base aggregate.
             /// </summary>
             /// <param name="version">The version to be constucted, such as 1.2.3</param>
@@ -146,6 +153,8 @@ namespace Bct
 
             FieldMeta &findFieldMeta(int16_t parentVer);
 
+            // Use as a requested version to indicate the most recent version is requested.
+            static const int16_t UseMostRecentVersion = -1;
          };
       }
    }

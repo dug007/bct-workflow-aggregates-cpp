@@ -27,11 +27,12 @@ public:
          metaData.versionMetaData.push_back(vm);
       }
 
-      FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", -1);  // -1 means all versions
-      FieldMeta intField2Meta("intField2", FieldStateEnum::Default, "10", -1);
+      FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions);  // all versions have this field
+      FieldMeta intField2Meta("intField2", FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
       FieldMeta aggField00Meta("aggField", FieldStateEnum::Constant, 0, 0);  // v0 parent, v0 child
       FieldMeta aggField11Meta("aggField", FieldStateEnum::Constant, 1, 1);  // v1 parent, v1 child
       FieldMeta aggField21Meta("aggField", FieldStateEnum::Constant, 2, 1);  // v2 parent, v1 child
+      FieldMeta aggFieldV2Meta("aggFieldV2", FieldStateEnum::Constant, BaseAggregate::InAllVersions, 2);  // all parents have v2 child
 
       int16_t k, cnt;
 
@@ -56,6 +57,10 @@ public:
       metaData.fieldMetaData.push_back(aggField21Meta);
       cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+
+      metaData.fieldMetaData.push_back(aggFieldV2Meta);
+      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
+      metaData.versionMetaData[k].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
 
       AssessmentRule ar0("assessv0", "assessv0", "intField2 10 ==", "intField1 intField2 ==", ".0.");      // fails
       AssessmentRule ar1("assessv1", "assessv1", "intField2 10 ==", "intField1 intField2 !=", ".1.");      // passes
@@ -100,8 +105,8 @@ public:
       }
 
       // One set of field metadata for all version
-      FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", -1); // -1 means all versions
-      FieldMeta intField2Meta("intField2", FieldStateEnum::Default, "10", -1);
+      FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions); // in all
+      FieldMeta intField2Meta("intField2", FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
 
       int16_t k, cnt;
 
@@ -154,6 +159,10 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    CHECK(a0.aggField.getVersion() == "1.0.0");
    CHECK(a1.aggField.getVersion() == "1.1.0");
    CHECK(a2.aggField.getVersion() == "1.1.0");
+
+   CHECK(a0.aggFieldV2.getVersion() == "1.2.0");
+   CHECK(a1.aggFieldV2.getVersion() == "1.2.0");
+   CHECK(a2.aggFieldV2.getVersion() == "1.2.0");
 
    // prove nested aggField behaves same way
    AssessmentResult r0b = a0.aggField.Assess();

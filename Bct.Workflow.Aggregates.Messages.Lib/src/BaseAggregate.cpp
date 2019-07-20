@@ -21,18 +21,18 @@ namespace Bct
          }
 
          BaseAggregate::BaseAggregate(AggregateMetaData *metaData) :
-            _ver(-1), _aggregateMetaData(*metaData)
+            _ver(BaseAggregate::UseMostRecentVersion), _aggregateMetaData(*metaData)
          {
          }
 
          BaseAggregate::BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent) :
-            _fieldName(fieldName), _ver(-2), _aggregateMetaData(*metaData), _parent(parent)
+            _fieldName(fieldName), _aggregateMetaData(*metaData), _parent(parent)
          {
          }
 
          FieldMeta &BaseAggregate::findFieldMeta(int16_t parentVer)
          {
-            // check metadata marked version -1 for all versions in the version 0 vector
+            // check metadata marked version or all versions in the version 0 vector
             std::vector<int16_t> &fmi0 = _parent->MetaData().versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
             if (fmi0.size() > 0)
             {
@@ -41,7 +41,7 @@ namespace Bct
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi0[i]]; // indirection
                   if (fm.FieldName() == _fieldName)
                   {
-                     if (fm._parentVer == -1 || (parentVer == 0 && fm._parentVer == 0))
+                     if (fm._parentVer == BaseAggregate::InAllVersions || (parentVer == 0 && fm._parentVer == 0))
                      {
                         return fm;
                      }
@@ -79,7 +79,7 @@ namespace Bct
          {
             if (_parent == nullptr)
             {
-               if (_ver == -1) // seek most recent version
+               if (_ver == BaseAggregate::UseMostRecentVersion) // seek most recent version
                {
                   AggregateMetaData &thisMd = _aggregateMetaData;
                   _ver = static_cast<uint16_t>(thisMd.versionInfo.size() - 1);
