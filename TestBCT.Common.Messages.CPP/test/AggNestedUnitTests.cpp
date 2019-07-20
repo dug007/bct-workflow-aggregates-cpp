@@ -145,13 +145,20 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    AggNested a2("1.2.0");
 
    // prove assessment all work in their versions
-   AssessmentResult r0 = a0.Assess();
-   AssessmentResult r1 = a1.Assess();
+   AssessmentResult r0a = a0.Assess();
+   AssessmentResult r1a = a1.Assess();
 
-   CHECK(r0.isSuccess() == false); // field1 field2 ==
-   CHECK(r1.isSuccess() == true);  // field1 field2 !=
+   CHECK(r0a.isSuccess() == false); // field1 field2 ==
+   CHECK(r1a.isSuccess() == true);  // field1 field2 !=
 
    CHECK(a0.field3.getVersion() == "1.0.0");
    CHECK(a1.field3.getVersion() == "1.1.0");
    CHECK(a2.field3.getVersion() == "1.1.0");
+
+   // prove nested field3 behaves same way
+   AssessmentResult r0b = a0.field3.Assess();
+   AssessmentResult r1b = a1.field3.Assess();
+
+   CHECK(r0b.isSuccess() == false); // field1 field2 ==
+   CHECK(r1b.isSuccess() == true);  // field1 field2 !=
 }
