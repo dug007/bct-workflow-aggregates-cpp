@@ -32,17 +32,23 @@ namespace Bct
             /// Constructs base aggregate.
             /// </summary>
             /// <param name="version">The version to be constucted, such as 1.2.3</param>
-            /// <param name="metaData">The aggregate metadata.</param>
             BaseAggregate(const std::string &version);
 
             /// <summary>
             /// Constructor. This constucts the mose recent version.
             /// </summary>
-            /// <param name="metaData">The aggregate metadata.</param>
             BaseAggregate();
 
+            /// <summary>
+            /// Constructor. This constructor is used for nested aggregates.
+            /// </summary>
+            /// <param name="fieldName"></param>
+            /// <param name="parent"></param>
             BaseAggregate(const std::string &fieldName, BaseAggregate * parent);
 
+            /// <summary>
+            /// Virtual destructor.
+            /// </summary>
             virtual ~BaseAggregate();
 
             /// <summary>
@@ -139,10 +145,6 @@ namespace Bct
             uint32_t _fieldSetCounter;
             BaseAggregate * _parent;
             std::string _fieldName;
-
-            // Disallow default constructor
-            //
-// KWC TODO WHY?            BaseAggregate();
 
             FieldMeta &findFieldMeta(int16_t parentVer);
 

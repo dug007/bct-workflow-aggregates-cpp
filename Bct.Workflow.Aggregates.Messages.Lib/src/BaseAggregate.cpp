@@ -156,19 +156,19 @@ namespace Bct
             std::vector<int16_t> &cRulesV = MetaData().versionMetaData[Ver()].computeRulesI;
             for (size_t iRule = 0; iRule < cRulesV.size(); iRule++) // over rules in current version
             {
-               ComputeRule cRule = MetaData().computeRules[cRulesV[iRule]]; // indirection
+               ComputeRule &cRule = MetaData().computeRules[cRulesV[iRule]]; // indirection
                for (size_t iField = 0; iField < _fieldList.size(); iField++) // over fields
                {
                   // find field calcuation in current version
                   AbstractField *f = _fieldList[iField];
-                  FieldStateEnum::FieldState state = f->State();
-                  TypeEnum::Type type = f->Type();
-                  std::string fieldName = f->FieldName();
-                  std::string ruleFieldName = cRule.FieldName();
+                  const FieldStateEnum::FieldState &state = f->State();
+                  const TypeEnum::Type &type = f->Type();
+                  const std::string &fieldName = f->FieldName();
+                  const std::string &ruleFieldName = cRule.FieldName();
                   if (fieldName == ruleFieldName)
                   {
-                     std::string condition = cRule.Condition();
-                     std::string expression = cRule.Expression();
+                     const std::string &condition = cRule.Condition();
+                     const std::string &expression = cRule.Expression();
                      std::string answerValue;
                      TypeEnum::Type answerType;
                      RPNEvaluator evaluator;
@@ -213,9 +213,9 @@ namespace Bct
             std::vector<int16_t> &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
             for (size_t j = 0; j < aRulesV.size(); j++)
             {
-               AssessmentRule aRule = MetaData().assessmentRules[aRulesV[j]]; // indirection
-               std::string condition = aRule.Condition();
-               std::string expression = aRule.Expression();
+               AssessmentRule &aRule = MetaData().assessmentRules[aRulesV[j]]; // indirection
+               const std::string &condition = aRule.Condition();
+               const std::string &expression = aRule.Expression();
                std::string answerValue;
                TypeEnum::Type answerType;
                RPNEvaluator evaluator;
