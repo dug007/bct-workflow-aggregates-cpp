@@ -2,6 +2,7 @@
 
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
+#include "AggregateMetaData.h"
 
 
 namespace Bct
@@ -10,10 +11,13 @@ namespace Bct
    {
       namespace Aggregates
       {
+         bool AggComputeField::s_initialized = false;
+         AggregateMetaData *AggComputeField::s_metaData;
+
          AggComputeField::AggComputeField(const std::string &version) :
-            BaseAggregate(version, s_metaData),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this)
+            BaseAggregate(version),
+            field1("field1", TypeEnum::Int32Type, this),
+            field2("field2", TypeEnum::Int32Type, this)
          {
 
             FieldList().push_back(&field1);
@@ -22,9 +26,9 @@ namespace Bct
          }
 
          AggComputeField::AggComputeField() :
-            BaseAggregate(s_metaData),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this)
+            BaseAggregate(),
+            field1("field1", TypeEnum::Int32Type, this),
+            field2("field2", TypeEnum::Int32Type, this)
 
          {
             FieldList().push_back(&field1);
@@ -33,15 +37,19 @@ namespace Bct
          }
 
          AggComputeField::AggComputeField(const std::string &fieldName, BaseAggregate * parent) :
-            BaseAggregate(fieldName, s_metaData, parent),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this)
+            BaseAggregate(fieldName, parent),
+            field1("field1", TypeEnum::Int32Type, this),
+            field2("field2", TypeEnum::Int32Type, this)
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
             SyncVersion();
          }
 
+         AggregateMetaData &AggComputeField::MetaData()
+         {
+            return *s_metaData;
+         }
 
          void AggComputeField::initMetaData(AggregateMetaData  *metaData)
          {
@@ -49,8 +57,6 @@ namespace Bct
             s_initialized = true;
          }
 
-         bool AggComputeField::s_initialized = false;
-         AggregateMetaData *AggComputeField::s_metaData;
       };
    }
 }

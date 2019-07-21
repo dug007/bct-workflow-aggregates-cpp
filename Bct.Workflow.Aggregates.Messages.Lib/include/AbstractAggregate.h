@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseAggregate.h"
+#include "AggregateMetaData.h"
 
 namespace Bct
 {
@@ -32,6 +33,13 @@ namespace Bct
             /// </summary>
             /// <param name="parentVer">Current version of parent aggregate.</param>
             virtual void SyncChildVersion(int16_t parentVer) = 0;
+
+            /// <summary>
+            /// Pure virtual function to return metadata for this aggregate. The most-derived class should implement this
+            /// to return the static instance of the metadata.
+            /// </summary>
+            /// <returns></returns>
+            virtual AggregateMetaData &MetaData() = 0;
          };
       }
    }

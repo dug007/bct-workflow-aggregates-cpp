@@ -3,6 +3,7 @@
 #include "BaseField.h"
 #include "AggregateMetaData.h"
 #include "AggComputeField.h"
+#include "AbstractAggregate.h"
 
 namespace Bct
 {
@@ -26,6 +27,8 @@ namespace Bct
             AggNested();
             AggNested(const std::string &version);
             static void initMetaData(AggregateMetaData  *metaData, AggregateMetaData *field3MetaData);
+
+            virtual AggregateMetaData &MetaData();
 
             AggComputeField aggComputeField;
          };

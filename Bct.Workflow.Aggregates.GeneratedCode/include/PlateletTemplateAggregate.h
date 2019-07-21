@@ -2,6 +2,7 @@
 
 #include "BaseAggregate.h"
 #include "BaseField.h"
+#include "AbstractAggregate.h"
 
 
 namespace Bct
@@ -29,8 +30,12 @@ namespace Bct
             BaseField<double> minYield;
             BaseField<double> maxYield;
 
+
+
             PlateletTemplateAggregate(const std::string &version);
             virtual ~PlateletTemplateAggregate();
+
+            virtual AggregateMetaData &MetaData();
          };
       }
    }

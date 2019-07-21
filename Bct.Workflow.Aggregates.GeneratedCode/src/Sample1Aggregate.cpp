@@ -12,14 +12,14 @@ namespace Bct
       namespace Aggregates
       {
          Sample1Aggregate::Sample1Aggregate(const std::string &version) :
-            BaseAggregate(version, &s_metaData),
-            Field1("Field1", TypeEnum::DoubleType, MetaData(), this),
-            Field7("Field7", TypeEnum::Int32Type, MetaData(), this),
-            Field7d("Field7d", TypeEnum::Int32Type, MetaData(), this),
-            Field7c("Field7c", TypeEnum::Int32Type, MetaData(), this),
-            Field7ro("Field7ro", TypeEnum::Int32Type, MetaData(), this),
-            Field7com("Field7com", TypeEnum::Int32Type, MetaData(), this),
-            Field7x("Field7x", TypeEnum::Int32Type, MetaData(), this)
+            BaseAggregate(version),
+            Field1("Field1", TypeEnum::DoubleType, this),
+            Field7("Field7", TypeEnum::Int32Type, this),
+            Field7d("Field7d", TypeEnum::Int32Type, this),
+            Field7c("Field7c", TypeEnum::Int32Type, this),
+            Field7ro("Field7ro", TypeEnum::Int32Type, this),
+            Field7com("Field7com", TypeEnum::Int32Type, this),
+            Field7x("Field7x", TypeEnum::Int32Type, this)
          {
 
             FieldList().push_back(&Field1);
@@ -38,14 +38,14 @@ namespace Bct
          }
 
          Sample1Aggregate::Sample1Aggregate() :
-            BaseAggregate(&s_metaData),
-            Field1("Field1", TypeEnum::DoubleType, MetaData(), this),
-            Field7("Field7", TypeEnum::Int32Type, MetaData(), this),
-            Field7d("Field7d", TypeEnum::Int32Type, MetaData(), this),
-            Field7c("Field7c", TypeEnum::Int32Type, MetaData(), this),
-            Field7ro("Field7ro", TypeEnum::Int32Type, MetaData(), this),
-            Field7com("Field7com", TypeEnum::Int32Type, MetaData(), this),
-            Field7x("Field7x", TypeEnum::Int32Type, MetaData(), this)
+            BaseAggregate(),
+            Field1("Field1", TypeEnum::DoubleType, this),
+            Field7("Field7", TypeEnum::Int32Type, this),
+            Field7d("Field7d", TypeEnum::Int32Type, this),
+            Field7c("Field7c", TypeEnum::Int32Type, this),
+            Field7ro("Field7ro", TypeEnum::Int32Type, this),
+            Field7com("Field7com", TypeEnum::Int32Type, this),
+            Field7x("Field7x", TypeEnum::Int32Type, this)
          {
 
             FieldList().push_back(&Field1);
@@ -234,6 +234,11 @@ namespace Bct
 
          AggregateMetaData Sample1Aggregate::s_metaData;
          bool Sample1Aggregate::s_initialized = false;
+
+         AggregateMetaData &Sample1Aggregate::MetaData()
+         {
+            return s_metaData;
+         }
       };
    }
 }

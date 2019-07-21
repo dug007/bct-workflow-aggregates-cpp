@@ -11,10 +11,13 @@ namespace Bct
    {
       namespace Aggregates
       {
+         bool AggNested::s_initialized = false;
+         AggregateMetaData *AggNested::s_metaData;
+
          AggNested::AggNested(const std::string &version) :
-            BaseAggregate(version, s_metaData),
-            intField1("intField1", TypeEnum::Int32Type, MetaData(), this),
-            intField2("intField2", TypeEnum::Int32Type, MetaData(), this),
+            BaseAggregate(version),
+            intField1("intField1", TypeEnum::Int32Type, this),
+            intField2("intField2", TypeEnum::Int32Type, this),
             aggField("aggField", this),
             aggFieldV2("aggFieldV2", this)
          {
@@ -26,9 +29,9 @@ namespace Bct
          }
 
          AggNested::AggNested() :
-            BaseAggregate(s_metaData),
-            intField1("intField1", TypeEnum::Int32Type, MetaData(), this),
-            intField2("intField2", TypeEnum::Int32Type, MetaData(), this),
+            BaseAggregate(),
+            intField1("intField1", TypeEnum::Int32Type, this),
+            intField2("intField2", TypeEnum::Int32Type, this),
             aggField("aggField", this),
             aggFieldV2("aggFieldV2", this)
          {
@@ -46,8 +49,11 @@ namespace Bct
             AggComputeField::initMetaData(aggFieldMetaData);
          }
 
-         bool AggNested::s_initialized = false;
-         AggregateMetaData *AggNested::s_metaData;
+         AggregateMetaData &AggNested::MetaData()
+         {
+            return *s_metaData;
+         }
+
       };
    }
 }

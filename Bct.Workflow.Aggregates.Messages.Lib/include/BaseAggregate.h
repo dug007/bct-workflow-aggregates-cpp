@@ -33,15 +33,15 @@ namespace Bct
             /// </summary>
             /// <param name="version">The version to be constucted, such as 1.2.3</param>
             /// <param name="metaData">The aggregate metadata.</param>
-            BaseAggregate(const std::string &version, AggregateMetaData * metaData);
+            BaseAggregate(const std::string &version);
 
             /// <summary>
             /// Constructor. This constucts the mose recent version.
             /// </summary>
             /// <param name="metaData">The aggregate metadata.</param>
-            BaseAggregate(AggregateMetaData * metaData);
+            BaseAggregate();
 
-            BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent);
+            BaseAggregate(const std::string &fieldName, BaseAggregate * parent);
 
             virtual ~BaseAggregate();
 
@@ -108,12 +108,6 @@ namespace Bct
             virtual void SyncChildVersion(int16_t parentVer);
 
             /// <summary>
-            /// Returns the aggregate metatdata.
-            /// </summary>
-            /// <returns>Aggregate metadata</returns>
-            AggregateMetaData & MetaData();
-
-            /// <summary>
             /// Returns the list of fields in this aggregate.
             /// </summary>
             /// <returns>Field list.</returns>
@@ -138,7 +132,6 @@ namespace Bct
             const std::string & Version() const;
 
          private:
-            AggregateMetaData & _aggregateMetaData;
             std::vector<AbstractField*> _fieldList;
             std::vector<AbstractAggregate*> _aggList;
             int16_t _ver;
@@ -149,7 +142,7 @@ namespace Bct
 
             // Disallow default constructor
             //
-            BaseAggregate();
+// KWC TODO WHY?            BaseAggregate();
 
             FieldMeta &findFieldMeta(int16_t parentVer);
 

@@ -9,16 +9,16 @@ namespace Bct
       namespace Aggregates
       {
          PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string &version) :
-            BaseAggregate(version, &s_metaData),
-            volumeMl("volumeMl", TypeEnum::DoubleType, MetaData(), this),
-            cellsPerMl("cellsPerMl", TypeEnum::DoubleType, MetaData(), this),
-            yield("yield", TypeEnum::DoubleType, MetaData(), this),
-            minVolumeMl("minVolumeMl", TypeEnum::DoubleType, MetaData(), this),
-            maxVolumeMl("maxVolumeMl", TypeEnum::DoubleType, MetaData(), this),
-            minCellsPerMl("minCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
-            maxCellsPerMl("maxCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
-            minYield("minYield", TypeEnum::DoubleType, MetaData(), this),
-            maxYield("maxYield", TypeEnum::DoubleType, MetaData(), this)
+            BaseAggregate(version),
+            volumeMl("volumeMl", TypeEnum::DoubleType, this),
+            cellsPerMl("cellsPerMl", TypeEnum::DoubleType, this),
+            yield("yield", TypeEnum::DoubleType, this),
+            minVolumeMl("minVolumeMl", TypeEnum::DoubleType, this),
+            maxVolumeMl("maxVolumeMl", TypeEnum::DoubleType,this),
+            minCellsPerMl("minCellsPerMl", TypeEnum::DoubleType, this),
+            maxCellsPerMl("maxCellsPerMl", TypeEnum::DoubleType, this),
+            minYield("minYield", TypeEnum::DoubleType, this),
+            maxYield("maxYield", TypeEnum::DoubleType, this)
          {
 
             FieldList().push_back(&volumeMl);
@@ -221,6 +221,10 @@ namespace Bct
             }
 
             s_initialized = true;
+         }
+         AggregateMetaData &PlateletTemplateAggregate::MetaData()
+         {
+            return s_metaData;
          }
 
          AggregateMetaData PlateletTemplateAggregate::s_metaData;

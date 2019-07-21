@@ -15,18 +15,18 @@ namespace Bct
    {
       namespace Aggregates
       {
-         BaseAggregate::BaseAggregate(const std::string &version, AggregateMetaData * metaData) :
-            _version(version), _aggregateMetaData(*metaData)
+         BaseAggregate::BaseAggregate(const std::string &version) :
+            _version(version)
          {
          }
 
-         BaseAggregate::BaseAggregate(AggregateMetaData *metaData) :
-            _ver(BaseAggregate::UseMostRecentVersion), _aggregateMetaData(*metaData)
+         BaseAggregate::BaseAggregate() :
+            _ver(BaseAggregate::UseMostRecentVersion)
          {
          }
 
-         BaseAggregate::BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent) :
-            _fieldName(fieldName), _aggregateMetaData(*metaData), _parent(parent)
+         BaseAggregate::BaseAggregate(const std::string &fieldName,  BaseAggregate * parent) :
+            _fieldName(fieldName), _parent(parent)
          {
          }
 
@@ -72,7 +72,7 @@ namespace Bct
          {
             FieldMeta &meta = findFieldMeta(parentVer);
             _ver = meta._childVer;
-            _version = _aggregateMetaData.versionInfo[_ver].Version();
+            _version = MetaData().versionInfo[_ver].Version();
          }
 
          void BaseAggregate::SyncVersion()
@@ -81,20 +81,21 @@ namespace Bct
             {
                if (_ver == BaseAggregate::UseMostRecentVersion) // seek most recent version
                {
-                  AggregateMetaData &thisMd = _aggregateMetaData;
+                  AggregateMetaData &thisMd = MetaData();
                   _ver = static_cast<uint16_t>(thisMd.versionInfo.size() - 1);
                   _version = thisMd.versionInfo[_ver].Version();
                }
                else // use constuctor value
                {
                   bool found = false;
-                  AggregateMetaData &thisMd = _aggregateMetaData;
+                  AggregateMetaData &thisMd = MetaData();
                   for (size_t i = 0; i < thisMd.versionInfo.size(); i++)
                   {
                      if (thisMd.versionInfo[i].Version() == _version)
                      {
                         _ver = (int16_t)i;
                         found = true;
+                        break;
                      }
                   }
                   if (!found)
@@ -152,10 +153,10 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
  
-            std::vector<int16_t> &cRulesV = _aggregateMetaData.versionMetaData[Ver()].computeRulesI;
+            std::vector<int16_t> &cRulesV = MetaData().versionMetaData[Ver()].computeRulesI;
             for (size_t iRule = 0; iRule < cRulesV.size(); iRule++) // over rules in current version
             {
-               ComputeRule cRule = _aggregateMetaData.computeRules[cRulesV[iRule]]; // indirection
+               ComputeRule cRule = MetaData().computeRules[cRulesV[iRule]]; // indirection
                for (size_t iField = 0; iField < _fieldList.size(); iField++) // over fields
                {
                   // find field calcuation in current version
@@ -209,10 +210,10 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
 
-            std::vector<int16_t> &aRulesV = _aggregateMetaData.versionMetaData[Ver()].assessmentRulesI;
+            std::vector<int16_t> &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
             for (size_t j = 0; j < aRulesV.size(); j++)
             {
-               AssessmentRule aRule = _aggregateMetaData.assessmentRules[aRulesV[j]]; // indirection
+               AssessmentRule aRule = MetaData().assessmentRules[aRulesV[j]]; // indirection
                std::string condition = aRule.Condition();
                std::string expression = aRule.Expression();
                std::string answerValue;
@@ -235,11 +236,6 @@ namespace Bct
          {
             _fieldSetCounter++;
             return _fieldSetCounter;
-         }
-
-         AggregateMetaData & BaseAggregate::MetaData()
-         {
-            return _aggregateMetaData;
          }
 
          std::vector<AbstractField*> & BaseAggregate::FieldList()
