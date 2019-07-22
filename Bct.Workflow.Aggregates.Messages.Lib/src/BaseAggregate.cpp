@@ -65,7 +65,7 @@ namespace Bct
                   }
                }
             }
-            throw "error: metadata missing requested version of aggregate";  // TODO
+            throw "error: metadata missing requested version of aggregate";  // TODO - User Story 126598
          }
 
          void BaseAggregate::SyncChildVersion(int16_t parentVer)
@@ -73,6 +73,18 @@ namespace Bct
             FieldMeta &meta = findFieldMeta(parentVer);
             _ver = meta._childVer;
             _version = MetaData().versionInfo[_ver].Version();
+
+            // initialize fields to current version
+            for (size_t i = 0; i < _fieldList.size(); i++)
+            {
+               _fieldList[i]->initMetaData(Ver());
+            }
+            // initialize nested aggregates to current version of parent
+            for (size_t i = 0; i < _aggList.size(); i++)
+            {
+               _aggList[i]->SyncChildVersion(Ver());
+            }
+
          }
 
          void BaseAggregate::SyncVersion()
