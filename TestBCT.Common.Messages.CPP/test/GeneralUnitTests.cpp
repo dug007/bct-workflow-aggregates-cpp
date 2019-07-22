@@ -14,8 +14,19 @@ TEST_CASE("General", "[test]")
 {
    // General unit tests ----------------------------------------------
    Sample1Aggregate a;
+   try
+   {
+      Sample1Aggregate b("1.3.0");
+   }
+   catch (NoSuchVersion ex)
+   {
+      CHECK(ex.requestedVersion() == "1.3.0");
+      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate requestedVersion=1.3.0";
+      CHECK(ex.what() == message);
+   }
    CHECK(a.Field1.State() == FieldStateEnum::FieldState::NotSet);
    CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
+   CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet); 
    CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Default);
    CHECK(a.Field7c.State() == FieldStateEnum::FieldState::Constant);
    CHECK(a.Field1.FieldSetCounter() == 0);
@@ -28,7 +39,7 @@ TEST_CASE("General", "[test]")
    //a.Field7ro.Value(3); //connot compile - setter is private
    CHECK_THROWS_AS(a.Field7c=3, NotAbleToSet);  // throws on assignment
    CHECK_THROWS_AS(a.Field7c.Value(3), NotAbleToSet);  // throws on set
-   try
+   try //Trying to set a constant field
    {
       a.Field7c.Value(5);
    }

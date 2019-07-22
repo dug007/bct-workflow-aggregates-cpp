@@ -66,7 +66,7 @@ namespace Bct
                   }
                }
             }
-            std::string aggName = typeid(this).name();
+            std::string aggName = typeid(*this).name();
             throw NoSuchVersion(aggName, _version); 
          }
 
@@ -114,7 +114,7 @@ namespace Bct
                   }
                   if (!found)
                   {
-                     std::string aggName = typeid(this).name();
+                     std::string aggName = typeid(*this).name();
                      throw NoSuchVersion(aggName, _version);
                   }
                }
