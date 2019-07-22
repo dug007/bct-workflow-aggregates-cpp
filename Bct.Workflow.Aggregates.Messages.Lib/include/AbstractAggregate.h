@@ -1,5 +1,7 @@
 #pragma once
-#pragma once
+
+#include "BaseAggregate.h"
+#include "AggregateMetaData.h"
 
 namespace Bct
 {
@@ -25,6 +27,19 @@ namespace Bct
             /// </remarks> 
             /// <returns>The field set counter incremented by 1 since that last time this function was called.</returns>
             virtual const uint32_t &FieldSetCounter() = 0;
+
+            /// <summary>
+            /// Pure virtual function to set a child nested aggregate version.
+            /// </summary>
+            /// <param name="parentVer">Current version of parent aggregate.</param>
+            virtual void SyncChildVersion(int16_t parentVer) = 0;
+
+            /// <summary>
+            /// Pure virtual function to return metadata for this aggregate. The most-derived class should implement this
+            /// to return the static instance of the metadata.
+            /// </summary>
+            /// <returns></returns>
+            virtual AggregateMetaData &MetaData() = 0;
          };
       }
    }

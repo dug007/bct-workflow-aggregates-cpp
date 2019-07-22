@@ -7,7 +7,6 @@
 #include "RPNEvaluator.h"
 #include "AssessmentRule.h"
 #include "AssessmentResult.h"
-#include "Exceptions.h"
 
 
 namespace Bct
@@ -16,33 +15,33 @@ namespace Bct
    {
       namespace Aggregates
       {
-         BaseAggregate::BaseAggregate(const std::string &version, AggregateMetaData * metaData) :
-            _version(version), _aggregateMetaData(*metaData)
+         BaseAggregate::BaseAggregate(const std::string &version) :
+            _version(version)
          {
          }
 
-         BaseAggregate::BaseAggregate(AggregateMetaData *metaData) :
-            _ver(-1), _aggregateMetaData(*metaData)
+         BaseAggregate::BaseAggregate() :
+            _ver(BaseAggregate::UseMostRecentVersion)
          {
          }
 
-         BaseAggregate::BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent) :
-            _fieldName(fieldName), _ver(-2), _aggregateMetaData(*metaData), _parent(parent)
+         BaseAggregate::BaseAggregate(const std::string &fieldName,  BaseAggregate * parent) :
+            _fieldName(fieldName), _parent(parent)
          {
          }
 
-         FieldMeta BaseAggregate::findFieldMeta(AggregateMetaData parentMD)
+         FieldMeta &BaseAggregate::findFieldMeta(int16_t parentVer)
          {
-            // check metadata marked version -1 for all versions in the version 0 vector
-            std::vector<int16_t> fmi0 = parentMD.versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
+            // check metadata marked version or all versions in the version 0 vector
+            std::vector<int16_t> &fmi0 = _parent->MetaData().versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
             if (fmi0.size() > 0)
             {
                for (size_t i = 0; i < fmi0.size(); i++)
                {
-                  FieldMeta fm = parentMD.fieldMetaData[fmi0[i]]; // indirection
+                  FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi0[i]]; // indirection
                   if (fm.FieldName() == _fieldName)
                   {
-                     if (fm._parentVer == -1 || (_ver == 0 && fm._parentVer == 0))
+                     if (fm._parentVer == BaseAggregate::InAllVersions || (parentVer == 0 && fm._parentVer == 0))
                      {
                         return fm;
                      }
@@ -54,13 +53,13 @@ namespace Bct
                }
             }
 
-            std::vector<int16_t> fmi = parentMD.versionMetaData[_ver].fieldMetaDataI; // indirection vector for version
+            std::vector<int16_t> &fmi = _parent->MetaData().versionMetaData[parentVer].fieldMetaDataI; // indirection vector for version
             if (fmi.size() > 0)
             {
                for (size_t i = 0; i < fmi.size(); i++)
                {
-                  FieldMeta fm = parentMD.fieldMetaData[fmi[i]]; // indirection
-                  if (fm.FieldName() == _fieldName && fm._parentVer <= _ver)
+                  FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi[i]]; // indirection
+                  if (fm.FieldName() == _fieldName && fm._parentVer <= parentVer)
                   {
                      return fm;
                   }
@@ -69,44 +68,52 @@ namespace Bct
             throw "error: metadata missing requested version of aggregate";  // TODO - User Story 126598
          }
 
-
-         void BaseAggregate::SyncCurrentVersion()
+         void BaseAggregate::SyncChildVersion(int16_t parentVer)
          {
-            if (_ver == -1) // seek most recent version
-            {
-               AggregateMetaData &thisMd = _aggregateMetaData;
-               _ver = static_cast<uint16_t>(thisMd.versionInfo.size() - 1);
-               _version = thisMd.versionInfo[_ver].Version();
-            }
-            else if (_parent != nullptr && _ver == -2) // use metadata of parent aggregate
-            {
-               bool found = false;
-               FieldMeta meta = findFieldMeta(_parent->MetaData());
-               _ver = meta._childVer;
-               _version = _aggregateMetaData.versionInfo[_ver].Version();
+            FieldMeta &meta = findFieldMeta(parentVer);
+            _ver = meta._childVer;
+            _version = MetaData().versionInfo[_ver].Version();
 
-               if (!found)
-               {
-                  std::string aggName = typeid(this).name();
-                  throw NoSuchVersion(aggName,_version); // TODO: internationalize - User Story 126598
-               }
-            }
-            else // use constuctor value
+            // initialize fields to current version
+            for (size_t i = 0; i < _fieldList.size(); i++)
             {
-               bool found = false;
-               AggregateMetaData &thisMd = _aggregateMetaData;
-               for (size_t i = 0; i < thisMd.versionInfo.size(); i++)
+               _fieldList[i]->initMetaData(Ver());
+            }
+            // initialize nested aggregates to current version of parent
+            for (size_t i = 0; i < _aggList.size(); i++)
+            {
+               _aggList[i]->SyncChildVersion(Ver());
+            }
+
+         }
+
+         void BaseAggregate::SyncVersion()
+         {
+            if (_parent == nullptr)
+            {
+               if (_ver == BaseAggregate::UseMostRecentVersion) // seek most recent version
                {
-                  if (thisMd.versionInfo[i].Version() == _version)
-                  {
-                     _ver = (int16_t)i;
-                     found = true;
-                  }
+                  AggregateMetaData &thisMd = MetaData();
+                  _ver = static_cast<uint16_t>(thisMd.versionInfo.size() - 1);
+                  _version = thisMd.versionInfo[_ver].Version();
                }
-               if (!found)
+               else // use constuctor value
                {
-                  std::string aggName = typeid(this).name();
-                  throw NoSuchVersion(aggName, _version); // TODO: internationalize - User Story 126598
+                  bool found = false;
+                  AggregateMetaData &thisMd = MetaData();
+                  for (size_t i = 0; i < thisMd.versionInfo.size(); i++)
+                  {
+                     if (thisMd.versionInfo[i].Version() == _version)
+                     {
+                        _ver = (int16_t)i;
+                        found = true;
+                        break;
+                     }
+                  }
+                  if (!found)
+                  {
+                     throw "error: invalid version"; // TODO: internationalize - User Story 126598
+                  }
                }
             }
 
@@ -114,6 +121,11 @@ namespace Bct
             for (size_t i = 0; i < _fieldList.size(); i++)
             {
                _fieldList[i]->initMetaData(Ver());
+            }
+            // initialize nested aggregates to current version of parent
+            for (size_t i = 0; i < _aggList.size(); i++)
+            {
+               _aggList[i]->SyncChildVersion(Ver());
             }
          }
 
@@ -153,22 +165,22 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
  
-            std::vector<int16_t> &cRulesV = _aggregateMetaData.versionMetaData[Ver()].computeRulesI;
+            std::vector<int16_t> &cRulesV = MetaData().versionMetaData[Ver()].computeRulesI;
             for (size_t iRule = 0; iRule < cRulesV.size(); iRule++) // over rules in current version
             {
-               ComputeRule cRule = _aggregateMetaData.computeRules[cRulesV[iRule]]; // indirection
+               ComputeRule &cRule = MetaData().computeRules[cRulesV[iRule]]; // indirection
                for (size_t iField = 0; iField < _fieldList.size(); iField++) // over fields
                {
                   // find field calcuation in current version
                   AbstractField *f = _fieldList[iField];
-                  FieldStateEnum::FieldState state = f->State();
-                  TypeEnum::Type type = f->Type();
-                  std::string fieldName = f->FieldName();
-                  std::string ruleFieldName = cRule.FieldName();
+                  const FieldStateEnum::FieldState &state = f->State();
+                  const TypeEnum::Type &type = f->Type();
+                  const std::string &fieldName = f->FieldName();
+                  const std::string &ruleFieldName = cRule.FieldName();
                   if (fieldName == ruleFieldName)
                   {
-                     std::string condition = cRule.Condition();
-                     std::string expression = cRule.Expression();
+                     const std::string &condition = cRule.Condition();
+                     const std::string &expression = cRule.Expression();
                      std::string answerValue;
                      TypeEnum::Type answerType;
                      RPNEvaluator evaluator;
@@ -210,12 +222,12 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
 
-            std::vector<int16_t> &aRulesV = _aggregateMetaData.versionMetaData[Ver()].assessmentRulesI;
+            std::vector<int16_t> &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
             for (size_t j = 0; j < aRulesV.size(); j++)
             {
-               AssessmentRule aRule = _aggregateMetaData.assessmentRules[aRulesV[j]]; // indirection
-               std::string condition = aRule.Condition();
-               std::string expression = aRule.Expression();
+               AssessmentRule &aRule = MetaData().assessmentRules[aRulesV[j]]; // indirection
+               const std::string &condition = aRule.Condition();
+               const std::string &expression = aRule.Expression();
                std::string answerValue;
                TypeEnum::Type answerType;
                RPNEvaluator evaluator;
@@ -238,14 +250,14 @@ namespace Bct
             return _fieldSetCounter;
          }
 
-         AggregateMetaData & BaseAggregate::MetaData()
-         {
-            return _aggregateMetaData;
-         }
-
          std::vector<AbstractField*> & BaseAggregate::FieldList()
          {
             return _fieldList;
+         }
+
+         std::vector<AbstractAggregate*> & BaseAggregate::AggList()
+         {
+            return _aggList;
          }
 
          int32_t BaseAggregate::Ver() const
