@@ -67,7 +67,7 @@ namespace Bct
                }
             }
             std::string aggName = typeid(this).name();
-            throw NoSuchVersion(aggName, _version);  // TODO - User Story 126598
+            throw NoSuchVersion(aggName, _version); 
          }
 
          void BaseAggregate::SyncChildVersion(int16_t parentVer)
@@ -115,7 +115,7 @@ namespace Bct
                   if (!found)
                   {
                      std::string aggName = typeid(this).name();
-                     throw NoSuchVersion(aggName, _version); // TODO: internationalize - User Story 126598
+                     throw NoSuchVersion(aggName, _version);
                   }
                }
             }
