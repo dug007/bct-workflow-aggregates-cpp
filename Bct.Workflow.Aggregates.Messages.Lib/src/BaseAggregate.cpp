@@ -87,7 +87,7 @@ namespace Bct
 
                if (!found)
                {
-                  throw NoSuchVersion::NoSuchVersion("BaseAggregate",_version); // TODO: internationalize - User Story 126598
+                  throw NoSuchVersion("BaseAggregate",_version); // TODO: internationalize - User Story 126598
                }
             }
             else // use constuctor value
@@ -104,7 +104,7 @@ namespace Bct
                }
                if (!found)
                {
-                  throw NoSuchVersion::NoSuchVersion("BaseAggregate", _version); // TODO: internationalize - User Story 126598
+                  throw NoSuchVersion("BaseAggregate", _version); // TODO: internationalize - User Story 126598
                }
             }
 

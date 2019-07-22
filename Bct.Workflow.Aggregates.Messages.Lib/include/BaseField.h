@@ -49,7 +49,12 @@ namespace Bct
                if (_state == FieldStateEnum::Constant)
                {
 				      std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet::NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
+                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
+               }
+               if (_state == FieldStateEnum::Unavailable)
+               {
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
                }
                ValueInternal(v, false);
             }
@@ -66,12 +71,12 @@ namespace Bct
                case FieldStateEnum::NotSet: // TODO: internationalize - User Story 126598
                {
                   std::string aggName_ValNotSet = typeid(*_aggregate).name();
-                  throw NotAbleToGet::NotAbleToGet(aggName_ValNotSet, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
+                  throw NotAbleToGet(aggName_ValNotSet, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
                }
                case FieldStateEnum::Unavailable: // TODO: internationalize - User Story 126598
                {
                   std::string aggName_ValUnavail = typeid(*_aggregate).name();
-                  throw NotAbleToGet::NotAbleToGet(aggName_ValUnavail, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
+                  throw NotAbleToGet(aggName_ValUnavail, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
                }
                case FieldStateEnum::Computed:
                   // fall through for now - User Story 126598
@@ -92,6 +97,11 @@ namespace Bct
             void Unset()
             {
                if (_state == FieldStateEnum::Constant)
+               {
+                  std::string aggName_ValConstant = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName_ValConstant, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
+               }
+               if (_state == FieldStateEnum::Unavailable)
                {
                   std::string aggName_ValConstant = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName_ValConstant, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
