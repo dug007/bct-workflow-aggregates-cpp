@@ -1,7 +1,8 @@
 #include "AggAssess.h"
-
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
+#include "AggAssess.h"
+#include "AssessMetaData.h"
 
 
 namespace Bct
@@ -11,25 +12,25 @@ namespace Bct
       namespace Aggregates
       {
          AggAssess::AggAssess(const std::string &version) :
-            BaseAggregate(version, s_metaData),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this)
+            BaseAggregate(version),
+            field1("field1", TypeEnum::Int32Type, this),
+            field2("field2", TypeEnum::Int32Type, this)
          {
-
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncCurrentVersion();
+            initMetaData(&s_meta.metaData);
+            SyncVersion();
          }
 
          AggAssess::AggAssess() :
-            BaseAggregate(s_metaData),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this)
+            BaseAggregate(),
+            field1("field1", TypeEnum::Int32Type, this),
+            field2("field2", TypeEnum::Int32Type, this)
 
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncCurrentVersion();
+            SyncVersion();
          }
 
          void AggAssess::initMetaData(AggregateMetaData  *metaData)
@@ -38,8 +39,16 @@ namespace Bct
             s_initialized = true;
          }
 
+         AggregateMetaData &AggAssess::MetaData()
+         {
+            return *s_metaData;
+         }
+
          bool AggAssess::s_initialized = false;
          AggregateMetaData *AggAssess::s_metaData;
+
+         // embeded metadata
+         AssessMetaData AggAssess::s_meta;
       };
    }
 }

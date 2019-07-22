@@ -11,38 +11,49 @@ namespace Bct
    {
       namespace Aggregates
       {
-         AggNested::AggNested(const std::string &version) :
-            BaseAggregate(version, s_metaData),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this),
-            field3("field3", this)
+         bool AggNested::s_initialized = false;
+         AggregateMetaData *AggNested::s_metaData;
 
+         AggNested::AggNested(const std::string &version) :
+            BaseAggregate(version),
+            intField1("intField1", TypeEnum::Int32Type, this),
+            intField2("intField2", TypeEnum::Int32Type, this),
+            aggField("aggField", this),
+            aggFieldV2("aggFieldV2", this)
          {
-            FieldList().push_back(&field1);
-            FieldList().push_back(&field2);
-            SyncCurrentVersion();
+            FieldList().push_back(&intField1);
+            FieldList().push_back(&intField2);
+            AggList().push_back(&aggField);
+            AggList().push_back(&aggFieldV2);
+            SyncVersion();
          }
 
          AggNested::AggNested() :
-            BaseAggregate(s_metaData),
-            field1("field1", TypeEnum::Int32Type, MetaData(), this),
-            field2("field2", TypeEnum::Int32Type, MetaData(), this),
-            field3("field3", this)
-
+            BaseAggregate(),
+            intField1("intField1", TypeEnum::Int32Type, this),
+            intField2("intField2", TypeEnum::Int32Type, this),
+            aggField("aggField", this),
+            aggFieldV2("aggFieldV2", this)
          {
-            FieldList().push_back(&field1);
-            FieldList().push_back(&field2);
-            SyncCurrentVersion();
+            FieldList().push_back(&intField1);
+            FieldList().push_back(&intField2);
+            AggList().push_back(&aggField);
+            AggList().push_back(&aggFieldV2);
+            SyncVersion();
          }
 
-         void AggNested::initMetaData(AggregateMetaData  *metaData)
+         void AggNested::initMetaData(AggregateMetaData  *metaData, AggregateMetaData *aggFieldMetaData)
          {
             s_metaData = metaData;
             s_initialized = true;
+            AggComputeField::initMetaData(aggFieldMetaData);
          }
 
-         bool AggNested::s_initialized = false;
-         AggregateMetaData *AggNested::s_metaData;
+         AggregateMetaData &AggNested::MetaData()
+         {
+            return *s_metaData;
+         }
+
       };
    }
 }

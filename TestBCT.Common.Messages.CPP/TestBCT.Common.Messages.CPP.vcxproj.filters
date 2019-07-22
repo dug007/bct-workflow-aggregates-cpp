@@ -36,6 +36,9 @@
     <ClCompile Include="test\AggNestedUnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AssessMetaData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="include\AggNested.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AssessMetaData.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,20 +22,33 @@ namespace Bct
          {
          public:
             /// <summary>
+            /// Used as a requested version to indicate the metadata item should be included in all versions of the parent.
+            /// 
+            /// Example:  FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", );
+            /// </summary>
+            static const int16_t InAllVersions = -1;
+
+            /// <summary>
             /// Constructs base aggregate.
             /// </summary>
             /// <param name="version">The version to be constucted, such as 1.2.3</param>
-            /// <param name="metaData">The aggregate metadata.</param>
-            BaseAggregate(const std::string &version, AggregateMetaData * metaData);
+            BaseAggregate(const std::string &version);
 
             /// <summary>
             /// Constructor. This constucts the mose recent version.
             /// </summary>
-            /// <param name="metaData">The aggregate metadata.</param>
-            BaseAggregate(AggregateMetaData * metaData);
+            BaseAggregate();
 
-            BaseAggregate(const std::string &fieldName, AggregateMetaData * metaData, BaseAggregate * parent);
+            /// <summary>
+            /// Constructor. This constructor is used for nested aggregates.
+            /// </summary>
+            /// <param name="fieldName"></param>
+            /// <param name="parent"></param>
+            BaseAggregate(const std::string &fieldName, BaseAggregate * parent);
 
+            /// <summary>
+            /// Virtual destructor.
+            /// </summary>
             virtual ~BaseAggregate();
 
             /// <summary>
@@ -70,7 +83,7 @@ namespace Bct
             /// latest counter.
             /// </summary>
             /// <returns>The incremented field set counter.</returns>
-            const uint32_t &FieldSetCounter();
+            virtual const uint32_t &FieldSetCounter();
 
             // TODO: determine best way to define - User Story 126907
             // Field types
@@ -84,26 +97,33 @@ namespace Bct
 
          protected:
             /// <summary>
-            /// Sets the internal current version as appropriate.
+            /// Sets the current version as appropriate.
             /// 
-            /// The aggregate constructor can be called before metadata is initialized. This function is used to set the internal version to
-            /// point to the metadata version as requested by the constructor. This function should be called after metadata is initialized.
+            /// This function is used to set the current version. 
             /// 
             /// If _ver is -1, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
             /// </summary>
-            void SyncCurrentVersion();
+            void SyncVersion();
 
             /// <summary>
-            /// Returns the aggregate metatdata.
+            /// Sets the current version of a nested child aggregate based on this parent's current version and metadata.
+            /// 
+            /// This function should be called after this aggregate has a version, which should be after SyncVersion() is called. Each child aggregate should be intialized with this function.
             /// </summary>
-            /// <returns>Aggregate metadata</returns>
-            AggregateMetaData & MetaData();
+            /// <param name="parentVer"></param>
+            virtual void SyncChildVersion(int16_t parentVer);
 
             /// <summary>
             /// Returns the list of fields in this aggregate.
             /// </summary>
             /// <returns>Field list.</returns>
             std::vector<AbstractField*> & FieldList();
+
+            /// <summary>
+            /// Returns the list of nested aggregates in the aggregate;
+            /// </summary>
+            /// <returns>Aggregate list.</returns>
+            std::vector<AbstractAggregate*> & AggList();
 
             /// <summary>
             /// Returns the current version index for this aggregate.
@@ -118,20 +138,18 @@ namespace Bct
             const std::string & Version() const;
 
          private:
-            AggregateMetaData & _aggregateMetaData;
             std::vector<AbstractField*> _fieldList;
+            std::vector<AbstractAggregate*> _aggList;
             int16_t _ver;
             std::string _version;
             uint32_t _fieldSetCounter;
             BaseAggregate * _parent;
             std::string _fieldName;
 
-            // Disallow default constructor
-            //
-            BaseAggregate();
+            FieldMeta &findFieldMeta(int16_t parentVer);
 
-            FieldMeta findFieldMeta(AggregateMetaData parentMD);
-
+            // Use as a requested version to indicate the most recent version is requested.
+            static const int16_t UseMostRecentVersion = -1;
          };
       }
    }

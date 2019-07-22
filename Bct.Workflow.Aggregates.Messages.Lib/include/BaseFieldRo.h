@@ -22,10 +22,9 @@ namespace Bct
             /// </summary>
             /// <param name="fieldName">Name of this field.</param>
             /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
-            /// <param name="metaData">Metadata vector.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseFieldRo(const std::string fieldName, TypeEnum::Type t, AggregateMetaData &metaData, AbstractAggregate *aggregate)
-               : BaseField<T>(fieldName, t, metaData, aggregate)
+            BaseFieldRo(const std::string fieldName, TypeEnum::Type t, AbstractAggregate *aggregate)
+               : BaseField<T>(fieldName, t, aggregate)
             {
             }
             const T Value()

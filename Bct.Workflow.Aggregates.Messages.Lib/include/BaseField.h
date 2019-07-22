@@ -28,10 +28,9 @@ namespace Bct
             /// </summary>
             /// <param name="fieldName">Name of this field.</param>
             /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
-            /// <param name="metaData">Metadata vector.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(const std::string &fieldName, const TypeEnum::Type &t, AggregateMetaData & metaData,  AbstractAggregate *aggregate)
-               : _fieldName(fieldName), _type(t), _metaData(metaData), _aggregate(aggregate), _fieldSetCounter(0)
+            BaseField(const std::string &fieldName, const TypeEnum::Type &t,  AbstractAggregate *aggregate)
+               : _fieldName(fieldName), _type(t), _aggregate(aggregate), _fieldSetCounter(0)
             {
             }
 
@@ -146,8 +145,8 @@ namespace Bct
 
                // search for the metadata for corresponding version and field name, then initialize this field
                // with that located metadata instance
-               FieldMeta fm = findFieldMeta();
-               FieldStateEnum::FieldState state = fm._fieldState;
+               FieldMeta &fm = findFieldMeta();
+               const FieldStateEnum::FieldState &state = fm._fieldState;
                _state = state;
 
                if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
@@ -167,7 +166,7 @@ namespace Bct
             /// Get the default value of this field as a string.
             /// </summary>
             /// <returns>Default value of field as a string.</returns>
-            std::string DefaultStr()
+            const std::string &DefaultStr() const
             {
                return findFieldMeta()._default;
             }
@@ -231,7 +230,6 @@ namespace Bct
             FieldStateEnum::FieldState _state;
             TypeEnum::Type _type;
             std::string _fieldName;
-            AggregateMetaData & _metaData;
             int16_t _ver;
             uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;
@@ -266,15 +264,16 @@ namespace Bct
 
             }
             
-            FieldMeta findFieldMeta() const
+            FieldMeta &findFieldMeta() const
             {
                // check metadata marked version -1 for all versions in the version 0 vector
-               std::vector<int16_t> fmi0 = _metaData.versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
+               AggregateMetaData & aggMD = _aggregate->MetaData(); // reduce vtable hit and indirection overhead
+               std::vector<int16_t> &fmi0 = aggMD.versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
                if (fmi0.size() > 0)
                {
                   for (size_t i = 0; i < fmi0.size(); i++)
                   {
-                     FieldMeta fm = _metaData.fieldMetaData[fmi0[i]]; // indirection
+                     FieldMeta &fm = aggMD.fieldMetaData[fmi0[i]]; // indirection
                      if (fm.FieldName() == _fieldName)
                      {
                         if (fm._parentVer == -1 || (_ver == 0 && fm._parentVer == 0))
@@ -289,12 +288,12 @@ namespace Bct
                   }
                }
 
-               std::vector<int16_t> fmi = _metaData.versionMetaData[_ver].fieldMetaDataI; // indirection vector for version
+               std::vector<int16_t> &fmi = aggMD.versionMetaData[_ver].fieldMetaDataI; // indirection vector for version
                if (fmi.size() > 0)
                {
                   for (size_t i = 0; i < fmi.size(); i++)
                   {
-                     FieldMeta fm = _metaData.fieldMetaData[fmi[i]]; // indirection
+                     FieldMeta &fm = aggMD.fieldMetaData[fmi[i]]; // indirection
                      if (fm.FieldName() == _fieldName && fm._parentVer <= _ver)
                      {
                         return fm;

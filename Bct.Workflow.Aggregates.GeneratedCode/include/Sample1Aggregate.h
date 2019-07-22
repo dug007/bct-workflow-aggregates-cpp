@@ -3,7 +3,7 @@
 #include "BaseAggregate.h"
 #include "BaseField.h"
 #include "BaseFieldRo.h"
-
+#include "AbstractAggregate.h"
 #include "AbstractField.h"
 
 namespace Bct
@@ -32,6 +32,7 @@ namespace Bct
             Sample1Aggregate();
             Sample1Aggregate(const std::string &version);
             virtual ~Sample1Aggregate();
+            AggregateMetaData &MetaData();
          };
 
       }

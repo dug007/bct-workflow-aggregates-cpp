@@ -11,14 +11,14 @@ namespace Bct
       {
  
          PlateletConfigAggregate::PlateletConfigAggregate(const std::string &version) :
-            BaseAggregate(version, &s_metaData),
-            postCellsPerMl("postCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
-            minTemplateCount("minTemplateCount", TypeEnum::Int32Type, MetaData(), this),
-            maxTemplateCount("maxTemplateCount", TypeEnum::Int32Type, MetaData(), this),
-            minPostCellsPerMl("minPostCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
-            maxPostCellsPerMl("maxPostCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
-            malePostCellsPerMl("malePostCellsPerMl", TypeEnum::DoubleType, MetaData(), this),
-            femalePostCellsPerMl("femalePostCellsPerMl", TypeEnum::DoubleType, MetaData(), this)
+            BaseAggregate(version),
+            postCellsPerMl("postCellsPerMl", TypeEnum::DoubleType, this),
+            minTemplateCount("minTemplateCount", TypeEnum::Int32Type, this),
+            maxTemplateCount("maxTemplateCount", TypeEnum::Int32Type, this),
+            minPostCellsPerMl("minPostCellsPerMl", TypeEnum::DoubleType, this),
+            maxPostCellsPerMl("maxPostCellsPerMl", TypeEnum::DoubleType, this),
+            malePostCellsPerMl("malePostCellsPerMl", TypeEnum::DoubleType, this),
+            femalePostCellsPerMl("femalePostCellsPerMl", TypeEnum::DoubleType, this)
          {
             FieldList().push_back(&postCellsPerMl);
             FieldList().push_back(&minTemplateCount);
@@ -32,7 +32,7 @@ namespace Bct
             {
                initMetaData();
             }
-            SyncCurrentVersion();
+            SyncVersion();
          }
 
          PlateletConfigAggregate::~PlateletConfigAggregate()
