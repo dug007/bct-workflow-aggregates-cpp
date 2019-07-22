@@ -45,12 +45,14 @@ namespace Bct
             /// <param name="v">Value to give this field.</param>
             void Value(const T &v)
             {
-               switch(_state) 
+               switch (_state)
                {
                case FieldStateEnum::Constant:
                case FieldStateEnum::Unavailable:
+               {
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
                }
                ValueInternal(v, false);
             }
@@ -65,11 +67,15 @@ namespace Bct
                switch (_state)
                {
                case FieldStateEnum::NotSet:
+               {
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToGet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
                case FieldStateEnum::Unavailable:
-                  std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+               {
+                  std::string aggName_Unavail = typeid(*_aggregate).name();
+                  throw NotAbleToGet(aggName_Unavail, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
                case FieldStateEnum::Default:
                   return _default;
                }
@@ -89,8 +95,10 @@ namespace Bct
                {
                case FieldStateEnum::Constant:
                case FieldStateEnum::Unavailable:
+               {
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
                }
                _state = FieldStateEnum::NotSet;
             }
