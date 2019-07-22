@@ -17,7 +17,7 @@ namespace Bct
             DoubleType = 7, //double
             StringType = 8, //std::string
             EnumType = 9, //enum
-            VariableType = 10, //internal use
+            VariableType = 10, //internal use 
          };
 
          /// Get the name of a Type value for display
