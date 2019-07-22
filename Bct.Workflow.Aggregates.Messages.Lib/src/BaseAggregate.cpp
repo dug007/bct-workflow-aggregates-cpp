@@ -65,7 +65,7 @@ namespace Bct
                   }
                }
             }
-            throw "error: metadata missing requested version of aggregate";  // TODO
+            throw "error: metadata missing requested version of aggregate";  // TODO - User Story 126598
          }
 
 
