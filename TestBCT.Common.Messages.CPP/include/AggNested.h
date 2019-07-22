@@ -4,6 +4,8 @@
 #include "AggregateMetaData.h"
 #include "AggComputeField.h"
 #include "AbstractAggregate.h"
+#include "EnumField.h"
+#include "TypeEnum.h"
 
 namespace Bct
 {
@@ -19,10 +21,11 @@ namespace Bct
 
          public:
 
-            BaseField<int32_t>   intField1;
-            BaseField<int32_t>   intField2;
-            AggComputeField      aggField;
-            AggComputeField      aggFieldV2;
+            BaseField<int32_t>         intField1;
+            BaseField<int32_t>         intField2;
+            AggComputeField            aggField;
+            AggComputeField            aggFieldV2;
+            EnumField<TypeEnum::Type>  enumField;
 
             AggNested();
             AggNested(const std::string &version);

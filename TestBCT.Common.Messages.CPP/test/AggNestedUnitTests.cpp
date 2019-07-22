@@ -33,6 +33,7 @@ public:
       FieldMeta aggField11Meta("aggField", FieldStateEnum::Constant, 1, 1);  // v1 parent, v1 child
       FieldMeta aggField21Meta("aggField", FieldStateEnum::Constant, 2, 1);  // v2 parent, v1 child
       FieldMeta aggFieldV2Meta("aggFieldV2", FieldStateEnum::Constant, BaseAggregate::InAllVersions, 2);  // all parents have v2 child
+      FieldMeta enumFieldMeta("enumField", FieldStateEnum::Default, "2", BaseAggregate::InAllVersions); // all versions have this field, bool type is 2
 
       int16_t k, cnt;
 
@@ -61,6 +62,11 @@ public:
       metaData.fieldMetaData.push_back(aggFieldV2Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
+
+      metaData.fieldMetaData.push_back(enumFieldMeta);
+      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
+      metaData.versionMetaData[k].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
+
 
       AssessmentRule ar0("assessv0", "assessv0", "intField2 10 ==", "intField1 intField2 ==", ".0.");      // fails
       AssessmentRule ar1("assessv1", "assessv1", "intField2 10 ==", "intField1 intField2 !=", ".1.");      // passes
@@ -172,4 +178,6 @@ TEST_CASE("AggNestedUnitTests", "[test]")
 
    CHECK(r0b.isSuccess() == false); // intField1 intField2 ==
    CHECK(r1b.isSuccess() == true);  // intField1 intField2 !=
+
+   CHECK(a0.enumField.Value() == Bct::Workflow::TypeEnum::BoolType);
 }
