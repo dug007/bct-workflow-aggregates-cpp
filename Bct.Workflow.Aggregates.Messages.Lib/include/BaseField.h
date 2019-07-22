@@ -93,7 +93,8 @@ namespace Bct
             {
                if (_state == FieldStateEnum::Constant)
                {
-                  throw NotAbleToSet("BaseField", FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
+                  std::string aggName_ValConstant = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName_ValConstant, FieldName(), FieldStateEnum::FieldStateString(State())); // TODO internalize - User Story 126598
                }
                _state = FieldStateEnum::NotSet;
             }

@@ -7,6 +7,7 @@
 #include "RPNEvaluator.h"
 #include "AssessmentRule.h"
 #include "AssessmentResult.h"
+#include "Exceptions.h"
 
 
 namespace Bct
@@ -86,7 +87,7 @@ namespace Bct
 
                if (!found)
                {
-                  throw "error: invalid version"; // TODO: internationalize - User Story 126598
+                  throw NoSuchVersion::NoSuchVersion("BaseAggregate",_version); // TODO: internationalize - User Story 126598
                }
             }
             else // use constuctor value
@@ -103,7 +104,7 @@ namespace Bct
                }
                if (!found)
                {
-                  throw "error: invalid version"; // TODO: internationalize - User Story 126598
+                  throw NoSuchVersion::NoSuchVersion("BaseAggregate", _version); // TODO: internationalize - User Story 126598
                }
             }
 

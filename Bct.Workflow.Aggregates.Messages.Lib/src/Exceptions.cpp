@@ -15,8 +15,9 @@ namespace Bct
          {
             try
             {
-               std::ostringstream errorMessageBuilder(_errorMessage);
-               errorMessageBuilder << "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=" << _aggregateName << " requestedVersion=" << _requestedVersion;
+               //std::ostringstream errorMessageBuilder(_errorMessage);
+               //errorMessageBuilder << "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=" << _aggregateName << " requestedVersion=" << _requestedVersion;
+               _errorMessage = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=" + _aggregateName + " requestedVersion=" + _requestedVersion;
             }
             catch (...)
             {
