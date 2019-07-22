@@ -67,7 +67,6 @@ public:
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
 
-
       AssessmentRule ar0("assessv0", "assessv0", "intField2 10 ==", "intField1 intField2 ==", ".0.");      // fails
       AssessmentRule ar1("assessv1", "assessv1", "intField2 10 ==", "intField1 intField2 !=", ".1.");      // passes
       AssessmentRule ar2("assessv2", "assessv2", "intField2 10 ==", "intField1 intField2 + 11 ==", ".2."); // passes
@@ -179,5 +178,6 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    CHECK(r0b.isSuccess() == false); // intField1 intField2 ==
    CHECK(r1b.isSuccess() == true);  // intField1 intField2 !=
 
+   // enum tests
    CHECK(a0.enumField.Value() == Bct::Workflow::TypeEnum::BoolType);
 }

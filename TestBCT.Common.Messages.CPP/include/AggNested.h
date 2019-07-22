@@ -21,11 +21,11 @@ namespace Bct
 
          public:
 
-            BaseField<int32_t>         intField1;
-            BaseField<int32_t>         intField2;
-            AggComputeField            aggField;
-            AggComputeField            aggFieldV2;
-            EnumField<TypeEnum::Type>  enumField;
+            BaseField<int32_t>                  intField1;
+            BaseField<int32_t>                  intField2;
+            AggComputeField                     aggField;
+            AggComputeField                     aggFieldV2;
+            EnumField<TypeEnum::Type, int32_t>  enumField;
 
             AggNested();
             AggNested(const std::string &version);
