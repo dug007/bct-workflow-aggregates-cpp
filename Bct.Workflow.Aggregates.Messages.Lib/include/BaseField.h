@@ -45,8 +45,10 @@ namespace Bct
             /// <param name="v">Value to give this field.</param>
             void Value(const T &v)
             {
-               if (_state == FieldStateEnum::Constant || _state == FieldStateEnum::Unavailable)
+               switch(_state) 
                {
+               case FieldStateEnum::Constant:
+               case FieldStateEnum::Unavailable:
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                }
@@ -63,18 +65,11 @@ namespace Bct
                switch (_state)
                {
                case FieldStateEnum::NotSet:
-               {
-                  std::string aggName_ValNotSet = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName_ValNotSet, FieldName(), FieldStateEnum::FieldStateString(State()));
-               }
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToGet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                case FieldStateEnum::Unavailable:
-               {
-                  std::string aggName_ValUnavail = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName_ValUnavail, FieldName(), FieldStateEnum::FieldStateString(State()));
-               }
-               case FieldStateEnum::Computed:
-                  // fall through for now - User Story 126598
-                  break;
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToGet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                case FieldStateEnum::Default:
                   return _default;
                }
@@ -90,8 +85,10 @@ namespace Bct
 
             void Unset()
             {
-               if (_state == FieldStateEnum::Constant || _state == FieldStateEnum::Unavailable)
+               switch (_state)
                {
+               case FieldStateEnum::Constant:
+               case FieldStateEnum::Unavailable:
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                }
