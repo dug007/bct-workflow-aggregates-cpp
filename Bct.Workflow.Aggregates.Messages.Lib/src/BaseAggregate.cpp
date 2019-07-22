@@ -7,6 +7,7 @@
 #include "RPNEvaluator.h"
 #include "AssessmentRule.h"
 #include "AssessmentResult.h"
+#include "Exceptions.h"
 
 
 namespace Bct
@@ -65,7 +66,8 @@ namespace Bct
                   }
                }
             }
-            throw "error: metadata missing requested version of aggregate";  // TODO - User Story 126598
+            std::string aggName = typeid(this).name();
+            throw NoSuchVersion(aggName, _version);  // TODO - User Story 126598
          }
 
          void BaseAggregate::SyncChildVersion(int16_t parentVer)
@@ -112,7 +114,8 @@ namespace Bct
                   }
                   if (!found)
                   {
-                     throw "error: invalid version"; // TODO: internationalize - User Story 126598
+                     std::string aggName = typeid(this).name();
+                     throw NoSuchVersion(aggName, _version); // TODO: internationalize - User Story 126598
                   }
                }
             }
