@@ -87,7 +87,8 @@ namespace Bct
 
                if (!found)
                {
-                  throw NoSuchVersion("BaseAggregate",_version); // TODO: internationalize - User Story 126598
+                  std::string aggName = typeid(this).name();
+                  throw NoSuchVersion(aggName,_version); // TODO: internationalize - User Story 126598
                }
             }
             else // use constuctor value
@@ -104,7 +105,8 @@ namespace Bct
                }
                if (!found)
                {
-                  throw NoSuchVersion("BaseAggregate", _version); // TODO: internationalize - User Story 126598
+                  std::string aggName = typeid(this).name();
+                  throw NoSuchVersion(aggName, _version); // TODO: internationalize - User Story 126598
                }
             }
 
