@@ -17,7 +17,6 @@ TEST_CASE("PlateletTemplateAggregate100", "[test]")
 
    //Create plateletAggregate with version 1.0.0
    PlateletTemplateAggregate Platelet_100("1.0.0");
-
    //Test for field that is Unavailable
    CHECK(Platelet_100.minYield.State() == FieldStateEnum::FieldState::Unavailable);
    CHECK(Platelet_100.maxYield.State() == FieldStateEnum::FieldState::Unavailable);

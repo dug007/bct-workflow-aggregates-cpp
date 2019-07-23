@@ -195,7 +195,7 @@ namespace Bct
             }
          }
 
-         AssessmentResult BaseAggregate::Assess()
+         AssessmentResult BaseAggregate::Assess() const
          {
             AssessmentResult result;
 
@@ -222,7 +222,7 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
 
-            std::vector<int16_t> &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
+            std::vector<int16_t> const &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
             for (size_t j = 0; j < aRulesV.size(); j++)
             {
                AssessmentRule &aRule = MetaData().assessmentRules[aRulesV[j]]; // indirection

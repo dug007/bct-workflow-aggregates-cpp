@@ -39,7 +39,7 @@ namespace Bct
             /// to return the static instance of the metadata.
             /// </summary>
             /// <returns></returns>
-            virtual AggregateMetaData &MetaData() = 0;
+            virtual AggregateMetaData &MetaData() const = 0;
          };
       }
    }

@@ -61,7 +61,7 @@ namespace Bct
             AggComputeField::initMetaData(aggFieldMetaData);
          }
 
-         AggregateMetaData &AggNested::MetaData()
+         AggregateMetaData &AggNested::MetaData() const
          {
             return *s_metaData;
          }

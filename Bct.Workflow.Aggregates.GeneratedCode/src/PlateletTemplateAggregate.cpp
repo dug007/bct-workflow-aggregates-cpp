@@ -222,7 +222,7 @@ namespace Bct
 
             s_initialized = true;
          }
-         AggregateMetaData &PlateletTemplateAggregate::MetaData()
+         AggregateMetaData &PlateletTemplateAggregate::MetaData() const
          {
             return s_metaData;
          }

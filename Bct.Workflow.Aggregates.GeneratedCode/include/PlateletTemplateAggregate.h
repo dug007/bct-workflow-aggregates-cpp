@@ -35,7 +35,7 @@ namespace Bct
             PlateletTemplateAggregate(const std::string &version);
             virtual ~PlateletTemplateAggregate();
 
-            virtual AggregateMetaData &MetaData();
+            virtual AggregateMetaData &MetaData() const;
          };
       }
    }

@@ -67,7 +67,7 @@ namespace Bct
             /// </summary>
             /// <param name="id">The id of the assessment rule to run or * to run all assessment rules</param>
             /// <returns>The result of the assessment.</returns>
-            AssessmentResult Assess();
+            AssessmentResult Assess() const;
             
             /// <summary>
             /// Convertes current version to the specified version.
