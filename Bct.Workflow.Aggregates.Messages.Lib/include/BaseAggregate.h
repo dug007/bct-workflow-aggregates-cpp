@@ -24,7 +24,7 @@ namespace Bct
             /// <summary>
             /// Used as a requested version to indicate the metadata item should be included in all versions of the parent.
             /// 
-            /// Example:  FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", );
+            /// Example:  FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions);
             /// </summary>
             static const int16_t InAllVersions = -1;
 
@@ -101,7 +101,8 @@ namespace Bct
             /// 
             /// This function is used to set the current version. 
             /// 
-            /// If _ver is -1, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
+            /// If default constructor is used, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
+            /// This function does nothing if there is a parent aggregate and the system defers to after root parent version is known.
             /// </summary>
             void SyncVersion();
 

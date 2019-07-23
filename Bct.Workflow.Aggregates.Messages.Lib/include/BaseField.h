@@ -266,7 +266,7 @@ namespace Bct
             
             FieldMeta &findFieldMeta() const
             {
-               // check metadata marked version -1 for all versions in the version 0 vector
+               // check metadata marked for for all versions in the version 0 vector
                AggregateMetaData & aggMD = _aggregate->MetaData(); // reduce vtable hit and indirection overhead
                std::vector<int16_t> &fmi0 = aggMD.versionMetaData[0].fieldMetaDataI; // indirection vector for version 0 / all versions
                if (fmi0.size() > 0)
@@ -276,7 +276,7 @@ namespace Bct
                      FieldMeta &fm = aggMD.fieldMetaData[fmi0[i]]; // indirection
                      if (fm.FieldName() == _fieldName)
                      {
-                        if (fm._parentVer == -1 || (_ver == 0 && fm._parentVer == 0))
+                        if (fm._parentVer == BaseAggregate::InAllVersions || (_ver == 0 && fm._parentVer == 0))
                         {
                            return fm;
                         }

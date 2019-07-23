@@ -89,6 +89,7 @@ namespace Bct
 
          void BaseAggregate::SyncVersion()
          {
+            // do nothing unless aggregate is root aggregate
             if (_parent == nullptr)
             {
                if (_ver == BaseAggregate::UseMostRecentVersion) // seek most recent version
@@ -115,17 +116,17 @@ namespace Bct
                      throw "error: invalid version"; // TODO: internationalize - User Story 126598
                   }
                }
-            }
 
-            // initialize fields to current version
-            for (size_t i = 0; i < _fieldList.size(); i++)
-            {
-               _fieldList[i]->initMetaData(Ver());
-            }
-            // initialize nested aggregates to current version of parent
-            for (size_t i = 0; i < _aggList.size(); i++)
-            {
-               _aggList[i]->SyncChildVersion(Ver());
+               // initialize fields to current version
+               for (size_t i = 0; i < _fieldList.size(); i++)
+               {
+                  _fieldList[i]->initMetaData(Ver());
+               }
+               // initialize nested aggregates to current version of parent
+               for (size_t i = 0; i < _aggList.size(); i++)
+               {
+                  _aggList[i]->SyncChildVersion(Ver());
+               }
             }
          }
 
