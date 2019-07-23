@@ -13,12 +13,12 @@ TEST_CASE("General", "[test]")
 {
    // General unit tests ----------------------------------------------
    Sample1Aggregate a;
-   SECTION("NotSet","[test]")
+   SECTION("NotSet")
    {
       CHECK(a.Field1.State() == FieldStateEnum::FieldState::NotSet);
       CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
    }
-   CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet); 
+   CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet);
    CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Default);
    CHECK(a.Field7c.State() == FieldStateEnum::FieldState::Constant);
    CHECK(a.Field1.FieldSetCounter() == 0);
@@ -29,16 +29,19 @@ TEST_CASE("General", "[test]")
    double f1 = a.Field1;  // via conversion operator
    //a.Field7ro = 3;      //cannot compile - no assignment operator
    //a.Field7ro.Value(3); //connot compile - setter is private
-   CHECK_THROWS_AS(a.Field7c=3, NotAbleToSet);  // throws on assignment
+   CHECK_THROWS_AS(a.Field7c = 3, NotAbleToSet);  // throws on assignment
    CHECK_THROWS_AS(a.Field7c.Value(3), NotAbleToSet);  // throws on set
-   try //Trying to set a constant field
+   SECTION("NotAbleToSet Exception Message")
    {
-      a.Field7c.Value(5);
-   }
-   catch (NotAbleToSet exc)
-   {
-      std::string message = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate fieldName=Field7c fieldState=Constant";
-      CHECK(exc.what() == message);
+      try //Trying to set a constant field
+      {
+         a.Field7c.Value(5);
+      }
+      catch (NotAbleToSet exc)
+      {
+         std::string message = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate fieldName=Field7c fieldState=Constant";
+         CHECK(exc.what() == message);
+      }
    }
    CHECK(f1 == 2.0);
    CHECK(a.Field1.State() == FieldStateEnum::FieldState::Set);
