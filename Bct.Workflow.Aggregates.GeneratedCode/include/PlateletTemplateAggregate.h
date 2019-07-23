@@ -31,7 +31,7 @@ namespace Bct
             BaseField<double> maxYield;
 
 
-
+            PlateletTemplateAggregate();
             PlateletTemplateAggregate(const std::string &version);
             virtual ~PlateletTemplateAggregate();
 

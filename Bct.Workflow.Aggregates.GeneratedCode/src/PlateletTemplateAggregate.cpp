@@ -8,6 +8,35 @@ namespace Bct
    {
       namespace Aggregates
       {
+         PlateletTemplateAggregate::PlateletTemplateAggregate() :
+            BaseAggregate(),
+            volumeMl("volumeMl", TypeEnum::DoubleType, this),
+            cellsPerMl("cellsPerMl", TypeEnum::DoubleType, this),
+            yield("yield", TypeEnum::DoubleType, this),
+            minVolumeMl("minVolumeMl", TypeEnum::DoubleType, this),
+            maxVolumeMl("maxVolumeMl", TypeEnum::DoubleType, this),
+            minCellsPerMl("minCellsPerMl", TypeEnum::DoubleType, this),
+            maxCellsPerMl("maxCellsPerMl", TypeEnum::DoubleType, this),
+            minYield("minYield", TypeEnum::DoubleType, this),
+            maxYield("maxYield", TypeEnum::DoubleType, this)
+         {
+            FieldList().push_back(&volumeMl);
+            FieldList().push_back(&cellsPerMl);
+            FieldList().push_back(&yield);
+            FieldList().push_back(&minVolumeMl);
+            FieldList().push_back(&maxVolumeMl);
+            FieldList().push_back(&minCellsPerMl);
+            FieldList().push_back(&maxCellsPerMl);
+            FieldList().push_back(&minYield);
+            FieldList().push_back(&maxYield);
+
+            if (!s_initialized)
+            {
+               initMetaData();
+            }
+            SyncVersion();
+         }
+
          PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string &version) :
             BaseAggregate(version),
             volumeMl("volumeMl", TypeEnum::DoubleType, this),
