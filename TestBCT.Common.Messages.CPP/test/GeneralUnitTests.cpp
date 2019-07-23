@@ -9,23 +9,15 @@
 
 using namespace Bct::Workflow::Aggregates;
 
-
 TEST_CASE("General", "[test]")
 {
    // General unit tests ----------------------------------------------
    Sample1Aggregate a;
-   try
+   SECTION("NotSet","[test]")
    {
-      Sample1Aggregate b("1.3.0");
+      CHECK(a.Field1.State() == FieldStateEnum::FieldState::NotSet);
+      CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
    }
-   catch (NoSuchVersion ex)
-   {
-      CHECK(ex.requestedVersion() == "1.3.0");
-      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate requestedVersion=1.3.0";
-      CHECK(ex.what() == message);
-   }
-   CHECK(a.Field1.State() == FieldStateEnum::FieldState::NotSet);
-   CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
    CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet); 
    CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Default);
    CHECK(a.Field7c.State() == FieldStateEnum::FieldState::Constant);
@@ -79,4 +71,18 @@ TEST_CASE("General", "[test]")
    a.Field7x = a.Field7x.Value();
    a.UpdateCalculatedFields();    // "Field7x Field7d $EnteredLater", "Field7x")
    CHECK(a.Field7.Value() == a.Field7x.Value());
+}
+
+TEST_CASE("NoSuchVersion", "[test]")
+{
+   try
+   {
+      Sample1Aggregate b("1.3.0");
+   }
+   catch (NoSuchVersion ex)
+   {
+      CHECK(ex.requestedVersion() == "1.3.0");
+      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate requestedVersion=1.3.0";
+      CHECK(ex.what() == message);
+   }
 }
