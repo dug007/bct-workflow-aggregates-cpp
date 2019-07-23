@@ -145,7 +145,7 @@ namespace Bct
             std::string _version;
             uint32_t _fieldSetCounter;
             BaseAggregate * _parent;
-            std::string _fieldName;
+            std::string _fieldNameAsNested;
 
             FieldMeta &findFieldMeta(int16_t parentVer);
 

@@ -26,7 +26,7 @@ namespace Bct
          }
 
          BaseAggregate::BaseAggregate(const std::string &fieldName,  BaseAggregate * parent) :
-            _fieldName(fieldName), _fieldSetCounter(0), _parent(parent)
+            _fieldNameAsNested(fieldName), _fieldSetCounter(0), _parent(parent)
          {
          }
 
@@ -39,7 +39,7 @@ namespace Bct
                for (size_t i = 0; i < fmi0.size(); i++)
                {
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi0[i]]; // indirection
-                  if (fm.FieldName() == _fieldName)
+                  if (fm.FieldName() == _fieldNameAsNested)
                   {
                      if (fm._parentVer == BaseAggregate::InAllVersions || (parentVer == 0 && fm._parentVer == 0))
                      {
@@ -59,7 +59,7 @@ namespace Bct
                for (size_t i = 0; i < fmi.size(); i++)
                {
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi[i]]; // indirection
-                  if (fm.FieldName() == _fieldName && fm._parentVer <= parentVer)
+                  if (fm.FieldName() == _fieldNameAsNested && fm._parentVer <= parentVer)
                   {
                      return fm;
                   }
