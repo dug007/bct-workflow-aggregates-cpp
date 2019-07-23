@@ -16,17 +16,17 @@ namespace Bct
       namespace Aggregates
       {
          BaseAggregate::BaseAggregate(const std::string &version) :
-            _version(version)
+            _version(version), _fieldSetCounter(0), _parent(nullptr)
          {
          }
 
          BaseAggregate::BaseAggregate() :
-            _ver(BaseAggregate::UseMostRecentVersion)
+            _ver(BaseAggregate::UseMostRecentVersion), _fieldSetCounter(0), _parent(nullptr)
          {
          }
 
          BaseAggregate::BaseAggregate(const std::string &fieldName,  BaseAggregate * parent) :
-            _fieldName(fieldName), _parent(parent)
+            _fieldName(fieldName), _fieldSetCounter(0), _parent(parent)
          {
          }
 
