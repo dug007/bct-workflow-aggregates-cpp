@@ -163,7 +163,9 @@ namespace Bct
                }
 
                FieldStateEnum::FieldState &state = f->StateRef();
-               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
+               RPNVariable r(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
+               std::pair<std::string, RPNVariable> pair(f->FieldName(), r);
+               varMap.insert(pair);
             }
  
             std::vector<int16_t> &cRulesV = MetaData().versionMetaData[Ver()].computeRulesI;
@@ -220,7 +222,9 @@ namespace Bct
                }
 
                FieldStateEnum::FieldState &state = f->StateRef();
-               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
+               RPNVariable r(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
+               std::pair<std::string, RPNVariable> pair(f->FieldName(), r);
+               varMap.insert(pair);
             }
 
             std::vector<int16_t> const &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
