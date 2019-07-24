@@ -7,6 +7,7 @@
 #include "AbstractField.h"
 #include "FieldMeta.h"
 #include "AggregateMetaData.h"
+#include "Exceptions.h"
 
 
 namespace Bct
@@ -44,9 +45,14 @@ namespace Bct
             /// <param name="v">Value to give this field.</param>
             void Value(const T &v)
             {
-               if (_state == FieldStateEnum::Constant)
+               switch (_state)
                {
-                  throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
+               case FieldStateEnum::Constant:
+               case FieldStateEnum::Unavailable:
+               {
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
                }
                ValueInternal(v, false);
             }
@@ -57,17 +63,19 @@ namespace Bct
             /// <returns>The value of this field.</returns>
             const T &Value() const
             {
-               // rules to implement here - User Story 12698
+               // rules to implement here - User Story 126598
                switch (_state)
                {
-               case FieldStateEnum::NotSet: // TODO: internationalize - User Story 126598
-                  throw "error: value has not been set";
-               case FieldStateEnum::Unavailable: // TODO: internationalize - User Story 126598
-                  throw "error: not available in this version";
-
-               case FieldStateEnum::Computed:
-                  // fall through for now - User Story 126598
-                  break;
+               case FieldStateEnum::NotSet:
+               {
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToGet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
+               case FieldStateEnum::Unavailable:
+               {
+                  std::string aggName_Unavail = typeid(*_aggregate).name();
+                  throw NotAbleToGet(aggName_Unavail, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
                case FieldStateEnum::Default:
                   return _default;
                }
@@ -83,9 +91,14 @@ namespace Bct
 
             void Unset()
             {
-               if (_state == FieldStateEnum::Constant)
+               switch (_state)
                {
-                  throw "error: attempting to set constant field"; // TODO internalize - User Story 126598
+               case FieldStateEnum::Constant:
+               case FieldStateEnum::Unavailable:
+               {
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
                }
                _state = FieldStateEnum::NotSet;
             }

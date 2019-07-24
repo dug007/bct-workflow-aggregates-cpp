@@ -38,6 +38,33 @@ namespace Bct
                /// </summary>
                Computed
             };
+			/// <summary>
+			/// Takes the FieldStateEnum value and returns a string
+			/// </summary>
+			/// <param name="state">Current state of the field</param>
+			/// <returns>The string value of the current state of the field</returns>
+			static const char* FieldStateString(FieldState state)
+			{
+				switch (state)
+				{
+				case Unavailable:
+					return "Unavailable";
+				case NotSet:
+					return "NotSet";
+				case Set:
+					return "Set";
+				case Constant:
+					return "Constant";
+				case Default:
+					return "Default";
+				case Computed:
+					return "Computed";
+				default:
+					return "Unavailable";
+				}
+			}
+
+			
          }
       }
    }
