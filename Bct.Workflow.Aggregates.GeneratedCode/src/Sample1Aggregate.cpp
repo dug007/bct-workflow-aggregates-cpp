@@ -235,7 +235,7 @@ namespace Bct
          AggregateMetaData Sample1Aggregate::s_metaData;
          bool Sample1Aggregate::s_initialized = false;
 
-         AggregateMetaData &Sample1Aggregate::MetaData()
+         AggregateMetaData &Sample1Aggregate::MetaData() const
          {
             return s_metaData;
          }

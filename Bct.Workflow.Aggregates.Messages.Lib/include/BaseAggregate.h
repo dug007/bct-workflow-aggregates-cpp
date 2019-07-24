@@ -24,7 +24,7 @@ namespace Bct
             /// <summary>
             /// Used as a requested version to indicate the metadata item should be included in all versions of the parent.
             /// 
-            /// Example:  FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", );
+            /// Example:  FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions);
             /// </summary>
             static const int16_t InAllVersions = -1;
 
@@ -67,7 +67,7 @@ namespace Bct
             /// </summary>
             /// <param name="id">The id of the assessment rule to run or * to run all assessment rules</param>
             /// <returns>The result of the assessment.</returns>
-            AssessmentResult Assess();
+            AssessmentResult Assess() const;
             
             /// <summary>
             /// Convertes current version to the specified version.
@@ -101,7 +101,8 @@ namespace Bct
             /// 
             /// This function is used to set the current version. 
             /// 
-            /// If _ver is -1, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
+            /// If default constructor is used, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
+            /// This function does nothing if there is a parent aggregate and the system defers to after root parent version is known.
             /// </summary>
             void SyncVersion();
 
@@ -144,7 +145,7 @@ namespace Bct
             std::string _version;
             uint32_t _fieldSetCounter;
             BaseAggregate * _parent;
-            std::string _fieldName;
+            std::string _fieldNameAsNested;
 
             FieldMeta &findFieldMeta(int16_t parentVer);
 

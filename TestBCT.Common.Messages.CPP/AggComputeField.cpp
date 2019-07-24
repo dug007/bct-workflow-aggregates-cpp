@@ -46,7 +46,7 @@ namespace Bct
             SyncVersion();
          }
 
-         AggregateMetaData &AggComputeField::MetaData()
+         AggregateMetaData &AggComputeField::MetaData() const
          {
             return *s_metaData;
          }

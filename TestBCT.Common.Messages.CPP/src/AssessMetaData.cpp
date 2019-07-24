@@ -1,4 +1,5 @@
 #include "AssessMetaData.h"
+#include "BaseAggregate.h"
 
 namespace Bct
 {
@@ -25,8 +26,8 @@ namespace Bct
             }
 
             // One set of field metadata for all version
-            FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", -1); // -1 means all versions
-            FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", -1);
+            FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions); // all versions
+            FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
 
             int16_t k, cnt;
 

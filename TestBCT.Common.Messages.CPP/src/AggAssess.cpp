@@ -39,7 +39,7 @@ namespace Bct
             s_initialized = true;
          }
 
-         AggregateMetaData &AggAssess::MetaData()
+         AggregateMetaData &AggAssess::MetaData() const
          {
             return *s_metaData;
          }

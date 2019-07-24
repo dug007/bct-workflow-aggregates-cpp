@@ -17,17 +17,17 @@ namespace Bct
       namespace Aggregates
       {
          BaseAggregate::BaseAggregate(const std::string &version) :
-            _version(version)
+            _version(version), _fieldSetCounter(0), _parent(nullptr)
          {
          }
 
          BaseAggregate::BaseAggregate() :
-            _ver(BaseAggregate::UseMostRecentVersion)
+            _ver(BaseAggregate::UseMostRecentVersion), _fieldSetCounter(0), _parent(nullptr)
          {
          }
 
          BaseAggregate::BaseAggregate(const std::string &fieldName,  BaseAggregate * parent) :
-            _fieldName(fieldName), _parent(parent)
+            _fieldNameAsNested(fieldName), _fieldSetCounter(0), _parent(parent)
          {
          }
 
@@ -40,7 +40,7 @@ namespace Bct
                for (size_t i = 0; i < fmi0.size(); i++)
                {
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi0[i]]; // indirection
-                  if (fm.FieldName() == _fieldName)
+                  if (fm.FieldName() == _fieldNameAsNested)
                   {
                      if (fm._parentVer == BaseAggregate::InAllVersions || (parentVer == 0 && fm._parentVer == 0))
                      {
@@ -60,7 +60,7 @@ namespace Bct
                for (size_t i = 0; i < fmi.size(); i++)
                {
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi[i]]; // indirection
-                  if (fm.FieldName() == _fieldName && fm._parentVer <= parentVer)
+                  if (fm.FieldName() == _fieldNameAsNested && fm._parentVer <= parentVer)
                   {
                      return fm;
                   }
@@ -91,6 +91,7 @@ namespace Bct
 
          void BaseAggregate::SyncVersion()
          {
+            // do nothing unless aggregate is root aggregate
             if (_parent == nullptr)
             {
                if (_ver == BaseAggregate::UseMostRecentVersion) // seek most recent version
@@ -118,17 +119,17 @@ namespace Bct
                      throw NoSuchVersion(aggName, _version);
                   }
                }
-            }
 
-            // initialize fields to current version
-            for (size_t i = 0; i < _fieldList.size(); i++)
-            {
-               _fieldList[i]->initMetaData(Ver());
-            }
-            // initialize nested aggregates to current version of parent
-            for (size_t i = 0; i < _aggList.size(); i++)
-            {
-               _aggList[i]->SyncChildVersion(Ver());
+               // initialize fields to current version
+               for (size_t i = 0; i < _fieldList.size(); i++)
+               {
+                  _fieldList[i]->initMetaData(Ver());
+               }
+               // initialize nested aggregates to current version of parent
+               for (size_t i = 0; i < _aggList.size(); i++)
+               {
+                  _aggList[i]->SyncChildVersion(Ver());
+               }
             }
          }
 
@@ -198,7 +199,7 @@ namespace Bct
             }
          }
 
-         AssessmentResult BaseAggregate::Assess()
+         AssessmentResult BaseAggregate::Assess() const
          {
             AssessmentResult result;
 
@@ -225,7 +226,7 @@ namespace Bct
                varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
 
-            std::vector<int16_t> &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
+            std::vector<int16_t> const &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
             for (size_t j = 0; j < aRulesV.size(); j++)
             {
                AssessmentRule &aRule = MetaData().assessmentRules[aRulesV[j]]; // indirection
