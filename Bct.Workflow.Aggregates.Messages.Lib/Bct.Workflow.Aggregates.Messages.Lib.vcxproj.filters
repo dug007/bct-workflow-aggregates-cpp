@@ -39,18 +39,6 @@
     <ClInclude Include="include\Exceptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FieldDouble.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FieldDoubleRo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FieldInt32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FieldInt32Ro.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\FieldMeta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,10 +51,22 @@
     <ClInclude Include="include\VersionInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\TypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AggregateMetaData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AssessmentResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\VersionMetaData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TypeEnum.h">
+    <ClInclude Include="include\EnumField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,10 +74,22 @@
     <ClCompile Include="src\BaseAggregate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseField.cpp">
+    <ClCompile Include="src\Exceptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Exceptions.cpp">
+    <ClCompile Include="src\AssessmentRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FieldMeta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComputeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VersionInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessmentResult.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

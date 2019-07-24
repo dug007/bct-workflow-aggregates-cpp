@@ -9,21 +9,28 @@ namespace Bct
    {
       namespace Aggregates
       {
+         /// <summary>
+         /// Version information.
+         /// </summary>
          class VersionInfo
          {
          public:
-            VersionInfo()
-            {
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            VersionInfo();
 
-            }
-            VersionInfo(const std::string version) : _version(version)
-            {
-            }
+            /// <summary>
+            /// Sets the string value of the version.
+            /// </summary>
+            /// <param name="version">Version string.</param>
+            VersionInfo(const std::string &version);
 
-            const std::string Version()
-            {
-               return _version;
-            }
+            /// <summary>
+            /// Gets the string value of the version.
+            /// </summary>
+            /// <returns></returns>
+            std::string Version();
 
          private:
             std::string _version;

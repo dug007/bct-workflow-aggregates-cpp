@@ -1,0 +1,643 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<tagfile>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::AbstractAggregate</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_aggregate.html</filename>
+    <member kind="function" virtualness="pure">
+      <type>virtual const uint32_t &amp;</type>
+      <name>FieldSetCounter</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_aggregate.html</anchorfile>
+      <anchor>a6dfc76d317e2665fde4d93b2fdd86295</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>SyncChildVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_aggregate.html</anchorfile>
+      <anchor>a76a15eb5e4f575e5de48bf02637a1be7</anchor>
+      <arglist>(int16_t parentVer)=0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual AggregateMetaData &amp;</type>
+      <name>MetaData</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_aggregate.html</anchorfile>
+      <anchor>a9f5717486f35fbda128c4bad28866b24</anchor>
+      <arglist>()=0</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::AbstractField</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_field.html</filename>
+    <member kind="function" virtualness="pure">
+      <type>virtual const std::string &amp;</type>
+      <name>FieldName</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_field.html</anchorfile>
+      <anchor>accd546258b5034712d1685fc99d5fe6a</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual const TypeEnum::Type &amp;</type>
+      <name>Type</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_field.html</anchorfile>
+      <anchor>a6d1f6d3cc06f34db0a4b823789e96ab5</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual const FieldStateEnum::FieldState &amp;</type>
+      <name>State</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_field.html</anchorfile>
+      <anchor>a98ffa7538f4f1b0a054545fe0c153ce3</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual const uint32_t &amp;</type>
+      <name>FieldSetCounter</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_field.html</anchorfile>
+      <anchor>a42dd102c9f4f07a0363152ffefaf5288</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual std::string</type>
+      <name>ComputedValueString</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_field.html</anchorfile>
+      <anchor>a47dec73688e4866c89d5cff31f349152</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>ComputedValueString</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_field.html</anchorfile>
+      <anchor>a26d83f75de75d6300dbc1469766a0994</anchor>
+      <arglist>(const std::string &amp;val)=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>initMetaData</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_abstract_field.html</anchorfile>
+      <anchor>a25921ac9f2e65b6dabbe98e80bdd1e6d</anchor>
+      <arglist>(int16_t ver)=0</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::AggregateMetaData</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_aggregate_meta_data.html</filename>
+    <member kind="variable">
+      <type>std::vector&lt; VersionInfo &gt;</type>
+      <name>versionInfo</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_aggregate_meta_data.html</anchorfile>
+      <anchor>a60fb59e5e1f1d9b08c9c106b4fb2dca1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; VersionMetaData &gt;</type>
+      <name>versionMetaData</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_aggregate_meta_data.html</anchorfile>
+      <anchor>a521d9ac5e5de1f8fee65e50b1f66985c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; FieldMeta &gt;</type>
+      <name>fieldMetaData</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_aggregate_meta_data.html</anchorfile>
+      <anchor>a670a573d290b7102dbbbf8a2af1a1534</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; AssessmentRule &gt;</type>
+      <name>assessmentRules</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_aggregate_meta_data.html</anchorfile>
+      <anchor>a18accd0a4d39f1a70f20a8af9a16b00c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; ComputeRule &gt;</type>
+      <name>computeRules</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_aggregate_meta_data.html</anchorfile>
+      <anchor>a7ce164fd3e443d6bbc7e28634edcfab7</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::AssessmentResult</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>AssessmentResult</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a6cba048ebac29c09406ce507c2426c49</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addError</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a0f94e8f2133110c9bc95fbaf8ac81cb2</anchor>
+      <arglist>(std::string id, std::string context)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>getErrorIds</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a99cb180f37ff28e3feb979f608078075</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>getContexts</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a96f94b2e0c9b15a2525e81dd72ee8cc3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isSuccess</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a3fcc90c446bb91d8599be5de015323dd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isFailure</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_result.html</anchorfile>
+      <anchor>a2360f98ff5c267c2364373b716fd2e89</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::AssessmentRule</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>AssessmentRule</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a0bb6ff17f02a40f34a3cd809a1913a8b</anchor>
+      <arglist>(std::string ruleId, std::string stringId, std::string condition, std::string expression, std::string versions)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>RuleId</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>ab4f22607a16a36557893547207f1c4ab</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::string &amp;</type>
+      <name>StringId</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a81ea6f0ea8d89d3de894bf0d9c69056a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>Condition</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a87100439dc55f5259ac98e2b21a7b9b2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>Expression</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a3fb36dc29c440d2da398e9b11e63a0b1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>InVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_assessment_rule.html</anchorfile>
+      <anchor>a619e90752f753add255bdf462e21e56d</anchor>
+      <arglist>(int16_t ver)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::BaseAggregate</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</filename>
+    <base>Bct::Workflow::Aggregates::AbstractAggregate</base>
+    <member kind="function">
+      <type></type>
+      <name>BaseAggregate</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>afbe2dde094bfd5f840abda1921f8ae71</anchor>
+      <arglist>(const std::string &amp;version)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BaseAggregate</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a3dc4fa5eb3a163fc0234c49ec165ab17</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BaseAggregate</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a1080c0fc48d6b99752e4bca58c8029eb</anchor>
+      <arglist>(const std::string &amp;fieldName, BaseAggregate *parent)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~BaseAggregate</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>ae9a3d9bab41b80f9532c3956ccfbe879</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::string &amp;</type>
+      <name>getVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a1c360ce4fa5399ff68d498ae04cf39af</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>UpdateCalculatedFields</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>ab66418f34b99152721aa34fb605811fd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>AssessmentResult</type>
+      <name>Assess</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a0e5da50d3a0798d3eb71e4a7c38f8f50</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>convertVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>acd33dffb8cb1ac0ffc905cc2a03cd45b</anchor>
+      <arglist>(std::string version)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual const uint32_t &amp;</type>
+      <name>FieldSetCounter</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a07454eeaff9f88ca68c480083bbf5d53</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static const int16_t</type>
+      <name>InAllVersions</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>aef9e0a920699455fa9bd5fc05e63797e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>SyncVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>aba6ae51e826a67cb10fd4b3708d4f03e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>SyncChildVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a981873e51dc600753a2b3f79cd856bdc</anchor>
+      <arglist>(int16_t parentVer)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>std::vector&lt; AbstractField * &gt; &amp;</type>
+      <name>FieldList</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a9ccd688c515af77a556970e3e40b25e6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>std::vector&lt; AbstractAggregate * &gt; &amp;</type>
+      <name>AggList</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a4bc689e95ad02db9f66ef126a90cf377</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>int32_t</type>
+      <name>Ver</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a183911c43ee18aecc4cc80d9b1857d6f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>const std::string &amp;</type>
+      <name>Version</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_aggregate.html</anchorfile>
+      <anchor>a52fb0b986f4767a3543d841f886ab9a3</anchor>
+      <arglist>() const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::BaseField</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</filename>
+    <templarg></templarg>
+    <base>Bct::Workflow::Aggregates::AbstractField</base>
+    <member kind="function">
+      <type></type>
+      <name>BaseField</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>a3aa750ff631a2d6c33c9d160781fe14b</anchor>
+      <arglist>(const std::string &amp;fieldName, const TypeEnum::Type &amp;t, AbstractAggregate *aggregate)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>Value</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>abf4a8654bcbf6dcc2efdce39d8f1d861</anchor>
+      <arglist>(const T &amp;v)</arglist>
+    </member>
+    <member kind="function">
+      <type>const T &amp;</type>
+      <name>Value</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>af550c4c522df04e172c32b0081abef4a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>operator T</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>a33df78f7dc01482b58d35818f6a5cd17</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual const std::string &amp;</type>
+      <name>FieldName</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>ae2e693776f7bf844f135b56cd266f676</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual const TypeEnum::Type &amp;</type>
+      <name>Type</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>ac8ce430014f1cd51fba9046ee49d6925</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual const FieldStateEnum::FieldState &amp;</type>
+      <name>State</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>a75eb63cc69859945da928b1eaa2766cd</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual const uint32_t &amp;</type>
+      <name>FieldSetCounter</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>a6c3231019f17ac0b42d4b3c7e11b4bba</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>initMetaData</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>ae0b365fbce8becc1ee8e1233bcc3c3d9</anchor>
+      <arglist>(int16_t ver)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::string &amp;</type>
+      <name>DefaultStr</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>a25e4706a5ce55575c10db47523f563ab</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const bool &amp;</type>
+      <name>HasValue</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>ad566a92226ad67ecb4c2bf4f7134f32a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual std::string</type>
+      <name>ComputedValueString</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>a42e23f14e095a5254580b3a12727a87f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>ComputedValueString</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>a469d9f0095cd809a5e194d765f6bef3f</anchor>
+      <arglist>(const std::string &amp;val)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>SetDefault</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field.html</anchorfile>
+      <anchor>ab65b24a9dcb09210fa892fef7bcc7085</anchor>
+      <arglist>(const T &amp;def)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::BaseFieldRo</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field_ro.html</filename>
+    <templarg></templarg>
+    <base>Bct::Workflow::Aggregates::BaseField</base>
+    <member kind="function">
+      <type></type>
+      <name>BaseFieldRo</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_base_field_ro.html</anchorfile>
+      <anchor>a3c183c67a4594405796db92eb81503ab</anchor>
+      <arglist>(const std::string fieldName, TypeEnum::Type t, AbstractAggregate *aggregate)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::ComputeRule</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_compute_rule.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ComputeRule</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_compute_rule.html</anchorfile>
+      <anchor>a04fdf28058d4da7fa639adff77698bc2</anchor>
+      <arglist>(std::string id, std::string field, std::string condition, std::string expression, std::string versions)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>FieldName</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_compute_rule.html</anchorfile>
+      <anchor>af4d61913b5355f0a036b93c1bed8e1c3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>Id</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_compute_rule.html</anchorfile>
+      <anchor>a5e1c8c572768b9c32aa1f6d393f01f46</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>Condition</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_compute_rule.html</anchorfile>
+      <anchor>ace00368b65f09ff4385574c0dab3d933</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>Expression</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_compute_rule.html</anchorfile>
+      <anchor>a23e48547c7e0614be63ea55bbc65498d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>InVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_compute_rule.html</anchorfile>
+      <anchor>a9f4bdbb805e4377b6d2228b0abe2843a</anchor>
+      <arglist>(int16_t ver)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::FieldMeta</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_field_meta.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>FieldMeta</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_field_meta.html</anchorfile>
+      <anchor>a5097174de776e1643e60474e614e0a82</anchor>
+      <arglist>(const std::string fieldName, const FieldStateEnum::FieldState fieldState, const std::string def, int16_t ver)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::NoSuchVersion</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_no_such_version.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>NoSuchVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_no_such_version.html</anchorfile>
+      <anchor>a21ae9d15c17580a1ca544771f2542cb8</anchor>
+      <arglist>(const std::string &amp;aggregateName, const std::string &amp;requestedVersion)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~NoSuchVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_no_such_version.html</anchorfile>
+      <anchor>a86e16387662774aeade95621edb9db5b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual const char *</type>
+      <name>what</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_no_such_version.html</anchorfile>
+      <anchor>a53d8f94bb2c96a74ab88ca974e6ebceb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::string &amp;</type>
+      <name>aggregateName</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_no_such_version.html</anchorfile>
+      <anchor>a52a9967646b41e4b21e1d9e205e88695</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::string &amp;</type>
+      <name>requestedVersion</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_no_such_version.html</anchorfile>
+      <anchor>ad0fb6c24132bb1fa49fb1573cb251982</anchor>
+      <arglist>() const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::VersionChangeRule</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_version_change_rule.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::VersionInfo</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_version_info.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>VersionInfo</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_version_info.html</anchorfile>
+      <anchor>af636c13b86b380516d68dc8b474a3a16</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>VersionInfo</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_version_info.html</anchorfile>
+      <anchor>a980cb52efd744a402883eb12ae6e4fd8</anchor>
+      <arglist>(const std::string &amp;version)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>Version</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_version_info.html</anchorfile>
+      <anchor>a4ac558e57ba28c64fde4ff47e1eb2369</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bct::Workflow::Aggregates::VersionMetaData</name>
+    <filename>class_bct_1_1_workflow_1_1_aggregates_1_1_version_meta_data.html</filename>
+    <member kind="variable">
+      <type>std::vector&lt; int16_t &gt;</type>
+      <name>fieldMetaDataI</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_version_meta_data.html</anchorfile>
+      <anchor>ab358d4323a6f54de45ecb9726f934646</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; int16_t &gt;</type>
+      <name>assessmentRulesI</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_version_meta_data.html</anchorfile>
+      <anchor>ac5748a64235c4e73e6cdd2cb6c99b770</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; int16_t &gt;</type>
+      <name>computeRulesI</name>
+      <anchorfile>class_bct_1_1_workflow_1_1_aggregates_1_1_version_meta_data.html</anchorfile>
+      <anchor>acafb7ad50a32c5da42e345ddbbd3a3c9</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>Bct::Workflow::Aggregates::FieldStateEnum</name>
+    <filename>namespace_bct_1_1_workflow_1_1_aggregates_1_1_field_state_enum.html</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>FieldState</name>
+      <anchorfile>namespace_bct_1_1_workflow_1_1_aggregates_1_1_field_state_enum.html</anchorfile>
+      <anchor>a1711285774a6854390c75e2dcc10da6e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Unavailable</name>
+      <anchorfile>namespace_bct_1_1_workflow_1_1_aggregates_1_1_field_state_enum.html</anchorfile>
+      <anchor>a1711285774a6854390c75e2dcc10da6ea3ccfe76f4003cc633921c60639dd0739</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>NotSet</name>
+      <anchorfile>namespace_bct_1_1_workflow_1_1_aggregates_1_1_field_state_enum.html</anchorfile>
+      <anchor>a1711285774a6854390c75e2dcc10da6ea989aaaabfaf38303f5304020b20b963e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Set</name>
+      <anchorfile>namespace_bct_1_1_workflow_1_1_aggregates_1_1_field_state_enum.html</anchorfile>
+      <anchor>a1711285774a6854390c75e2dcc10da6ea0aac65e3453b3ce18190b8818bbf42b3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Constant</name>
+      <anchorfile>namespace_bct_1_1_workflow_1_1_aggregates_1_1_field_state_enum.html</anchorfile>
+      <anchor>a1711285774a6854390c75e2dcc10da6eafdd13b7b1e88395e44d33c2d206f149e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Default</name>
+      <anchorfile>namespace_bct_1_1_workflow_1_1_aggregates_1_1_field_state_enum.html</anchorfile>
+      <anchor>a1711285774a6854390c75e2dcc10da6ea4a037e3237d1006fe151243cc519bfc5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Computed</name>
+      <anchorfile>namespace_bct_1_1_workflow_1_1_aggregates_1_1_field_state_enum.html</anchorfile>
+      <anchor>a1711285774a6854390c75e2dcc10da6eac5a247d69e6e18b576be9373108a7b1e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+</tagfile>

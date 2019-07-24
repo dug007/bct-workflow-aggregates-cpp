@@ -8,11 +8,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{769B01E0-D114-41C7-B562-FF1318F44892}"
 	ProjectSection(SolutionItems) = preProject
 		BCT.Common.Messages.CPP.runsettings = BCT.Common.Messages.CPP.runsettings
+		DoxyGen\Doxyfile = DoxyGen\Doxyfile
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.Messages.Lib", "Bct.Workflow.Aggregates.Messages.Lib\Bct.Workflow.Aggregates.Messages.Lib.vcxproj", "{A9850E36-2543-4EDE-80B0-5B27EF64859F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BCT.Common.Utilities.RPNEvaluatorCPPWinLib", "..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\BCT.Common.Utilities.RPNEvaluatorCPPWinLib.vcxproj", "{1C98A85D-F3C3-4665-885C-DE6DC3780B4D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.GeneratedCode", "Bct.Workflow.Aggregates.GeneratedCode\Bct.Workflow.Aggregates.GeneratedCode.vcxproj", "{9B10266C-1CC1-418B-8390-E860603184B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +49,14 @@ Global
 		{1C98A85D-F3C3-4665-885C-DE6DC3780B4D}.Release|x64.Build.0 = Release|x64
 		{1C98A85D-F3C3-4665-885C-DE6DC3780B4D}.Release|x86.ActiveCfg = Release|Win32
 		{1C98A85D-F3C3-4665-885C-DE6DC3780B4D}.Release|x86.Build.0 = Release|Win32
+		{9B10266C-1CC1-418B-8390-E860603184B3}.Debug|x64.ActiveCfg = Debug|x64
+		{9B10266C-1CC1-418B-8390-E860603184B3}.Debug|x64.Build.0 = Debug|x64
+		{9B10266C-1CC1-418B-8390-E860603184B3}.Debug|x86.ActiveCfg = Debug|Win32
+		{9B10266C-1CC1-418B-8390-E860603184B3}.Debug|x86.Build.0 = Debug|Win32
+		{9B10266C-1CC1-418B-8390-E860603184B3}.Release|x64.ActiveCfg = Release|x64
+		{9B10266C-1CC1-418B-8390-E860603184B3}.Release|x64.Build.0 = Release|x64
+		{9B10266C-1CC1-418B-8390-E860603184B3}.Release|x86.ActiveCfg = Release|Win32
+		{9B10266C-1CC1-418B-8390-E860603184B3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

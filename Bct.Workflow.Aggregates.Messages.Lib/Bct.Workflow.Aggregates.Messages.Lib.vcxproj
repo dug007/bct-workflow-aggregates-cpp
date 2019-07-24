@@ -97,6 +97,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -114,6 +115,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -129,6 +131,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,6 +149,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,27 +161,31 @@
   <ItemGroup>
     <ClInclude Include="include\AbstractAggregate.h" />
     <ClInclude Include="include\AbstractField.h" />
+    <ClInclude Include="include\AssessmentResult.h" />
     <ClInclude Include="include\AssessmentRule.h" />
     <ClInclude Include="include\BaseAggregate.h" />
     <ClInclude Include="include\BaseField.h" />
+    <ClInclude Include="include\BaseFieldRo.h" />
     <ClInclude Include="include\ComputeRule.h" />
+    <ClInclude Include="include\EnumField.h" />
     <ClInclude Include="include\Exceptions.h" />
-    <ClInclude Include="include\FieldDouble.h" />
-    <ClInclude Include="include\FieldDoubleRo.h" />
-    <ClInclude Include="include\FieldInt32.h" />
-    <ClInclude Include="include\FieldInt32Ro.h" />
     <ClInclude Include="include\FieldMeta.h" />
     <ClInclude Include="include\FieldStateEnum.h" />
     <ClInclude Include="include\TypeEnum.h" />
     <ClInclude Include="include\VersionChangeRule.h" />
     <ClInclude Include="include\VersionInfo.h" />
+    <ClInclude Include="include\AggregateMetaData.h" />
     <ClInclude Include="include\VersionMetaData.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AssessmentResult.cpp" />
+    <ClCompile Include="src\AssessmentRule.cpp" />
     <ClCompile Include="src\BaseAggregate.cpp" />
-    <ClCompile Include="src\BaseField.cpp" />
+    <ClCompile Include="src\ComputeRule.cpp" />
     <ClCompile Include="src\Exceptions.cpp" />
+    <ClCompile Include="src\FieldMeta.cpp" />
+    <ClCompile Include="src\VersionInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib\BCT.Common.Utilities.RPNEvaluatorCPPWinLib.vcxproj">
