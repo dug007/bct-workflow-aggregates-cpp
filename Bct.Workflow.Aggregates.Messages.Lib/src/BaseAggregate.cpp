@@ -147,7 +147,7 @@ namespace Bct
          void BaseAggregate::UpdateCalculatedFields()
          {
             // populate variable map
-            std::map<std::string, RPNVariable> varMap;
+            std::map<std::string, RPNEvaluator::RPNVariable> varMap;
             for (size_t i = 0; i < _fieldList.size(); i++)
             {
                AbstractField *f = _fieldList[i];
@@ -166,7 +166,7 @@ namespace Bct
                }
 
                FieldStateEnum::FieldState &state = f->StateRef();
-               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
+               varMap[f->FieldName()] = RPNEvaluator::RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
  
             std::vector<int16_t> &cRulesV = MetaData().versionMetaData[Ver()].computeRulesI;
@@ -187,7 +187,7 @@ namespace Bct
                      const std::string &expression = cRule.Expression();
                      std::string answerValue;
                      TypeEnum::Type answerType;
-                     RPNEvaluator evaluator;
+                     RPNEvaluator::RPNEvaluator evaluator;
                      evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
                      if ("true" == answerValue)
                      {
@@ -204,7 +204,7 @@ namespace Bct
             AssessmentResult result;
 
             // populate variable map
-            std::map<std::string, RPNVariable> varMap;
+            std::map<std::string, RPNEvaluator::RPNVariable> varMap;
             for (size_t i = 0; i < _fieldList.size(); i++)
             {
                AbstractField *f = _fieldList[i];
@@ -223,7 +223,7 @@ namespace Bct
                }
 
                FieldStateEnum::FieldState &state = f->StateRef();
-               varMap[f->FieldName()] = RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
+               varMap[f->FieldName()] = RPNEvaluator::RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
             }
 
             std::vector<int16_t> const &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;
@@ -234,7 +234,7 @@ namespace Bct
                const std::string &expression = aRule.Expression();
                std::string answerValue;
                TypeEnum::Type answerType;
-               RPNEvaluator evaluator;
+               RPNEvaluator::RPNEvaluator evaluator;
                evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
                if ("true" == answerValue)
                {
