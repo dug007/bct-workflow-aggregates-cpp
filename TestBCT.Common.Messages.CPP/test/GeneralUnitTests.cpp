@@ -26,7 +26,7 @@ TEST_CASE("General", "[test]")
    double f1 = a.Field1;  // via conversion operator
    //a.Field7ro = 3;      //cannot compile - no assignment operator
    //a.Field7ro.Value(3); //connot compile - setter is private
-   CHECK_THROWS_AS(a.Field7c=3, char*);  // throws on assignment
+   CHECK_THROWS_AS(a.Field7c = 3, char*);  // throws on assignment
    CHECK_THROWS_AS(a.Field7c.Value(3), char*);  // throws on set
    CHECK(f1 == 2.0);
    CHECK(a.Field1.State() == FieldStateEnum::FieldState::Set);
@@ -59,4 +59,14 @@ TEST_CASE("General", "[test]")
    a.Field7x = a.Field7x.Value();
    a.UpdateCalculatedFields();    // "Field7x Field7d $EnteredLater", "Field7x")
    CHECK(a.Field7.Value() == a.Field7x.Value());
+
+   // Testing Enum fields
+   CHECK(a.FieldEnum.Value() == FieldStateEnum::NotSet);
+   a.FieldEnum.Value(FieldStateEnum::Set);
+   a.FieldEnum = FieldStateEnum::Default;
+      CHECK(a.FieldEnum.Value() == FieldStateEnum::Default);
+
+   CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+   //   a.FieldEnumRo.Value(FieldStateEnum::Set);
+   //   a.FieldEnumRo = FieldStateEnum::Default;
 }

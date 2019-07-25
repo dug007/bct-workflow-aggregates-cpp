@@ -46,6 +46,12 @@ namespace Bct
                return r;
             }
 
+            U operator=(const T &val)
+            {
+               this->Value(val);
+               return *this;
+            }
+
          private:
             std::string _enumName;
             std::vector<std::string> _enumNames;

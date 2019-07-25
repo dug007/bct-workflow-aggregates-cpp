@@ -5,6 +5,9 @@
 #include "BaseFieldRo.h"
 #include "AbstractAggregate.h"
 #include "AbstractField.h"
+#include "EnumField.h"
+#include "EnumFieldRo.h"
+
 
 namespace Bct
 {
@@ -28,6 +31,8 @@ namespace Bct
             BaseField<int32_t>   Field7d;     // defaulted
             BaseField<int32_t>   Field7com;   // computed
             BaseField<int32_t>   Field7x;     // extra field for tests
+            EnumField<FieldStateEnum::FieldState, int32_t> FieldEnum;
+            EnumFieldRo<FieldStateEnum::FieldState, int32_t> FieldEnumRo;
 
             Sample1Aggregate();
             Sample1Aggregate(const std::string &version);

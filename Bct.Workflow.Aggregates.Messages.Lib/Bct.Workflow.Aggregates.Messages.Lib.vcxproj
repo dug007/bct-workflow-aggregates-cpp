@@ -168,6 +168,7 @@
     <ClInclude Include="include\BaseFieldRo.h" />
     <ClInclude Include="include\ComputeRule.h" />
     <ClInclude Include="include\EnumField.h" />
+    <ClInclude Include="include\EnumFieldRo.h" />
     <ClInclude Include="include\Exceptions.h" />
     <ClInclude Include="include\FieldMeta.h" />
     <ClInclude Include="include\FieldStateEnum.h" />

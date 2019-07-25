@@ -17,7 +17,7 @@ namespace Bct
          class ReferenceAggregate : public BaseAggregate
          {
          private:
-            static ReferenceAggregate *s_metaData;
+            static AggregateMetaData *s_metaData;
             static bool s_initialized;
 
          public:
@@ -33,7 +33,8 @@ namespace Bct
 
             ReferenceAggregate();
             ReferenceAggregate(const std::string &version);
-            static void initMetaData(AggregateMetaData  *metaData, AggregateMetaData *field3MetaData);
+
+            static void initMetaData(AggregateMetaData  *metaData, AggregateMetaData *nestedAggregateMetaData);
 
             virtual AggregateMetaData &MetaData() const;
          };
