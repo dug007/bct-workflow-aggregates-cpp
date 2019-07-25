@@ -17,7 +17,7 @@ namespace Bct
       namespace Aggregates
       {
          /// <summary>
-         /// Base template class for scalar fields. All scalar fields must derive from this class.
+         /// Base template class for scalar fields and derives from the AbstractField class. All scalar fields must derive from this class.
          /// </summary>
          template<class T>
          class BaseField : public AbstractField
@@ -185,7 +185,7 @@ namespace Bct
             }
 
             /// <summary>
-            /// Determins if this field has a value.
+            /// Determines if this field has a value.
             /// </summary>
             /// <returns>true if the field has a  value, false if the field does not hava a value.</returns>
             const bool &HasValue() const

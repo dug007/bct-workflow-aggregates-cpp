@@ -19,7 +19,7 @@ namespace Bct
             /// </summary>
             /// <param name="id">Id of rule.</param>
             /// <param name="field">Name of field this rule applies to.</param>
-            /// <param name="condition">RPN boolean expression. This rule does not fire if this returns false.</param>
+            /// <param name="condition">RPN boolean condition. This rule does not fire if this returns false.</param>
             /// <param name="expression">RPN expression to calculate the value associated with this field.</param>
             /// <param name="versions">Version mask. This is a string beginning and ending with a period. This is a period delimited set of versions that this rule applies to. For example, ".3.4." means this rule applies to versions 3 and 4 only.</param>
             ComputeRule(std::string id, std::string field, std::string condition, std::string expression, std::string versions);
@@ -52,7 +52,7 @@ namespace Bct
             /// Determines if this rule applies to the given version.
             /// </summary>
             /// <param name="ver">Version to check.</param>
-            /// <returns>True if the rule applies, falso if it does not apply.</returns>
+            /// <returns>True if the rule applies, false if it does not apply.</returns>
             bool InVersion(int16_t ver);
          private:
             std::string _field;
