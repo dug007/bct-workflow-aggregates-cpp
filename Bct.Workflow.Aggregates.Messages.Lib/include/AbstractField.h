@@ -29,7 +29,7 @@ namespace Bct
             virtual const TypeEnum::Type &Type() const = 0;
 
             /// <summary>
-            /// Pure virtual function the return the field state of this field.
+            /// Pure virtual function to return the field state enum of this field.
             /// </summary>
             /// <returns>The field state of this field.</returns>
             virtual const FieldStateEnum::FieldState &State() const = 0;

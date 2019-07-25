@@ -26,11 +26,11 @@ namespace Bct
                /// </summary>
                Set,
                /// <summary>
-               /// Field has a fixed constant value. Any attempt to change the value will throw and exception.
+               /// Field has a fixed constant value. Any attempt to change the value will throw an exception.
                /// </summary>
                Constant,
                /// <summary>
-               /// Curent value of the field has its default value.
+               /// Current value of the field has its default value.
                /// </summary>
                Default,
                /// <summary>

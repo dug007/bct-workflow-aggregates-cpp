@@ -25,7 +25,7 @@ namespace Bct
             /// to determine the order that field setters are used. This is important for calculated fields to decide
             /// which fields are the most recently set.
             /// </remarks> 
-            /// <returns>The field set counter incremented by 1 since that last time this function was called.</returns>
+            /// <returns>The field set counter incremented by 1 since the last time this function was called.</returns>
             virtual const uint32_t &FieldSetCounter() = 0;
 
             /// <summary>

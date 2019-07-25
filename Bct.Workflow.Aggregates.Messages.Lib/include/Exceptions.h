@@ -102,8 +102,8 @@ namespace Bct
             /// Instantiate a NotAbleToGet exception which is thrown if the requested field value is trying to be obtained while the field state is Unavailable or NotSet
             /// </summary>
             /// <param name="aggregateName">Associated aggregate name for exception</param>
-            /// <param name="fieldName">Name of the field trying to be set</param>
-            /// <param name="fieldState">State of the field trying to be set</param>
+            /// <param name="fieldName">Name of the field trying to be obtained</param>
+            /// <param name="fieldState">State of the field trying to be obtained</param>
             NotAbleToGet(const std::string& aggregateName, const std::string& fieldName, const std::string& fieldState);
 
             /// <summary>
