@@ -39,6 +39,9 @@
     <ClCompile Include="src\AssessMetaData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ReferenceAggregate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />
@@ -55,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="include\AssessMetaData.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ReferenceAggregate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ReferenceEnum.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
