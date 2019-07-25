@@ -84,7 +84,6 @@ namespace Bct
             {
                _aggList[i]->SyncChildVersion(Ver());
             }
-
          }
 
          void BaseAggregate::SyncVersion()
@@ -273,6 +272,19 @@ namespace Bct
          const std::string & BaseAggregate::Version() const
          {
             return _version;
+         }
+
+         void BaseAggregate::serialize(std::string & value) const
+         {
+
+         }
+         void BaseAggregate::deserialize(const std::string & value)
+         {
+
+         }
+         void BaseAggregate::log(std::ostream & logStream, int flags) const
+         {
+
          }
 
       }

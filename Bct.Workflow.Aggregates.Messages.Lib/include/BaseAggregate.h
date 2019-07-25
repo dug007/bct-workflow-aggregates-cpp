@@ -78,6 +78,10 @@ namespace Bct
                // TODO implement - User Story 126595
             };
 
+            void serialize(std::string & value) const;
+            void deserialize(const std::string & value);
+            void log(std::ostream & logStream, int flags) const;
+
             /// <summary>
             /// Increments the global field set counter and returns the result. Field setters can call this to get their
             /// latest counter.
