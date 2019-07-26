@@ -23,6 +23,20 @@ namespace Bct
          class AggregateMetaData
          {
          public:
+            void Clear()
+            {
+               assessmentRules.clear();
+               computeRules.clear();
+               fieldMetaData.clear();
+               versionInfo.clear();
+               for (size_t i = 0; i < versionMetaData.size(); i++)
+               {
+                  versionMetaData[i].assessmentRulesI.clear();
+                  versionMetaData[i].computeRulesI.clear();
+                  versionMetaData[i].fieldMetaDataI.clear();
+               }
+               versionMetaData.clear();
+            }
             /// <summary>
             /// Version info for versions. The vector is ordered by increasing version. The vector index IS the ver value.
             /// </summary>

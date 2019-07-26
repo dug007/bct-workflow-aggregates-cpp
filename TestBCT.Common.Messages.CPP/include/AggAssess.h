@@ -27,6 +27,7 @@ namespace Bct
             AggAssess(const std::string &version);
             AggregateMetaData &MetaData() const;
             static void initMetaData(AggregateMetaData *metaData);
+            static void clearInternalMetaData();
 
          private:
          };
