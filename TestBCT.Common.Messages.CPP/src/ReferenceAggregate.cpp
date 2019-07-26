@@ -38,7 +38,7 @@ namespace Bct
             FieldList().push_back(&stringField);
             FieldList().push_back(&enumField);
             AggList().push_back(&nestedAggregate);
-            SyncVersion();
+            syncVersion();
          }
 
          void ReferenceAggregate::initMetaData(AggregateMetaData  *metaData, AggregateMetaData *nestedAggregateMetaData)

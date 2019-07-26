@@ -31,7 +31,7 @@ namespace Bct
             AggList().push_back(&aggField);
             AggList().push_back(&aggFieldV2);
             FieldList().push_back(&enumField);
-            SyncVersion();
+            syncVersion();
          }
 
          AggNested::AggNested() :
@@ -51,7 +51,7 @@ namespace Bct
             AggList().push_back(&aggField);
             AggList().push_back(&aggFieldV2);
             FieldList().push_back(&enumField);
-            SyncVersion();
+            syncVersion();
          }
 
          void AggNested::initMetaData(AggregateMetaData  *metaData, AggregateMetaData *aggFieldMetaData)

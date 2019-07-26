@@ -48,16 +48,16 @@ TEST_CASE("General", "[test]")
    CHECK(a.Field7d.Value() == -1);
    CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Default);
 
-   a.UpdateCalculatedFields();
+   a.updateCalculatedFields();
    CHECK(a.Field1.Value() == 22.0);
 
    // Testing $EnteredLater
    a.Field7x = 98;
    a.Field7d = 99;
-   a.UpdateCalculatedFields();    // "Field7d Field7x $EnteredLater", "Field7d")
+   a.updateCalculatedFields();    // "Field7d Field7x $EnteredLater", "Field7d")
    CHECK(a.Field7.Value() == a.Field7d.Value());
    a.Field7x = a.Field7x.Value();
-   a.UpdateCalculatedFields();    // "Field7x Field7d $EnteredLater", "Field7x")
+   a.updateCalculatedFields();    // "Field7x Field7d $EnteredLater", "Field7x")
    CHECK(a.Field7.Value() == a.Field7x.Value());
 
    // Testing Enum fields

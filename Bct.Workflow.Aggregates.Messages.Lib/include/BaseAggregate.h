@@ -60,7 +60,7 @@ namespace Bct
             /// <summary>
             /// Updates all calculated fields for this aggregate.
             /// </summary>
-            void UpdateCalculatedFields();
+            void updateCalculatedFields();
 
             /// <summary>
             /// Run one or all assessment rules.
@@ -108,15 +108,15 @@ namespace Bct
             /// If default constructor is used, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
             /// This function does nothing if there is a parent aggregate and the system defers to after root parent version is known.
             /// </summary>
-            void SyncVersion();
+            void syncVersion();
 
             /// <summary>
             /// Sets the current version of a nested child aggregate based on this parent's current version and metadata.
             /// 
-            /// This function should be called after this aggregate has a version, which should be after SyncVersion() is called. Each child aggregate should be intialized with this function.
+            /// This function should be called after this aggregate has a version, which should be after syncVersion() is called. Each child aggregate should be intialized with this function.
             /// </summary>
             /// <param name="parentVer"></param>
-            virtual void SyncChildVersion(int16_t parentVer);
+            virtual void syncChildVersion(int16_t parentVer);
 
             /// <summary>
             /// Returns the list of fields in this aggregate.

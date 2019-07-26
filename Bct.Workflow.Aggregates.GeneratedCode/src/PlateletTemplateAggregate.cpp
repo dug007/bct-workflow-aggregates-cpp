@@ -34,7 +34,7 @@ namespace Bct
             {
                initMetaData();
             }
-            SyncVersion();
+            syncVersion();
          }
 
          PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string &version) :
@@ -64,7 +64,7 @@ namespace Bct
             {
                initMetaData();
             }
-            SyncVersion();
+            syncVersion();
          }
 
          PlateletTemplateAggregate::~PlateletTemplateAggregate()

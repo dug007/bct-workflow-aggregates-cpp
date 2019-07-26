@@ -43,7 +43,7 @@ namespace Bct
                initMetaData();
             }
 
-            SyncVersion();
+            syncVersion();
          }
 
          Sample1Aggregate::Sample1Aggregate() :
@@ -76,7 +76,7 @@ namespace Bct
             {
                initMetaData();
             }
-            SyncVersion();
+            syncVersion();
          }
 
 

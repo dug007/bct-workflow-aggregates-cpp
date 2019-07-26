@@ -68,7 +68,7 @@ namespace Bct
             throw "error: metadata missing requested version of aggregate";  // TODO - User Story 126598
          }
 
-         void BaseAggregate::SyncChildVersion(int16_t parentVer)
+         void BaseAggregate::syncChildVersion(int16_t parentVer)
          {
             FieldMeta &meta = findFieldMeta(parentVer);
             _ver = meta._childVer;
@@ -82,11 +82,11 @@ namespace Bct
             // initialize nested aggregates to current version of parent
             for (size_t i = 0; i < _aggList.size(); i++)
             {
-               _aggList[i]->SyncChildVersion(Ver());
+               _aggList[i]->syncChildVersion(Ver());
             }
          }
 
-         void BaseAggregate::SyncVersion()
+         void BaseAggregate::syncVersion()
          {
             // do nothing unless aggregate is root aggregate
             if (_parent == nullptr)
@@ -124,7 +124,7 @@ namespace Bct
                // initialize nested aggregates to current version of parent
                for (size_t i = 0; i < _aggList.size(); i++)
                {
-                  _aggList[i]->SyncChildVersion(Ver());
+                  _aggList[i]->syncChildVersion(Ver());
                }
             }
          }
@@ -140,7 +140,7 @@ namespace Bct
             return _version;
          };
 
-         void BaseAggregate::UpdateCalculatedFields()
+         void BaseAggregate::updateCalculatedFields()
          {
             // populate variable map
             std::map<std::string, RPNVariable> varMap;

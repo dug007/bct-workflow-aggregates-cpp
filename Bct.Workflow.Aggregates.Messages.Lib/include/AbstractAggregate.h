@@ -32,7 +32,7 @@ namespace Bct
             /// Pure virtual function to set a child nested aggregate version.
             /// </summary>
             /// <param name="parentVer">Current version of parent aggregate.</param>
-            virtual void SyncChildVersion(int16_t parentVer) = 0;
+            virtual void syncChildVersion(int16_t parentVer) = 0;
 
             /// <summary>
             /// Pure virtual function to return metadata for this aggregate. The most-derived class should implement this
