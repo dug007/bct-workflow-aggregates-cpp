@@ -49,7 +49,6 @@ namespace Bct
             /// <summary>
             /// Field metadata. The vector is ordered by increasing version in major order, and field in minor order. The vector index IS NOT the ver value. 
             /// Searching backwards matching both version and field name results in locating the most recent version of a particular field first.
-            /// backward
             /// </summary>
             std::vector<FieldMeta> fieldMetaData;
             /// <summary>

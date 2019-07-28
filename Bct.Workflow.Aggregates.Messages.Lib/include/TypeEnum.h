@@ -17,8 +17,7 @@ namespace Bct
             DoubleType = 7, //double
             StringType = 8, //std::string
             EnumType = 9, //enum
-            VariableType = 10, //internal use
-            SByte = 11	//used in RPNEvalTest.cpp
+            VariableType = 10, //internal use 
          };
 
          /// Get the name of a Type value for display
@@ -48,8 +47,6 @@ namespace Bct
                return "EnumType";
             case VariableType:
                return "VariableType";
-			case SByte:
-				return "SByte";
             default:
                return "Empty";
             }

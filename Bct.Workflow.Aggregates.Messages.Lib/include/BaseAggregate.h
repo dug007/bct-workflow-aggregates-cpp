@@ -16,7 +16,7 @@ namespace Bct
       namespace Aggregates
       {
          /// <summary>
-         /// Base aggregate. All aggregates must derive from this base class.
+         /// Base aggregate that derives from the AbstractAggregate class. All aggregates must derive from this base class.
          /// </summary>
          class BaseAggregate : public AbstractAggregate
          {
@@ -35,7 +35,7 @@ namespace Bct
             BaseAggregate(const std::string &version);
 
             /// <summary>
-            /// Constructor. This constucts the mose recent version.
+            /// Constructor. This constucts the most recent version.
             /// </summary>
             BaseAggregate();
 
@@ -70,7 +70,7 @@ namespace Bct
             AssessmentResult Assess() const;
             
             /// <summary>
-            /// Convertes current version to the specified version.
+            /// Converts current version to the specified version.
             /// </summary>
             /// <param name="version">The new current version</param>
             void convertVersion(std::string version)
@@ -103,9 +103,7 @@ namespace Bct
             /// <summary>
             /// Sets the current version as appropriate.
             /// 
-            /// This function is used to set the current version. 
-            /// 
-            /// If default constructor is used, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is is used to set _ver.
+            /// If default constructor is used, indicating the most recent version is desired, _ver and _version are set to the most recent metadata version. Otherwise _version is used to set _ver.
             /// This function does nothing if there is a parent aggregate and the system defers to after root parent version is known.
             /// </summary>
             void syncVersion();

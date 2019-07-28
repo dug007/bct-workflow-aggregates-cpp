@@ -29,7 +29,7 @@ namespace Bct
             /// </summary>
             std::vector<int16_t> fieldMetaDataI;
             /// <summary>
-            /// Index into a assessment rule metadata item.
+            /// Index into an assessment rule metadata item.
             /// </summary>
             std::vector<int16_t> assessmentRulesI;
             /// <summary>
