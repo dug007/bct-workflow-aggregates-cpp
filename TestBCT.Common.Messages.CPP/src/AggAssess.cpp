@@ -45,7 +45,7 @@ namespace Bct
 
          void AggAssess::clearInternalMetaData()
          {
-            s_meta.metaData.Clear();
+            s_meta.metaData.clear();
             s_metaData = nullptr;
             s_initialized = false;
          }

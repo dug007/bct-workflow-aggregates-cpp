@@ -42,6 +42,9 @@
     <ClCompile Include="src\ReferenceAggregate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test\MetaUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />

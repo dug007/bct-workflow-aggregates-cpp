@@ -8,6 +8,7 @@
 #include "AssessmentRule.h"
 #include "ComputeRule.h"
 #include "VersionMetaData.h"
+#include "FluentMeta.h"
 
 namespace Bct
 {
@@ -15,6 +16,8 @@ namespace Bct
    {
       namespace Aggregates
       {
+         class FluentMeta;
+
          /// <summary>
          /// Metadata across all versions. 
          /// 
@@ -23,20 +26,18 @@ namespace Bct
          class AggregateMetaData
          {
          public:
-            void Clear()
-            {
-               assessmentRules.clear();
-               computeRules.clear();
-               fieldMetaData.clear();
-               versionInfo.clear();
-               for (size_t i = 0; i < versionMetaData.size(); i++)
-               {
-                  versionMetaData[i].assessmentRulesI.clear();
-                  versionMetaData[i].computeRulesI.clear();
-                  versionMetaData[i].fieldMetaDataI.clear();
-               }
-               versionMetaData.clear();
-            }
+            void addVersion(std::string const &version);
+
+            FluentMeta addFieldMeta(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, std::string const &def);
+
+            void addFieldMetaToAllVersions(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, std::string const &def);
+
+            FluentMeta addAggMeta(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, int16_t childVer);
+
+            void addAggMetaToAllVersions(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, int16_t childVer);
+
+            void clear();
+
             /// <summary>
             /// Version info for versions. The vector is ordered by increasing version. The vector index IS the ver value.
             /// </summary>
