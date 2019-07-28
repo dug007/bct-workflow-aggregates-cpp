@@ -9,7 +9,7 @@
 
 using namespace Bct::Workflow::Aggregates;
 
-class AggMetaForTest : public BaseAggregate
+class AggForFluentTest : public BaseAggregate
 {
 private:
    static AggregateMetaData *s_metaData;
@@ -19,7 +19,7 @@ public:
    BaseField<int32_t> intField;
    AggComputeField    aggField;
 
-   AggMetaForTest(const std::string &version)
+   AggForFluentTest(const std::string &version)
       :
       BaseAggregate(version),
       intField("intField", Bct::Workflow::TypeEnum::Int32Type, this),
@@ -28,19 +28,18 @@ public:
       FieldList().push_back(&intField);
       AggList().push_back(&aggField);
 
-      // metadata AggMetaForTest------------------->
+      // metadata AggForFluentTest------------------->
       static AggregateMetaData tm;
       tm.addVersion("1.0.0");
       tm.addVersion("1.1.0");
       tm.addVersion("1.2.0");
       tm.addFieldMeta("intField", FieldStateEnum::Default, "0") .toVersion(0);
       tm.addFieldMeta("intField", FieldStateEnum::Default, "1") .toVersion(1) .toVersion(2);
-
       tm.addAggMeta("aggField", FieldStateEnum::Unavailable, 0)   .toVersion(0);
       tm.addAggMeta("aggField", FieldStateEnum::Set, 1)           .toVersion(1);
       tm.addAggMeta("aggField", FieldStateEnum::Set, 2)           .toVersion(2);
       initMetaData(&tm);
-      // <----------------- metadata AggMetaForTest 
+      // <----------------- metadata AggForFluentTest 
 
          // metadata AggComputeField ------------------->
       static AggregateMetaData cf;
@@ -69,14 +68,14 @@ public:
    };
 };
 
-bool AggMetaForTest::s_initialized = false;
-AggregateMetaData *AggMetaForTest::s_metaData;
+bool AggForFluentTest::s_initialized = false;
+AggregateMetaData *AggForFluentTest::s_metaData;
 
 TEST_CASE("FluentMetaTests", "[test]")
 {
-   AggMetaForTest t0("1.0.0");
-   AggMetaForTest t1("1.1.0");
-   AggMetaForTest t2("1.2.0");
+   AggForFluentTest t0("1.0.0");
+   AggForFluentTest t1("1.1.0");
+   AggForFluentTest t2("1.2.0");
 
    CHECK(t0.getVersion() == "1.0.0");
    CHECK(t1.getVersion() == "1.1.0");
