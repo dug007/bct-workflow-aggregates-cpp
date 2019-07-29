@@ -58,12 +58,12 @@ namespace Bct
             EnumField<ReferenceEnum::Reference, uint16_t> enumField;
 
             /// <summary>
-            /// ReferenceAggregate-default-constructor-summary
+            /// Default constructor. Creates the most recent version.
             /// </summary>
             ReferenceAggregate();
 
             /// <summary>
-            /// ReferenceAggregate-version-constructor-summary
+            /// Version constructor. Creates the specified version.
             /// </summary>
             /// <param name="version">Version to construct such as "1.2.0"</param>
             ReferenceAggregate(const std::string &version);
@@ -77,7 +77,7 @@ namespace Bct
             /// <summary>
             /// Virtual function to return the metadata reference for this object. Aggregates must implement this at the most-derived level such as generated code.
             /// </summary>
-            /// <returns>The associated AggregateMetaData object.</returns>
+            /// <returns>The associated AggregateMetaData object.</returns>ReferenceAggregate-default-constructor-summary
             virtual AggregateMetaData &MetaData() const;
          };
       }
