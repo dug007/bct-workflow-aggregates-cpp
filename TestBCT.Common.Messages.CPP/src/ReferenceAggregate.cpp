@@ -11,23 +11,29 @@ namespace Bct
    {
       namespace Aggregates
       {
+         // true if the metadata has been initialized, false otherwise.
          bool ReferenceAggregate::s_initialized = false;
+         // pointer to the metadata object.
          AggregateMetaData *ReferenceAggregate::s_metaData;
+
+         ReferenceAggregate::ReferenceAggregate() :
+            ReferenceAggregate("0.0.0")
+         {
+         }
 
          ReferenceAggregate::ReferenceAggregate(const std::string &version) :
             BaseAggregate(version),
             boolField("boolField", TypeEnum::BoolType, this),
-            int32Field("int32Field", TypeEnum::BoolType, this),
-            uint32Field("uint32Field", TypeEnum::BoolType, this),
-            int64Field("int64Field", TypeEnum::BoolType, this),
-            uint64Field("uint64Field", TypeEnum::BoolType, this),
-            doubleField("doubleField", TypeEnum::BoolType, this),
-            stringField("stringField", TypeEnum::BoolType, this),
-            enumField("enumField", TypeEnum::EnumType, "ReferenceEnum::Type",
+            int32Field("int32Field", TypeEnum::Int32Type, this),
+            uint32Field("uint32Field", TypeEnum::UInt32Type, this),
+            int64Field("int64Field", TypeEnum::Int64Type, this),
+            uint64Field("uint64Field", TypeEnum::UInt64Type, this),
+            doubleField("doubleField", TypeEnum::DoubleType, this),
+            stringField("stringField", TypeEnum::StringType, this),
+            enumField("enumField", TypeEnum::EnumType, "ReferenceEnum::Reference",
                "0 1 2 4 8 16",
                "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
-               this),
-            nestedAggregate("nestedAggregate", this)
+               this)
          {
             FieldList().push_back(&boolField);
             FieldList().push_back(&int32Field);
@@ -37,22 +43,35 @@ namespace Bct
             FieldList().push_back(&doubleField);
             FieldList().push_back(&stringField);
             FieldList().push_back(&enumField);
-            AggList().push_back(&nestedAggregate);
+
+            // metadata------------------->
+            static AggregateMetaData tm;
+            tm.addVersion("1.0.0");
+            tm.addVersion("1.1.0");
+            tm.addFieldMetaToAllVersions("boolField", FieldStateEnum::Default, "true");
+            tm.addFieldMetaToAllVersions("int32Field", FieldStateEnum::Default, "-1");
+            tm.addFieldMetaToAllVersions("uint32Field", FieldStateEnum::Default, "1");
+            tm.addFieldMetaToAllVersions("int64Field", FieldStateEnum::Default, "-1");
+            tm.addFieldMetaToAllVersions("uint64Field", FieldStateEnum::Default, "1");
+            tm.addFieldMetaToAllVersions("doubleField", FieldStateEnum::Default, "1.0");
+            tm.addFieldMetaToAllVersions("stringField", FieldStateEnum::Default, "hello world");
+            tm.addFieldMetaToAllVersions("enumField", FieldStateEnum::Default, "2");
+            bindMetaData(&tm);
+            // <----------------- metadata
+
             syncVersion();
          }
 
-         void ReferenceAggregate::bindMetaData(AggregateMetaData  *metaData, AggregateMetaData *nestedAggregateMetaData)
+         void ReferenceAggregate::bindMetaData(AggregateMetaData  *metaData)
          {
             s_metaData = metaData;
-            AggComputeField::bindMetaData(nestedAggregateMetaData);
             s_initialized = true;
          }
 
-         AggregateMetaData &ReferenceAggregate::MetaData() const
+         AggregateMetaData & ReferenceAggregate::MetaData() const
          {
             return *s_metaData;
-         }
-
+         };
       };
    }
 }

@@ -14,6 +14,9 @@ namespace Bct
    {
       namespace Aggregates
       {
+         /// <summary>
+         /// ReferenceAggregate-class-summary
+         /// </summary>
          class ReferenceAggregate : public BaseAggregate
          {
          private:
@@ -21,21 +24,60 @@ namespace Bct
             static bool s_initialized;
 
          public:
+            /// <summary>
+            /// boolField-field-summary
+            /// </summary>
             BaseField<bool>                     boolField;
+            /// <summary>
+            /// int32lField-field-summary
+            /// </summary>
             BaseField<int32_t>                  int32Field;
+            /// <summary>
+            /// uint32Field-field-summary
+            /// </summary>
             BaseField<uint32_t>                 uint32Field;
+            /// <summary>
+            /// int64-field-summary
+            /// </summary>
             BaseField<uint32_t>                 int64Field;
+            /// <summary>
+            /// uint64Field-field-summary
+            /// </summary>
             BaseField<int64_t>                  uint64Field;
+            /// <summary>
+            /// doubleField-field-summary
+            /// </summary>
             BaseField<double>                   doubleField;
+            /// <summary>
+            /// stringField-field-summary
+            /// </summary>
             BaseField<std::string>              stringField;
+            /// <summary>
+            /// enumField-field-summary
+            /// </summary>
             EnumField<ReferenceEnum::Reference, uint16_t> enumField;
-            AggComputeField                     nestedAggregate;
 
+            /// <summary>
+            /// ReferenceAggregate-default-constructor-summary
+            /// </summary>
             ReferenceAggregate();
+
+            /// <summary>
+            /// ReferenceAggregate-version-constructor-summary
+            /// </summary>
+            /// <param name="version">Version to construct such as "1.2.0"</param>
             ReferenceAggregate(const std::string &version);
 
-            static void bindMetaData(AggregateMetaData  *metaData, AggregateMetaData *nestedAggregateMetaData);
+            /// <summary>
+            /// Associates (binds) a metadata object to this aggregate. This must be called before syncVersion is called.
+            /// </summary>
+            /// <param name="metaData">Pointer to the metadata object.</param>
+            static void bindMetaData(AggregateMetaData  *metaData);
 
+            /// <summary>
+            /// Virtual function to return the metadata reference for this object. Aggregates must implement this at the most-derived level such as generated code.
+            /// </summary>
+            /// <returns>The associated AggregateMetaData object.</returns>
             virtual AggregateMetaData &MetaData() const;
          };
       }

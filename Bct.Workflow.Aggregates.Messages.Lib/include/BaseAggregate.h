@@ -153,6 +153,7 @@ namespace Bct
 
             // Use as a requested version to indicate the most recent version is requested.
             static const int16_t UseMostRecentVersion = -1;
+            static const std::string UseMostRecentVerionStr;
          };
       }
    }

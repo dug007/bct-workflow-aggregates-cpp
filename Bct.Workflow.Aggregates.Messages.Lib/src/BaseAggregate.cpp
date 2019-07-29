@@ -16,9 +16,15 @@ namespace Bct
    {
       namespace Aggregates
       {
+         const std::string BaseAggregate::UseMostRecentVerionStr = "0.0.0";
+
          BaseAggregate::BaseAggregate(const std::string &version) :
             _version(version), _fieldSetCounter(0), _parent(nullptr)
          {
+            if (version == UseMostRecentVerionStr)
+            {
+               _ver = BaseAggregate::UseMostRecentVersion;
+            }
          }
 
          BaseAggregate::BaseAggregate() :
