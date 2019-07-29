@@ -28,19 +28,10 @@ namespace Bct
             /// <param name="val">String representation of this field.</param>
             virtual void ComputedValueString(const std::string & val);
 
-            //std::string operator=(const std::string &val)
-            //{
-            //   this->Value(val);
-            //   return *this;
-            //}
-
-            /// <summary>
-            /// Conversion operator.
-            /// </summary>
-            /// <returns>The value of this field.</returns>
-            operator const std::string&() const
+            std::string operator=(std::string const &val)
             {
-               return this->Value();
+               this->Value(val);
+               return *this;
             }
          };
       }
