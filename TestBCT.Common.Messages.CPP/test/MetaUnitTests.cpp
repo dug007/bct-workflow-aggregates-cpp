@@ -97,5 +97,4 @@ TEST_CASE("FluentMetaTests", "[test]")
 
    CHECK(2 == t1.aggField.field2);
    CHECK(3 == t2.aggField.field2);
-
 }
