@@ -9,11 +9,13 @@
 #include "AggComputeField.h"
 #include "StringField.h"
 
+using namespace Bct::Workflow::Aggregates;
+
 namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          /// <summary>
          /// ReferenceAggregate-class-summary

@@ -3,13 +3,13 @@
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
 
-
+using namespace Bct::Workflow::Aggregates;
 
 namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          // true if the metadata has been initialized, false otherwise.
          bool ReferenceAggregate::s_initialized = false;
