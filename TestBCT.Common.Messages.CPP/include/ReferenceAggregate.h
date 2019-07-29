@@ -7,6 +7,7 @@
 #include "EnumField.h"
 #include "ReferenceEnum.h"
 #include "AggComputeField.h"
+#include "StringField.h"
 
 namespace Bct
 {
@@ -51,7 +52,7 @@ namespace Bct
             /// <summary>
             /// stringField-field-summary
             /// </summary>
-            BaseField<std::string>              stringField;
+            StringField                         stringField;
             /// <summary>
             /// enumField-field-summary
             /// </summary>
