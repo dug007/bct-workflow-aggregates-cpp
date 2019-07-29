@@ -40,7 +40,7 @@ namespace Bct
             FieldList().push_back(&FieldEnumRo);
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
 
             syncVersion();
@@ -74,7 +74,7 @@ namespace Bct
             FieldList().push_back(&FieldEnumRo);
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
             syncVersion();
          }
@@ -84,7 +84,7 @@ namespace Bct
          {
          };
 
-         void Sample1Aggregate::initMetaData()
+         void Sample1Aggregate::bindMetaData()
          {
             AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;

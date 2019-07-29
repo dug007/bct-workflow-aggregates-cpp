@@ -69,7 +69,7 @@ TEST_CASE("AssessRulesTest", "[test]")
    // AggComputeFieldMetaData is defined above
    AssessMetaDataLocal separateMetaData;
    AggAssess::clearInternalMetaData();
-   AggAssess::initMetaData(&separateMetaData.metaData);
+   AggAssess::bindMetaData(&separateMetaData.metaData);
 
    AggAssess a0("1.0.0");
    AggAssess a1("1.1.0");

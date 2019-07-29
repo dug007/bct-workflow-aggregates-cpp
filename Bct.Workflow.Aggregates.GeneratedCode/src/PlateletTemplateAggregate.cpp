@@ -32,7 +32,7 @@ namespace Bct
 
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
             syncVersion();
          }
@@ -62,7 +62,7 @@ namespace Bct
 
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
             syncVersion();
          }
@@ -71,7 +71,7 @@ namespace Bct
          {
          };
 
-         void PlateletTemplateAggregate::initMetaData()
+         void PlateletTemplateAggregate::bindMetaData()
          {
             AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;

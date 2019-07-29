@@ -34,7 +34,7 @@ namespace Bct
             ReferenceAggregate();
             ReferenceAggregate(const std::string &version);
 
-            static void initMetaData(AggregateMetaData  *metaData, AggregateMetaData *nestedAggregateMetaData);
+            static void bindMetaData(AggregateMetaData  *metaData, AggregateMetaData *nestedAggregateMetaData);
 
             virtual AggregateMetaData &MetaData() const;
          };

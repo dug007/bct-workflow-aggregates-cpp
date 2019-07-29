@@ -43,10 +43,10 @@ public:
       tm.addAggMeta("aggField", FieldStateEnum::Unavailable, 0)   .toVersion(0);
       tm.addAggMeta("aggField", FieldStateEnum::Set, 1)           .toVersion(1);
       tm.addAggMeta("aggField", FieldStateEnum::Set, 2)           .toVersion(2);
-      initMetaData(&tm);
+      bindMetaData(&tm);
       // <----------------- metadata AggForFluentTest 
 
-         // metadata AggComputeField ------------------->
+      // metadata AggComputeField ------------------->
       static AggregateMetaData cf;
       cf.addVersion("1.0.0");
       cf.addVersion("1.1.0");
@@ -55,13 +55,13 @@ public:
       cf.addFieldMeta("field2", FieldStateEnum::Default, "1")  .toVersion(0);
       cf.addFieldMeta("field2", FieldStateEnum::Default, "2")  .toVersion(1);
       cf.addFieldMeta("field2", FieldStateEnum::Default, "3")  .toVersion(2);
-      aggField.initMetaData(&cf);
+      aggField.bindMetaData(&cf);
       // <----------------- metadata AggComputeField 
 
       syncVersion();
    }
 
-   static void initMetaData(AggregateMetaData  *metaData)
+   static void bindMetaData(AggregateMetaData  *metaData)
    {
       s_metaData = metaData;
       s_initialized = true;

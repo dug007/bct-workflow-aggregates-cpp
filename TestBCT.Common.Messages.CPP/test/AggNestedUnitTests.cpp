@@ -147,7 +147,7 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    // AggComputeFieldMetaData is defined above
    AggNestedMetaData parentMetaData;
    ChildMetaData childMetaData;
-   AggNested::initMetaData(&parentMetaData.metaData, &childMetaData.metaData);
+   AggNested::bindMetaData(&parentMetaData.metaData, &childMetaData.metaData);
 
    AggNested a0("1.0.0");
    AggNested a1("1.1.0");

@@ -18,7 +18,7 @@ namespace Bct
          class Sample1Aggregate : public BaseAggregate
          {
          private:
-            void initMetaData();
+            void bindMetaData();
             static AggregateMetaData s_metaData;
             static bool s_initialized;
 

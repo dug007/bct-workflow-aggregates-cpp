@@ -41,10 +41,10 @@ namespace Bct
             syncVersion();
          }
 
-         void ReferenceAggregate::initMetaData(AggregateMetaData  *metaData, AggregateMetaData *nestedAggregateMetaData)
+         void ReferenceAggregate::bindMetaData(AggregateMetaData  *metaData, AggregateMetaData *nestedAggregateMetaData)
          {
             s_metaData = metaData;
-            AggComputeField::initMetaData(nestedAggregateMetaData);
+            AggComputeField::bindMetaData(nestedAggregateMetaData);
             s_initialized = true;
          }
 

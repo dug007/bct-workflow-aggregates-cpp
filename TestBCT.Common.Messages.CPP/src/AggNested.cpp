@@ -54,11 +54,11 @@ namespace Bct
             syncVersion();
          }
 
-         void AggNested::initMetaData(AggregateMetaData  *metaData, AggregateMetaData *aggFieldMetaData)
+         void AggNested::bindMetaData(AggregateMetaData  *metaData, AggregateMetaData *aggFieldMetaData)
          {
             s_metaData = metaData;
             s_initialized = true;
-            AggComputeField::initMetaData(aggFieldMetaData);
+            AggComputeField::bindMetaData(aggFieldMetaData);
          }
 
          AggregateMetaData &AggNested::MetaData() const

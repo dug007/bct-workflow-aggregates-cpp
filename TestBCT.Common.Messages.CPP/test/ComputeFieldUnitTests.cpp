@@ -182,7 +182,7 @@ TEST_CASE("ComputeRuleVersion", "[test]")
    // Setup metadata then initialize aggregate class with this metadata
    // AggComputeFieldMetaData is defined above
    AggComputeFieldMetaData separateMetaData;
-   AggComputeField::initMetaData(&separateMetaData.metaData);
+   AggComputeField::bindMetaData(&separateMetaData.metaData);
 
    // version 0 computes 22
    // version 1 computes 23

@@ -18,7 +18,7 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            initMetaData(&s_meta.metaData);
+            bindMetaData(&s_meta.metaData);
             syncVersion();
          }
 
@@ -30,11 +30,11 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            initMetaData(&s_meta.metaData);
+            bindMetaData(&s_meta.metaData);
             syncVersion();
          }
 
-         void AggAssess::initMetaData(AggregateMetaData  *metaData)
+         void AggAssess::bindMetaData(AggregateMetaData  *metaData)
          {
             if (!s_initialized) // fisrt come first serve
             {

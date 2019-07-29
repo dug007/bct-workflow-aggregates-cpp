@@ -51,7 +51,7 @@ namespace Bct
             return *s_metaData;
          }
 
-         void AggComputeField::initMetaData(AggregateMetaData  *metaData)
+         void AggComputeField::bindMetaData(AggregateMetaData  *metaData)
          {
             s_metaData = metaData;
             s_initialized = true;
