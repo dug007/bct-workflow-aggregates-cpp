@@ -82,6 +82,11 @@ namespace Bct
                return _val;
             }
 
+            /// <summary>
+            /// Assignment operator
+            /// </summary>
+            /// <param name="val"></param>
+            /// <returns></returns>
             T operator=(const T &val)
             {
                this->Value(val);
@@ -153,6 +158,10 @@ namespace Bct
                return _fieldSetCounter;
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="ver"></param>
             virtual void initMetaData(int16_t ver)
             {
                _ver = ver;
@@ -170,7 +179,7 @@ namespace Bct
                   std::stringstream ss;
                   ss << DefaultStr();
                   ss >> out;
-                  SetDefault(out);
+                  setDefault(out);
                }
             }
 
@@ -195,11 +204,20 @@ namespace Bct
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
             }
 
-         protected:
+          protected:
 
             // AbstractField ----------->
 
             /// <summary>
+            /// Returns a ref to the state to allow changes.
+            /// </summary>
+            /// <returns>The state reference.</returns>
+             virtual FieldStateEnum::FieldState &StateRef()
+             {
+                return _state;
+             }
+
+             /// <summary>
             /// Gets the string representation value of this field. This function is not public and is only needed for RPN computations.
             /// </summary>
             /// <returns>String representation of this field.</returns>
@@ -231,23 +249,17 @@ namespace Bct
             /// Sets default value.
             /// </summary>
             /// <param name="def">Default value.</param>
-            void SetDefault(const T &def)
+            void setDefault(const T &def)
             {
                _default = def;
                _val = def;
             }
 
-         private:
-
-            T _val;
-            T _default;
-            FieldStateEnum::FieldState _state;
-            TypeEnum::Type _type;
-            std::string _fieldName;
-            int16_t _ver;
-            uint32_t _fieldSetCounter;
-            AbstractAggregate *_aggregate;
-
+            /// <summary>
+            /// Internal value setter. This setter distinguishes between setting the value from a calculation and other cases.
+            /// </summary>
+            /// <param name="v">The new value to be set.</param>
+            /// <param name="fromCalculation">true if the value is being set by a calculation, false otherwase.</param>
             void ValueInternal(const T &v, bool fromCalculation)
             {
                _val = v;
@@ -277,7 +289,11 @@ namespace Bct
                }
 
             }
-            
+
+            /// <summary>
+            /// Locates the field metadata from the current version.
+            /// </summary>
+            /// <returns>The current field metadata item.</returns>
             FieldMeta &findFieldMeta() const
             {
                // check metadata marked for for all versions in the version 0 vector
@@ -317,11 +333,21 @@ namespace Bct
                throw "error: metadata missing requested version of field";
             }
 
-            virtual FieldStateEnum::FieldState &StateRef()
-            {
-               return _state;
-            }
-         };
+            /// <summary>
+            /// The current version.
+            /// </summary>
+            int16_t _ver;
+
+         private:
+
+            T _val;
+            T _default;
+            TypeEnum::Type _type;
+            FieldStateEnum::FieldState _state;
+            std::string _fieldName;
+            uint32_t _fieldSetCounter;
+            AbstractAggregate *_aggregate;            
+        };
       }
    }
 }
