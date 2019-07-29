@@ -75,6 +75,9 @@
     <ClInclude Include="include\FluentMeta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\StringField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseAggregate.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AggregateMetaData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

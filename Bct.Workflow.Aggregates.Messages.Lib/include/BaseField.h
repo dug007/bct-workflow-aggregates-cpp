@@ -152,6 +152,10 @@ namespace Bct
                return _fieldSetCounter;
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="ver"></param>
             virtual void initMetaData(int16_t ver)
             {
                _ver = ver;
@@ -236,7 +240,8 @@ namespace Bct
                _val = def;
             }
 
-         private:
+
+
 
             T _val;
             T _default;
