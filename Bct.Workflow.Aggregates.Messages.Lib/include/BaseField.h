@@ -30,7 +30,7 @@ namespace Bct
             /// <param name="fieldName">Name of this field.</param>
             /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(const std::string &fieldName, const TypeEnum::Type &t,  AbstractAggregate *aggregate)
+            BaseField(std::string const &fieldName, TypeEnum::Type const &t,  AbstractAggregate *aggregate)
                : _fieldName(fieldName), _type(t), _aggregate(aggregate), _fieldSetCounter(0)
             {
             }
