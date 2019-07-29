@@ -103,7 +103,6 @@ namespace Bct
                _state = FieldStateEnum::NotSet;
             }
 
-            // Set/Get ------------------------------<
 
             /// <summary>
             /// Conversion operator.
@@ -113,6 +112,8 @@ namespace Bct
             {
                return this->Value();
             }
+
+            // Set/Get ------------------------------<
 
             // AbstractField ------------>
             
