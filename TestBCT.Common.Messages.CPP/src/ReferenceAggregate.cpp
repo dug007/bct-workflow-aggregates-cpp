@@ -17,7 +17,7 @@ namespace Bct
          AggregateMetaData *ReferenceAggregate::s_metaData;
 
          ReferenceAggregate::ReferenceAggregate() :
-            ReferenceAggregate("0.0.0")
+            ReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
          {
          }
 
