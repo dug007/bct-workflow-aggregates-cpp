@@ -70,6 +70,7 @@ namespace Bct
 
             /// <summary>
             /// Associates (binds) a metadata object to this aggregate. This must be called before syncVersion is called.
+            /// This will point to a static instance of AggregateMetaData.
             /// </summary>
             /// <param name="metaData">Pointer to the metadata object.</param>
             static void bindMetaData(AggregateMetaData  *metaData);
