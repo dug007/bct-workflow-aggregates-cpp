@@ -16,7 +16,7 @@ namespace Bct
          private:
             static AggregateMetaData s_metaData;
             static bool s_initialized;
-            void initMetaData();
+            void bindMetaData();
 
          public:
 

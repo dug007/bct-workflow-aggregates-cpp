@@ -30,16 +30,16 @@ namespace Bct
 
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
-            SyncVersion();
+            syncVersion();
          }
 
          PlateletConfigAggregate::~PlateletConfigAggregate()
          {
          }
 
-         void PlateletConfigAggregate::initMetaData()
+         void PlateletConfigAggregate::bindMetaData()
          {
             AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;

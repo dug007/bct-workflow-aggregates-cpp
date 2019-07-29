@@ -168,9 +168,12 @@
     <ClInclude Include="include\BaseFieldRo.h" />
     <ClInclude Include="include\ComputeRule.h" />
     <ClInclude Include="include\EnumField.h" />
+    <ClInclude Include="include\EnumFieldRo.h" />
     <ClInclude Include="include\Exceptions.h" />
     <ClInclude Include="include\FieldMeta.h" />
     <ClInclude Include="include\FieldStateEnum.h" />
+    <ClInclude Include="include\FluentMeta.h" />
+    <ClInclude Include="include\StringField.h" />
     <ClInclude Include="include\TypeEnum.h" />
     <ClInclude Include="include\VersionChangeRule.h" />
     <ClInclude Include="include\VersionInfo.h" />
@@ -179,12 +182,15 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AggregateMetaData.cpp" />
     <ClCompile Include="src\AssessmentResult.cpp" />
     <ClCompile Include="src\AssessmentRule.cpp" />
     <ClCompile Include="src\BaseAggregate.cpp" />
     <ClCompile Include="src\ComputeRule.cpp" />
     <ClCompile Include="src\Exceptions.cpp" />
     <ClCompile Include="src\FieldMeta.cpp" />
+    <ClCompile Include="src\FluentMeta.cpp" />
+    <ClCompile Include="src\StringField.cpp" />
     <ClCompile Include="src\VersionInfo.cpp" />
   </ItemGroup>
   <ItemGroup>

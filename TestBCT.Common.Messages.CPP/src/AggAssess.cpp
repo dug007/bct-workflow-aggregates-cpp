@@ -18,8 +18,8 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            initMetaData(&s_meta.metaData);
-            SyncVersion();
+            bindMetaData(&s_meta.metaData);
+            syncVersion();
          }
 
          AggAssess::AggAssess() :
@@ -30,13 +30,24 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncVersion();
+            bindMetaData(&s_meta.metaData);
+            syncVersion();
          }
 
-         void AggAssess::initMetaData(AggregateMetaData  *metaData)
+         void AggAssess::bindMetaData(AggregateMetaData  *metaData)
          {
-            s_metaData = metaData;
-            s_initialized = true;
+            if (!s_initialized) // fisrt come first serve
+            {
+               s_metaData = metaData;
+               s_initialized = true;
+            }
+         }
+
+         void AggAssess::clearInternalMetaData()
+         {
+            s_meta.metaData.clear();
+            s_metaData = nullptr;
+            s_initialized = false;
          }
 
          AggregateMetaData &AggAssess::MetaData() const

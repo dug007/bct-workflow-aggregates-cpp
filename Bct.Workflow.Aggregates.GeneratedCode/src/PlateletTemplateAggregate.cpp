@@ -32,9 +32,9 @@ namespace Bct
 
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
-            SyncVersion();
+            syncVersion();
          }
 
          PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string &version) :
@@ -62,16 +62,16 @@ namespace Bct
 
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
-            SyncVersion();
+            syncVersion();
          }
 
          PlateletTemplateAggregate::~PlateletTemplateAggregate()
          {
          };
 
-         void PlateletTemplateAggregate::initMetaData()
+         void PlateletTemplateAggregate::bindMetaData()
          {
             AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;

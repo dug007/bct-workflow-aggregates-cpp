@@ -24,9 +24,12 @@
     <ClCompile Include="src\AggNested.cpp" />
     <ClCompile Include="src\AssessMetaData.cpp" />
     <ClCompile Include="src\AssessUnitTests.cpp" />
+    <ClCompile Include="src\ReferenceAggregate.cpp" />
     <ClCompile Include="test\AggNestedUnitTests.cpp" />
     <ClCompile Include="test\GeneralUnitTests.cpp" />
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
+    <ClCompile Include="test\MetaUnitTests.cpp" />
+    <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />
@@ -44,6 +47,8 @@
     <ClInclude Include="include\AggComputeField.h" />
     <ClInclude Include="include\AggNested.h" />
     <ClInclude Include="include\AssessMetaData.h" />
+    <ClInclude Include="include\ReferenceAggregate.h" />
+    <ClInclude Include="include\ReferenceEnum.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

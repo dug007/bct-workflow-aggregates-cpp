@@ -22,7 +22,7 @@ namespace Bct
 
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncVersion();
+            syncVersion();
          }
 
          AggComputeField::AggComputeField() :
@@ -33,7 +33,7 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncVersion();
+            syncVersion();
          }
 
          AggComputeField::AggComputeField(const std::string &fieldName, BaseAggregate * parent) :
@@ -43,7 +43,7 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
-            SyncVersion();
+            syncVersion();
          }
 
          AggregateMetaData &AggComputeField::MetaData() const
@@ -51,7 +51,7 @@ namespace Bct
             return *s_metaData;
          }
 
-         void AggComputeField::initMetaData(AggregateMetaData  *metaData)
+         void AggComputeField::bindMetaData(AggregateMetaData  *metaData)
          {
             s_metaData = metaData;
             s_initialized = true;

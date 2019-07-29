@@ -19,7 +19,14 @@ namespace Bct
             Field7c("Field7c", TypeEnum::Int32Type, this),
             Field7ro("Field7ro", TypeEnum::Int32Type, this),
             Field7com("Field7com", TypeEnum::Int32Type, this),
-            Field7x("Field7x", TypeEnum::Int32Type, this)
+            Field7x("Field7x", TypeEnum::Int32Type, this),
+            FieldEnum("FieldEnum", TypeEnum::Int32Type, "FieldStateEnum::FieldState",
+               "0 1 2 3 4 5 6",
+               "Unavailable NotSet Set Constant Default Computed", this),
+            FieldEnumRo("FieldEnumRo", TypeEnum::Int32Type, "FieldStateEnum::FieldState",
+               "0 1 2 3 4 5 6",
+               "Unavailable NotSet Set Constant Default Computed", this)
+
          {
 
             FieldList().push_back(&Field1);
@@ -29,12 +36,14 @@ namespace Bct
             FieldList().push_back(&Field7ro);
             FieldList().push_back(&Field7com);
             FieldList().push_back(&Field7x);
+            FieldList().push_back(&FieldEnum);
+            FieldList().push_back(&FieldEnumRo);
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
 
-            SyncVersion();
+            syncVersion();
          }
 
          Sample1Aggregate::Sample1Aggregate() :
@@ -45,7 +54,13 @@ namespace Bct
             Field7c("Field7c", TypeEnum::Int32Type, this),
             Field7ro("Field7ro", TypeEnum::Int32Type, this),
             Field7com("Field7com", TypeEnum::Int32Type, this),
-            Field7x("Field7x", TypeEnum::Int32Type, this)
+            Field7x("Field7x", TypeEnum::Int32Type, this),
+            FieldEnum("FieldEnum", TypeEnum::Int32Type, "FieldStateEnum::FieldState",
+               "0 1 2 3 4 5 6",
+               "Unavailable NotSet Set Constant Default Computed", this),
+            FieldEnumRo("FieldEnumRo", TypeEnum::Int32Type, "FieldStateEnum::FieldState",
+               "0 1 2 3 4 5 6",
+               "Unavailable NotSet Set Constant Default Computed", this)
          {
 
             FieldList().push_back(&Field1);
@@ -55,11 +70,13 @@ namespace Bct
             FieldList().push_back(&Field7ro);
             FieldList().push_back(&Field7com);
             FieldList().push_back(&Field7x);
+            FieldList().push_back(&FieldEnum);
+            FieldList().push_back(&FieldEnumRo);
             if (!s_initialized)
             {
-               initMetaData();
+               bindMetaData();
             }
-            SyncVersion();
+            syncVersion();
          }
 
 
@@ -67,7 +84,7 @@ namespace Bct
          {
          };
 
-         void Sample1Aggregate::initMetaData()
+         void Sample1Aggregate::bindMetaData()
          {
             AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;
@@ -177,6 +194,34 @@ namespace Bct
                "0"
             };
 
+            FieldStateEnum::FieldState _FieldEnumstates[3] =
+            {
+               FieldStateEnum::Default,
+               FieldStateEnum::Default,
+               FieldStateEnum::Default
+            };
+
+            std::string _FieldEnumdefaults[3] =
+            {
+               "1",
+               "1",
+               "1"
+            };
+            FieldStateEnum::FieldState _FieldEnumRostates[3] =
+            {
+               FieldStateEnum::Unavailable,
+               FieldStateEnum::Unavailable,
+               FieldStateEnum::Unavailable
+            };
+
+            std::string _FieldEnumRodefaults[3] =
+            {
+               "0",
+               "0",
+               "0"
+            };
+
+
 
             for (uint16_t i = 0; i <std::size(vers); i++)
             {
@@ -194,6 +239,9 @@ namespace Bct
                FieldMeta Field7ro_("Field7ro", _Field7rostates[i], _Field7rodefaults[i], i);
                FieldMeta Field7com_("Field7com", _Field7comstates[i], _Field7comdefaults[i], i);
                FieldMeta Field7x_("Field7x", _Field7xstates[i], _Field7xdefaults[i], i);
+               FieldMeta FieldEnum_("FieldEnum", _FieldEnumstates[i], _FieldEnumdefaults[i], i);
+               FieldMeta FieldEnumRo_("FieldEnumRo", _FieldEnumRostates[i], _FieldEnumRodefaults[i], i);
+
 
                aggMeta.fieldMetaData.push_back(Field1_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
@@ -209,7 +257,11 @@ namespace Bct
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(Field7x_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
-           }
+               aggMeta.fieldMetaData.push_back(FieldEnum_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
+               aggMeta.fieldMetaData.push_back(FieldEnumRo_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
+            }
 
             // Simple computation rules
             ComputeRule cr1("Field1Id1", "Field1", "1 1 ==", "Field1 20.0 +", ".0.1.2.");

@@ -48,7 +48,7 @@ TEST_CASE("PlateletTemplateAggregate100", "[test]")
    double expectedYield100 = Platelet_100.volumeMl.Value() * Platelet_100.cellsPerMl.Value();
    CHECK(Platelet_100.volumeMl.State() == FieldStateEnum::FieldState::Set) ;
    CHECK(Platelet_100.cellsPerMl.State() == FieldStateEnum::FieldState::Set);
-   Platelet_100.UpdateCalculatedFields();
+   Platelet_100.updateCalculatedFields();
    CHECK(Platelet_100.yield.Value() == expectedYield100);
    CHECK(Platelet_100.yield.State() == FieldStateEnum::FieldState::Computed);
 }
@@ -78,7 +78,7 @@ TEST_CASE("PlateletTemplateAggregate110", "[test]")
    double expectedYield110 = Platelet_110.volumeMl.Value() * Platelet_110.cellsPerMl.Value();
    CHECK(Platelet_110.volumeMl.State() == FieldStateEnum::FieldState::Set);
    CHECK(Platelet_110.cellsPerMl.State() == FieldStateEnum::FieldState::Set);
-   Platelet_110.UpdateCalculatedFields();
+   Platelet_110.updateCalculatedFields();
    CHECK(Platelet_110.yield.Value() == expectedYield110);
    CHECK(Platelet_110.yield.State() == FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
@@ -92,7 +92,7 @@ TEST_CASE("PlateletTemplateAggregate110", "[test]")
    double expectedVolumeMl = Platelet_110.yield.Value() / Platelet_110.cellsPerMl.Value();
    CHECK(Platelet_110.yield.State() == FieldStateEnum::FieldState::Set);
    CHECK(Platelet_110.cellsPerMl.State() == FieldStateEnum::FieldState::Set);
-   Platelet_110.UpdateCalculatedFields();
+   Platelet_110.updateCalculatedFields();
    CHECK(Platelet_110.volumeMl.Value() == expectedVolumeMl);
    CHECK(Platelet_110.volumeMl.State() == FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 
@@ -106,7 +106,7 @@ TEST_CASE("PlateletTemplateAggregate110", "[test]")
    double expectedCellsPerMl = Platelet_110.yield.Value() / Platelet_110.volumeMl.Value();
    CHECK(Platelet_110.yield.State() == FieldStateEnum::FieldState::Set);
    CHECK(Platelet_110.volumeMl.State() == FieldStateEnum::FieldState::Set);
-   Platelet_110.UpdateCalculatedFields();
+   Platelet_110.updateCalculatedFields();
    CHECK(Platelet_110.cellsPerMl.Value() == expectedCellsPerMl);
    CHECK(Platelet_110.cellsPerMl.State() == FieldStateEnum::FieldState::Computed); //check to make sure calculated field updates to computed
 }
@@ -182,7 +182,7 @@ TEST_CASE("ComputeRuleVersion", "[test]")
    // Setup metadata then initialize aggregate class with this metadata
    // AggComputeFieldMetaData is defined above
    AggComputeFieldMetaData separateMetaData;
-   AggComputeField::initMetaData(&separateMetaData.metaData);
+   AggComputeField::bindMetaData(&separateMetaData.metaData);
 
    // version 0 computes 22
    // version 1 computes 23
@@ -195,11 +195,11 @@ TEST_CASE("ComputeRuleVersion", "[test]")
    AggComputeField a3("1.3.0");
    AggComputeField a4("1.4.0");
 
-   a0.UpdateCalculatedFields();
-   a1.UpdateCalculatedFields();
-   a2.UpdateCalculatedFields();
-   a3.UpdateCalculatedFields();
-   a4.UpdateCalculatedFields();
+   a0.updateCalculatedFields();
+   a1.updateCalculatedFields();
+   a2.updateCalculatedFields();
+   a3.updateCalculatedFields();
+   a4.updateCalculatedFields();
 
    CHECK(a0.field1.Value() == 22);
    CHECK(a1.field1.Value() == 23);

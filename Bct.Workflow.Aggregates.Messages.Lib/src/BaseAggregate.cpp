@@ -16,9 +16,15 @@ namespace Bct
    {
       namespace Aggregates
       {
+         const std::string BaseAggregate::UseMostRecentVerionStr = "0.0.0";
+
          BaseAggregate::BaseAggregate(const std::string &version) :
             _version(version), _fieldSetCounter(0), _parent(nullptr)
          {
+            if (version == UseMostRecentVerionStr)
+            {
+               _ver = BaseAggregate::UseMostRecentVersion;
+            }
          }
 
          BaseAggregate::BaseAggregate() :
@@ -70,7 +76,7 @@ namespace Bct
             throw NoSuchVersion(aggName, _version); 
          }
 
-         void BaseAggregate::SyncChildVersion(int16_t parentVer)
+         void BaseAggregate::syncChildVersion(int16_t parentVer)
          {
             FieldMeta &meta = findFieldMeta(parentVer);
             _ver = meta._childVer;
@@ -84,12 +90,11 @@ namespace Bct
             // initialize nested aggregates to current version of parent
             for (size_t i = 0; i < _aggList.size(); i++)
             {
-               _aggList[i]->SyncChildVersion(Ver());
+               _aggList[i]->syncChildVersion(Ver());
             }
-
          }
 
-         void BaseAggregate::SyncVersion()
+         void BaseAggregate::syncVersion()
          {
             // do nothing unless aggregate is root aggregate
             if (_parent == nullptr)
@@ -128,7 +133,7 @@ namespace Bct
                // initialize nested aggregates to current version of parent
                for (size_t i = 0; i < _aggList.size(); i++)
                {
-                  _aggList[i]->SyncChildVersion(Ver());
+                  _aggList[i]->syncChildVersion(Ver());
                }
             }
          }
@@ -144,7 +149,7 @@ namespace Bct
             return _version;
          };
 
-         void BaseAggregate::UpdateCalculatedFields()
+         void BaseAggregate::updateCalculatedFields()
          {
             // populate variable map
             std::map<std::string, RPNEvaluator::RPNVariable> varMap;
@@ -272,6 +277,19 @@ namespace Bct
          const std::string & BaseAggregate::Version() const
          {
             return _version;
+         }
+
+         void BaseAggregate::serialize(std::string & value) const
+         {
+            //TODO - User Story 129258
+         }
+         void BaseAggregate::deserialize(const std::string & value)
+         {
+            //TODO - User Story 129259
+         }
+         void BaseAggregate::log(std::ostream & logStream, int flags) const
+         {
+            //TODO - User Story 129791
          }
 
       }
