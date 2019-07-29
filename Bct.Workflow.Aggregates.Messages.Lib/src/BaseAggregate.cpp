@@ -281,15 +281,15 @@ namespace Bct
 
          void BaseAggregate::serialize(std::string & value) const
          {
-
+            //TODO - User Story 129258
          }
          void BaseAggregate::deserialize(const std::string & value)
          {
-
+            //TODO - User Story 129259
          }
          void BaseAggregate::log(std::ostream & logStream, int flags) const
          {
-
+            //TODO - User Story 129791
          }
 
       }
