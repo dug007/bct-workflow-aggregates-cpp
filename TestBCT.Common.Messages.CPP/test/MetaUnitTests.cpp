@@ -4,6 +4,7 @@
 #include "BaseAggregate.h"
 #include "BaseField.h"
 #include "AggComputeField.h"
+#include "StringField.h"
 
 #include "catch.hpp"
 
@@ -17,15 +18,18 @@ private:
 
 public:
    BaseField<int32_t> intField;
+   StringField        strField;
    AggComputeField    aggField;
 
    AggForFluentTest(const std::string &version)
       :
       BaseAggregate(version),
       intField("intField", Bct::Workflow::TypeEnum::Int32Type, this),
+      strField("strField", this),
       aggField("aggField", this)
    {
       FieldList().push_back(&intField);
+      FieldList().push_back(&strField);
       AggList().push_back(&aggField);
 
       // metadata AggForFluentTest------------------->
@@ -35,6 +39,7 @@ public:
       tm.addVersion("1.2.0");
       tm.addFieldMeta("intField", FieldStateEnum::Default, "0") .toVersion(0);
       tm.addFieldMeta("intField", FieldStateEnum::Default, "1") .toVersion(1) .toVersion(2);
+      tm.addFieldMetaToAllVersions("strField", FieldStateEnum::Default, "hello world");
       tm.addAggMeta("aggField", FieldStateEnum::Unavailable, 0)   .toVersion(0);
       tm.addAggMeta("aggField", FieldStateEnum::Set, 1)           .toVersion(1);
       tm.addAggMeta("aggField", FieldStateEnum::Set, 2)           .toVersion(2);
@@ -84,6 +89,8 @@ TEST_CASE("FluentMetaTests", "[test]")
    CHECK(0 == t0.intField);
    CHECK(1 == t1.intField);
    CHECK(1 == t2.intField);
+
+   CHECK("hello world" == t0.strField.Value());
 
    CHECK(99 == t1.aggField.field1);
    CHECK(99 == t2.aggField.field1);
