@@ -47,7 +47,7 @@ namespace Bct
             /// Constructor.
             /// </summary>
             /// <param name="fieldName">Field name in aggregate.</param>
-            /// <param name="t">TypeEnum::Type - of field being used internally by BaseField.</param>
+            /// <param name="t">TypeEnum::Type - of field being used internally by BaseField. This should correspond to the U type of the template.</param>
             /// <param name="enumName">String name of the wrapped enum.</param>
             /// <param name="enums">String with list of values being wrapped separated by spaces.</param>
             /// <param name="names">String with list of names being wrapped separated by spaces.</param>
