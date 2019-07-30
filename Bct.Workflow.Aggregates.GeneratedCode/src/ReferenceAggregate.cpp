@@ -30,7 +30,7 @@ namespace Bct
             uint64Field("uint64Field", TypeEnum::UInt64Type, this),
             doubleField("doubleField", TypeEnum::DoubleType, this),
             stringField("stringField", this),
-            enumField("enumField", TypeEnum::EnumType, "ReferenceEnum::Reference",
+            enumField("enumField", TypeEnum::Int32Type, "ReferenceEnum::Reference",
                "0 1 2 4 8 16",
                "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
                this)

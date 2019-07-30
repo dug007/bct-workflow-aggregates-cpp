@@ -58,7 +58,7 @@ namespace Bct
             /// <summary>
             /// enumField-field-summary
             /// </summary>
-            EnumField<ReferenceEnum::Reference, uint16_t> enumField;
+            EnumField<uint32_t, ReferenceEnum::Reference> enumField;
 
             /// <summary>
             /// Default constructor. Creates the most recent version.
