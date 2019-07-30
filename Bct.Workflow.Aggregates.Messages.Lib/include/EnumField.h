@@ -108,6 +108,23 @@ namespace Bct
                return "";
             }
 
+            /// <summary>
+            /// Provides the string representation of the numeric value for of and enumeration given the string name of the value.
+            /// </summary>
+            /// <param name="name">String name of enumeration value.</param>
+            /// <returns>String representation of enum value, such as "3". If the name cannot be found an empty string is returned.</returns>
+            std::string enumValueString(std::string name)
+            {
+               for (size_t i = 0; i < _enumNames.size(); i++)
+               {
+                  if (_enumNames[i] == name)
+                  {
+                     return _enums[i];
+                  }
+               }
+               return "";
+            }
+
          private:
 
             std::string _enumName;

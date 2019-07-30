@@ -1,5 +1,6 @@
 #include "ReferenceAggregate.h"
 #include "ReferenceEnum.h"
+#include "EnumField.h"
 
 #include "catch.hpp"
 
@@ -17,5 +18,6 @@ TEST_CASE("ReferenceUnitTest", "[test]")
    ref.enumField.Value(ReferenceEnum::Poor);
    CHECK(ReferenceEnum::Poor == ref.enumField);
    CHECK(ref.enumField.EnumName() == "ReferenceEnum::Poor");
+   CHECK("2" == ref.enumField.enumValueString("ReferenceEnum::Average"));
 
 }

@@ -68,6 +68,9 @@ namespace Bct
             /// <param name="childVer">The version for this metadata item.</param>
             void addAggMetaToAllVersions(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, int16_t childVer);
 
+            /// <summary>
+            /// Clears metadata vectors.
+            /// </summary>
             void clear();
 
             /// <summary>
