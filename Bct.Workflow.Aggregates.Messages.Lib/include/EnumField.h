@@ -30,18 +30,6 @@ namespace Bct
                return tokens;
             }
 
-            std::vector<std::string> splitU(const std::string& s, char delimiter)
-            {
-               std::vector<std::string> tokens;
-               std::string token;
-               std::istringstream tokenStream(s);
-               while (std::getline(tokenStream, token, delimiter))
-               {
-                  tokens.push_back(token);
-               }
-               return tokens;
-            }
-
          public:
             /// <summary>
             /// Constructor.
@@ -57,7 +45,7 @@ namespace Bct
             {
                // TODO parse enums into _enumNames and _enums and support RPN evaluator - Story 128470
                _enumNames = split(names, ' ');
-               _enums = splitU(enums, ' ');
+               _enums = split(enums, ' ');
             }
 
             /// <summary>
