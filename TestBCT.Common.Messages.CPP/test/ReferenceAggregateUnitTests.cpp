@@ -29,4 +29,7 @@ TEST_CASE("ReferenceUnitTest", "[test]")
    ref.enumField = ReferenceEnum::Poor;
    CHECK(ref.enumField.EnumName() == "ReferenceEnum::Poor");
    CHECK("2" == ref.enumField.enumValueString("ReferenceEnum::Average"));
+
+   ref.enumField.ComputedValueString("ReferenceEnum::Good");
+   CHECK(ref.enumField == ReferenceEnum::Good);
 }
