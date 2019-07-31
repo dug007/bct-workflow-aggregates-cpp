@@ -11,11 +11,6 @@ namespace Bct
    {
       namespace Implementation
       {
-         // true if the metadata has been initialized, false otherwise.
-         bool ReferenceAggregate::s_initialized = false;
-         // pointer to the metadata object.
-         AggregateMetaData *ReferenceAggregate::s_metaData;
-
          ReferenceAggregate::ReferenceAggregate() :
             ReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
          {
@@ -44,10 +39,25 @@ namespace Bct
             FieldList().push_back(&stringField);
             FieldList().push_back(&enumField);
 
-            if (!s_metaData)
+            syncVersion();
+         }
+
+         ReferenceAggregate::~ReferenceAggregate()
+         {
+         }
+
+         AggregateMetaData & ReferenceAggregate::MetaData() const
+         {
+            return s_MetaData();
+         };
+
+         AggregateMetaData & ReferenceAggregate::s_MetaData()
+         {
+            static AggregateMetaData tm;
+            static bool initialized = false;
+
+            if (!initialized)
             {
-               // metadata------------------->
-               static AggregateMetaData tm;
                tm.addVersion("1.0.0");
                tm.addVersion("1.1.0");
                tm.addFieldMetaToAllVersions("boolField", FieldStateEnum::Default, "true");
@@ -58,26 +68,12 @@ namespace Bct
                tm.addFieldMetaToAllVersions("doubleField", FieldStateEnum::Default, "1.0");
                tm.addFieldMetaToAllVersions("stringField", FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions("enumField", FieldStateEnum::Default, "2");
-               bindMetaData(&tm);
-               // <----------------- metadata
+
+               initialized = true;
             }
-            syncVersion();
-         }
 
-         ReferenceAggregate::~ReferenceAggregate()
-         {
+            return tm;
          }
-
-         void ReferenceAggregate::bindMetaData(AggregateMetaData  *metaData)
-         {
-            s_metaData = metaData;
-            s_initialized = true;
-         }
-
-         AggregateMetaData & ReferenceAggregate::MetaData() const
-         {
-            return *s_metaData;
-         };
       };
    }
 }

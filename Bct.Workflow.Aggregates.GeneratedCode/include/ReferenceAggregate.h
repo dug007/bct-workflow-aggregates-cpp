@@ -22,10 +22,6 @@ namespace Bct
          /// </summary>
          class ReferenceAggregate : public BaseAggregate
          {
-         private:
-            static AggregateMetaData *s_metaData;
-            static bool s_initialized;
-
          public:
             /// <summary>
             /// boolField-field-summary
@@ -71,6 +67,9 @@ namespace Bct
             /// <param name="version">Version to construct such as "1.2.0"</param>
             ReferenceAggregate(const std::string &version);
 
+            /// <summary>
+            /// Virtual destructor
+            /// </summary>
             virtual ~ReferenceAggregate();
 
             /// <summary>
@@ -85,6 +84,13 @@ namespace Bct
             /// </summary>
             /// <returns>The associated AggregateMetaData object.</returns>ReferenceAggregate-default-constructor-summary
             virtual AggregateMetaData &MetaData() const;
+
+           /// <summary>
+           /// Static method to access meta data for this aggregrate class.
+           /// The method initializes the meta data structure if it has not already been done and returns a reference
+           /// </summary>
+           /// <returns>The associated AggregateMetaData object.</returns>
+           static AggregateMetaData & s_MetaData();
          };
       }
    }
