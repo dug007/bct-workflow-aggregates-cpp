@@ -69,15 +69,6 @@ namespace Bct
             }
 
             /// <summary>
-            /// Sets the value of this field using its string representation.
-            /// </summary>
-            /// <param name="val">String representation of this field.</param>
-            virtual void ComputedValueString(std::string const & val)
-            {
-               BaseField<U>::ComputedValueString(enumValueString(val));
-            }
-
-            /// <summary>
             /// Assignment operator.
             /// </summary>
             /// <param name="val">Value.</param>
