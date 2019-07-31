@@ -44,21 +44,23 @@ namespace Bct
             FieldList().push_back(&stringField);
             FieldList().push_back(&enumField);
 
-            // metadata------------------->
-            static AggregateMetaData tm;
-            tm.addVersion("1.0.0");
-            tm.addVersion("1.1.0");
-            tm.addFieldMetaToAllVersions("boolField", FieldStateEnum::Default, "true");
-            tm.addFieldMetaToAllVersions("int32Field", FieldStateEnum::Default, "-1");
-            tm.addFieldMetaToAllVersions("uint32Field", FieldStateEnum::Default, "1");
-            tm.addFieldMetaToAllVersions("int64Field", FieldStateEnum::Default, "-1");
-            tm.addFieldMetaToAllVersions("uint64Field", FieldStateEnum::Default, "1");
-            tm.addFieldMetaToAllVersions("doubleField", FieldStateEnum::Default, "1.0");
-            tm.addFieldMetaToAllVersions("stringField", FieldStateEnum::Default, "hello world");
-            tm.addFieldMetaToAllVersions("enumField", FieldStateEnum::Default, "2");
-            bindMetaData(&tm);
-            // <----------------- metadata
-
+            if (!s_metaData)
+            {
+               // metadata------------------->
+               static AggregateMetaData tm;
+               tm.addVersion("1.0.0");
+               tm.addVersion("1.1.0");
+               tm.addFieldMetaToAllVersions("boolField", FieldStateEnum::Default, "true");
+               tm.addFieldMetaToAllVersions("int32Field", FieldStateEnum::Default, "-1");
+               tm.addFieldMetaToAllVersions("uint32Field", FieldStateEnum::Default, "1");
+               tm.addFieldMetaToAllVersions("int64Field", FieldStateEnum::Default, "-1");
+               tm.addFieldMetaToAllVersions("uint64Field", FieldStateEnum::Default, "1");
+               tm.addFieldMetaToAllVersions("doubleField", FieldStateEnum::Default, "1.0");
+               tm.addFieldMetaToAllVersions("stringField", FieldStateEnum::Default, "hello world");
+               tm.addFieldMetaToAllVersions("enumField", FieldStateEnum::Default, "2");
+               bindMetaData(&tm);
+               // <----------------- metadata
+            }
             syncVersion();
          }
 
