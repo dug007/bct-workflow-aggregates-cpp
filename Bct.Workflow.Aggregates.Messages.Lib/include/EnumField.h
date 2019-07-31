@@ -48,6 +48,10 @@ namespace Bct
                _enums = split(enums, ' ');
             }
 
+            virtual ~EnumField()
+            {
+            };
+
             /// <summary>
             /// Set the value of this field.
             /// </summary>

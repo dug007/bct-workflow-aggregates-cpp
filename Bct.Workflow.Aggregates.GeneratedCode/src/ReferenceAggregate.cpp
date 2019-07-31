@@ -62,6 +62,10 @@ namespace Bct
             syncVersion();
          }
 
+         ReferenceAggregate::~ReferenceAggregate()
+         {
+         }
+
          void ReferenceAggregate::bindMetaData(AggregateMetaData  *metaData)
          {
             s_metaData = metaData;

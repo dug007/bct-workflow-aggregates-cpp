@@ -24,6 +24,10 @@ namespace Bct
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
             StringField(std::string const &fieldName, AbstractAggregate *aggregate);
 
+            virtual ~StringField()
+            {
+            }
+
             virtual void initMetaData(int16_t ver);
             /// <summary>
             /// Sets the value of this field using its string representation. This function is not public and is only needed for RPN computations.

@@ -27,6 +27,11 @@ namespace Bct
                : EnumField<U, X>(fieldName, t, enumName, enums, names, aggregate)
             {
             }
+
+            virtual ~EnumFieldRo()
+            {
+            }
+
             const X Value()
             {
                return EnumField<U, X>::Value();

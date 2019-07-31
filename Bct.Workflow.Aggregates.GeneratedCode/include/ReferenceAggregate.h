@@ -71,6 +71,8 @@ namespace Bct
             /// <param name="version">Version to construct such as "1.2.0"</param>
             ReferenceAggregate(const std::string &version);
 
+            virtual ~ReferenceAggregate();
+
             /// <summary>
             /// Associates (binds) a metadata object to this aggregate. This must be called before syncVersion is called.
             /// This will point to a static instance of AggregateMetaData.
