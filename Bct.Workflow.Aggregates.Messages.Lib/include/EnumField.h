@@ -92,6 +92,15 @@ namespace Bct
             }
 
             /// <summary>
+            /// Conversion to external.
+            /// </summary>
+            /// <returns>External representation.</returns>
+            operator X() const
+            {
+               return this->Value();
+            }
+
+            /// <summary>
             /// Returns the name of the enumeration value as configured by the metadata.
             /// </summary>
             /// <returns></returns>
