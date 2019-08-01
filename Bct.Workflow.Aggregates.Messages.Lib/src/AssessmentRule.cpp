@@ -7,7 +7,7 @@ namespace Bct
    {
       namespace Aggregates
       {
-         AssessmentRule::AssessmentRule(std::string ruleId, std::string stringId, std::string condition, std::string expression, std::string versions)
+         AssessmentRule::AssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression, std::string const &versions)
             : _ruleId(ruleId), _stringId(stringId), _condition(condition), _expression(expression), _versions(versions)
          {
          }

@@ -11,11 +11,11 @@ namespace Bct
          /// <summary>
          /// Base template class for read-only enum class. All read-only enum fields must derive from this class.
          /// </summary>
-         template<class T, class U>
-         class EnumFieldRo : public EnumField<T, U>
+         template<class T, class U, class X>
+         class EnumFieldRo : public EnumField<U, X>
          {
          private:
-            using EnumField<T,U>::Value; // hide value set/get
+            using EnumField<U,X>::Value; // hide value set/get
          public:
             /// <summary>
             /// Constructor.
@@ -24,12 +24,17 @@ namespace Bct
             /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
             EnumFieldRo(const std::string fieldName, TypeEnum::Type t, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate *aggregate)
-               : EnumField<T, U>(fieldName, t, enumName, enums, names, aggregate)
+               : EnumField<U, X>(fieldName, t, enumName, enums, names, aggregate)
             {
             }
-            const T Value()
+
+            virtual ~EnumFieldRo()
             {
-               return EnumField<T, U>::Value();
+            }
+
+            const X Value()
+            {
+               return EnumField<U, X>::Value();
             };
          };
       }

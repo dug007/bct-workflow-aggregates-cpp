@@ -22,6 +22,11 @@ namespace Bct
          {
          public:
             /// <summary>
+            /// Specifies to use the most recent version.
+            /// </summary>
+            static const std::string UseMostRecentVersionStr;
+
+            /// <summary>
             /// Used as a requested version to indicate the metadata item should be included in all versions of the parent.
             /// 
             /// Example:  FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions);
@@ -153,7 +158,6 @@ namespace Bct
 
             // Use as a requested version to indicate the most recent version is requested.
             static const int16_t UseMostRecentVersion = -1;
-            static const std::string UseMostRecentVerionStr;
          };
       }
    }

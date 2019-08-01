@@ -11,13 +11,8 @@ namespace Bct
    {
       namespace Implementation
       {
-         // true if the metadata has been initialized, false otherwise.
-         bool ReferenceAggregate::s_initialized = false;
-         // pointer to the metadata object.
-         AggregateMetaData *ReferenceAggregate::s_metaData;
-
          ReferenceAggregate::ReferenceAggregate() :
-            ReferenceAggregate("0.0.0")
+            ReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
          {
          }
 
@@ -30,7 +25,7 @@ namespace Bct
             uint64Field("uint64Field", TypeEnum::UInt64Type, this),
             doubleField("doubleField", TypeEnum::DoubleType, this),
             stringField("stringField", this),
-            enumField("enumField", TypeEnum::EnumType, "ReferenceEnum::Reference",
+            enumField("enumField", TypeEnum::Int32Type, "ReferenceEnum::Reference",
                "0 1 2 4 8 16",
                "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
                this)
@@ -44,34 +39,41 @@ namespace Bct
             FieldList().push_back(&stringField);
             FieldList().push_back(&enumField);
 
-            // metadata------------------->
-            static AggregateMetaData tm;
-            tm.addVersion("1.0.0");
-            tm.addVersion("1.1.0");
-            tm.addFieldMetaToAllVersions("boolField", FieldStateEnum::Default, "true");
-            tm.addFieldMetaToAllVersions("int32Field", FieldStateEnum::Default, "-1");
-            tm.addFieldMetaToAllVersions("uint32Field", FieldStateEnum::Default, "1");
-            tm.addFieldMetaToAllVersions("int64Field", FieldStateEnum::Default, "-1");
-            tm.addFieldMetaToAllVersions("uint64Field", FieldStateEnum::Default, "1");
-            tm.addFieldMetaToAllVersions("doubleField", FieldStateEnum::Default, "1.0");
-            tm.addFieldMetaToAllVersions("stringField", FieldStateEnum::Default, "hello world");
-            tm.addFieldMetaToAllVersions("enumField", FieldStateEnum::Default, "2");
-            bindMetaData(&tm);
-            // <----------------- metadata
-
             syncVersion();
          }
 
-         void ReferenceAggregate::bindMetaData(AggregateMetaData  *metaData)
+         ReferenceAggregate::~ReferenceAggregate()
          {
-            s_metaData = metaData;
-            s_initialized = true;
          }
 
          AggregateMetaData & ReferenceAggregate::MetaData() const
          {
-            return *s_metaData;
+            return s_MetaData();
          };
+
+         AggregateMetaData & ReferenceAggregate::s_MetaData()
+         {
+            static AggregateMetaData tm;
+            static bool initialized = false;
+
+            if (!initialized)
+            {
+               tm.addVersion("1.0.0");
+               tm.addVersion("1.1.0");
+               tm.addFieldMetaToAllVersions("boolField", FieldStateEnum::Default, "true");
+               tm.addFieldMetaToAllVersions("int32Field", FieldStateEnum::Default, "-1");
+               tm.addFieldMetaToAllVersions("uint32Field", FieldStateEnum::Default, "1");
+               tm.addFieldMetaToAllVersions("int64Field", FieldStateEnum::Default, "-1");
+               tm.addFieldMetaToAllVersions("uint64Field", FieldStateEnum::Default, "1");
+               tm.addFieldMetaToAllVersions("doubleField", FieldStateEnum::Default, "1.0");
+               tm.addFieldMetaToAllVersions("stringField", FieldStateEnum::Default, "hello world");
+               tm.addFieldMetaToAllVersions("enumField", FieldStateEnum::Default, "2");
+
+               initialized = true;
+            }
+
+            return tm;
+         }
       };
    }
 }

@@ -22,7 +22,7 @@ namespace Bct
             /// <param name="condition">RPN boolean condition. This rule does not fire if this returns false.</param>
             /// <param name="expression">RPN expression to calculate the value associated with this field.</param>
             /// <param name="versions">Version mask. This is a string beginning and ending with a period. This is a period delimited set of versions that this rule applies to. For example, ".3.4." means this rule applies to versions 3 and 4 only.</param>
-            ComputeRule(std::string id, std::string field, std::string condition, std::string expression, std::string versions);
+            ComputeRule(std::string const &id, std::string const &field, std::string const &condition, std::string const &expression, std::string const &versions);
 
             /// <summary>
             /// Field name associated with this rule.

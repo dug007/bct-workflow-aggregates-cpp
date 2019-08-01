@@ -8,7 +8,7 @@ namespace Bct
    {
       namespace Aggregates
       {
-         ComputeRule::ComputeRule(std::string id, std::string field, std::string condition, std::string expression, std::string versions) :
+         ComputeRule::ComputeRule(std::string const &id, std::string const &field, std::string const &condition, std::string const &expression, std::string const &versions) :
             _id(id), _field(field), _condition(condition), _expression(expression), _versions(versions)
          {
          };

@@ -22,10 +22,6 @@ namespace Bct
          /// </summary>
          class ReferenceAggregate : public BaseAggregate
          {
-         private:
-            static AggregateMetaData *s_metaData;
-            static bool s_initialized;
-
          public:
             /// <summary>
             /// boolField-field-summary
@@ -58,7 +54,7 @@ namespace Bct
             /// <summary>
             /// enumField-field-summary
             /// </summary>
-            EnumField<ReferenceEnum::Reference, uint16_t> enumField;
+            EnumField<uint32_t, ReferenceEnum::Reference> enumField;
 
             /// <summary>
             /// Default constructor. Creates the most recent version.
@@ -72,6 +68,11 @@ namespace Bct
             ReferenceAggregate(const std::string &version);
 
             /// <summary>
+            /// Virtual destructor
+            /// </summary>
+            virtual ~ReferenceAggregate();
+
+            /// <summary>
             /// Associates (binds) a metadata object to this aggregate. This must be called before syncVersion is called.
             /// This will point to a static instance of AggregateMetaData.
             /// </summary>
@@ -83,6 +84,13 @@ namespace Bct
             /// </summary>
             /// <returns>The associated AggregateMetaData object.</returns>ReferenceAggregate-default-constructor-summary
             virtual AggregateMetaData &MetaData() const;
+
+           /// <summary>
+           /// Static method to access meta data for this aggregrate class.
+           /// The method initializes the meta data structure if it has not already been done and returns a reference
+           /// </summary>
+           /// <returns>The associated AggregateMetaData object.</returns>
+           static AggregateMetaData & s_MetaData();
          };
       }
    }

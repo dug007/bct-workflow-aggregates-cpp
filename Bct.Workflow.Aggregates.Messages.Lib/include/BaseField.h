@@ -93,8 +93,10 @@ namespace Bct
                return *this;
             }
 
-
-            void Unset()
+            /// <summary>
+            /// Sets the state of the field to NotSet.
+            /// </summary>
+            void unset()
             {
                switch (_state)
                {
@@ -198,7 +200,7 @@ namespace Bct
             /// Determines if this field has a value.
             /// </summary>
             /// <returns>true if the field has a  value, false if the field does not hava a value.</returns>
-            const bool &HasValue() const
+            const bool &hasValue() const
             {
                // TODO handle Computed after field as been computed - User Story 126600
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);

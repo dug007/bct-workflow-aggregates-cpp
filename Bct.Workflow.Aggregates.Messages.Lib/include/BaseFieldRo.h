@@ -27,6 +27,11 @@ namespace Bct
                : BaseField<T>(fieldName, t, aggregate)
             {
             }
+
+            virtual ~BaseFieldRo()
+            {
+            }
+            
             const T Value()
             {
                return BaseField<T>::Value();
