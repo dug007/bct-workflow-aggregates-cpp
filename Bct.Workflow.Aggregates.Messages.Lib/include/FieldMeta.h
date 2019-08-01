@@ -22,11 +22,7 @@ namespace Bct
             /// <param name="fieldState">Initial state of associated field.</param>
             /// <param name="def">Default value of associated field.</param>
             /// <param name="parentVer">Version of the parent metadata is associated with or BaseAggregate::InAllVersions if the metadata is in every version. If BaseAggregate::InAllVersions, then the metadata only needs to placed in version 0 vector.</param>
-            FieldMeta(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, std::string const &def, int16_t ver) :
-               _fieldName(fieldName), _fieldState(fieldState), _default(def), _parentVer(ver)
-            {
-            };
-
+            FieldMeta(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, std::string const &def, int16_t ver);
             /// <summary>
             /// Constructor.
             /// </summary>
@@ -34,10 +30,7 @@ namespace Bct
             /// <param name="fieldState">Initial state of associated field.</param>
             /// <param name="parentVer">Version of the parent metadata is associated with or BaseAggregate::InAllVersions if the metadata is in every version. If BaseAggregate::InAllVersions, then the metadata only needs to placed in version 0 vector.</param>
             /// <param name="childVer">Version of the child</param>
-            FieldMeta(const std::string fieldName, const FieldStateEnum::FieldState fieldState, int16_t parentVer, int16_t childVer) :
-               _fieldName(fieldName), _fieldState(fieldState), _parentVer(parentVer), _childVer(childVer)
-            {
-            };
+            FieldMeta(const std::string fieldName, const FieldStateEnum::FieldState fieldState, int16_t parentVer, int16_t childVer);
 
             /// <summary>
             /// Provides the field name of the associated field.
