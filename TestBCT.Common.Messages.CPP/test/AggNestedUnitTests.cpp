@@ -26,13 +26,19 @@ public:
          metaData.versionMetaData.push_back(vm);
       }
 
-      FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions);  // all versions have this field
-      FieldMeta intField2Meta("intField2", FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
-      FieldMeta aggField00Meta("aggField", FieldStateEnum::Constant, 0, 0);  // v0 parent, v0 child
-      FieldMeta aggField11Meta("aggField", FieldStateEnum::Constant, 1, 1);  // v1 parent, v1 child
-      FieldMeta aggField21Meta("aggField", FieldStateEnum::Constant, 2, 1);  // v2 parent, v1 child
-      FieldMeta aggFieldV2Meta("aggFieldV2", FieldStateEnum::Constant, BaseAggregate::InAllVersions, 2);  // all parents have v2 child
-      FieldMeta enumFieldMeta("enumField", FieldStateEnum::Default, "2", BaseAggregate::InAllVersions); // all versions have this field, bool type is 2
+      metaData.addField(0, "intField1", Bct::Workflow::TypeEnum::Int32Type);
+      metaData.addField(1, "intField2", Bct::Workflow::TypeEnum::Int32Type);
+      metaData.addAggField(2, "aggField");
+      metaData.addAggField(3, "aggFieldV2");
+      metaData.addField(4, "enumField", Bct::Workflow::TypeEnum::Int32Type);
+
+      FieldMeta intField1Meta(0, FieldStateEnum::Default, "1", BaseAggregate::InAllVersions);  // all versions have this field
+      FieldMeta intField2Meta(1, FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
+      FieldMeta aggField00Meta(2, FieldStateEnum::Constant, 0, 0);  // v0 parent, v0 child
+      FieldMeta aggField11Meta(2, FieldStateEnum::Constant, 1, 1);  // v1 parent, v1 child
+      FieldMeta aggField21Meta(2, FieldStateEnum::Constant, 2, 1);  // v2 parent, v1 child
+      FieldMeta aggFieldV2Meta(3, FieldStateEnum::Constant, BaseAggregate::InAllVersions, 2);  // all parents have v2 child
+      FieldMeta enumFieldMeta(4, FieldStateEnum::Default, "2", BaseAggregate::InAllVersions); // all versions have this field, bool type is 2
 
       int16_t k, cnt;
 
@@ -108,9 +114,12 @@ public:
          metaData.versionMetaData.push_back(vm);
       }
 
+      metaData.addField(0, "field1", Bct::Workflow::TypeEnum::Int32Type);
+      metaData.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
+
       // One set of field metadata for all version
-      FieldMeta intField1Meta("field1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions); // in all
-      FieldMeta intField2Meta("field2", FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
+      FieldMeta intField1Meta(0, FieldStateEnum::Default, "1", BaseAggregate::InAllVersions); // in all
+      FieldMeta intField2Meta(1, FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
 
       int16_t k, cnt;
 

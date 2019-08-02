@@ -8,6 +8,7 @@
 #include "AssessmentRule.h"
 #include "AssessmentResult.h"
 #include "Exceptions.h"
+#include "FieldInfo.h"
 
 
 namespace Bct
@@ -32,8 +33,8 @@ namespace Bct
          {
          }
 
-         BaseAggregate::BaseAggregate(const std::string &fieldName,  BaseAggregate * parent) :
-            _fieldNameAsNested(fieldName), _fieldSetCounter(0), _parent(parent)
+         BaseAggregate::BaseAggregate(int32_t fieldIdAsNested,  BaseAggregate * parentAsNested) :
+            _fieldIdAsNested(fieldIdAsNested), _fieldSetCounter(0), _parent(parentAsNested)
          {
          }
 
@@ -46,7 +47,7 @@ namespace Bct
                for (size_t i = 0; i < fmi0.size(); i++)
                {
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi0[i]]; // indirection
-                  if (fm.FieldName() == _fieldNameAsNested)
+                  if (fm.FieldId() == _fieldIdAsNested)
                   {
                      if (fm._parentVer == BaseAggregate::InAllVersions || (parentVer == 0 && fm._parentVer == 0))
                      {
@@ -66,7 +67,7 @@ namespace Bct
                for (size_t i = 0; i < fmi.size(); i++)
                {
                   FieldMeta &fm = _parent->MetaData().fieldMetaData[fmi[i]]; // indirection
-                  if (fm.FieldName() == _fieldNameAsNested && fm._parentVer <= parentVer)
+                  if (fm.FieldId() == _fieldIdAsNested && fm._parentVer <= parentVer)
                   {
                      return fm;
                   }
@@ -137,8 +138,10 @@ namespace Bct
                }
             }
          }
-
-
+         int32_t &BaseAggregate::FieldIdAsNested()
+         {
+            return _fieldIdAsNested;
+         }
          /**
           * Destructor
           */
@@ -171,7 +174,8 @@ namespace Bct
                }
 
                FieldStateEnum::FieldState &state = f->StateRef();
-               varMap[f->FieldName()] = RPNEvaluator::RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
+               std::string const &fieldName = MetaData().fieldInfo[f->FieldId()].FieldName();
+               varMap[fieldName] = RPNEvaluator::RPNVariable(fieldName, f->Type(), strVal, state, f->FieldSetCounter());
             }
  
             std::vector<int16_t> &cRulesV = MetaData().versionMetaData[Ver()].computeRulesI;
@@ -182,9 +186,9 @@ namespace Bct
                {
                   // find field calcuation in current version
                   AbstractField *f = _fieldList[iField];
+                  std::string const &fieldName = MetaData().fieldInfo[f->FieldId()].FieldName();
                   const FieldStateEnum::FieldState &state = f->State();
                   const TypeEnum::Type &type = f->Type();
-                  const std::string &fieldName = f->FieldName();
                   const std::string &ruleFieldName = cRule.FieldName();
                   if (fieldName == ruleFieldName)
                   {
@@ -228,7 +232,8 @@ namespace Bct
                }
 
                FieldStateEnum::FieldState &state = f->StateRef();
-               varMap[f->FieldName()] = RPNEvaluator::RPNVariable(f->FieldName(), f->Type(), strVal, state, f->FieldSetCounter());
+               std::string const &fieldName = MetaData().fieldInfo[f->FieldId()].FieldName();
+               varMap[fieldName] = RPNEvaluator::RPNVariable(fieldName, f->Type(), strVal, state, f->FieldSetCounter());
             }
 
             std::vector<int16_t> const &aRulesV = MetaData().versionMetaData[Ver()].assessmentRulesI;

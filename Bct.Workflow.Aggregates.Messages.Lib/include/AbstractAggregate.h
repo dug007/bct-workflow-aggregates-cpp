@@ -40,6 +40,14 @@ namespace Bct
             /// </summary>
             /// <returns></returns>
             virtual AggregateMetaData &MetaData() const = 0;
+
+            /// <summary>
+            /// Pure virtual function that returns the field id for this nested aggregate.
+            /// 
+            /// This value is the index into the _aggList vector.
+            /// </summary>
+            /// <returns>Field id for this nested aggregate.</returns>
+            virtual int32_t &FieldIdAsNested() = 0;
          };
       }
    }

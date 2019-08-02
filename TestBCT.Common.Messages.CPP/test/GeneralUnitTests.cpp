@@ -13,11 +13,8 @@ TEST_CASE("General", "[test]")
 {
    // General unit tests ----------------------------------------------
    Sample1Aggregate a;
-   SECTION("NotSet")
-   {
-      CHECK(a.Field1.State() == FieldStateEnum::FieldState::NotSet);
-      CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
-   }
+   CHECK(a.Field1.State() == FieldStateEnum::FieldState::NotSet);
+   CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
    CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet);
    CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Default);
    CHECK(a.Field7c.State() == FieldStateEnum::FieldState::Constant);
@@ -31,17 +28,15 @@ TEST_CASE("General", "[test]")
    //a.Field7ro.Value(3); //connot compile - setter is private
    CHECK_THROWS_AS(a.Field7c = 3, NotAbleToSet);  // throws on assignment
    CHECK_THROWS_AS(a.Field7c.Value(3), NotAbleToSet);  // throws on set
-   SECTION("NotAbleToSet Exception Message")
+   try //Trying to set a constant field
    {
-      try //Trying to set a constant field
-      {
-         a.Field7c.Value(5);
-      }
-      catch (NotAbleToSet exc)
-      {
-         std::string message = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate fieldName=Field7c fieldState=Constant";
-         CHECK(exc.what() == message);
-      }
+      a.Field7c.Value(5);
+   }
+   catch (NotAbleToSet exc)
+   {
+      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate fieldName=Field7c fieldState=Constant";
+      std::string actual = exc.what();
+      CHECK(actual == expected);
    }
    CHECK(f1 == 2.0);
    CHECK(a.Field1.State() == FieldStateEnum::FieldState::Set);
@@ -79,7 +74,7 @@ TEST_CASE("General", "[test]")
    CHECK(a.FieldEnum.Value() == FieldStateEnum::NotSet);
    a.FieldEnum.Value(FieldStateEnum::Set);
    a.FieldEnum = FieldStateEnum::Default;
-      CHECK(a.FieldEnum.Value() == FieldStateEnum::Default);
+   CHECK(a.FieldEnum.Value() == FieldStateEnum::Default);
 
    CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
    //   a.FieldEnumRo.Value(FieldStateEnum::Set);

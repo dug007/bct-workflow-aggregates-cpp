@@ -20,9 +20,9 @@ namespace Bct
             /// <summary>
             /// Constructor.
             /// </summary>
-            /// <param name="fieldName">Name of this field.</param>
+            /// <param name="fieldId">Id of this field.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            StringField(std::string const &fieldName, AbstractAggregate *aggregate);
+            StringField(int32_t fieldId, AbstractAggregate *aggregate);
 
             virtual ~StringField()
             {

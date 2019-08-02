@@ -18,14 +18,14 @@ namespace Bct
 
          ReferenceAggregate::ReferenceAggregate(const std::string &version) :
             BaseAggregate(version),
-            boolField("boolField", TypeEnum::BoolType, this),
-            int32Field("int32Field", TypeEnum::Int32Type, this),
-            uint32Field("uint32Field", TypeEnum::UInt32Type, this),
-            int64Field("int64Field", TypeEnum::Int64Type, this),
-            uint64Field("uint64Field", TypeEnum::UInt64Type, this),
-            doubleField("doubleField", TypeEnum::DoubleType, this),
-            stringField("stringField", this),
-            enumField("enumField", TypeEnum::Int32Type, "ReferenceEnum::Reference",
+            boolField(0, TypeEnum::BoolType, this),
+            int32Field(1, TypeEnum::Int32Type, this),
+            uint32Field(2, TypeEnum::UInt32Type, this),
+            int64Field(3, TypeEnum::Int64Type, this),
+            uint64Field(4, TypeEnum::UInt64Type, this),
+            doubleField(5, TypeEnum::DoubleType, this),
+            stringField(6, this),
+            enumField(7, TypeEnum::Int32Type, "ReferenceEnum::Reference",
                "0 1 2 4 8 16",
                "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
                this)
@@ -60,14 +60,24 @@ namespace Bct
             {
                tm.addVersion("1.0.0");
                tm.addVersion("1.1.0");
-               tm.addFieldMetaToAllVersions("boolField", FieldStateEnum::Default, "true");
-               tm.addFieldMetaToAllVersions("int32Field", FieldStateEnum::Default, "-1");
-               tm.addFieldMetaToAllVersions("uint32Field", FieldStateEnum::Default, "1");
-               tm.addFieldMetaToAllVersions("int64Field", FieldStateEnum::Default, "-1");
-               tm.addFieldMetaToAllVersions("uint64Field", FieldStateEnum::Default, "1");
-               tm.addFieldMetaToAllVersions("doubleField", FieldStateEnum::Default, "1.0");
-               tm.addFieldMetaToAllVersions("stringField", FieldStateEnum::Default, "hello world");
-               tm.addFieldMetaToAllVersions("enumField", FieldStateEnum::Default, "2");
+
+               tm.addField(0, "boolField", Bct::Workflow::TypeEnum::BoolType);
+               tm.addField(1, "int32Field", Bct::Workflow::TypeEnum::Int32Type);
+               tm.addField(2, "uint32Field", Bct::Workflow::TypeEnum::UInt32Type);
+               tm.addField(3, "int64Field", Bct::Workflow::TypeEnum::Int64Type);
+               tm.addField(4, "uint64Field", Bct::Workflow::TypeEnum::UInt64Type);
+               tm.addField(5, "doubleField", Bct::Workflow::TypeEnum::DoubleType);
+               tm.addField(6, "stringField", Bct::Workflow::TypeEnum::StringType);
+               tm.addField(7, "enumField", Bct::Workflow::TypeEnum::Int32Type);
+
+               tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
+               tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-1");
+               tm.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "1");
+               tm.addFieldMetaToAllVersions(3, FieldStateEnum::Default, "-1");
+               tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "1");
+               tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1.0");
+               tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
+               tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
 
                initialized = true;
             }

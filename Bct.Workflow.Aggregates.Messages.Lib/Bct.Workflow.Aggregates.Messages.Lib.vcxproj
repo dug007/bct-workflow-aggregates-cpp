@@ -170,6 +170,7 @@
     <ClInclude Include="include\EnumField.h" />
     <ClInclude Include="include\EnumFieldRo.h" />
     <ClInclude Include="include\Exceptions.h" />
+    <ClInclude Include="include\FieldInfo.h" />
     <ClInclude Include="include\FieldMeta.h" />
     <ClInclude Include="include\FieldStateEnum.h" />
     <ClInclude Include="include\FluentMeta.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="src\Exceptions.cpp" />
     <ClCompile Include="src\FieldMeta.cpp" />
     <ClCompile Include="src\FluentMeta.cpp" />
+    <ClCompile Include="src\FieldInfo.cpp" />
     <ClCompile Include="src\StringField.cpp" />
     <ClCompile Include="src\VersionInfo.cpp" />
   </ItemGroup>

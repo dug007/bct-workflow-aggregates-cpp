@@ -17,12 +17,6 @@ namespace Bct
          {
          public:
             /// <summary>
-            /// Pure virtual function to return the name of this field as constructed.
-            /// </summary>
-            /// <returns>The name of this field.</returns>
-            virtual const std::string &FieldName() const = 0;
-
-            /// <summary>
             /// Pure virtual function to return the type enum of this field.
             /// </summary>
             /// <returns>Type enum of this field.</returns>
@@ -41,6 +35,13 @@ namespace Bct
             /// </summary>
             /// <returns>The current field set counter for this field.</returns>
             virtual const uint32_t &FieldSetCounter() const = 0;
+
+            /// <summary>
+            /// Pure virtual function that returns the field id for this field.
+            /// </summary>
+            /// <returns>Field id for this field.</returns>
+            virtual int32_t FieldId() const = 0;
+
          protected:
             /// <summary>
             /// Virtual function to return the string representation of the value of this field. This function is

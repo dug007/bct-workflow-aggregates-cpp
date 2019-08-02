@@ -1,8 +1,7 @@
 #include "PlateletConfigAggregate.h"
 #include "PlateletTemplateAggregate.h"
 #include "AggComputeField.h"
-
-
+#include "TypeEnum.h"
 #include "BaseAggregate.h"
 #include "catch.hpp"
 
@@ -137,9 +136,12 @@ public:
          metaData.versionMetaData.push_back(vm);
       }
 
+      metaData.addField(0, "field1", Bct::Workflow::TypeEnum::Int32Type);
+      metaData.addField(0, "field2", Bct::Workflow::TypeEnum::Int32Type);
+
       // One set of field metadata for all version
-      FieldMeta field1Meta("field1", FieldStateEnum::Default, "0", 0);
-      FieldMeta field2Meta("field2", FieldStateEnum::Default, "21", 0);
+      FieldMeta field1Meta(0, FieldStateEnum::Default, "0", 0);
+      FieldMeta field2Meta(1, FieldStateEnum::Default, "21", 0);
 
       int16_t k, cnt;
 
