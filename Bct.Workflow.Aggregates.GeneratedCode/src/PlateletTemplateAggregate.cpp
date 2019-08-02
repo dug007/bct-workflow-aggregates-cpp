@@ -191,14 +191,14 @@ namespace Bct
             };
 
             aggMeta.addField(0, "volumeMl", Bct::Workflow::TypeEnum::DoubleType);
-            aggMeta.addField(0, "cellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
-            aggMeta.addField(0, "yield", Bct::Workflow::TypeEnum::DoubleType);
-            aggMeta.addField(0, "minVolumeMl", Bct::Workflow::TypeEnum::DoubleType);
-            aggMeta.addField(0, "maxVolumeMl", Bct::Workflow::TypeEnum::DoubleType);
-            aggMeta.addField(0, "minCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
-            aggMeta.addField(0, "maxCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
-            aggMeta.addField(0, "minYield", Bct::Workflow::TypeEnum::DoubleType);
-            aggMeta.addField(0, "maxYield", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(1, "cellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(2, "yield", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(3, "minVolumeMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(4, "maxVolumeMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(5, "minCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(6, "maxCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(7, "minYield", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(8, "maxYield", Bct::Workflow::TypeEnum::DoubleType);
 
             for (uint16_t  i = 0; i < std::size(vers); i++)
             {
