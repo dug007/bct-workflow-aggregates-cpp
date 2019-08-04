@@ -27,7 +27,7 @@ namespace Bct
             /// <summary>
             /// Constructor.
             /// </summary>
-            /// <param name="fieldId">Id of this field.</param>
+            /// <param name="fieldId">Id of this field. The id begins with 0 for the first field in the aggregate and proceeds by one for every field in the aggregate, including nested aggregates. This field will be uses as an index into the FieldInfo vector of the AggregateMetaData object.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
             BaseField(int32_t fieldId, AbstractAggregate *aggregate)
                : _fieldId(fieldId), _aggregate(aggregate), _fieldSetCounter(0)
