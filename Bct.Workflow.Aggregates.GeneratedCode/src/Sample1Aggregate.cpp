@@ -13,17 +13,17 @@ namespace Bct
       {
          Sample1Aggregate::Sample1Aggregate(const std::string &version) :
             BaseAggregate(version),
-            Field1(0, TypeEnum::DoubleType, this),
-            Field7(1, TypeEnum::Int32Type, this),
-            Field7d(2, TypeEnum::Int32Type, this),
-            Field7c(3, TypeEnum::Int32Type, this),
-            Field7ro(4, TypeEnum::Int32Type, this),
-            Field7com(5, TypeEnum::Int32Type, this),
-            Field7x(6, TypeEnum::Int32Type, this),
-            FieldEnum(7, TypeEnum::Int32Type, "FieldStateEnum::FieldState",
+            Field1(0, this),
+            Field7(1,  this),
+            Field7d(2, this),
+            Field7c(3, this),
+            Field7ro(4, this),
+            Field7com(5, this),
+            Field7x(6,  this),
+            FieldEnum(7,  "FieldStateEnum::FieldState",
                "0 1 2 3 4 5 6",
                "Unavailable NotSet Set Constant Default Computed", this),
-            FieldEnumRo(8, TypeEnum::Int32Type, "FieldStateEnum::FieldState",
+            FieldEnumRo(8, "FieldStateEnum::FieldState",
                "0 1 2 3 4 5 6",
                "Unavailable NotSet Set Constant Default Computed", this)
 
@@ -48,17 +48,17 @@ namespace Bct
 
          Sample1Aggregate::Sample1Aggregate() :
             BaseAggregate(),
-            Field1(0, TypeEnum::DoubleType, this),
-            Field7(1, TypeEnum::Int32Type, this),
-            Field7d(2, TypeEnum::Int32Type, this),
-            Field7c(3, TypeEnum::Int32Type, this),
-            Field7ro(4, TypeEnum::Int32Type, this),
-            Field7com(5, TypeEnum::Int32Type, this),
-            Field7x(6, TypeEnum::Int32Type, this),
-            FieldEnum(7, TypeEnum::Int32Type, "FieldStateEnum::FieldState",
+            Field1(0, this),
+            Field7(1,  this),
+            Field7d(2,  this),
+            Field7c(3,  this),
+            Field7ro(4, this),
+            Field7com(5, this),
+            Field7x(6, this),
+            FieldEnum(7, "FieldStateEnum::FieldState",
                "0 1 2 3 4 5 6",
                "Unavailable NotSet Set Constant Default Computed", this),
-            FieldEnumRo(8, TypeEnum::Int32Type, "FieldStateEnum::FieldState",
+            FieldEnumRo(8, "FieldStateEnum::FieldState",
                "0 1 2 3 4 5 6",
                "Unavailable NotSet Set Constant Default Computed", this)
          {

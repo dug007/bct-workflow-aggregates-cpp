@@ -13,8 +13,8 @@ namespace Bct
       {
          AggAssess::AggAssess(const std::string &version) :
             BaseAggregate(version),
-            field1(0, TypeEnum::Int32Type, this),
-            field2(1, TypeEnum::Int32Type, this)
+            field1(0, this),
+            field2(1, this)
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
@@ -24,8 +24,8 @@ namespace Bct
 
          AggAssess::AggAssess() :
             BaseAggregate(),
-            field1(0, TypeEnum::Int32Type, this),
-            field2(1, TypeEnum::Int32Type, this)
+            field1(0, this),
+            field2(1, this)
 
          {
             FieldList().push_back(&field1);

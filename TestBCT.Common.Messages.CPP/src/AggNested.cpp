@@ -16,11 +16,11 @@ namespace Bct
 
          AggNested::AggNested(const std::string &version) :
             BaseAggregate(version),
-            intField1(0, TypeEnum::Int32Type, this),
-            intField2(1, TypeEnum::Int32Type, this),
+            intField1(0, this),
+            intField2(1, this),
             aggField(2, this),
             aggFieldV2(3, this),
-            enumField(4, TypeEnum::Int32Type, "TypeEnum::Type",
+            enumField(4, "TypeEnum::Type",
                "0 1 2 3 4 5 6 7 8 9 10 11",
                "TypeEnum::EmptyType TypeEnum::ObjectType TypeEnum::BoolType TypeEnum::Int32Type TypeEnum::UInt32Type TypeEnum::Int64Type TypeEnum::UInt64Type TypeEnum::DoubleType TypeEnum::StringType TypeEnum::EnumType TypeEnum::VariableType",
                this)
@@ -36,11 +36,11 @@ namespace Bct
 
          AggNested::AggNested() :
             BaseAggregate(),
-            intField1(0, TypeEnum::Int32Type, this),
-            intField2(1, TypeEnum::Int32Type, this),
+            intField1(0, this),
+            intField2(1, this),
             aggField(2, this),
             aggFieldV2(3, this),
-            enumField(4, TypeEnum::Int32Type, "TypeEnum::Type",
+            enumField(4, "TypeEnum::Type",
                "0 1 2 3 4 5 6 7 8 9 10 11",
                "TypeEnum::EmptyType TypeEnum::ObjectType TypeEnum::BoolType TypeEnum::Int32Type TypeEnum::UInt32Type TypeEnum::Int64Type TypeEnum::UInt64Type TypeEnum::DoubleType TypeEnum::StringType TypeEnum::EnumType TypeEnum::VariableType",
                this)

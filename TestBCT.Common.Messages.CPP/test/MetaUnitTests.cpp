@@ -24,7 +24,7 @@ public:
    AggForFluentTest(const std::string &version)
       :
       BaseAggregate(version),
-      intField(0, Bct::Workflow::TypeEnum::Int32Type, this),
+      intField(0, this),
       strField(1, this),
       aggField(2, this)
    {

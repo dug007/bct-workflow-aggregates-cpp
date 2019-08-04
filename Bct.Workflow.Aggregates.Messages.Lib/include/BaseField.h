@@ -28,10 +28,9 @@ namespace Bct
             /// Constructor.
             /// </summary>
             /// <param name="fieldId">Id of this field.</param>
-            /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(int32_t fieldId, TypeEnum::Type const &t,  AbstractAggregate *aggregate)
-               : _fieldId(fieldId), _type(t), _aggregate(aggregate), _fieldSetCounter(0)
+            BaseField(int32_t fieldId, AbstractAggregate *aggregate)
+               : _fieldId(fieldId), _aggregate(aggregate), _fieldSetCounter(0)
             {
             }
 
@@ -128,7 +127,7 @@ namespace Bct
             /// Get the name of this field.
             /// </summary>
             /// <returns>Name of this field.</returns>
-            virtual const std::string FieldName() const
+            const std::string FieldName() const
             {
                AggregateMetaData &md = _aggregate->MetaData();
                FieldInfo &fi = md.fieldInfo[FieldId()];
@@ -140,9 +139,12 @@ namespace Bct
             /// Get the type of this field.
             /// </summary>
             /// <returns>Type of this field.</returns>
-            virtual const TypeEnum::Type &Type() const
+            virtual const TypeEnum::Type Type() const
             {
-               return _type;
+               AggregateMetaData &md = _aggregate->MetaData();
+               FieldInfo &fi = md.fieldInfo[FieldId()];
+               TypeEnum::Type const &fieldType = fi.FieldType();
+               return fieldType;
             }
 
             /// <summary>
@@ -356,7 +358,6 @@ namespace Bct
 
             T _val;
             T _default;
-            TypeEnum::Type _type;
             FieldStateEnum::FieldState _state;
             uint32_t _fieldSetCounter;
             AbstractAggregate *_aggregate;

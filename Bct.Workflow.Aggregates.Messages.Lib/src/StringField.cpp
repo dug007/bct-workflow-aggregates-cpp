@@ -9,7 +9,7 @@ namespace Bct
       namespace Aggregates
       {
          StringField::StringField(int32_t fieldId, AbstractAggregate *aggregate)
-            : BaseField(fieldId, TypeEnum::StringType, aggregate)
+            : BaseField(fieldId, aggregate)
          {
          }
 

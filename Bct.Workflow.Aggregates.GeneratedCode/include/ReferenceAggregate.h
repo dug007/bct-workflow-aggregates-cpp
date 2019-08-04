@@ -73,13 +73,6 @@ namespace Bct
             virtual ~ReferenceAggregate();
 
             /// <summary>
-            /// Associates (binds) a metadata object to this aggregate. This must be called before syncVersion is called.
-            /// This will point to a static instance of AggregateMetaData.
-            /// </summary>
-            /// <param name="metaData">Pointer to the metadata object.</param>
-            static void bindMetaData(AggregateMetaData  *metaData);
-
-            /// <summary>
             /// Virtual function to return the metadata reference for this object. Aggregates must implement this at the most-derived level such as generated code.
             /// </summary>
             /// <returns>The associated AggregateMetaData object.</returns>ReferenceAggregate-default-constructor-summary

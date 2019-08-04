@@ -21,10 +21,9 @@ namespace Bct
             /// Constructor.
             /// </summary>
             /// <param name="fieldId">Id of this field.</param>
-            /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            EnumFieldRo(int32_t fieldId, TypeEnum::Type t, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate *aggregate)
-               : EnumField<U, X>(fieldId, t, enumName, enums, names, aggregate)
+            EnumFieldRo(int32_t fieldId, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate *aggregate)
+               : EnumField<U, X>(fieldId, enumName, enums, names, aggregate)
             {
             }
 

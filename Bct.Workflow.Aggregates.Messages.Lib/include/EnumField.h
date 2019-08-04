@@ -35,13 +35,12 @@ namespace Bct
             /// Constructor.
             /// </summary>
             /// <param name="fieldId">Field id in aggregate.</param>
-            /// <param name="t">TypeEnum::Type - of field being used internally by BaseField. This should correspond to the U type of the template.</param>
             /// <param name="enumName">String name of the wrapped enum.</param>
             /// <param name="enums">String with list of values being wrapped separated by spaces.</param>
             /// <param name="names">String with list of names being wrapped separated by spaces.</param>
             /// <param name="aggregate">The parent aggregate.</param>
-            EnumField(int32_t fieldId, TypeEnum::Type t, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate *aggregate)
-               : BaseField<U>(fieldId, t, aggregate), _enumName(enumName)
+            EnumField(int32_t fieldId, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate *aggregate)
+               : BaseField<U>(fieldId, aggregate), _enumName(enumName)
             {
                // TODO parse enums into _enumNames and _enums and support RPN evaluator - Story 128470
                _enumNames = split(names, ' ');

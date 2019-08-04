@@ -10,15 +10,15 @@ namespace Bct
       {
          PlateletTemplateAggregate::PlateletTemplateAggregate() :
             BaseAggregate(),
-            volumeMl(0, TypeEnum::DoubleType, this),
-            cellsPerMl(1, TypeEnum::DoubleType, this),
-            yield(2, TypeEnum::DoubleType, this),
-            minVolumeMl(3, TypeEnum::DoubleType, this),
-            maxVolumeMl(4, TypeEnum::DoubleType, this),
-            minCellsPerMl(5, TypeEnum::DoubleType, this),
-            maxCellsPerMl(6, TypeEnum::DoubleType, this),
-            minYield(7, TypeEnum::DoubleType, this),
-            maxYield(8, TypeEnum::DoubleType, this)
+            volumeMl(0, this),
+            cellsPerMl(1, this),
+            yield(2, this),
+            minVolumeMl(3, this),
+            maxVolumeMl(4, this),
+            minCellsPerMl(5, this),
+            maxCellsPerMl(6, this),
+            minYield(7, this),
+            maxYield(8, this)
          {
             FieldList().push_back(&volumeMl);
             FieldList().push_back(&cellsPerMl);
@@ -39,15 +39,15 @@ namespace Bct
 
          PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string &version) :
             BaseAggregate(version),
-            volumeMl(0, TypeEnum::DoubleType, this),
-            cellsPerMl(1, TypeEnum::DoubleType, this),
-            yield(2, TypeEnum::DoubleType, this),
-            minVolumeMl(3, TypeEnum::DoubleType, this),
-            maxVolumeMl(4, TypeEnum::DoubleType,this),
-            minCellsPerMl(5, TypeEnum::DoubleType, this),
-            maxCellsPerMl(6, TypeEnum::DoubleType, this),
-            minYield(7, TypeEnum::DoubleType, this),
-            maxYield(8, TypeEnum::DoubleType, this)
+            volumeMl(0, this),
+            cellsPerMl(1, this),
+            yield(2, this),
+            minVolumeMl(3, this),
+            maxVolumeMl(4, this),
+            minCellsPerMl(5, this),
+            maxCellsPerMl(6, this),
+            minYield(7, this),
+            maxYield(8, this)
          {
 
             FieldList().push_back(&volumeMl);

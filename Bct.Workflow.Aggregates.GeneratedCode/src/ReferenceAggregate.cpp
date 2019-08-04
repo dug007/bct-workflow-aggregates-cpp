@@ -18,14 +18,14 @@ namespace Bct
 
          ReferenceAggregate::ReferenceAggregate(const std::string &version) :
             BaseAggregate(version),
-            boolField(0, TypeEnum::BoolType, this),
-            int32Field(1, TypeEnum::Int32Type, this),
-            uint32Field(2, TypeEnum::UInt32Type, this),
-            int64Field(3, TypeEnum::Int64Type, this),
-            uint64Field(4, TypeEnum::UInt64Type, this),
-            doubleField(5, TypeEnum::DoubleType, this),
+            boolField(0, this),
+            int32Field(1, this),
+            uint32Field(2, this),
+            int64Field(3, this),
+            uint64Field(4, this),
+            doubleField(5, this),
             stringField(6, this),
-            enumField(7, TypeEnum::Int32Type, "ReferenceEnum::Reference",
+            enumField(7, "ReferenceEnum::Reference",
                "0 1 2 4 8 16",
                "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
                this)

@@ -12,13 +12,13 @@ namespace Bct
  
          PlateletConfigAggregate::PlateletConfigAggregate(const std::string &version) :
             BaseAggregate(version),
-            postCellsPerMl(0, TypeEnum::DoubleType, this),
-            minTemplateCount(1, TypeEnum::Int32Type, this),
-            maxTemplateCount(2, TypeEnum::Int32Type, this),
-            minPostCellsPerMl(3, TypeEnum::DoubleType, this),
-            maxPostCellsPerMl(4, TypeEnum::DoubleType, this),
-            malePostCellsPerMl(5, TypeEnum::DoubleType, this),
-            femalePostCellsPerMl(6, TypeEnum::DoubleType, this)
+            postCellsPerMl(0, this),
+            minTemplateCount(1, this),
+            maxTemplateCount(2, this),
+            minPostCellsPerMl(3, this),
+            maxPostCellsPerMl(4, this),
+            malePostCellsPerMl(5, this),
+            femalePostCellsPerMl(6, this)
          {
             FieldList().push_back(&postCellsPerMl);
             FieldList().push_back(&minTemplateCount);
