@@ -22,6 +22,11 @@ namespace Bct
          {
          public:
             /// <summary>
+            /// Specifies to use the most recent version.
+            /// </summary>
+            static const std::string UseMostRecentVersionStr;
+
+            /// <summary>
             /// Used as a requested version to indicate the metadata item should be included in all versions of the parent.
             /// 
             /// Example:  FieldMeta intField1Meta("intField1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions);
@@ -42,9 +47,9 @@ namespace Bct
             /// <summary>
             /// Constructor. This constructor is used for nested aggregates.
             /// </summary>
-            /// <param name="fieldName"></param>
-            /// <param name="parent"></param>
-            BaseAggregate(const std::string &fieldName, BaseAggregate * parent);
+            /// <param name="fieldIdAsNested">The field id of this nested aggregate.</param>
+            /// <param name="parentAsNested">The parent of this nesteded aggregate</param>
+            BaseAggregate(int32_t fieldIdAsNested, BaseAggregate * parentAsNested);
 
             /// <summary>
             /// Virtual destructor.
@@ -117,6 +122,14 @@ namespace Bct
             virtual void syncChildVersion(int16_t parentVer);
 
             /// <summary>
+            /// Pure virtual function that returns the field meta data id for this nested aggregate.
+            /// 
+            /// This value is the index into the _aggList vector.
+            /// </summary>
+            /// <returns>FieldMeta id for this nested aggregate.</returns>
+            virtual int32_t &FieldIdAsNested();
+
+            /// <summary>
             /// Returns the list of fields in this aggregate.
             /// </summary>
             /// <returns>Field list.</returns>
@@ -148,12 +161,12 @@ namespace Bct
             uint32_t _fieldSetCounter;
             BaseAggregate * _parent;
             std::string _fieldNameAsNested;
+            int32_t _fieldIdAsNested;
 
             FieldMeta &findFieldMeta(int16_t parentVer);
 
             // Use as a requested version to indicate the most recent version is requested.
             static const int16_t UseMostRecentVersion = -1;
-            static const std::string UseMostRecentVerionStr;
          };
       }
    }

@@ -8,8 +8,8 @@ namespace Bct
    {
       namespace Aggregates
       {
-         StringField::StringField(std::string const &fieldName, AbstractAggregate *aggregate)
-            : BaseField(fieldName, TypeEnum::StringType, aggregate)
+         StringField::StringField(int32_t fieldId, AbstractAggregate *aggregate)
+            : BaseField(fieldId, aggregate)
          {
          }
 

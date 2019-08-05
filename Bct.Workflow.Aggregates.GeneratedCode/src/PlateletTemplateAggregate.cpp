@@ -10,15 +10,15 @@ namespace Bct
       {
          PlateletTemplateAggregate::PlateletTemplateAggregate() :
             BaseAggregate(),
-            volumeMl("volumeMl", TypeEnum::DoubleType, this),
-            cellsPerMl("cellsPerMl", TypeEnum::DoubleType, this),
-            yield("yield", TypeEnum::DoubleType, this),
-            minVolumeMl("minVolumeMl", TypeEnum::DoubleType, this),
-            maxVolumeMl("maxVolumeMl", TypeEnum::DoubleType, this),
-            minCellsPerMl("minCellsPerMl", TypeEnum::DoubleType, this),
-            maxCellsPerMl("maxCellsPerMl", TypeEnum::DoubleType, this),
-            minYield("minYield", TypeEnum::DoubleType, this),
-            maxYield("maxYield", TypeEnum::DoubleType, this)
+            volumeMl(0, this),
+            cellsPerMl(1, this),
+            yield(2, this),
+            minVolumeMl(3, this),
+            maxVolumeMl(4, this),
+            minCellsPerMl(5, this),
+            maxCellsPerMl(6, this),
+            minYield(7, this),
+            maxYield(8, this)
          {
             FieldList().push_back(&volumeMl);
             FieldList().push_back(&cellsPerMl);
@@ -39,15 +39,15 @@ namespace Bct
 
          PlateletTemplateAggregate::PlateletTemplateAggregate(const std::string &version) :
             BaseAggregate(version),
-            volumeMl("volumeMl", TypeEnum::DoubleType, this),
-            cellsPerMl("cellsPerMl", TypeEnum::DoubleType, this),
-            yield("yield", TypeEnum::DoubleType, this),
-            minVolumeMl("minVolumeMl", TypeEnum::DoubleType, this),
-            maxVolumeMl("maxVolumeMl", TypeEnum::DoubleType,this),
-            minCellsPerMl("minCellsPerMl", TypeEnum::DoubleType, this),
-            maxCellsPerMl("maxCellsPerMl", TypeEnum::DoubleType, this),
-            minYield("minYield", TypeEnum::DoubleType, this),
-            maxYield("maxYield", TypeEnum::DoubleType, this)
+            volumeMl(0, this),
+            cellsPerMl(1, this),
+            yield(2, this),
+            minVolumeMl(3, this),
+            maxVolumeMl(4, this),
+            minCellsPerMl(5, this),
+            maxCellsPerMl(6, this),
+            minYield(7, this),
+            maxYield(8, this)
          {
 
             FieldList().push_back(&volumeMl);
@@ -190,6 +190,15 @@ namespace Bct
                "2.0e9"
             };
 
+            aggMeta.addField(0, "volumeMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(1, "cellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(2, "yield", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(3, "minVolumeMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(4, "maxVolumeMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(5, "minCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(6, "maxCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(7, "minYield", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(8, "maxYield", Bct::Workflow::TypeEnum::DoubleType);
 
             for (uint16_t  i = 0; i < std::size(vers); i++)
             {
@@ -197,15 +206,15 @@ namespace Bct
                VersionMetaData vm;
                aggMeta.versionMetaData.push_back(vm);
 
-               FieldMeta volumeMl_("volumeMl", _volumeMlStates[i], _volumeMlDefaults[i], i);
-               FieldMeta cellsPerMl_("cellsPerMl", _cellsPerMlStates[i], _cellsPerMlDefaults[i], i);
-               FieldMeta yield_("yield", _yieldStates[i], _yieldDefaults[i], i);
-               FieldMeta minVolumeMl_("minVolumeMl", _minVolumeMlStates[i], _minVolumeMlDefaults[i], i);
-               FieldMeta maxVolumeMl_("maxVolumeMl", _maxVolumeMlStates[i], _maxVolumeMlDefaults[i], i);
-               FieldMeta minCellsPerMl_("minCellsPerMl", _minCellsPerMlStates[i], _minCellsPerMlDefaults[i], i);
-               FieldMeta maxCellsPerMl_("maxCellsPerMl", _maxCellsPerMlStates[i], _maxCellsPerMlDefaults[i], i);
-               FieldMeta minYield_("minYield", _minYieldStates[i], _minYieldDefaults[i], i);
-               FieldMeta maxYield_("maxYield", _maxYieldStates[i], _maxYieldDefaults[i], i);
+               FieldMeta volumeMl_(0, _volumeMlStates[i], _volumeMlDefaults[i], i);
+               FieldMeta cellsPerMl_(1, _cellsPerMlStates[i], _cellsPerMlDefaults[i], i);
+               FieldMeta yield_(2, _yieldStates[i], _yieldDefaults[i], i);
+               FieldMeta minVolumeMl_(3, _minVolumeMlStates[i], _minVolumeMlDefaults[i], i);
+               FieldMeta maxVolumeMl_(4, _maxVolumeMlStates[i], _maxVolumeMlDefaults[i], i);
+               FieldMeta minCellsPerMl_(5, _minCellsPerMlStates[i], _minCellsPerMlDefaults[i], i);
+               FieldMeta maxCellsPerMl_(6, _maxCellsPerMlStates[i], _maxCellsPerMlDefaults[i], i);
+               FieldMeta minYield_(7, _minYieldStates[i], _minYieldDefaults[i], i);
+               FieldMeta maxYield_(8, _maxYieldStates[i], _maxYieldDefaults[i], i);
 
                aggMeta.fieldMetaData.push_back(volumeMl_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);

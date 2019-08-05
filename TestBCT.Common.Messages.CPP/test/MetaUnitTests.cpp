@@ -24,9 +24,9 @@ public:
    AggForFluentTest(const std::string &version)
       :
       BaseAggregate(version),
-      intField("intField", Bct::Workflow::TypeEnum::Int32Type, this),
-      strField("strField", this),
-      aggField("aggField", this)
+      intField(0, this),
+      strField(1, this),
+      aggField(2, this)
    {
       FieldList().push_back(&intField);
       FieldList().push_back(&strField);
@@ -34,27 +34,36 @@ public:
 
       // metadata AggForFluentTest------------------->
       static AggregateMetaData tm;
+      tm.addField(0, "intField", Bct::Workflow::TypeEnum::Int32Type);
+      tm.addField(1, "strField", Bct::Workflow::TypeEnum::StringType);
+      tm.addAggField(2, "aggField");
+
       tm.addVersion("1.0.0");
       tm.addVersion("1.1.0");
       tm.addVersion("1.2.0");
-      tm.addFieldMeta("intField", FieldStateEnum::Default, "0") .toVersion(0);
-      tm.addFieldMeta("intField", FieldStateEnum::Default, "1") .toVersion(1) .toVersion(2);
-      tm.addFieldMetaToAllVersions("strField", FieldStateEnum::Default, "hello world");
-      tm.addAggMeta("aggField", FieldStateEnum::Unavailable, 0)   .toVersion(0);
-      tm.addAggMeta("aggField", FieldStateEnum::Set, 1)           .toVersion(1);
-      tm.addAggMeta("aggField", FieldStateEnum::Set, 2)           .toVersion(2);
+
+      tm.addFieldMeta(0, FieldStateEnum::Default, "0") .toVersion(0);
+      tm.addFieldMeta(0, FieldStateEnum::Default, "1") .toVersion(1) .toVersion(2);
+      tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "hello world");
+      tm.addAggMeta(2, FieldStateEnum::Unavailable, 0)   .toVersion(0);
+      tm.addAggMeta(2, FieldStateEnum::Set, 1)           .toVersion(1);
+      tm.addAggMeta(2, FieldStateEnum::Set, 2)           .toVersion(2);
       bindMetaData(&tm);
       // <----------------- metadata AggForFluentTest 
 
       // metadata AggComputeField ------------------->
       static AggregateMetaData cf;
+      cf.addField(0, "field1", Bct::Workflow::TypeEnum::Int32Type);
+      cf.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
+
       cf.addVersion("1.0.0");
       cf.addVersion("1.1.0");
       cf.addVersion("1.2.0");
-      cf.addFieldMetaToAllVersions("field1", FieldStateEnum::Default, "99");
-      cf.addFieldMeta("field2", FieldStateEnum::Default, "1")  .toVersion(0);
-      cf.addFieldMeta("field2", FieldStateEnum::Default, "2")  .toVersion(1);
-      cf.addFieldMeta("field2", FieldStateEnum::Default, "3")  .toVersion(2);
+
+      cf.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "99");
+      cf.addFieldMeta(1, FieldStateEnum::Default, "100")  .toVersion(0);
+      cf.addFieldMeta(1, FieldStateEnum::Default, "101")  .toVersion(1);
+      cf.addFieldMeta(1, FieldStateEnum::Default, "102")  .toVersion(2);
       aggField.bindMetaData(&cf);
       // <----------------- metadata AggComputeField 
 
@@ -95,6 +104,6 @@ TEST_CASE("FluentMetaTests", "[test]")
    CHECK(99 == t1.aggField.field1);
    CHECK(99 == t2.aggField.field1);
 
-   CHECK(2 == t1.aggField.field2);
-   CHECK(3 == t2.aggField.field2);
-}
+   CHECK(101 == t1.aggField.field2);
+   CHECK(102 == t2.aggField.field2);
+ }

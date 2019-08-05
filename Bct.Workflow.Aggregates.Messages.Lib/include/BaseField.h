@@ -27,11 +27,10 @@ namespace Bct
             /// <summary>
             /// Constructor.
             /// </summary>
-            /// <param name="fieldName">Name of this field.</param>
-            /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
+            /// <param name="fieldId">Id of this field. The id begins with 0 for the first field in the aggregate and proceeds by one for every field in the aggregate, including nested aggregates. This field will be uses as an index into the FieldInfo vector of the AggregateMetaData object.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(std::string const &fieldName, TypeEnum::Type const &t,  AbstractAggregate *aggregate)
-               : _fieldName(fieldName), _type(t), _aggregate(aggregate), _fieldSetCounter(0)
+            BaseField(int32_t fieldId, AbstractAggregate *aggregate)
+               : _fieldId(fieldId), _aggregate(aggregate), _fieldSetCounter(0)
             {
             }
 
@@ -93,8 +92,10 @@ namespace Bct
                return *this;
             }
 
-
-            void Unset()
+            /// <summary>
+            /// Sets the state of the field to NotSet.
+            /// </summary>
+            void unset()
             {
                switch (_state)
                {
@@ -126,18 +127,24 @@ namespace Bct
             /// Get the name of this field.
             /// </summary>
             /// <returns>Name of this field.</returns>
-            virtual const std::string &FieldName() const
+            const std::string FieldName() const
             {
-               return _fieldName;
+               AggregateMetaData &md = _aggregate->MetaData();
+               FieldInfo &fi = md.fieldInfo[FieldId()];
+               std::string const &fieldName = fi.FieldName();
+               return fieldName;
             }
 
             /// <summary>
             /// Get the type of this field.
             /// </summary>
             /// <returns>Type of this field.</returns>
-            virtual const TypeEnum::Type &Type() const
+            virtual const TypeEnum::Type Type() const
             {
-               return _type;
+               AggregateMetaData &md = _aggregate->MetaData();
+               FieldInfo &fi = md.fieldInfo[FieldId()];
+               TypeEnum::Type const &fieldType = fi.FieldType();
+               return fieldType;
             }
 
             /// <summary>
@@ -198,10 +205,19 @@ namespace Bct
             /// Determines if this field has a value.
             /// </summary>
             /// <returns>true if the field has a  value, false if the field does not hava a value.</returns>
-            const bool &HasValue() const
+            const bool &hasValue() const
             {
                // TODO handle Computed after field as been computed - User Story 126600
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
+            }
+
+            /// <summary>
+            /// Pure virtual function that returns the field id for this field.
+            /// </summary>
+            /// <returns>Field id for this field.</returns>
+            virtual int32_t FieldId() const
+            {
+               return _fieldId;
             }
 
           protected:
@@ -304,7 +320,7 @@ namespace Bct
                   for (size_t i = 0; i < fmi0.size(); i++)
                   {
                      FieldMeta &fm = aggMD.fieldMetaData[fmi0[i]]; // indirection
-                     if (fm.FieldName() == _fieldName)
+                     if (fm.FieldId() == _fieldId)
                      {
                         if (fm._parentVer == BaseAggregate::InAllVersions || (_ver == 0 && fm._parentVer == 0))
                         {
@@ -324,7 +340,7 @@ namespace Bct
                   for (size_t i = 0; i < fmi.size(); i++)
                   {
                      FieldMeta &fm = aggMD.fieldMetaData[fmi[i]]; // indirection
-                     if (fm.FieldName() == _fieldName && fm._parentVer <= _ver)
+                     if (fm.FieldId() == _fieldId && fm._parentVer <= _ver)
                      {
                         return fm;
                      }
@@ -342,11 +358,10 @@ namespace Bct
 
             T _val;
             T _default;
-            TypeEnum::Type _type;
             FieldStateEnum::FieldState _state;
-            std::string _fieldName;
             uint32_t _fieldSetCounter;
-            AbstractAggregate *_aggregate;            
+            AbstractAggregate *_aggregate;
+            int32_t _fieldId;
         };
       }
    }

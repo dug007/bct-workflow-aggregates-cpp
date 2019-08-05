@@ -12,13 +12,13 @@ namespace Bct
  
          PlateletConfigAggregate::PlateletConfigAggregate(const std::string &version) :
             BaseAggregate(version),
-            postCellsPerMl("postCellsPerMl", TypeEnum::DoubleType, this),
-            minTemplateCount("minTemplateCount", TypeEnum::Int32Type, this),
-            maxTemplateCount("maxTemplateCount", TypeEnum::Int32Type, this),
-            minPostCellsPerMl("minPostCellsPerMl", TypeEnum::DoubleType, this),
-            maxPostCellsPerMl("maxPostCellsPerMl", TypeEnum::DoubleType, this),
-            malePostCellsPerMl("malePostCellsPerMl", TypeEnum::DoubleType, this),
-            femalePostCellsPerMl("femalePostCellsPerMl", TypeEnum::DoubleType, this)
+            postCellsPerMl(0, this),
+            minTemplateCount(1, this),
+            maxTemplateCount(2, this),
+            minPostCellsPerMl(3, this),
+            maxPostCellsPerMl(4, this),
+            malePostCellsPerMl(5, this),
+            femalePostCellsPerMl(6, this)
          {
             FieldList().push_back(&postCellsPerMl);
             FieldList().push_back(&minTemplateCount);
@@ -133,6 +133,13 @@ namespace Bct
                "100.0"
             };
 
+            aggMeta.addField(0, "postCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(1, "minTemplateCount", Bct::Workflow::TypeEnum::Int32Type);
+            aggMeta.addField(2, "maxTemplateCount", Bct::Workflow::TypeEnum::Int32Type);
+            aggMeta.addField(3, "minPostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(4, "maxPostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(5, "malePostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(6, "femalePostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
 
             for (uint16_t i = 0; i < std::size(vers); i++)
             {
@@ -140,13 +147,13 @@ namespace Bct
                VersionMetaData vm;
                aggMeta.versionMetaData.push_back(vm);
 
-               FieldMeta postCellsPerMl_("postCellsPerMl", _postCellsPerMlStates[i], _postCellsPerMlDefaults[i], i);
-               FieldMeta minTemplateCount_("minTemplateCount", _minTemplateCountStates[i], _minTemplateCountDefaults[i], i);
-               FieldMeta maxTemplateCount_("maxTemplateCount", _maxTemplateCountStates[i], _maxTemplateCountDefaults[i], i);
-               FieldMeta minPostCellsPerMl_("minPostCellsPerMl", _minPostCellsPerMlStates[i], _minPostCellsPerMlDefaults[i], i);
-               FieldMeta maxPostCellsPerMl_("maxPostCellsPerMl", _maxPostCellsPerMlStates[i], _maxPostCellsPerMlDefaults[i], i);
-               FieldMeta malePostCellsPerMl_("malePostCellsPerMl", _malePostCellsPerMlStates[i], _malePostCellsPerMlDefaults[i], i);
-               FieldMeta femalePostCellsPerMl_("femalePostCellsPerMl", _femalePostCellsPerMlStates[i], _femalePostCellsPerMlDefaults[i], i);
+               FieldMeta postCellsPerMl_(0, _postCellsPerMlStates[i], _postCellsPerMlDefaults[i], i);
+               FieldMeta minTemplateCount_(1, _minTemplateCountStates[i], _minTemplateCountDefaults[i], i);
+               FieldMeta maxTemplateCount_(2, _maxTemplateCountStates[i], _maxTemplateCountDefaults[i], i);
+               FieldMeta minPostCellsPerMl_(3, _minPostCellsPerMlStates[i], _minPostCellsPerMlDefaults[i], i);
+               FieldMeta maxPostCellsPerMl_(4, _maxPostCellsPerMlStates[i], _maxPostCellsPerMlDefaults[i], i);
+               FieldMeta malePostCellsPerMl_(5, _malePostCellsPerMlStates[i], _malePostCellsPerMlDefaults[i], i);
+               FieldMeta femalePostCellsPerMl_(6, _femalePostCellsPerMlStates[i], _femalePostCellsPerMlDefaults[i], i);
 
                aggMeta.fieldMetaData.push_back(postCellsPerMl_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);

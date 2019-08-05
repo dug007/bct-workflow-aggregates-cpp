@@ -16,8 +16,8 @@ namespace Bct
 
          AggComputeField::AggComputeField(const std::string &version) :
             BaseAggregate(version),
-            field1("field1", TypeEnum::Int32Type, this),
-            field2("field2", TypeEnum::Int32Type, this)
+            field1(0, this),
+            field2(1, this)
          {
 
             FieldList().push_back(&field1);
@@ -27,8 +27,8 @@ namespace Bct
 
          AggComputeField::AggComputeField() :
             BaseAggregate(),
-            field1("field1", TypeEnum::Int32Type, this),
-            field2("field2", TypeEnum::Int32Type, this)
+            field1(0, this),
+            field2(1, this)
 
          {
             FieldList().push_back(&field1);
@@ -36,10 +36,10 @@ namespace Bct
             syncVersion();
          }
 
-         AggComputeField::AggComputeField(const std::string &fieldName, BaseAggregate * parent) :
-            BaseAggregate(fieldName, parent),
-            field1("field1", TypeEnum::Int32Type, this),
-            field2("field2", TypeEnum::Int32Type, this)
+         AggComputeField::AggComputeField(int32_t fieldId, BaseAggregate * parent) :
+            BaseAggregate(fieldId, parent),
+            field1(0, this),
+            field2(1, this)
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);

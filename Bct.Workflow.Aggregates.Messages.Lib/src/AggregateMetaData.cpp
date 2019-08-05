@@ -22,51 +22,48 @@ namespace Bct
             VersionMetaData vm;
             versionMetaData.push_back(vm);
          }
-         FluentMeta AggregateMetaData::addFieldMeta(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, std::string const &def)
+         FluentMeta AggregateMetaData::addFieldMeta(int32_t fieldId, FieldStateEnum::FieldState const &fieldState, std::string const &def)
          {
-            FieldMeta fm(fieldName, fieldState, def, 0);
+            FieldMeta fm(fieldId, fieldState, def, 0);
             this->fieldMetaData.push_back(fm);
             FluentMeta flu(*this, fm, this->fieldMetaData.size()-1);
             return flu;
          };
 
-         void AggregateMetaData::addFieldMetaToAllVersions(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, std::string const &def)
+         void AggregateMetaData::addFieldMetaToAllVersions(int32_t fieldId, FieldStateEnum::FieldState const &fieldState, std::string const &def)
          {
-            FieldMeta fm(fieldName, fieldState, def, BaseAggregate::InAllVersions);
+            FieldMeta fm(fieldId, fieldState, def, BaseAggregate::InAllVersions);
             this->fieldMetaData.push_back(fm);
             FluentMeta flu(*this, fm, this->fieldMetaData.size() - 1);
             flu.toVersion(0);
          };
 
-         FluentMeta AggregateMetaData::addAggMeta(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, int16_t childVer)
+         FluentMeta AggregateMetaData::addAggMeta(int32_t fieldId, FieldStateEnum::FieldState const &fieldState, int16_t childVer)
          {
-            FieldMeta fm(fieldName, fieldState, 0, childVer);
+            FieldMeta fm(fieldId, fieldState, 0, childVer);
             this->fieldMetaData.push_back(fm);
             FluentMeta flu(*this, fm, this->fieldMetaData.size() - 1);
             return flu;
          };
 
-         void AggregateMetaData::addAggMetaToAllVersions(std::string const &fieldName, FieldStateEnum::FieldState const &fieldState, int16_t childVer)
+         void AggregateMetaData::addAggMetaToAllVersions(int32_t fieldId, FieldStateEnum::FieldState const &fieldState, int16_t childVer)
          {
-            FieldMeta fm(fieldName, fieldState, BaseAggregate::InAllVersions, childVer);
+            FieldMeta fm(fieldId, fieldState, BaseAggregate::InAllVersions, childVer);
             this->fieldMetaData.push_back(fm);
             FluentMeta flu(*this, fm, this->fieldMetaData.size() - 1);
             flu.toVersion(0);
          };
 
-         void AggregateMetaData::clear()
+         void AggregateMetaData::addField(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType)
          {
-            assessmentRules.clear();
-            computeRules.clear();
-            fieldMetaData.clear();
-            versionInfo.clear();
-            for (size_t i = 0; i < versionMetaData.size(); i++)
-            {
-               versionMetaData[i].assessmentRulesI.clear();
-               versionMetaData[i].computeRulesI.clear();
-               versionMetaData[i].fieldMetaDataI.clear();
-            }
-            versionMetaData.clear();
+            FieldInfo fi = FieldInfo(fieldId, fieldName, fieldType);
+            fieldInfo.push_back(fi);
+         }
+
+         void AggregateMetaData::addAggField(int16_t fieldId, std::string const &fieldName)
+         {
+            FieldInfo fi = FieldInfo(fieldId, fieldName, TypeEnum::ObjectType);
+            fieldInfo.push_back(fi);
          }
       }
    }

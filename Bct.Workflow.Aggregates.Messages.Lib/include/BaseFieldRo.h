@@ -20,13 +20,17 @@ namespace Bct
             /// <summary>
             /// Constructor.
             /// </summary>
-            /// <param name="fieldName">Name of this field.</param>
-            /// <param name="t">Type of this field. The given type should be consistent with the template class.</param>
+            /// <param name="fieldId">Id of this field.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseFieldRo(const std::string fieldName, TypeEnum::Type t, AbstractAggregate *aggregate)
-               : BaseField<T>(fieldName, t, aggregate)
+            BaseFieldRo(int32_t fieldId, AbstractAggregate *aggregate)
+               : BaseField<T>(fieldId, aggregate)
             {
             }
+
+            virtual ~BaseFieldRo()
+            {
+            }
+            
             const T Value()
             {
                return BaseField<T>::Value();

@@ -31,8 +31,8 @@ namespace Bct
             BaseField<int32_t>   Field7d;     // defaulted
             BaseField<int32_t>   Field7com;   // computed
             BaseField<int32_t>   Field7x;     // extra field for tests
-            EnumField<FieldStateEnum::FieldState, int32_t> FieldEnum;
-            EnumFieldRo<FieldStateEnum::FieldState, int32_t> FieldEnumRo;
+            EnumField<int32_t, FieldStateEnum::FieldState> FieldEnum;
+            EnumFieldRo<FieldStateEnum::FieldState, int32_t, FieldStateEnum::FieldState> FieldEnumRo;
 
             Sample1Aggregate();
             Sample1Aggregate(const std::string &version);

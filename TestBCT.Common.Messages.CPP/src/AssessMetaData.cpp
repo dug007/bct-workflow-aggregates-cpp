@@ -25,9 +25,12 @@ namespace Bct
                metaData.versionMetaData.push_back(vm);
             }
 
+            metaData.addField(0, "field1", Bct::Workflow::TypeEnum::Int32Type);
+            metaData.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
+
             // One set of field metadata for all version
-            FieldMeta field1Meta("field1", FieldStateEnum::Default, "1", BaseAggregate::InAllVersions); // all versions
-            FieldMeta field2Meta("field2", FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
+            FieldMeta field1Meta(0, FieldStateEnum::Default, "1", BaseAggregate::InAllVersions); // all versions
+            FieldMeta field2Meta(1, FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
 
             int16_t k, cnt;
 
