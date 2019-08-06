@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>BCT.Common.Messages.CPP</id>
+    <version>$version$</version>
+    <title>BCT.Common.Messages.CPP</title>
+    <authors>Honey Badgers</authors>
+    <owners>TerumoBCT</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TerumoBCT Workflow Messages CPP</description>
+    <releaseNotes>Pre-Release</releaseNotes>
+    <copyright>TerumoBCT</copyright>
+     <dependencies>
+      <dependency id="BCT.Common.Utilities.RPNEvaluatorCPP" version ="0.1.0-XDV"/>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Bct.Workflow.Aggregates.Messages.Lib\src\*.*" target ="../content/native/MessagesCPP/src" />
+    <file src="Bct.Workflow.Aggregates.Messages.Lib\include\*.*" target ="../content/native/MessagesCPP/include" />
+    <file src="BCT.Common.Messages.CPP.targets" target ="build" />
+    <file src="BCT.Common.Messages.CPP.nuspec" target ="build" />
+  </files>
+</package>
