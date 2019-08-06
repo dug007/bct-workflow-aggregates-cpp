@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(MSBuildProjectDirectory)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\Include;$(MSBuildProjectDirectory)\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\RPNEvaluatorCPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

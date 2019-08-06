@@ -124,7 +124,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\RPNEvaluatorCPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -166,7 +166,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)catch;$(SolutionDir)Bct.Workflow.Aggregates.GeneratedCode\Include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\Include;$(MSBuildProjectDirectory)\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\RPNEvaluatorCPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
