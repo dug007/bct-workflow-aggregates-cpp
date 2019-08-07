@@ -114,7 +114,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\Include;$(MSBuildProjectDirectory)\RPNEvaluatorCPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\Include;$(MSBuildProjectDirectory)\BCT.RPNEvaluator.CPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
@@ -159,6 +159,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h" />
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h" />
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNEvaluator.h" />
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNVariable.h" />
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\stdafx.h" />
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\Token.h" />
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h" />
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\TypeEnum.h" />
     <ClInclude Include="include\AbstractAggregate.h" />
     <ClInclude Include="include\AbstractField.h" />
     <ClInclude Include="include\AssessmentResult.h" />
@@ -172,10 +180,8 @@
     <ClInclude Include="include\Exceptions.h" />
     <ClInclude Include="include\FieldInfo.h" />
     <ClInclude Include="include\FieldMeta.h" />
-    <ClInclude Include="include\FieldStateEnum.h" />
     <ClInclude Include="include\FluentMeta.h" />
     <ClInclude Include="include\StringField.h" />
-    <ClInclude Include="include\TypeEnum.h" />
     <ClInclude Include="include\VersionChangeRule.h" />
     <ClInclude Include="include\VersionInfo.h" />
     <ClInclude Include="include\AggregateMetaData.h" />
@@ -183,6 +189,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp" />
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\RPNEvaluator.cpp" />
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\Token.cpp" />
     <ClCompile Include="src\AggregateMetaData.cpp" />
     <ClCompile Include="src\AssessmentResult.cpp" />
     <ClCompile Include="src\AssessmentRule.cpp" />

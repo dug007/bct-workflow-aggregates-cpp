@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP">
+      <UniqueIdentifier>{baa09da1-19d3-42ce-9daa-10d744001743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP\src">
+      <UniqueIdentifier>{e9673fca-de5c-44b3-92b2-4a07bb216dfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP\include">
+      <UniqueIdentifier>{46a15eda-442a-4d76-9ef3-8aeb8ce14b3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -42,16 +51,10 @@
     <ClInclude Include="include\FieldMeta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FieldStateEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\VersionChangeRule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\VersionInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TypeEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\BaseFieldRo.h">
@@ -80,6 +83,30 @@
     </ClInclude>
     <ClInclude Include="include\FieldInfo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\TypeEnum.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\Token.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\stdafx.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNVariable.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNEvaluator.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +142,15 @@
     </ClCompile>
     <ClCompile Include="src\FieldInfo.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\Token.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\RPNEvaluator.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
