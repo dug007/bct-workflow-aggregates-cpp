@@ -121,6 +121,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>IF "%BUILD_BUILDNUMBER%"=="" pwsh "$(SolutionDir)Configuration\create-nugetpackage.ps1" $(SolutionDir) $(SolutionDir) Bct.Workflow.Aggregates.CPP</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

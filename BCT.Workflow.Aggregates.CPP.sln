@@ -5,6 +5,7 @@ VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{769B01E0-D114-41C7-B562-FF1318F44892}"
 	ProjectSection(SolutionItems) = preProject
+		Bct.Workflow.Aggregates.CPP.nuspec = Bct.Workflow.Aggregates.CPP.nuspec
 		Bct.Workflow.Aggregates.CPP.runsettings = Bct.Workflow.Aggregates.CPP.runsettings
 		Configuration\create-nugetpackage.ps1 = Configuration\create-nugetpackage.ps1
 		DoxyGen\Doxyfile = DoxyGen\Doxyfile
@@ -16,7 +17,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.CPP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.CPPLib", "Bct.Workflow.Aggregates.CPPLib\Bct.Workflow.Aggregates.CPPLib.vcxproj", "{A9850E36-2543-4EDE-80B0-5B27EF64859F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BCT.Workflow.Aggregates.CPP.Test", "Bct.Workflow.Aggregates.CPP.Test\Bct.Workflow.Aggregates.CPP.Test.vcxproj", "{5A1C1F08-8E45-43A8-B935-7CA3D165EFBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.CPP.Test", "Bct.Workflow.Aggregates.CPP.Test\Bct.Workflow.Aggregates.CPP.Test.vcxproj", "{5A1C1F08-8E45-43A8-B935-7CA3D165EFBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
