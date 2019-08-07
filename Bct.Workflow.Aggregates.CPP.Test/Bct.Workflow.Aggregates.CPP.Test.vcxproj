@@ -18,36 +18,64 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\AggAssess.cpp" />
+    <ClCompile Include="src\AggNested.cpp" />
+    <ClCompile Include="src\AssessMetaData.cpp" />
+    <ClCompile Include="src\AssessUnitTests.cpp" />
+    <ClCompile Include="test\AggNestedUnitTests.cpp" />
+    <ClCompile Include="test\GeneralUnitTests.cpp" />
+    <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
+    <ClCompile Include="test\MetaUnitTests.cpp" />
+    <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test\Sample1.yaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bct.Workflow.Aggregates.GeneratedCode\Bct.Workflow.Aggregates.GeneratedCode.vcxproj">
+      <Project>{9b10266c-1cc1-418b-8390-e860603184b3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Bct.Workflow.Aggregates.Messages.Lib\Bct.Workflow.Aggregates.Messages.Lib.vcxproj">
+      <Project>{a9850e36-2543-4ede-80b0-5b27ef64859f}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\AggAssess.h" />
+    <ClInclude Include="include\AggNested.h" />
+    <ClInclude Include="include\AssessMetaData.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{9B10266C-1CC1-418B-8390-E860603184B3}</ProjectGuid>
+    <ProjectGuid>{5A1C1F08-8E45-43A8-B935-7CA3D165EFBD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GeneratedCode</RootNamespace>
+    <RootNamespace>BCTCommonMessagesCPP</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
-    <ProjectName>Bct.Workflow.Aggregates.GeneratedCode</ProjectName>
+    <TargetFrameworkVersion>4.5</TargetFrameworkVersion>
+    <ProjectName>BCT.Workflow.Aggregates.CPP.Test</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -93,13 +121,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(MSBuildProjectDirectory)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.CPP.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\RPNEvaluatorCPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -108,13 +140,18 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(MSBuildProjectDirectory)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -122,15 +159,18 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\Include;$(MSBuildProjectDirectory)\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\RPNEvaluatorCPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)catch;$(SolutionDir)Bct.Workflow.Aggregates.GeneratedCode\Include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\Include;$(MSBuildProjectDirectory)\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\RPNEvaluatorCPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -141,41 +181,23 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(MSBuildProjectDirectory)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(Build_SourcesDirectory)\BCT.Common.Utilities.RPNEvaluator.CPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWin\BCT.Common.Utilities.RPNEvaluatorCPPWinLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="include\AggComputeField.h" />
-    <ClInclude Include="include\PlateletConfigAggregate.h" />
-    <ClInclude Include="include\PlateletTemplateAggregate.h" />
-    <ClInclude Include="include\ReferenceAggregate.h" />
-    <ClInclude Include="include\ReferenceEnum.h" />
-    <ClInclude Include="include\Sample1Aggregate.h" />
-    <ClInclude Include="targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Bct.Workflow.Aggregates.Messages.Lib\Bct.Workflow.Aggregates.Messages.Lib.vcxproj">
-      <Project>{a9850e36-2543-4ede-80b0-5b27ef64859f}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\AggComputeField.cpp" />
-    <ClCompile Include="src\PlateletConfigAggregate.cpp" />
-    <ClCompile Include="src\PlateletTemplateAggregate.cpp" />
-    <ClCompile Include="src\ReferenceAggregate.cpp" />
-    <ClCompile Include="src\Sample1Aggregate.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
