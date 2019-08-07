@@ -16,7 +16,7 @@
   </metadata>
   <files>
     <file src="Bct.Workflow.Aggregates.CPPLib\src\*.*" target ="../content/native/BCT.Workflow.Aggregates.CPP/src" />
-    <file src="Bct.Workflow.Aggregates.CPP.Lib\include\*.*" target ="../content/native/BCT.Workflow.Aggregates.CPP/include" />
+    <file src="Bct.Workflow.Aggregates.CPPLib\include\*.*" target ="../content/native/BCT.Workflow.Aggregates.CPP/include" />
     <file src="BCT.Workflow.Aggregates.CPP.nuspec" target ="build" />
   </files>
 </package>
