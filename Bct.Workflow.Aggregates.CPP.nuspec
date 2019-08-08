@@ -8,10 +8,10 @@
     <owners>TerumoBCT</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>TerumoBCT Workflow Aggregates CPP</description>
-    <releaseNotes>Pre-Release</releaseNotes>
+    <releaseNotes>First Release</releaseNotes>
     <copyright>TerumoBCT</copyright>
      <dependencies>
-      <dependency id="BCT.RPNEvaluator.CPP" version ="0.1.0-XDV"/>
+      <dependency id="BCT.RPNEvaluator.CPP" version ="0.1.0"/>
     </dependencies>
   </metadata>
   <files>
