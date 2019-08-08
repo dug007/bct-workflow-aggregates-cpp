@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(MSBuildProjectDirectory)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\BCT.RPNEvaluator.CPP\include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\include;$(MSBuildProjectDirectory)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,7 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.Messages.Lib\include;$(MSBuildProjectDirectory)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\BCT.RPNEvaluator.CPP\include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\include;$(MSBuildProjectDirectory)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
