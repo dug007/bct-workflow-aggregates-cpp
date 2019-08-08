@@ -27,7 +27,6 @@
     <ClCompile Include="test\GeneralUnitTests.cpp" />
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
     <ClCompile Include="test\MetaUnitTests.cpp" />
-    <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />

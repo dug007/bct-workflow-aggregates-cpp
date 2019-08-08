@@ -27,12 +27,6 @@
     <ClInclude Include="include\PlateletTemplateAggregate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ReferenceAggregate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ReferenceEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\AggComputeField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,9 +39,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\PlateletTemplateAggregate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ReferenceAggregate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AggComputeField.cpp">
