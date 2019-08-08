@@ -16,7 +16,7 @@
       <DebugBreak>on</DebugBreak>
       <DiscoverCommandLine>--list-tests *</DiscoverCommandLine>
       <DiscoverTimeout>200</DiscoverTimeout>
-      <FilenameFilter>^Test</FilenameFilter>
+      <FilenameFilter>Test</FilenameFilter>
       <IncludeHidden>true</IncludeHidden>
       <Logging>Normal</Logging>
       <MessageFormat>StatsOnly</MessageFormat>
