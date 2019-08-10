@@ -159,6 +159,8 @@
     <ClInclude Include="include\AggComputeField.h" />
     <ClInclude Include="include\PlateletConfigAggregate.h" />
     <ClInclude Include="include\PlateletTemplateAggregate.h" />
+    <ClInclude Include="include\ReferenceAggregate.h" />
+    <ClInclude Include="include\ReferenceEnum.h" />
     <ClInclude Include="include\Sample1Aggregate.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -166,6 +168,7 @@
     <ClCompile Include="src\AggComputeField.cpp" />
     <ClCompile Include="src\PlateletConfigAggregate.cpp" />
     <ClCompile Include="src\PlateletTemplateAggregate.cpp" />
+    <ClCompile Include="src\ReferenceAggregate.cpp" />
     <ClCompile Include="src\Sample1Aggregate.cpp" />
   </ItemGroup>
   <ItemGroup>
