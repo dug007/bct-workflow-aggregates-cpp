@@ -38,6 +38,24 @@ namespace Bct
          {
          }
 
+         BaseAggregate::BaseAggregate(BaseAggregate & other) :
+            _version(other._version), _ver(other._ver),
+            _fieldSetCounter(other._fieldSetCounter), _parent(nullptr),
+            _fieldNameAsNested(other._fieldNameAsNested), _fieldIdAsNested(other._fieldIdAsNested)
+         {
+            // DO NOT try to copy the _fieldList or _aggList as they will be filled
+            // by the body of the superclass
+         }
+
+         BaseAggregate::BaseAggregate(BaseAggregate & other, BaseAggregate * parent) :
+            _version(other._version), _ver(other._ver),
+            _fieldSetCounter(other._fieldSetCounter), _parent(parent),
+            _fieldNameAsNested(other._fieldNameAsNested), _fieldIdAsNested(other._fieldIdAsNested)
+         {
+            // DO NOT try to copy the _fieldList or _aggList as they will be filled
+            // by the body of the superclass
+         }
+
          FieldMeta &BaseAggregate::findFieldMeta(int16_t parentVer)
          {
             // check metadata marked version or all versions in the version 0 vector

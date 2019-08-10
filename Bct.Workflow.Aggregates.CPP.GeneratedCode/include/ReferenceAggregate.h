@@ -20,6 +20,8 @@ namespace Bct
          /// </summary>
          class ReferenceAggregate : public BaseAggregate
          {
+         private:
+            void pushFields();
          public:
             /// <summary>
             /// boolField-field-summary
@@ -64,6 +66,29 @@ namespace Bct
             /// </summary>
             /// <param name="version">Version to construct such as "1.2.0"</param>
             ReferenceAggregate(const std::string &version);
+
+            /// <summary>
+            /// Constructor for nested aggregate.
+            /// </summary>
+            /// <param name="fieldId">Field id of this nested aggregate.</param>
+            /// <param name="parent">Parent aggregate of this nested aggregate</param>
+            ReferenceAggregate(int32_t fieldId, BaseAggregate * parent);
+
+            /// <summary>
+            /// Copy constructor.
+            /// </summary>
+            /// <param name="other">Aggregate to be copied.</param>
+            ReferenceAggregate(ReferenceAggregate & other);
+
+            /// <summary>
+            /// Constructor for copying when the aggregate is nested.
+            /// 
+            /// This constructor is used when this aggregate is being nested inside a parent aggregate and the parent aggregate
+            /// is being copied. The parent aggregate copy uses this constuctor to give this aggregate the parent's address.
+            /// </summary>
+            /// <param name="other">The object being copied</param>
+            /// <param name="parent">The parent of this nested aggregate.</param>
+            ReferenceAggregate(ReferenceAggregate & other, BaseAggregate *parent);
 
             /// <summary>
             /// Virtual destructor

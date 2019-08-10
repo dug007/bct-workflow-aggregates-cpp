@@ -188,4 +188,15 @@ TEST_CASE("AggNestedUnitTests", "[test]")
 
    // enum tests
    CHECK(a0.enumField.Value() == Bct::Workflow::TypeEnum::BoolType);
+
+   // copy constructor tests
+   AggNested aOrig;
+   aOrig.aggField.field1 = 111;
+   AggNested aCopy = aOrig;
+   CHECK(aCopy.aggField.field1 == 111);
+   aOrig.aggField.field1 = 222;
+   CHECK(aCopy.aggField.field1 == 111);
+   aCopy.aggField.field1 = 333;
+   CHECK(aOrig.aggField.field1 == 222);
+
 }

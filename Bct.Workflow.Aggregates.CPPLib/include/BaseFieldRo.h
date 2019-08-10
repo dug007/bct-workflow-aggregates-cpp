@@ -27,6 +27,16 @@ namespace Bct
             {
             }
 
+            /// <summary>
+            /// Constructor for coping but not copy constructor.
+            /// </summary>
+            /// <param name="other">The object being copied.</param>
+            /// <param name="aggregate">The associated aggregate this field is a member of.</param>
+            BaseFieldRo(BaseFieldRo &other, AbstractAggregate *aggregate)
+               : BaseField<T>(other, aggregate)
+            {
+            }
+
             virtual ~BaseFieldRo()
             {
             }

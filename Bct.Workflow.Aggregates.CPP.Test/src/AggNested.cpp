@@ -26,11 +26,7 @@ namespace Bct
                this)
 
          {
-            FieldList().push_back(&intField1);
-            FieldList().push_back(&intField2);
-            AggList().push_back(&aggField);
-            AggList().push_back(&aggFieldV2);
-            FieldList().push_back(&enumField);
+            pushFields();
             syncVersion();
          }
 
@@ -46,12 +42,28 @@ namespace Bct
                this)
 
          {
+            pushFields();
+            syncVersion();
+         }
+
+         AggNested::AggNested(AggNested & other) :
+            BaseAggregate(other),
+            intField1(other.intField1, this),
+            intField2(other.intField2, this),
+            aggField(other.aggField, this),
+            aggFieldV2(other.aggFieldV2, this),
+            enumField(other.enumField, this)
+         {
+            pushFields();
+         }
+
+         void AggNested::pushFields()
+         {
             FieldList().push_back(&intField1);
             FieldList().push_back(&intField2);
             AggList().push_back(&aggField);
             AggList().push_back(&aggFieldV2);
             FieldList().push_back(&enumField);
-            syncVersion();
          }
 
          void AggNested::bindMetaData(AggregateMetaData  *metaData, AggregateMetaData *aggFieldMetaData)

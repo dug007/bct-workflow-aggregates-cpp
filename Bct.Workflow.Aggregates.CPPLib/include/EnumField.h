@@ -47,6 +47,17 @@ namespace Bct
                _enums = split(enums, ' ');
             }
 
+            /// <summary>
+            /// Constructor for copying but not copy constructor.
+            /// </summary>
+            /// <param name="other">Object being copied.</param>
+            /// <param name="aggregate">The parent aggregate.</param>
+            EnumField(EnumField &other, AbstractAggregate *aggregate) :
+               BaseField<U>(other, aggregate)
+            {
+
+            }
+
             virtual ~EnumField()
             {
             };

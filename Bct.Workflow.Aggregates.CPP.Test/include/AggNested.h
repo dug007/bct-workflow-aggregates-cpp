@@ -29,6 +29,8 @@ namespace Bct
 
             AggNested();
             AggNested(const std::string &version);
+            AggNested(AggNested &other);
+            void pushFields();
             static void bindMetaData(AggregateMetaData  *metaData, AggregateMetaData *field3MetaData);
 
             virtual AggregateMetaData &MetaData() const;

@@ -52,6 +52,19 @@ namespace Bct
             BaseAggregate(int32_t fieldIdAsNested, BaseAggregate * parentAsNested);
 
             /// <summary>
+            /// Copy constructor.
+            /// </summary>
+            /// <param name="other">Object to be copied.</param>
+            BaseAggregate(BaseAggregate & other);
+
+            /// <summary>
+            /// Constructor for copying a nested aggregate but not a copy constructor.
+            /// </summary>
+            /// <param name="other">Object to copy.</param>
+            /// <param name="parent">Parent aggregate.</param>
+            BaseAggregate(BaseAggregate &other, BaseAggregate *parent);
+
+            /// <summary>
             /// Virtual destructor.
             /// </summary>
             virtual ~BaseAggregate();

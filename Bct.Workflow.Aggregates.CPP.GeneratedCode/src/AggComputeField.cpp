@@ -46,6 +46,16 @@ namespace Bct
             syncVersion();
          }
 
+         AggComputeField::AggComputeField(AggComputeField &other, BaseAggregate *parent) :
+            BaseAggregate(other, parent),
+            field1(other.field1, this),
+            field2(other.field2, this)
+         {
+            FieldList().push_back(&field1);
+            FieldList().push_back(&field2);
+         }
+
+
          AggregateMetaData &AggComputeField::MetaData() const
          {
             return *s_metaData;

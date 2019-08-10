@@ -24,6 +24,11 @@ namespace Bct
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
             StringField(int32_t fieldId, AbstractAggregate *aggregate);
 
+            StringField(StringField &other, AbstractAggregate *aggregate)
+               : BaseField<std::string>(other, aggregate)
+            {
+            }
+
             virtual ~StringField()
             {
             }

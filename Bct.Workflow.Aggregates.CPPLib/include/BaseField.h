@@ -34,6 +34,17 @@ namespace Bct
             {
             }
 
+            /// <summary>
+            /// Constructor used for copying but not a copy constructor.
+            /// </summary>
+            /// <param name="other">Other field being copied.</param>
+            /// <param name="aggregate">The associated aggregate this field is a member of.</param>
+            BaseField(BaseField & other, AbstractAggregate *aggregate)
+               : _ver(other._ver), _val(other._val), _default(other._default), _state(other._state),
+                 _fieldSetCounter(other._fieldSetCounter), _aggregate(aggregate), _fieldId(other._fieldId)
+            {
+            }
+
             virtual ~BaseField() {};
 
             // Set/Get --------------------->

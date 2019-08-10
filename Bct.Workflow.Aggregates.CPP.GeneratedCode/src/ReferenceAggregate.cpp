@@ -30,16 +30,55 @@ namespace Bct
                "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
                this)
          {
-            FieldList().push_back(&boolField);
-            FieldList().push_back(&int32Field);
-            FieldList().push_back(&uint32Field);
-            FieldList().push_back(&int64Field);
-            FieldList().push_back(&uint64Field);
-            FieldList().push_back(&doubleField);
-            FieldList().push_back(&stringField);
-            FieldList().push_back(&enumField);
-
+            pushFields();
             syncVersion();
+         }
+
+         ReferenceAggregate::ReferenceAggregate(int32_t fieldId, BaseAggregate * parent) :
+            BaseAggregate(fieldId, parent),
+            boolField(0, this),
+            int32Field(1, this),
+            uint32Field(2, this),
+            int64Field(3, this),
+            uint64Field(4, this),
+            doubleField(5, this),
+            stringField(6, this),
+            enumField(7, "ReferenceEnum::Reference",
+               "0 1 2 4 8 16",
+               "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
+               this)
+
+         {
+            pushFields();
+            syncVersion();
+         }
+
+         ReferenceAggregate::ReferenceAggregate(ReferenceAggregate & other) :
+            BaseAggregate(other),
+            boolField(other.boolField, this),
+            int32Field(other.int32Field, this),
+            uint32Field(other.uint32Field, this),
+            int64Field(other.int64Field, this),
+            uint64Field(other.uint64Field, this),
+            doubleField(other.doubleField, this),
+            stringField(other.stringField, this),
+            enumField(other.enumField, this)
+         {
+            pushFields();
+         }
+
+         ReferenceAggregate::ReferenceAggregate(ReferenceAggregate & other, BaseAggregate *parent) :
+            BaseAggregate(other, parent),
+            boolField(other.boolField, this),
+            int32Field(other.int32Field, this),
+            uint32Field(other.uint32Field, this),
+            int64Field(other.int64Field, this),
+            uint64Field(other.uint64Field, this),
+            doubleField(other.doubleField, this),
+            stringField(other.stringField, this),
+            enumField(other.enumField, this)
+         {
+            pushFields();
          }
 
          ReferenceAggregate::~ReferenceAggregate()
@@ -50,6 +89,18 @@ namespace Bct
          {
             return s_MetaData();
          };
+
+         void ReferenceAggregate::pushFields()
+         {
+            FieldList().push_back(&boolField);
+            FieldList().push_back(&int32Field);
+            FieldList().push_back(&uint32Field);
+            FieldList().push_back(&int64Field);
+            FieldList().push_back(&uint64Field);
+            FieldList().push_back(&doubleField);
+            FieldList().push_back(&stringField);
+            FieldList().push_back(&enumField);
+         }
 
          AggregateMetaData & ReferenceAggregate::s_MetaData()
          {

@@ -27,6 +27,16 @@ namespace Bct
             {
             }
 
+            /// <summary>
+            /// Constructor for copying but not copy constructor.
+            /// </summary>
+            /// <param name="other">Object being copied.</param>
+            /// <param name="aggregate">The associated aggregate this field is a member of.</param>
+            EnumFieldRo(EnumFieldRo &other, AbstractAggregate *aggregate)
+               : EnumField<U, X>(other, aggregate)
+            {
+            }
+
             virtual ~EnumFieldRo()
             {
             }
