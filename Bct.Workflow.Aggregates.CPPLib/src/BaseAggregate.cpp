@@ -64,12 +64,6 @@ namespace Bct
                {
                   _parent->operator=(other);
                }
-               for (size_t i = 0; i < _fieldList.size(); i++)
-               {
-                  _fieldList[i]->ComputedValueString(other._fieldList[i]->ComputedValueString());
-               }
-
-               std::vector<AbstractAggregate*> _aggList;
             }
             return *this;
 

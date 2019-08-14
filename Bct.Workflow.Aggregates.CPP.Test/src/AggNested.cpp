@@ -58,10 +58,17 @@ namespace Bct
             pushFields();
          }
 
-         //AggNested & operator=(const AggNested &other)
-         //{
-
-         //}
+         AggNested & AggNested::operator=(const AggNested &other)
+         {
+            BaseAggregate::operator=(other);
+            intField1.Value(other.intField1.Value());
+            intField2.Value(other.intField1.Value());
+            aggField.operator=(other.aggField);
+            aggFieldV2.operator=(other.aggFieldV2);
+            // TODO make copy semantics when enum is complete
+            stringField.Value(other.stringField.Value());
+            return *this;
+         }
 
          void AggNested::pushFields()
          {
