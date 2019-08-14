@@ -93,14 +93,27 @@ namespace Bct
             }
 
             /// <summary>
-            /// Assignment operator
+            /// Assignment operator from wrapped type.
             /// </summary>
-            /// <param name="val"></param>
-            /// <returns></returns>
-            T operator=(const T &val)
+            /// <param name="val">Value of wrapped type.</param>
+            /// <returns>Value of field being assigned from.</returns>
+            T &operator=(const T &val)
             {
                this->Value(val);
-               return *this;
+               return this->_val;
+            }
+
+            /// <summary>
+            /// Assignment operator between fields. The semantics copies the
+            /// value only, so this receiving field goes through proper
+            /// Value() checking.
+            /// </summary>
+            /// <param name="fld">The field being assigned from</param>
+            /// <returns>Value of field being assigned from.</returns>
+            T & operator=(const BaseField & fld)
+            {
+               this->Value(fld.Value());
+               return this->_val;
             }
 
             /// <summary>
@@ -357,17 +370,25 @@ namespace Bct
                      }
                   }
                }
-               throw "error: metadata missing requested version of field";
+               std::string aggName = typeid(*_aggregate).name();
+               size_t size = _aggregate->MetaData().fieldInfo.size();
+               std::string fieldName = "unknown";
+               std::string reqVersion = _aggregate->MetaData().versionInfo[_ver].Version();
+               if (size > _fieldId)
+               {
+                  fieldName = _aggregate->MetaData().fieldInfo[_fieldId].FieldName();
+                  throw NoSuchVersion(aggName, reqVersion);
+               }
+               throw NoSuchVersion(aggName, fieldName, reqVersion);
             }
 
             /// <summary>
             /// The current version.
             /// </summary>
             int16_t _ver;
+            T _val;
 
          private:
-
-            T _val;
             T _default;
             FieldStateEnum::FieldState _state;
             uint32_t _fieldSetCounter;

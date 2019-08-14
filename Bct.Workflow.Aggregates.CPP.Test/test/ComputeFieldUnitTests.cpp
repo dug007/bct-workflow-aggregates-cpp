@@ -137,7 +137,8 @@ public:
       }
 
       metaData.addField(0, "field1", Bct::Workflow::TypeEnum::Int32Type);
-      metaData.addField(0, "field2", Bct::Workflow::TypeEnum::Int32Type);
+      metaData.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
+      metaData.addField(2, "stringField", Bct::Workflow::TypeEnum::StringType);
 
       // One set of field metadata for all version
       FieldMeta field1Meta(0, FieldStateEnum::Default, "0", 0);
@@ -175,6 +176,8 @@ public:
       metaData.computeRules.push_back(cr3_4);
       metaData.versionMetaData[3].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
       metaData.versionMetaData[4].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
+
+      metaData.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "");
    };
 };
 

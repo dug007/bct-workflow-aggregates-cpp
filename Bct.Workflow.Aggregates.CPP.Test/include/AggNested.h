@@ -6,6 +6,7 @@
 #include "AbstractAggregate.h"
 #include "EnumField.h"
 #include "TypeEnum.h"
+#include "StringField.h"
 
 namespace Bct
 {
@@ -26,6 +27,7 @@ namespace Bct
             AggComputeField                     aggField;
             AggComputeField                     aggFieldV2;
             EnumField<int32_t, TypeEnum::Type>  enumField;
+            StringField                         stringField;
 
             AggNested();
             AggNested(const std::string &version);
