@@ -56,6 +56,25 @@ namespace Bct
             // by the body of the superclass
          }
 
+         BaseAggregate & BaseAggregate::operator=(const BaseAggregate & other)
+         {
+            if (&other != this)
+            {
+               if (_parent != nullptr)
+               {
+                  _parent->operator=(other);
+               }
+               for (size_t i = 0; i < _fieldList.size(); i++)
+               {
+                  _fieldList[i]->ComputedValueString(other._fieldList[i]->ComputedValueString());
+               }
+
+               std::vector<AbstractAggregate*> _aggList;
+            }
+            return *this;
+
+         }
+
          FieldMeta &BaseAggregate::findFieldMeta(int16_t parentVer)
          {
             // check metadata marked version or all versions in the version 0 vector

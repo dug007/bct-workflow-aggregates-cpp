@@ -58,6 +58,11 @@ namespace Bct
             pushFields();
          }
 
+         //AggNested & operator=(const AggNested &other)
+         //{
+
+         //}
+
          void AggNested::pushFields()
          {
             FieldList().push_back(&intField1);
