@@ -64,6 +64,8 @@ namespace Bct
             /// <param name="parent">Parent aggregate.</param>
             BaseAggregate(BaseAggregate &other, BaseAggregate *parent);
 
+            BaseAggregate & operator=(const BaseAggregate & other);
+
             /// <summary>
             /// Virtual destructor.
             /// </summary>

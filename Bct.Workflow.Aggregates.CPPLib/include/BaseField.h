@@ -112,7 +112,10 @@ namespace Bct
             /// <returns>Value of field being assigned from.</returns>
             T & operator=(const BaseField & fld)
             {
-               this->Value(fld.Value());
+               if (&fld != this)
+               {
+                  this->Value(fld.Value());
+               }
                return this->_val;
             }
 

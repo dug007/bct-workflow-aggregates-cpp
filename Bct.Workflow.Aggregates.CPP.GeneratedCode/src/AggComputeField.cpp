@@ -59,6 +59,19 @@ namespace Bct
          {
             FieldList().push_back(&field1);
             FieldList().push_back(&field2);
+            FieldList().push_back(&stringField);
+         }
+
+         AggComputeField & AggComputeField::operator=(const AggComputeField &other)
+         {
+            if (&other != this)
+            {
+               BaseAggregate::operator=(other);
+               field1.Value(other.field1.Value());
+               field2.Value(other.field2.Value());
+               stringField.Value(other.stringField.Value());
+            }
+            return *this;
          }
 
 

@@ -217,5 +217,17 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    CHECK(aOrig.aggField.field1.FieldSetCounter() != aCopy.aggField.field1.FieldSetCounter());
    CHECK(aOrig.aggField.field1 == 444);
 
+   AggNested aAssign;
+
+   aCopy.intField1 = 777;
+   aCopy.aggField.field1 = 888;
+   aCopy.aggField.stringField = "test999";
+   aAssign = aCopy;
+   CHECK(aAssign.intField1 == 777);
+   CHECK(aAssign.aggField.field1 == 888);
+   CHECK(aAssign.aggField.stringField.Value() == "test999");
+   CHECK(aAssign.aggField.stringField.FieldSetCounter() != aCopy.aggField.stringField.FieldSetCounter());
+
+
 
 }
