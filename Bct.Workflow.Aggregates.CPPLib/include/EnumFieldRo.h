@@ -22,7 +22,7 @@ namespace Bct
             /// </summary>
             /// <param name="fieldId">Id of this field.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            EnumFieldRo(int32_t fieldId, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate *aggregate)
+            EnumFieldRo(int32_t fieldId, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate * const aggregate)
                : EnumField<U, X>(fieldId, enumName, enums, names, aggregate)
             {
             }
@@ -32,7 +32,7 @@ namespace Bct
             /// </summary>
             /// <param name="other">Object being copied.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            EnumFieldRo(EnumFieldRo &other, AbstractAggregate *aggregate)
+            EnumFieldRo(const EnumFieldRo &other, AbstractAggregate * const aggregate)
                : EnumField<U, X>(other, aggregate)
             {
             }

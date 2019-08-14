@@ -22,7 +22,7 @@ namespace Bct
             /// </summary>
             /// <param name="fieldId">Id of this field.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseFieldRo(int32_t fieldId, AbstractAggregate *aggregate)
+            BaseFieldRo(int32_t fieldId, AbstractAggregate * const aggregate)
                : BaseField<T>(fieldId, aggregate)
             {
             }
@@ -32,7 +32,7 @@ namespace Bct
             /// </summary>
             /// <param name="other">The object being copied.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseFieldRo(BaseFieldRo &other, AbstractAggregate *aggregate)
+            BaseFieldRo(const BaseFieldRo &other, AbstractAggregate * const aggregate)
                : BaseField<T>(other, aggregate)
             {
             }

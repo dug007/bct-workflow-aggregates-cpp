@@ -33,12 +33,12 @@ namespace Bct
          {
          }
 
-         BaseAggregate::BaseAggregate(int32_t fieldIdAsNested,  BaseAggregate * parentAsNested) :
+         BaseAggregate::BaseAggregate(int32_t fieldIdAsNested, BaseAggregate * const parentAsNested) :
             _fieldIdAsNested(fieldIdAsNested), _fieldSetCounter(0), _parent(parentAsNested)
          {
          }
 
-         BaseAggregate::BaseAggregate(BaseAggregate & other) :
+         BaseAggregate::BaseAggregate(const BaseAggregate & other) :
             _version(other._version), _ver(other._ver),
             _fieldSetCounter(other._fieldSetCounter), _parent(nullptr),
             _fieldNameAsNested(other._fieldNameAsNested), _fieldIdAsNested(other._fieldIdAsNested)
@@ -47,7 +47,7 @@ namespace Bct
             // by the body of the superclass
          }
 
-         BaseAggregate::BaseAggregate(BaseAggregate & other, BaseAggregate * parent) :
+         BaseAggregate::BaseAggregate(const BaseAggregate & other, BaseAggregate * const parent) :
             _version(other._version), _ver(other._ver),
             _fieldSetCounter(other._fieldSetCounter), _parent(parent),
             _fieldNameAsNested(other._fieldNameAsNested), _fieldIdAsNested(other._fieldIdAsNested)

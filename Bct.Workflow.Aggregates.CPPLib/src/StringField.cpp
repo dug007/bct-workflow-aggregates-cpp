@@ -8,12 +8,12 @@ namespace Bct
    {
       namespace Aggregates
       {
-         StringField::StringField(int32_t fieldId, AbstractAggregate *aggregate)
+         StringField::StringField(int32_t fieldId, AbstractAggregate * const aggregate)
             : BaseField(fieldId, aggregate)
          {
          }
 
-         StringField::StringField(StringField &other, AbstractAggregate *aggregate)
+         StringField::StringField(const StringField &other, AbstractAggregate * const aggregate)
             : BaseField<std::string>(other, aggregate)
          {
          }

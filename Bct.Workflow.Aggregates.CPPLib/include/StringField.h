@@ -23,14 +23,14 @@ namespace Bct
             /// </summary>
             /// <param name="fieldId">Id of this field.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            StringField(int32_t fieldId, AbstractAggregate *aggregate);
+            StringField(int32_t fieldId, AbstractAggregate * const aggregate);
 
             /// <summary>
             /// Constructor for copying when owner is nested aggregate.
             /// </summary>
             /// <param name="fieldId">Object being copied</param>
             /// <param name="aggregate">The associated nested aggregate this field is a member of.</param>
-            StringField(StringField &other, AbstractAggregate *aggregate);
+            StringField(const StringField &other, AbstractAggregate * const aggregate);
 
             virtual ~StringField();
 
