@@ -72,13 +72,13 @@ namespace Bct
             /// </summary>
             /// <param name="fieldId">Field id of this nested aggregate.</param>
             /// <param name="parent">Parent aggregate of this nested aggregate</param>
-            ReferenceAggregate(int32_t fieldId, BaseAggregate * parent);
+            ReferenceAggregate(int32_t fieldId, BaseAggregate * const parent);
 
             /// <summary>
             /// Copy constructor.
             /// </summary>
             /// <param name="other">Aggregate to be copied.</param>
-            ReferenceAggregate(ReferenceAggregate & other);
+            ReferenceAggregate(const ReferenceAggregate & other);
 
             /// <summary>
             /// Constructor for copying when the aggregate is nested.
@@ -88,7 +88,14 @@ namespace Bct
             /// </summary>
             /// <param name="other">The object being copied</param>
             /// <param name="parent">The parent of this nested aggregate.</param>
-            ReferenceAggregate(ReferenceAggregate & other, BaseAggregate *parent);
+            ReferenceAggregate(const ReferenceAggregate & other, BaseAggregate * const parent);
+
+            /// <summary>
+            /// Assignment operator. 
+            /// </summary>
+            /// <param name="other">Object being copied.</param>
+            /// <returns>Reference to new object.</returns>
+            ReferenceAggregate & operator=(const ReferenceAggregate &other);
 
             /// <summary>
             /// Virtual destructor

@@ -34,7 +34,7 @@ namespace Bct
             syncVersion();
          }
 
-         ReferenceAggregate::ReferenceAggregate(int32_t fieldId, BaseAggregate * parent) :
+         ReferenceAggregate::ReferenceAggregate(int32_t fieldId, BaseAggregate * const parent) :
             BaseAggregate(fieldId, parent),
             boolField(0, this),
             int32Field(1, this),
@@ -53,7 +53,7 @@ namespace Bct
             syncVersion();
          }
 
-         ReferenceAggregate::ReferenceAggregate(ReferenceAggregate & other) :
+         ReferenceAggregate::ReferenceAggregate(const ReferenceAggregate & other) :
             BaseAggregate(other),
             boolField(other.boolField, this),
             int32Field(other.int32Field, this),
@@ -67,7 +67,7 @@ namespace Bct
             pushFields();
          }
 
-         ReferenceAggregate::ReferenceAggregate(ReferenceAggregate & other, BaseAggregate *parent) :
+         ReferenceAggregate::ReferenceAggregate(const ReferenceAggregate & other, BaseAggregate * const parent) :
             BaseAggregate(other, parent),
             boolField(other.boolField, this),
             int32Field(other.int32Field, this),
@@ -79,6 +79,24 @@ namespace Bct
             enumField(other.enumField, this)
          {
             pushFields();
+         }
+
+         ReferenceAggregate & ReferenceAggregate::operator=(const ReferenceAggregate &other)
+         {
+            if (&other != this)
+            {
+               BaseAggregate::operator=(other);
+               boolField.Value(other.boolField.Value());
+               int32Field.Value(other.int32Field.Value());
+               uint32Field.Value(other.uint32Field.Value());
+               int64Field.Value(other.int64Field.Value());
+               uint64Field.Value(other.uint64Field.Value());
+               doubleField.Value(other.doubleField.Value());
+               stringField.Value(other.stringField.Value());
+               enumField.Value(other.enumField.Value());
+            }
+            
+            return *this;
          }
 
          ReferenceAggregate::~ReferenceAggregate()
