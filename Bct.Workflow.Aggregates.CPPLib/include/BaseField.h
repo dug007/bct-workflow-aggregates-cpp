@@ -377,9 +377,9 @@ namespace Bct
                if (size > _fieldId)
                {
                   fieldName = _aggregate->MetaData().fieldInfo[_fieldId].FieldName();
-                  throw NoSuchVersion(aggName, reqVersion);
+                  throw NoSuchVersion(aggName, fieldName, reqVersion);
                }
-               throw NoSuchVersion(aggName, fieldName, reqVersion);
+               throw NoSuchVersion(aggName, reqVersion);
             }
 
             /// <summary>
