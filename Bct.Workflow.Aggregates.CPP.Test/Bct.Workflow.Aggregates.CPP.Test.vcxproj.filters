@@ -40,6 +40,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="test\ReferenceAggregateUnitTests.cpp">
+    <ClCompile Include="src\EnumFieldUnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
