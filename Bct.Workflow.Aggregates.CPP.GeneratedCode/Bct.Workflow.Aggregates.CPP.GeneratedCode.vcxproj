@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\AggComputeField.h" />
+    <ClInclude Include="include\NestedWithReference.h" />
     <ClInclude Include="include\PlateletConfigAggregate.h" />
     <ClInclude Include="include\PlateletTemplateAggregate.h" />
     <ClInclude Include="include\ReferenceAggregate.h" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AggComputeField.cpp" />
+    <ClCompile Include="src\NestedWithReference.cpp" />
     <ClCompile Include="src\PlateletConfigAggregate.cpp" />
     <ClCompile Include="src\PlateletTemplateAggregate.cpp" />
     <ClCompile Include="src\ReferenceAggregate.cpp" />

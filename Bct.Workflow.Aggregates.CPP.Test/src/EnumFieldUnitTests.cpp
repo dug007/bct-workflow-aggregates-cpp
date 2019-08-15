@@ -1,5 +1,6 @@
 #include "ReferenceAggregate.h"
 #include "TypeEnum.h"
+#include "NestedWithReference.h"
 
 #include "catch.hpp"
 
@@ -38,6 +39,12 @@ TEST_CASE("EnumFieldTests", "[test]")
    ref = ReferenceEnum::VeryGood;
    aAssign.enumField = ref;
    CHECK(aAssign.enumField == ReferenceEnum::VeryGood);
+
+   // check enum in nested field assigns ok
+   NestedWithReferenceAggregate na;
+   CHECK(na.aggField.enumField == ReferenceEnum::Average);
+   na.aggField = aAssign;
+   CHECK(na.aggField.enumField == ReferenceEnum::VeryGood);
 
    // will not compile  aAssign.enumField.Va
    // will not compile = aAssign.enumField;
