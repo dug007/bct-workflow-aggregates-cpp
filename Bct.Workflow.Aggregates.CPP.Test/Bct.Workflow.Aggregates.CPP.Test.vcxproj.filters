@@ -39,7 +39,7 @@
     <ClCompile Include="test\MetaUnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\EnumFieldUnitTests.cpp">
+    <ClCompile Include="test\EnumFieldUnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
