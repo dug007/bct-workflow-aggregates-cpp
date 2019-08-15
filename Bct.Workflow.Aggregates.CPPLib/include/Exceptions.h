@@ -19,6 +19,8 @@ namespace Bct
             /// <param name="requestedVersion">Version requested that caused the exception</param>
             NoSuchVersion(const std::string& aggregateName, const std::string& requestedVersion);
 
+            NoSuchVersion(const std::string& aggregateName, const std::string& fieldName, std::string& requestedVersion);
+
             /// <summary>
             /// Destructor
             /// </summary>
@@ -46,6 +48,7 @@ namespace Bct
             std::string _errorMessage;
             std::string _aggregateName;
             std::string _requestedVersion;
+            std::string _fieldName;
          };
 
          class NotAbleToSet : public std::exception

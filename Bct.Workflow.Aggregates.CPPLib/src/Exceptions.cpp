@@ -25,6 +25,25 @@ namespace Bct
             }
          }
 
+         NoSuchVersion::NoSuchVersion(const std::string& aggregateName, const std::string &fieldName,  std::string& requestedVersion)
+            : std::exception()
+            , _errorMessage()
+            , _aggregateName(aggregateName)
+            , _fieldName(fieldName)
+            , _requestedVersion(requestedVersion)
+         {
+            try
+            {
+               //std::ostringstream errorMessageBuilder(_errorMessage);
+               //errorMessageBuilder << "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=" << _aggregateName << " requestedVersion=" << _requestedVersion;
+               _errorMessage = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=" + _aggregateName + " field=" + _fieldName + " requestedVersion=" + _requestedVersion;
+            }
+            catch (...)
+            {
+               _errorMessage = "Bct::Workflow::Aggregates::NoSuchVersion";
+            }
+         }
+
          NoSuchVersion::~NoSuchVersion()
          {
          }

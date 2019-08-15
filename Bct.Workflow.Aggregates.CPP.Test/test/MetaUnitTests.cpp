@@ -55,6 +55,7 @@ public:
       static AggregateMetaData cf;
       cf.addField(0, "field1", Bct::Workflow::TypeEnum::Int32Type);
       cf.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
+      cf.addField(2, "stringField", Bct::Workflow::TypeEnum::StringType);
 
       cf.addVersion("1.0.0");
       cf.addVersion("1.1.0");
@@ -64,6 +65,7 @@ public:
       cf.addFieldMeta(1, FieldStateEnum::Default, "100")  .toVersion(0);
       cf.addFieldMeta(1, FieldStateEnum::Default, "101")  .toVersion(1);
       cf.addFieldMeta(1, FieldStateEnum::Default, "102")  .toVersion(2);
+      cf.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "");
       aggField.bindMetaData(&cf);
       // <----------------- metadata AggComputeField 
 

@@ -33,9 +33,40 @@ namespace Bct
          {
          }
 
-         BaseAggregate::BaseAggregate(int32_t fieldIdAsNested,  BaseAggregate * parentAsNested) :
+         BaseAggregate::BaseAggregate(int32_t fieldIdAsNested, BaseAggregate * const parentAsNested) :
             _fieldIdAsNested(fieldIdAsNested), _fieldSetCounter(0), _parent(parentAsNested)
          {
+         }
+
+         BaseAggregate::BaseAggregate(const BaseAggregate & other) :
+            _version(other._version), _ver(other._ver),
+            _fieldSetCounter(other._fieldSetCounter), _parent(nullptr),
+            _fieldNameAsNested(other._fieldNameAsNested), _fieldIdAsNested(other._fieldIdAsNested)
+         {
+            // DO NOT try to copy the _fieldList or _aggList as they will be filled
+            // by the body of the superclass
+         }
+
+         BaseAggregate::BaseAggregate(const BaseAggregate & other, BaseAggregate * const parent) :
+            _version(other._version), _ver(other._ver),
+            _fieldSetCounter(other._fieldSetCounter), _parent(parent),
+            _fieldNameAsNested(other._fieldNameAsNested), _fieldIdAsNested(other._fieldIdAsNested)
+         {
+            // DO NOT try to copy the _fieldList or _aggList as they will be filled
+            // by the body of the superclass
+         }
+
+         BaseAggregate & BaseAggregate::operator=(const BaseAggregate & other)
+         {
+            if (&other != this)
+            {
+               if (_parent != nullptr)
+               {
+                  _parent->operator=(other);
+               }
+            }
+            return *this;
+
          }
 
          FieldMeta &BaseAggregate::findFieldMeta(int16_t parentVer)

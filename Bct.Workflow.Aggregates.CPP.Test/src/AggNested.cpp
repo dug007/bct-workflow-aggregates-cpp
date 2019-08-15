@@ -23,14 +23,11 @@ namespace Bct
             enumField(4, "TypeEnum::Type",
                "0 1 2 3 4 5 6 7 8 9 10 11",
                "TypeEnum::EmptyType TypeEnum::ObjectType TypeEnum::BoolType TypeEnum::Int32Type TypeEnum::UInt32Type TypeEnum::Int64Type TypeEnum::UInt64Type TypeEnum::DoubleType TypeEnum::StringType TypeEnum::EnumType TypeEnum::VariableType",
-               this)
+               this),
+            stringField(5, this)
 
          {
-            FieldList().push_back(&intField1);
-            FieldList().push_back(&intField2);
-            AggList().push_back(&aggField);
-            AggList().push_back(&aggFieldV2);
-            FieldList().push_back(&enumField);
+            pushFields();
             syncVersion();
          }
 
@@ -43,15 +40,44 @@ namespace Bct
             enumField(4, "TypeEnum::Type",
                "0 1 2 3 4 5 6 7 8 9 10 11",
                "TypeEnum::EmptyType TypeEnum::ObjectType TypeEnum::BoolType TypeEnum::Int32Type TypeEnum::UInt32Type TypeEnum::Int64Type TypeEnum::UInt64Type TypeEnum::DoubleType TypeEnum::StringType TypeEnum::EnumType TypeEnum::VariableType",
-               this)
+               this),
+            stringField(5, this)
+         {
+            pushFields();
+            syncVersion();
+         }
+         AggNested::AggNested(AggNested & other) :
+            BaseAggregate(other),
+            intField1(other.intField1, this),
+            intField2(other.intField2, this),
+            aggField(other.aggField, this),
+            aggFieldV2(other.aggFieldV2, this),
+            enumField(other.enumField, this),
+            stringField(other.stringField, this)
+         {
+            pushFields();
+         }
 
+         AggNested & AggNested::operator=(const AggNested &other)
+         {
+            BaseAggregate::operator=(other);
+            intField1.Value(other.intField1.Value());
+            intField2.Value(other.intField1.Value());
+            aggField.operator=(other.aggField);
+            aggFieldV2.operator=(other.aggFieldV2);
+            // TODO make copy semantics when enum is complete
+            stringField.Value(other.stringField.Value());
+            return *this;
+         }
+
+         void AggNested::pushFields()
          {
             FieldList().push_back(&intField1);
             FieldList().push_back(&intField2);
             AggList().push_back(&aggField);
             AggList().push_back(&aggFieldV2);
             FieldList().push_back(&enumField);
-            syncVersion();
+            FieldList().push_back(&stringField);
          }
 
          void AggNested::bindMetaData(AggregateMetaData  *metaData, AggregateMetaData *aggFieldMetaData)

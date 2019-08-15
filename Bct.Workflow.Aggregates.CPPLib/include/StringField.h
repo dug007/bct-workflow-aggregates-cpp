@@ -16,17 +16,48 @@ namespace Bct
          /// </summary>
          class StringField : public BaseField<std::string>
          {
+
          public:
             /// <summary>
             /// Constructor.
             /// </summary>
             /// <param name="fieldId">Id of this field.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            StringField(int32_t fieldId, AbstractAggregate *aggregate);
+            StringField(int32_t fieldId, AbstractAggregate * const aggregate);
 
-            virtual ~StringField()
+            /// <summary>
+            /// Constructor for copying when owner is nested aggregate.
+            /// </summary>
+            /// <param name="fieldId">Object being copied</param>
+            /// <param name="aggregate">The associated nested aggregate this field is a member of.</param>
+            StringField(const StringField &other, AbstractAggregate * const aggregate);
+
+            virtual ~StringField();
+
+            /// <summary>
+            /// Assignment operator to string object.
+            /// </summary>
+            /// <param name="fieldId">Object being copied</param>
+            /// <param name="aggregate">The associated nested aggregate this field is a member of.</param>
+            std::string & operator=(const StringField & fld);
+
+            /// <summary>
+            /// Assignment operator.
+            /// </summary>
+            /// <param name="val"></param>
+            /// <returns>The underlying value of the field.</returns>
+            std::string operator=(std::string const &val);
+
+            /// <summary>
+            /// Conversion operator.
+            /// </summary>
+            /// <returns>The value of this field.</returns>
+            operator std::string() const
             {
+               return BaseField::ComputedValueString();
             }
+
+            virtual std::string ComputedValueString() const;
 
             virtual void initMetaData(int16_t ver);
             /// <summary>
@@ -35,16 +66,6 @@ namespace Bct
             /// <param name="val">String representation of this field.</param>
             virtual void ComputedValueString(const std::string & val);
 
-            /// <summary>
-            /// Assignment operator.
-            /// </summary>
-            /// <param name="val"></param>
-            /// <returns>The underlying value of the field.</returns>
-            std::string operator=(std::string const &val)
-            {
-               this->Value(val);
-               return *this;
-            }
          };
       }
    }

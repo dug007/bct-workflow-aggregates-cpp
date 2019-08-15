@@ -31,6 +31,8 @@ public:
       metaData.addAggField(2, "aggField");
       metaData.addAggField(3, "aggFieldV2");
       metaData.addField(4, "enumField", Bct::Workflow::TypeEnum::Int32Type);
+      metaData.addField(5, "stringField", Bct::Workflow::TypeEnum::StringType);
+
 
       FieldMeta intField1Meta(0, FieldStateEnum::Default, "1", BaseAggregate::InAllVersions);  // all versions have this field
       FieldMeta intField2Meta(1, FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
@@ -71,6 +73,8 @@ public:
       metaData.fieldMetaData.push_back(enumFieldMeta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
+
+      metaData.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "test");
 
       AssessmentRule ar0("assessv0", "assessv0", "intField2 10 ==", "intField1 intField2 ==", ".0.");      // fails
       AssessmentRule ar1("assessv1", "assessv1", "intField2 10 ==", "intField1 intField2 !=", ".1.");      // passes
@@ -116,6 +120,7 @@ public:
 
       metaData.addField(0, "field1", Bct::Workflow::TypeEnum::Int32Type);
       metaData.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
+      metaData.addField(2, "stringField", Bct::Workflow::TypeEnum::StringType);
 
       // One set of field metadata for all version
       FieldMeta intField1Meta(0, FieldStateEnum::Default, "1", BaseAggregate::InAllVersions); // in all
@@ -130,6 +135,8 @@ public:
       metaData.fieldMetaData.push_back(intField2Meta);
       k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+
+      metaData.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "test");
 
       AssessmentRule ar0("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==", ".0.");      // fails
       AssessmentRule ar1("assessv1", "assessv1", "field2 10 ==", "field1 field2 !=", ".1.");      // passes
@@ -188,4 +195,39 @@ TEST_CASE("AggNestedUnitTests", "[test]")
 
    // enum tests
    CHECK(a0.enumField.Value() == Bct::Workflow::TypeEnum::BoolType);
+
+   // copy constructor tests
+   AggNested aOrig;
+   aOrig.aggField.field1 = 111;
+   AggNested aCopy = aOrig;
+   CHECK(aCopy.aggField.field1 == 111);
+   std::string actualStr = aCopy.aggField.stringField;
+   CHECK((std::string)aCopy.aggField.stringField == "test");
+   aOrig.aggField.field1 = 222;
+   CHECK(aCopy.aggField.field1 == 111);
+   aCopy.aggField.field1 = 333;
+   CHECK(aOrig.aggField.field1 == 222);
+
+   // make sure field assignment semantics is working ok - field set counter not copied
+   aCopy.aggField.field1 = 444;
+   aCopy.aggField.field1 = 444;
+   aCopy.aggField.field1 = 444;
+   aOrig.aggField.field1 = aCopy.aggField.field1;
+   aOrig.aggField.stringField = aCopy.aggField.stringField;
+   CHECK(aOrig.aggField.field1.FieldSetCounter() != aCopy.aggField.field1.FieldSetCounter());
+   CHECK(aOrig.aggField.field1 == 444);
+
+   AggNested aAssign;
+
+   aCopy.intField1 = 777;
+   aCopy.aggField.field1 = 888;
+   aCopy.aggField.stringField = "test999";
+   aAssign = aCopy;
+   CHECK(aAssign.intField1 == 777);
+   CHECK(aAssign.aggField.field1 == 888);
+   CHECK(aAssign.aggField.stringField.Value() == "test999");
+   CHECK(aAssign.aggField.stringField.FieldSetCounter() != aCopy.aggField.stringField.FieldSetCounter());
+
+
+
 }

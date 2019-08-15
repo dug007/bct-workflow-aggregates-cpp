@@ -2,6 +2,7 @@
 #include "BaseAggregate.h"
 #include "BaseField.h"
 #include "AggregateMetaData.h"
+#include "StringField.h"
 
 namespace Bct
 {
@@ -24,10 +25,13 @@ namespace Bct
 
             BaseField<int32_t>   field1;
             BaseField<int32_t>   field2;
+            StringField          stringField;
 
             AggComputeField();
             AggComputeField(const std::string &version);
             AggComputeField(int32_t fieldId, BaseAggregate * parent);
+            AggComputeField(AggComputeField &other, BaseAggregate *parent);
+            AggComputeField & operator=(const AggComputeField &other);
             static void bindMetaData(AggregateMetaData *metaData);
             AggregateMetaData &MetaData() const;
          };

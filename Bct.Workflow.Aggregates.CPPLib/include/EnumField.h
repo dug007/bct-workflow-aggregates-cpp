@@ -39,12 +39,23 @@ namespace Bct
             /// <param name="enums">String with list of values being wrapped separated by spaces.</param>
             /// <param name="names">String with list of names being wrapped separated by spaces.</param>
             /// <param name="aggregate">The parent aggregate.</param>
-            EnumField(int32_t fieldId, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate *aggregate)
+            EnumField(int32_t fieldId, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate * const aggregate)
                : BaseField<U>(fieldId, aggregate), _enumName(enumName)
             {
                // TODO parse enums into _enumNames and _enums and support RPN evaluator - Story 128470
                _enumNames = split(names, ' ');
                _enums = split(enums, ' ');
+            }
+
+            /// <summary>
+            /// Constructor for copying but not copy constructor.
+            /// </summary>
+            /// <param name="other">Object being copied.</param>
+            /// <param name="aggregate">The parent aggregate.</param>
+            EnumField(const EnumField &other, AbstractAggregate * const aggregate) :
+               BaseField<U>(other, aggregate)
+            {
+
             }
 
             virtual ~EnumField()
@@ -95,7 +106,7 @@ namespace Bct
             /// Returns the name of the enumeration value as configured by the metadata.
             /// </summary>
             /// <returns></returns>
-            std::string EnumName()
+            std::string EnumName() const
             {
                std::string val = BaseField<U>::ComputedValueString();
                for (size_t i = 0; i < _enums.size(); i++)
@@ -113,7 +124,7 @@ namespace Bct
             /// </summary>
             /// <param name="name">String name of enumeration value.</param>
             /// <returns>String representation of enum value, such as "3". If the name cannot be found an empty string is returned.</returns>
-            std::string enumValueString(std::string name)
+            std::string enumValueString(const std::string name)
             {
                for (size_t i = 0; i < _enumNames.size(); i++)
                {
