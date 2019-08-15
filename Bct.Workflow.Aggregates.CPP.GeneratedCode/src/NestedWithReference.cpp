@@ -154,8 +154,8 @@ namespace Bct
                tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1.0");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
-               tm.addAggMeta(8, FieldStateEnum::Unavailable, 0) .toVersion(0);
-               tm.addAggMeta(8, FieldStateEnum::Set, 1)         .toVersion(1);
+               tm.addAggMetaToAllVersions(8, FieldStateEnum::Set, 0);
+               tm.addAggMetaToAllVersions(8, FieldStateEnum::Set, 1);
 
                initialized = true;
             }
