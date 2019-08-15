@@ -7,7 +7,7 @@ using namespace Bct::Workflow;
 using namespace Bct::Workflow::Implementation;
 
 TEST_CASE("ReferenceUnitTest", "[test]")
-{
+{ 
    ReferenceAggregate ref;
 
    CHECK(ref.getVersion() == "1.1.0");
