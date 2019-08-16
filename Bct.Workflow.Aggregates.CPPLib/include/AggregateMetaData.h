@@ -10,6 +10,7 @@
 #include "VersionMetaData.h"
 #include "FluentMeta.h"
 #include "FieldInfo.h"
+#include "FluentComputeRule.h"
 
 namespace Bct
 {
@@ -84,8 +85,10 @@ namespace Bct
             /// <param name="childVer">The version for this metadata item.</param>
             void addAggMetaToAllVersions(int32_t fieldId, FieldStateEnum::FieldState const &fieldState, int16_t childVer);
 
-            void addComputeRule();
+            FluentComputeRule addComputeRule(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression);
 
+            void addComputeRuleToAllVersions(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression);
+            
             /// <summary>
             /// Field info. The vector is ordered by increasing field id.
             /// </summary>
