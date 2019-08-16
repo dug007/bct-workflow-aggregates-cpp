@@ -70,7 +70,7 @@ namespace Bct
          {
             ComputeRule cr(id, fieldId, condition, expression);
             this->computeRules.push_back(cr);
-            FluentComputeRule cm(*this, cr, this->fieldMetaData.size() - 1);
+            FluentComputeRule cm(*this, cr, this->computeRules.size() - 1);
             return cm;
          }
 
@@ -78,7 +78,7 @@ namespace Bct
          {
             ComputeRule cr(id, fieldId, condition, expression);
             this->computeRules.push_back(cr);
-            FluentComputeRule cm(*this, cr, this->fieldMetaData.size() - 1);
+            FluentComputeRule cm(*this, cr, this->computeRules.size() - 1);
             cm.toVersion(0);
          }
       }
