@@ -162,10 +162,10 @@ public:
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
       metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
 
-      ComputeRule cr0("field1v0",     "field1", "field2 21 ==", "field2 1 +", ".0.");       // version 0 computes 22
-      ComputeRule cr1("field1v1",     "field1", "field2 21 ==", "field2 2 +", ".1.");       // version 1 computes 23
-      ComputeRule cr2("field1v2",     "field1", "field2 21 ==", "field2 3 +", ".2.");       // version 2 computes 24
-      ComputeRule cr3_4("field1v3_4", "field1", "field2 21 ==", "field2 4 +", ".3.4.");     // version 3 and 4 computes 25
+      ComputeRule cr0("field1v0",     0, "field2 21 ==", "field2 1 +", ".0.");       // version 0 computes 22
+      ComputeRule cr1("field1v1",     0, "field2 21 ==", "field2 2 +", ".1.");       // version 1 computes 23
+      ComputeRule cr2("field1v2",     0, "field2 21 ==", "field2 3 +", ".2.");       // version 2 computes 24
+      ComputeRule cr3_4("field1v3_4", 0, "field2 21 ==", "field2 4 +", ".3.4.");     // version 3 and 4 computes 25
 
       metaData.computeRules.push_back(cr0);
       metaData.versionMetaData[0].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);

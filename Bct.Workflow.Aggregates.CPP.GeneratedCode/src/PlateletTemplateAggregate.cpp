@@ -239,13 +239,13 @@ namespace Bct
             }
             // Simple computation rules
             {
-               ComputeRule cr1("yieldId1", "yield", "1 1 ==", "cellsPerMl volumeMl *", ".0.1."); // TODO make $True - User Story 126600
+               ComputeRule cr1("yieldId1", 2, "1 1 ==", "cellsPerMl volumeMl *", ".0.1."); // TODO make $True - User Story 126600
                aggMeta.computeRules.push_back(cr1);
             }
             {
-               ComputeRule cr1("yieldId2", "yield", "volumeMl yield $EnteredLater", "cellsPerMl volumeMl *", ".0.1.");
-               ComputeRule cr3("cellsPerMlId1", "cellsPerMl", "volumeMl cellsPerMl $EnteredLater yield cellsPerMl $EnteredLater &&", "yield volumeMl /", ".0.1.");
-               ComputeRule cr2("volumeMlId1", "volumeMl", "cellsPerMl volumeMl $EnteredLater yield volumeMl $EnteredLater &&", "yield cellsPerMl /", ".0.1.");
+               ComputeRule cr1("yieldId2", 2, "volumeMl yield $EnteredLater", "cellsPerMl volumeMl *", ".0.1.");
+               ComputeRule cr3("cellsPerMlId1", 1, "volumeMl cellsPerMl $EnteredLater yield cellsPerMl $EnteredLater &&", "yield volumeMl /", ".0.1.");
+               ComputeRule cr2("volumeMlId1", 0, "cellsPerMl volumeMl $EnteredLater yield volumeMl $EnteredLater &&", "yield cellsPerMl /", ".0.1.");
 
                aggMeta.computeRules.push_back(cr1);
                aggMeta.versionMetaData[0].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);

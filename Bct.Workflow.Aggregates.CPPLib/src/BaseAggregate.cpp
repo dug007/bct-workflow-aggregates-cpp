@@ -217,11 +217,9 @@ namespace Bct
                {
                   // find field calcuation in current version
                   AbstractField *f = _fieldList[iField];
-                  std::string const &fieldName = MetaData().fieldInfo[f->FieldId()].FieldName();
                   const FieldStateEnum::FieldState &state = f->State();
                   const TypeEnum::Type &type = f->Type();
-                  const std::string &ruleFieldName = cRule.FieldName();
-                  if (fieldName == ruleFieldName)
+                  if (f->FieldId() == cRule.FieldId())
                   {
                      const std::string &condition = cRule.Condition();
                      const std::string &expression = cRule.Expression();
