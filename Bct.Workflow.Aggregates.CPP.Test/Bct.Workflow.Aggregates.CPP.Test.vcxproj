@@ -23,6 +23,7 @@
     <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="test\Sample1.yaml" />
   </ItemGroup>
   <ItemGroup>

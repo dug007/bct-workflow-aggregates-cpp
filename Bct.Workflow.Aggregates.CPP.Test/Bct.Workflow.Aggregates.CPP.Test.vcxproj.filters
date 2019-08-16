@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AggAssess.h">
