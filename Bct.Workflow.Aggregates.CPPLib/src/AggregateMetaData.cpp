@@ -81,6 +81,23 @@ namespace Bct
             FluentComputeRule cm(*this, cr, this->computeRules.size() - 1);
             cm.toVersion(0);
          }
+
+         FluentAssessmentRule AggregateMetaData::addAssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression)
+         {
+            AssessmentRule ar(ruleId, stringId, condition, expression);
+            this->assessmentRules.push_back(ar);
+            FluentAssessmentRule cm(*this, ar, this->assessmentRules.size() - 1);
+            return cm;
+         }
+
+         void AggregateMetaData::addAssessmentRuleToAllVersions(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression)
+         {
+            AssessmentRule ar(ruleId, stringId, condition, expression);
+            this->assessmentRules.push_back(ar);
+            FluentAssessmentRule cm(*this, ar, this->assessmentRules.size() - 1);
+            cm.toVersion(0);
+         }
+
       }
    }
 }

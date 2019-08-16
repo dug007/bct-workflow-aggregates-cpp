@@ -111,6 +111,9 @@
     <ClInclude Include="include\FluentComputeRule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\FluentAssessmentRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseAggregate.cpp">
@@ -156,6 +159,9 @@
       <Filter>BCT.RPNEvaluator.CPP\src</Filter>
     </ClCompile>
     <ClCompile Include="src\FluentComputeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentAssessmentRule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

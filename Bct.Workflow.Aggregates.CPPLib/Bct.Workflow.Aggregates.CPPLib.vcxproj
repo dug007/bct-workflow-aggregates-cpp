@@ -114,6 +114,7 @@
     <ClInclude Include="include\Exceptions.h" />
     <ClInclude Include="include\FieldInfo.h" />
     <ClInclude Include="include\FieldMeta.h" />
+    <ClInclude Include="include\FluentAssessmentRule.h" />
     <ClInclude Include="include\FluentComputeRule.h" />
     <ClInclude Include="include\FluentMeta.h" />
     <ClInclude Include="include\StringField.h" />
@@ -134,6 +135,7 @@
     <ClCompile Include="src\ComputeRule.cpp" />
     <ClCompile Include="src\Exceptions.cpp" />
     <ClCompile Include="src\FieldMeta.cpp" />
+    <ClCompile Include="src\FluentAssessmentRule.cpp" />
     <ClCompile Include="src\FluentComputeRule.cpp" />
     <ClCompile Include="src\FluentMeta.cpp" />
     <ClCompile Include="src\FieldInfo.cpp" />

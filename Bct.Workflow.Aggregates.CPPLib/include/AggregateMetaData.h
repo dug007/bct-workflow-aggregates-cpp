@@ -11,6 +11,7 @@
 #include "FluentMeta.h"
 #include "FieldInfo.h"
 #include "FluentComputeRule.h"
+#include "FluentAssessmentRule.h"
 
 namespace Bct
 {
@@ -80,15 +81,27 @@ namespace Bct
             /// <summary>
             /// Adds an aggregate field metadata item to the AggregateMetaData::fieldMetaData vector and updates the versionMetaDataI vector for all versions.
             /// </summary>
-            /// <param name="fieldId">The field name for this metadata item.</param>
+            /// <param name="fieldId">The field id for this metadata item.</param>
             /// <param name="fieldState">The field state for this metadata item.</param>
             /// <param name="childVer">The version for this metadata item.</param>
             void addAggMetaToAllVersions(int32_t fieldId, FieldStateEnum::FieldState const &fieldState, int16_t childVer);
 
+            /// <summary>
+            /// Adds an aggregate metadata item to the AggregateMetaData::computeRules vector. The versionMetaDataI vector is not updated yet.
+            /// </summary>
+            /// <param name="id">The id for this metadata item.</param>
+            /// <param name="fieldId">The field id for this metadata item.</param>
+            /// <param name="condition">The condition expression for this compute rule.</param>
+            /// <param name="expression">The compute expression for this compute rule.</param>
+            /// <returns></returns>
             FluentComputeRule addComputeRule(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression);
 
             void addComputeRuleToAllVersions(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression);
-            
+
+            FluentAssessmentRule addAssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression);
+
+            void addAssessmentRuleToAllVersions(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression);
+
             /// <summary>
             /// Field info. The vector is ordered by increasing field id.
             /// </summary>
