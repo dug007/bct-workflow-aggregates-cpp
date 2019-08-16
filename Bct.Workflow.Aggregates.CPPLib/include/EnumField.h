@@ -124,7 +124,7 @@ namespace Bct
             /// </summary>
             /// <param name="name">String name of enumeration value.</param>
             /// <returns>String representation of enum value, such as "3". If the name cannot be found an empty string is returned.</returns>
-            std::string enumValueString(const std::string name)
+            std::string s_enumValueString(const std::string name)
             {
                for (size_t i = 0; i < _enumNames.size(); i++)
                {
@@ -135,6 +135,27 @@ namespace Bct
                }
                return "";
             }
+
+            /// <summary>
+            /// Virtual function to get value of this enum in its string representation. This function is
+            /// intended to be used internally for evaluating RPN expressions and not for public set/get operations.
+            /// </summary>
+            /// <returns>The string representation of the value of this enum.</returns>
+            virtual std::string ComputedValueString()
+            {
+               return BaseField<U>::ComputedValueString();
+            };
+
+            /// <summary>
+            /// Virtual function to set the value of this field using its string representation. This function is
+            /// intended to be used internally for evaluating RPN expressions and not for public set/get operations.
+            /// </summary>
+            /// <param name="val">The string representation of the value of this field.</param>
+            virtual void ComputedValueString(const std::string &val)
+            {
+               BaseField<U>::ComputedValueString(val);
+            };
+
 
          private:
 

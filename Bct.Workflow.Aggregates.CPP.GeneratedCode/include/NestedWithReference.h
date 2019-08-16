@@ -5,6 +5,7 @@
 #include "AbstractAggregate.h"
 #include "EnumField.h"
 #include "ReferenceEnum.h"
+#include "ReferenceAggregate.h"
 #include "StringField.h"
 
 using namespace Bct::Workflow::Aggregates;
@@ -16,9 +17,9 @@ namespace Bct
       namespace Implementation
       {
          /// <summary>
-         /// ReferenceAggregate-class-summary
+         /// NestedWithReferenceAggregate-class-summary
          /// </summary>
-         class ReferenceAggregate : public BaseAggregate
+         class NestedWithReferenceAggregate : public BaseAggregate
          {
          private:
             void pushFields();
@@ -55,30 +56,34 @@ namespace Bct
             /// enumField-field-summary
             /// </summary>
             EnumField<uint32_t, ReferenceEnum::Reference> enumField;
+            /// <summary>
+            /// Nested ReferenceAggregate
+            /// </summary>
+            ReferenceAggregate                  aggField;
 
             /// <summary>
             /// Default constructor. Creates the most recent version.
             /// </summary>
-            ReferenceAggregate();
+            NestedWithReferenceAggregate();
 
             /// <summary>
             /// Version constructor. Creates the specified version.
             /// </summary>
             /// <param name="version">Version to construct such as "1.2.0"</param>
-            ReferenceAggregate(const std::string &version);
+            NestedWithReferenceAggregate(const std::string &version);
 
             /// <summary>
             /// Constructor for nested aggregate.
             /// </summary>
             /// <param name="fieldId">Field id of this nested aggregate.</param>
             /// <param name="parent">Parent aggregate of this nested aggregate</param>
-            ReferenceAggregate(int32_t fieldId, BaseAggregate * const parent);
+            NestedWithReferenceAggregate(int32_t fieldId, BaseAggregate * const parent);
 
             /// <summary>
             /// Copy constructor.
             /// </summary>
             /// <param name="other">Aggregate to be copied.</param>
-            ReferenceAggregate(const ReferenceAggregate & other);
+            NestedWithReferenceAggregate(const NestedWithReferenceAggregate & other);
 
             /// <summary>
             /// Constructor for copying when the aggregate is nested.
@@ -88,19 +93,19 @@ namespace Bct
             /// </summary>
             /// <param name="other">The object being copied</param>
             /// <param name="parent">The parent of this nested aggregate.</param>
-            ReferenceAggregate(const ReferenceAggregate & other, BaseAggregate * const parent);
+            NestedWithReferenceAggregate(const NestedWithReferenceAggregate & other, BaseAggregate * const parent);
 
             /// <summary>
             /// Assignment operator. 
             /// </summary>
             /// <param name="other">Object being copied.</param>
             /// <returns>Reference to new object.</returns>
-            ReferenceAggregate & operator=(const ReferenceAggregate &other);
+            NestedWithReferenceAggregate & operator=(const NestedWithReferenceAggregate &other);
 
             /// <summary>
             /// Virtual destructor
             /// </summary>
-            virtual ~ReferenceAggregate();
+            virtual ~NestedWithReferenceAggregate();
 
             /// <summary>
             /// Virtual function to return the metadata reference for this object. Aggregates must implement this at the most-derived level such as generated code.
@@ -108,14 +113,15 @@ namespace Bct
             /// <returns>The associated AggregateMetaData object.</returns>ReferenceAggregate-default-constructor-summary
             virtual AggregateMetaData &MetaData() const;
 
-           /// <summary>
-           /// Static method to access meta data for this aggregrate class.
-           /// The method initializes the meta data structure if it has not already been done and returns a reference
-           /// </summary>
-           /// <returns>The associated AggregateMetaData object.</returns>
-           static AggregateMetaData & s_MetaData();
+            /// <summary>
+            /// Static method to access meta data for this aggregrate class.
+            /// The method initializes the meta data structure if it has not already been done and returns a reference
+            /// </summary>
+            /// <returns>The associated AggregateMetaData object.</returns>
+            static AggregateMetaData & s_MetaData();
          };
       }
    }
 }
+
 
