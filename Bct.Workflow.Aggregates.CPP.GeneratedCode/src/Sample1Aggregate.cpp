@@ -274,9 +274,9 @@ namespace Bct
             }
 
             // Simple computation rules
-            ComputeRule cr1("Field1Id1", 0, "1 1 ==", "Field1 20.0 +", ".0.1.2.");
-            ComputeRule cr2("Field7Id1", 1, "Field7x Field7d $EnteredLater", "Field7x", ".0.1.2.");
-            ComputeRule cr3("Field7Id2", 1, "Field7d Field7x $EnteredLater", "Field7d", ".0.1.2.");
+            ComputeRule cr1("Field1Id1", 0, "1 1 ==", "Field1 20.0 +");
+            ComputeRule cr2("Field7Id1", 1, "Field7x Field7d $EnteredLater", "Field7x");
+            ComputeRule cr3("Field7Id2", 1, "Field7d Field7x $EnteredLater", "Field7d");
 
             aggMeta.computeRules.push_back(cr1);
             aggMeta.versionMetaData[0].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);

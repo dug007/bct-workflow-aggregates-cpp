@@ -84,6 +84,8 @@ namespace Bct
             /// <param name="childVer">The version for this metadata item.</param>
             void addAggMetaToAllVersions(int32_t fieldId, FieldStateEnum::FieldState const &fieldState, int16_t childVer);
 
+            void addComputeRule();
+
             /// <summary>
             /// Field info. The vector is ordered by increasing field id.
             /// </summary>
