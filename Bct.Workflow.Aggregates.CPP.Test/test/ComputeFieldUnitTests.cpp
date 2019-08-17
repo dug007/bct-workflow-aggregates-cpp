@@ -140,27 +140,8 @@ public:
       metaData.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
       metaData.addField(2, "stringField", Bct::Workflow::TypeEnum::StringType);
 
-      // One set of field metadata for all version
-      FieldMeta field1Meta(0, FieldStateEnum::Default, "0", 0);
-      FieldMeta field2Meta(1, FieldStateEnum::Default, "21", 0);
-
-      int16_t k, cnt;
-
-      metaData.fieldMetaData.push_back(field1Meta);
-      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-
-      metaData.fieldMetaData.push_back(field2Meta);
-      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "0");
+      metaData.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "21");
 
       metaData.addComputeRule("field1v0",   0,   "field2 21 ==",   "field2 1 +") .toVersion(0);
       metaData.addComputeRule("field1v1",   0,   "field2 21 ==",   "field2 2 +") .toVersion(1);

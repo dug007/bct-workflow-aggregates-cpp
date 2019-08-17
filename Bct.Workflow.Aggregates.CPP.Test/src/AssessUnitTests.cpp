@@ -33,19 +33,8 @@ public:
       metaData.addField(0, "field1", Bct::Workflow::TypeEnum::Int32Type);
       metaData.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
 
-      // One set of field metadata for all version
-      FieldMeta field1Meta(0, FieldStateEnum::Default, "1",  BaseAggregate::InAllVersions); // all versions
-      FieldMeta field2Meta(1, FieldStateEnum::Default, "10", BaseAggregate::InAllVersions);
-
-      int16_t k, cnt;
-
-      metaData.fieldMetaData.push_back(field1Meta);
-      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt); // since this is for all versions no need for more vectors
-
-      metaData.fieldMetaData.push_back(field2Meta);
-      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
+      metaData.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "1");
+      metaData.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "10");
 
       metaData.addAssessmentRule("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==").toVersion(0);
       metaData.addAssessmentRule("assessv1", "assessv1", "field2 10 ==", "field1 field2 !=").toVersion(1);
