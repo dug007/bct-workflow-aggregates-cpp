@@ -24,7 +24,7 @@ namespace Bct
             ComputeRule(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression);
 
             /// <summary>
-            /// Field name associated with this rule.
+            /// Field id associated with this rule.
             /// </summary>
             /// <returns>Field name for rule.</returns>
             int16_t FieldId();
