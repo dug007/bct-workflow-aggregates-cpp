@@ -321,7 +321,6 @@ namespace Bct
             for (size_t j = 0; j < vcRulesV.size(); j++)
             {
                VersionChangeRule &vcRule = MetaData().versionChangeRules[vcRulesV[j]]; // indirection
-               const int16_t &toVersion = vcRule.ToVersion();
                const std::string &expression = vcRule.Expression();
                for (size_t iField = 0; iField < _fieldList.size(); iField++) // over fields
                {
@@ -329,7 +328,7 @@ namespace Bct
                   AbstractField *f = _fieldList[iField];
                   const FieldStateEnum::FieldState &state = f->State();
                   const TypeEnum::Type &type = f->Type();
-                  if (f->FieldId() == vcRule.FieldId())
+                  if (f->FieldId() == vcRule.FieldId() && toVersion == vcRule.ToVersion())
                   {
                      const std::string &condition = vcRule.Condition();
                      const std::string &expression = vcRule.Expression();
