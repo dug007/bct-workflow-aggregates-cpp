@@ -92,11 +92,8 @@ namespace Bct
             /// <summary>
             /// Converts current version to the specified version.
             /// </summary>
-            /// <param name="version">The new current version</param>
-            void convertVersion(std::string version)
-            {
-               // TODO implement - User Story 126595
-            };
+            /// <param name="version">The new version</param>
+            void convertToVersion(int16_t toVersion);
 
             void serialize(std::string & value) const;
             void deserialize(const std::string & value);
@@ -169,6 +166,7 @@ namespace Bct
             const std::string & Version() const;
 
          private:
+
             std::vector<AbstractField*> _fieldList;
             std::vector<AbstractAggregate*> _aggList;
             int16_t _ver;

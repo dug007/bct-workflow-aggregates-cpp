@@ -74,14 +74,6 @@ namespace Bct
             return cm;
          }
 
-         void AggregateMetaData::addComputeRuleToAllVersions(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression)
-         {
-            ComputeRule cr(id, fieldId, condition, expression);
-            this->computeRules.push_back(cr);
-            FluentComputeRule cm(*this, cr, this->computeRules.size() - 1);
-            cm.toVersion(0);
-         }
-
          FluentAssessmentRule AggregateMetaData::addAssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression)
          {
             AssessmentRule ar(ruleId, stringId, condition, expression);
@@ -90,14 +82,13 @@ namespace Bct
             return cm;
          }
 
-         void AggregateMetaData::addAssessmentRuleToAllVersions(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression)
+         FluentVersionChangeRule AggregateMetaData::addVersionChangeRule(int32_t fieldId, int16_t toVersion, std::string condition, std::string expression)
          {
-            AssessmentRule ar(ruleId, stringId, condition, expression);
-            this->assessmentRules.push_back(ar);
-            FluentAssessmentRule cm(*this, ar, this->assessmentRules.size() - 1);
-            cm.toVersion(0);
+            VersionChangeRule vr(fieldId, toVersion, condition, expression);
+            this->versionChangeRules.push_back(vr);
+            FluentVersionChangeRule fl(*this, vr, this->versionChangeRules.size() - 1);
+            return fl;
          }
-
       }
    }
 }

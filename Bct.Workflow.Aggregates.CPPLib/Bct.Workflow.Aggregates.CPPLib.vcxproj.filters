@@ -114,6 +114,9 @@
     <ClInclude Include="include\FluentAssessmentRule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\FluentVersionChangeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseAggregate.cpp">
@@ -162,6 +165,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\FluentAssessmentRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VersionChangeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentVersionChangeRule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

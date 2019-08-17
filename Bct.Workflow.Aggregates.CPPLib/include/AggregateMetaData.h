@@ -7,11 +7,13 @@
 #include "FieldMeta.h"
 #include "AssessmentRule.h"
 #include "ComputeRule.h"
+#include "VersionChangeRule.h"
 #include "VersionMetaData.h"
 #include "FluentMeta.h"
 #include "FieldInfo.h"
 #include "FluentComputeRule.h"
 #include "FluentAssessmentRule.h"
+#include "FluentVersionChangeRule.h"
 
 namespace Bct
 {
@@ -20,6 +22,7 @@ namespace Bct
       namespace Aggregates
       {
          class FluentMeta;
+         class FluentVersionChangeRule;
 
          /// <summary>
          /// Metadata across all versions. 
@@ -97,15 +100,6 @@ namespace Bct
             FluentComputeRule addComputeRule(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression);
 
             /// <summary>
-            /// Adds a compute rule to all versions.
-            /// </summary>
-            /// <param name="id">The id for this rule.</param>
-            /// <param name="fieldId">The field id for the associeated field.</param>
-            /// <param name="condition">The condition expression for this compute rule.</param>
-            /// <param name="expression">The compute expression for this compute rule.</param>
-            void addComputeRuleToAllVersions(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression);
-
-            /// <summary>
             /// Adds an assessment rule. This must be followed immediately with .toVersion() to specify the versions.
             /// </summary>
             /// <param name="ruleId">The assessmint rule id.</param>
@@ -116,13 +110,15 @@ namespace Bct
             FluentAssessmentRule addAssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression);
 
             /// <summary>
-            /// Adds an assessment rule to all versions.
+            /// Adds a version change rule for a specified field and target version. This must be followed immediately with .toVersion() 
+            /// to specify the versions.
             /// </summary>
-            /// <param name="ruleId">The assessmint rule id.</param>
-            /// <param name="stringId">The string id.</param>
-            /// <param name="condition">The condition expression for this assessment rule.</param>
-            /// <param name="expression">The compute expression for this assessment rule.</param>
-            void addAssessmentRuleToAllVersions(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression);
+            /// <param name="fieldId">The assessmint rule id.</param>
+            /// <param name="toVersion">The version id to convert to.</param>
+            /// <param name="condition">The condition expression for this version change rule.</param>
+            /// <param name="expression">The compute expression for this version change.</param>
+            /// <returns>The FluentMeta for continued fluent operations.</returns>
+            FluentVersionChangeRule addVersionChangeRule(int32_t fieldId, int16_t toVersion, std::string condition, std::string expression);
 
             /// <summary>
             /// Field info. The vector is ordered by increasing field id.
@@ -150,6 +146,10 @@ namespace Bct
             /// Compute rule metadata.The vector order is NOT the ver value.
             /// </summary>
             std::vector<ComputeRule> computeRules;
+            /// <summary>
+            /// Version change rule metadata. The vector order is NOT the ver value.
+            /// </summary>
+            std::vector<VersionChangeRule> versionChangeRules;
          };
       }
    }
