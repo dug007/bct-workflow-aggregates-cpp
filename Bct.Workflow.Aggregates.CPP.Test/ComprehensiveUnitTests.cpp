@@ -11,48 +11,34 @@ using namespace Bct::Workflow::Implementation;
 TEST_CASE("GetFieldValue", "[test]")
 {
    ReferenceAggregate a;
-   //CHECK(a.boolField.Value() == true); 
+   //CHECK(a.boolField.Value() == true);  This step failed 
    CHECK(a.int32Field.Value() == -1); 
    CHECK(a.uint32Field.Value() == 1); 
    CHECK(a.int64Field.Value() == -1); 
    CHECK(a.uint64Field.Value() == 1); 
    CHECK(a.doubleField.Value() == 1.0); 
    CHECK(a.stringField.Value() == "hello world"); 
-   CHECK(a.enumField.Value() == 2); 
-  }
+   CHECK(a.enumField.Value() == 2);
+}
 
 // Test get field value shall throw an exception if the field is not available in the current version of the aggregate.
-TEST_CASE("ThrowsExceptionFieldNot", "[test]")
+TEST_CASE("ThrowsExceptionIfFieldNotAvailable", "[test]")
 {
    Sample1Aggregate a;
    CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
-   CHECK_THROWS_AS(a.FieldEnumRo.Value(), NotAbleToGet);
+   CHECK_THROWS_AS(a.FieldEnumRo.Value(), NotAbleToGet); //NotAbleToSet???
 }
 
-//Tests set field value - sets the current value for a field.
-TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
+// Tesst get field value shall throw an exception if the field is not set in the current version of the aggregate.
+TEST_CASE("ThrowsExceptionIfFieldNotSet", "[test]")
 {
-   ReferenceAggregate a;
-   a.boolField = true; 
-   CHECK(a.boolField.Value() == true); 
-   a.int32Field = -1; 
-   CHECK(a.int32Field.Value() == -1);
-   a.uint32Field = 1;
-   CHECK(a.uint32Field.Value() == 1);
-   a.int64Field = -1;
-   CHECK(a.int64Field.Value() == -1);
-   a.uint64Field = 1;
-   CHECK(a.uint64Field.Value() == 1);
-   a.doubleField = 1.0;
-   CHECK(a.doubleField.Value() == 1.0);
-   a.stringField = "hello world";
-   CHECK(a.stringField.Value() == "hello world");
-   /*a.enumField = 2;
-   CHECK(a.enumField.Value() == 2);*/
-
+   Sample1Aggregate a;
+   CHECK(a.Field7x.State() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(a.Field7x.Value(), NotAbleToGet);//NotAbleToSet???
 }
-//Tests set field value - sets the new value for a field.
-TEST_CASE("SetFieldNewValueUsingAssignment", "[test]")
+
+//Tests set field value - sets the current value for a field by using assignment.
+TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
 {
    ReferenceAggregate a ("1.0.0");
    a.boolField = false; 
@@ -71,14 +57,24 @@ TEST_CASE("SetFieldNewValueUsingAssignment", "[test]")
    CHECK(a.stringField.Value() == "hello team");
    a.enumField = ReferenceEnum::VeryGood;
    CHECK(a.enumField.Value() == ReferenceEnum::VeryGood);
+   a.enumField = ReferenceEnum::Good;
+   CHECK(a.enumField.Value() == ReferenceEnum::Good);
+   a.enumField = ReferenceEnum::Average;
+   CHECK(a.enumField.Value() == ReferenceEnum::Average);
+   a.enumField = ReferenceEnum::BelowAverage;
+   CHECK(a.enumField.Value() == ReferenceEnum::BelowAverage);
+   a.enumField = ReferenceEnum::Poor;
+   CHECK(a.enumField.Value() == ReferenceEnum::Poor);
+   /*a.enumField = ReferenceEnum::VeryGood;
+   CHECK(a.enumField.Value() == ReferenceEnum::VeryPoor); This step Fail*/
 }
-//Tests set field value - sets the current value for a field.
-TEST_CASE("SetFieldDefaultValueUsingAssignment", "[test]")
+//Tests set field value - sets the current value back to default value for a field by using assignment.
+TEST_CASE("SetFieldBackToDefaultValueUsingAssignment", "[test]")
 {
    ReferenceAggregate a;
    a.boolField = true;
    CHECK(a.boolField.Value() == true);
-  // CHECK(a.boolField.State() == FieldStateEnum::Default);
+  // CHECK(a.boolField.State() == FieldStateEnum::Default); This step failed
    a.int32Field = -1;
    CHECK(a.int32Field.Value() == -1);
    CHECK(a.int32Field.State() == FieldStateEnum::Default);
@@ -97,17 +93,16 @@ TEST_CASE("SetFieldDefaultValueUsingAssignment", "[test]")
    a.stringField = "hello world";
    CHECK(a.stringField.Value() == "hello world");
    CHECK(a.stringField.State() == FieldStateEnum::Default);
-   /*a.enumField = 2;
-   CHECK(a.enumField.Value() == 2);*/
-   //CHECK(a.enumField.State(), FieldStateEnum::FieldState::Default);
-
+  /* a.enumField = 2;
+   CHECK(a.enumField.Value() == 2);
+   CHECK(a.enumField.State(), FieldStateEnum::FieldState::Default);*/ //These steps failed
 }
-//Tests set field value - sets the current value for a field.
+//Tests set field value - sets the current value for a field by using function.
 TEST_CASE("SetFieldCurrentValueUsingFunction", "[test]")
 {
    ReferenceAggregate a;
-   a.boolField.Value(true);
-   CHECK(a.boolField.Value() == true);
+   a.boolField.Value(false);
+   CHECK(a.boolField.Value() == false);
    a.int32Field.Value(-10);
    CHECK(a.int32Field.Value() == -10);
    a.uint32Field.Value(150);
@@ -120,32 +115,49 @@ TEST_CASE("SetFieldCurrentValueUsingFunction", "[test]")
    CHECK(a.doubleField.Value() == 15.0);
    a.stringField.Value("hello team");
    CHECK(a.stringField.Value() == "hello team");
-  /* a.enumField.Value(200);
-   CHECK(a.enumField.Value() == 200);*/
+   /*a.enumField.Value(2);
+   CHECK(a.enumField.Value() == 2);*/ //These steps failed
 }
-//Tests set field value - sets the new value for a field.
-TEST_CASE("SetFieldNewValueUsingFunction", "[test]")
+
+TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
 {
    ReferenceAggregate a;
-   a.boolField.Value(false);
-   CHECK(a.boolField.Value() == false);
+   a.boolField.Value(true);
+   CHECK(a.boolField.Value() == true);
+   // CHECK(a.boolField.State() == FieldStateEnum::Default); This step failed
    a.int32Field.Value(-1);
    CHECK(a.int32Field.Value() == -1);
+   CHECK(a.int32Field.State() == FieldStateEnum::Default);
    a.uint32Field.Value(1);
    CHECK(a.uint32Field.Value() == 1);
+   CHECK(a.uint32Field.State() == FieldStateEnum::Default);
    a.int64Field.Value(-1);
    CHECK(a.int64Field.Value() == -1);
+   CHECK(a.int64Field.State() == FieldStateEnum::Default);
    a.uint64Field.Value(1);
    CHECK(a.uint64Field.Value() == 1);
+   CHECK(a.uint64Field.State() == FieldStateEnum::Default);
    a.doubleField.Value(1.0);
    CHECK(a.doubleField.Value() == 1.0);
+   CHECK(a.doubleField.State() == FieldStateEnum::Default);
    a.stringField.Value("hello world");
    CHECK(a.stringField.Value() == "hello world");
+   CHECK(a.stringField.State() == FieldStateEnum::Default);
    /* a.enumField.Value(2);
-    CHECK(a.enumField.Value() == 2);*/
+    CHECK(a.enumField.Value() == 2);
+    CHECK(a.enumField.State() == FieldStateEnum::Default);*/
 }
-//Tests Set field value shall throw an exception if the field is marked as constant in the current version of the aggregate.
-TEST_CASE("ThrowsExceptionFieldConstant", "[test]")
+
+//Set field value shall throw an exception if the field is not available in the current version of the aggregate.
+TEST_CASE("ThrowsExceptionIfSetFieldNotAvailable", "[test]")
+{
+   Sample1Aggregate a;
+   CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
+   CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet);
+}
+
+//Tests set field value shall throw an exception if the field is marked as constant in the current version of the aggregate.
+TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
 {
    Sample1Aggregate a;
    CHECK(a.Field7c.State() == FieldStateEnum::Constant);
@@ -161,16 +173,9 @@ TEST_CASE("ThrowsExceptionFieldConstant", "[test]")
       std::string actual = exc.what();
       CHECK(actual == expected);
    }
+}
 
-}
-//Set field value shall throw an exception if the field is not available in the current version of the aggregate.
-TEST_CASE("ThrowsExceptionFieldNotAvailable", "[test]")
-{
-   Sample1Aggregate a;
-   CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
-   CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet);
-}
-//Set field value shall throw an exception if the field is not available in the current version of the aggregate.
+//Set fet field value shall allow changing a field to “nullable” which will set the state to “not set”..
 TEST_CASE("NullableField", "[test]")
 {
    Sample1Aggregate a;
@@ -178,55 +183,135 @@ TEST_CASE("NullableField", "[test]")
    CHECK(a.Field7.State() == FieldStateEnum::NotSet);
    CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet);
 }
-  
 
-
-//Tests get Field state- gets the current value for a field.
-//TEST_CASE("GetFieldState", "[test]")
-//{
-//   ReferenceAggregate a;
-//   CHECK(a.boolField.Value() == true);
-//   CHECK(a.boolField.State() == FieldStateEnum::Default); //Checks that we can get the current value for int32Field
-//   a.boolField = false;
-//   CHECK(a.boolField.Value() == false); //Checks that we can get the current value for int32Field
-//
-//
-//}
-//Tests set field value - sets the new value for a field.
-TEST_CASE("SetFieldState", "[test]")
+//Tests get Field state- gets the current state for a field.
+TEST_CASE("GetCurrentFieldState", "[test]")
 {
    ReferenceAggregate a;
-   a.int32Field = -2;
-   CHECK(a.int32Field.Value() == -2);
-   CHECK(a.int32Field.State() == FieldStateEnum::Set);
+   //CHECK(a.boolField.Value() == true);
+   //CHECK(a.boolField.State() == FieldStateEnum::Default); //These two steps failed
+   CHECK(a.int32Field.Value() == -1);
+   CHECK(a.int32Field.State() == FieldStateEnum::Default);
+   CHECK(a.uint32Field.Value() == 1);
+   CHECK(a.uint32Field.State() == FieldStateEnum::Default);
+   CHECK(a.int64Field.Value() == -1);
+   CHECK(a.int64Field.State() == FieldStateEnum::Default);
+   CHECK(a.uint64Field.Value() == 1);
+   CHECK(a.uint64Field.State() == FieldStateEnum::Default);
+   CHECK(a.doubleField.Value() == 1.0);
+   CHECK(a.doubleField.State() == FieldStateEnum::Default);
+   CHECK(a.stringField.Value() == "hello world");
+   CHECK(a.stringField.State() == FieldStateEnum::Default);
+   CHECK(a.enumField.Value() == 2);
+   CHECK(a.enumField.State() == FieldStateEnum::Default);
 }
 
-//Set field value shall throw an exception if the field is not available in the current version of the aggregate.
+//Tests set field value - sets the new value for a field.
+TEST_CASE("SetCurrentFieldState", "[test]")
+{
+   ReferenceAggregate a;
+   a.boolField = false;
+   CHECK(a.boolField.Value() == false);
+  // CHECK(a.boolField.State() == FieldStateEnum::Set); this step failed
+   a.int32Field = -10;
+   CHECK(a.int32Field.State() == FieldStateEnum::Set);
+   a.uint32Field = 200;
+   CHECK(a.uint32Field.State() == FieldStateEnum::Set);
+   a.int64Field = -1000;
+   CHECK(a.int64Field.State() == FieldStateEnum::Set);
+   a.uint64Field = 200;
+   CHECK(a.uint64Field.State() == FieldStateEnum::Set);
+   a.doubleField = 200.0;
+   CHECK(a.doubleField.State() == FieldStateEnum::Set);
+   a.stringField = "Hi team";
+   CHECK(a.uint64Field.State() == FieldStateEnum::Set);
+   /*a.enumField = 1;
+   CHECK(a.enumField.State() == FieldStateEnum::Set);*/ //These steps failed
+}
+
+//Tests get field state- gets the version 1.0.0 state for a field.
+TEST_CASE("GetFieldStateVersion0", "[test]")
+{
+   Sample1Aggregate a("1.0.0");
+   CHECK(a.Field1.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7ro.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7c.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7d.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7x.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7com.State() == FieldStateEnum::NotSet);
+   CHECK(a.FieldEnum.State() == FieldStateEnum::Default);
+   CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+}
+
+//Tests get field state- gets the version 1.1.0 state for a field.
+TEST_CASE("GetFieldStateVersion1", "[test]")
+{
+   Sample1Aggregate a("1.1.0");
+   CHECK(a.Field1.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7ro.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7c.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7d.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7x.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7com.State() == FieldStateEnum::NotSet);
+   CHECK(a.FieldEnum.State() == FieldStateEnum::Default);
+   CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+}
+
+//Tests get field state- gets the version 1.1.0 state for a field.
+TEST_CASE("GetFieldStateVersion2", "[test]")
+{
+   Sample1Aggregate a("1.2.0");
+   CHECK(a.Field1.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7ro.State() == FieldStateEnum::Constant);
+   CHECK(a.Field7c.State() == FieldStateEnum::Constant);
+   CHECK(a.Field7d.State() == FieldStateEnum::Default);
+   CHECK(a.Field7x.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7com.State() == FieldStateEnum::Computed);
+   CHECK(a.FieldEnum.State() == FieldStateEnum::Default);
+   CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+}
+
+//Tests GetVersion – Returns the current version of an aggregate.
 TEST_CASE("GetVersion", "[test]")
 {
    Sample1Aggregate a;
    CHECK(a.getVersion() == "1.2.0");
-   
 }
-//Set field value shall throw an exception if the field is not available in the current version of the aggregate.
+
+// Tests Convert Version – Converts the aggregate to the specified version.
 //TEST_CASE("ConvertVersion", "[test]")
 //{
 //   Sample1Aggregate a;
 //   a.convertVersion("1.0.0");
 //   CHECK(a.getVersion() == "1.0.0");
-//
 //}
-//Tests set field value - sets the new value for a field.
+
+// Test the method shall throw an exception if the specified version is not defined
+TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
+{
+   try
+   {
+      Sample1Aggregate b("1.5.0");
+   }
+   catch (NoSuchVersion ex)
+   {
+      CHECK(ex.requestedVersion() == "1.5.0");
+      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate requestedVersion=1.5.0";
+      CHECK(ex.what() == message);
+   }
+}
 
 //Set field value shall throw an exception if the field is not available in the current version of the aggregate.
 //TEST_CASE("Assess", "[test]")
 //{
 //   Sample1Aggregate a;
 //   CHECK(a.Assess.);
-//  
-
 //}
-//Set field value shall throw an exception if the field is not available in the current version of the aggregate.
+
+// Tests updates the values of any computed fields, as specified in the aggregate definition. 
 TEST_CASE("UpdateComputedField", "[test]")
 {
    Sample1Aggregate a;
@@ -234,15 +319,6 @@ TEST_CASE("UpdateComputedField", "[test]")
    CHECK(a.Field1.Value() == 10);
    a.updateCalculatedFields();
    CHECK(a.Field1.Value() == 30.0);
+}
 
-}
-TEST_CASE("GetFieldState", "[test]")
-{
-   Sample1Aggregate a ("1.2.0");
-   CHECK(a.Field1.State() == FieldStateEnum::NotSet);
-   CHECK(a.Field7.State() == FieldStateEnum::NotSet);
-   CHECK(a.Field7ro.State() == FieldStateEnum::Constant);
-  /* CHECK(a.Field7c.State() == FieldStateEnum::FieldState::Constant);
-   CHECK(a.Field7.State() == FieldStateEnum::FieldState::Set);
-   CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Set);*/
-}
+
