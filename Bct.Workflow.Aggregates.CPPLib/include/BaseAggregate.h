@@ -93,7 +93,7 @@ namespace Bct
             /// Converts current version to the specified version.
             /// </summary>
             /// <param name="version">The new version</param>
-            void convertToVersion(int16_t toVersion);
+            void convertToVersion(const std::string toVersion);
 
             void serialize(std::string & value) const;
             void deserialize(const std::string & value);

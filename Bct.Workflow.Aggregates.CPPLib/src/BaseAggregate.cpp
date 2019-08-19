@@ -289,11 +289,26 @@ namespace Bct
             return result;
          }
 
-         void BaseAggregate::convertToVersion(int16_t toVersion)
+         void BaseAggregate::convertToVersion(const std::string toVersionStr)
          {
             // TODO implement - User Story 126595
 
             // populate variable map
+            int16_t toVersion = -1;
+            for (size_t i = 0; i < MetaData().versionInfo.size(); i++)
+            {
+               if (MetaData().versionInfo[i].Version() == toVersionStr)
+               {
+                  toVersion = (int16_t)i;
+                  break;
+               }
+            }
+            if (toVersion == -1)
+            {
+               std::string aggName = typeid(*this).name();
+               throw NoSuchVersion(aggName, toVersionStr);
+            }
+
             std::map<std::string, RPNEvaluator::RPNVariable> varMap;
             for (size_t i = 0; i < _fieldList.size(); i++)
             {
