@@ -8,9 +8,30 @@ namespace Bct
    {
       namespace Aggregates
       {
-         StringField::StringField(int32_t fieldId, AbstractAggregate *aggregate)
+         StringField::StringField(int32_t fieldId, AbstractAggregate * const aggregate)
             : BaseField(fieldId, aggregate)
          {
+         }
+
+         StringField::StringField(const StringField &other, AbstractAggregate * const aggregate)
+            : BaseField<std::string>(other, aggregate)
+         {
+         }
+
+         std::string & StringField::operator=(const StringField & fld)
+         {
+            this->Value(fld.Value());
+            return this->_val;
+         }
+
+         StringField::~StringField()
+         {
+         }
+
+         std::string StringField::operator=(std::string const &val)
+         {
+            this->Value(val);
+            return *this;
          }
 
          void StringField::initMetaData(int16_t ver)
@@ -33,6 +54,12 @@ namespace Bct
          {
             ValueInternal(val, true);
          }
+
+         std::string StringField::ComputedValueString() const
+         {
+            return BaseField::ComputedValueString();
+         }
+
       }
    }
 }

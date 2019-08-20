@@ -1,4 +1,4 @@
-#include "ReferenceAggregate.h"
+#include "NestedWithReference.h"
 
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
@@ -11,12 +11,12 @@ namespace Bct
    {
       namespace Implementation
       {
-         ReferenceAggregate::ReferenceAggregate() :
-            ReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
+         NestedWithReferenceAggregate::NestedWithReferenceAggregate() :
+            NestedWithReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
          {
          }
 
-         ReferenceAggregate::ReferenceAggregate(const std::string &version) :
+         NestedWithReferenceAggregate::NestedWithReferenceAggregate(const std::string &version) :
             BaseAggregate(version),
             boolField(0, this),
             int32Field(1, this),
@@ -28,13 +28,14 @@ namespace Bct
             enumField(7, "ReferenceEnum::Reference",
                "0 1 2 4 8 16",
                "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
-               this)
+               this),
+            aggField(8, this)
          {
             pushFields();
             syncVersion();
          }
 
-         ReferenceAggregate::ReferenceAggregate(int32_t fieldId, BaseAggregate * const parent) :
+         NestedWithReferenceAggregate::NestedWithReferenceAggregate(int32_t fieldId, BaseAggregate * const parent) :
             BaseAggregate(fieldId, parent),
             boolField(0, this),
             int32Field(1, this),
@@ -46,14 +47,15 @@ namespace Bct
             enumField(7, "ReferenceEnum::Reference",
                "0 1 2 4 8 16",
                "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
-               this)
+               this),
+            aggField(8, this)
 
          {
             pushFields();
             syncVersion();
          }
 
-         ReferenceAggregate::ReferenceAggregate(const ReferenceAggregate & other) :
+         NestedWithReferenceAggregate::NestedWithReferenceAggregate(const NestedWithReferenceAggregate & other) :
             BaseAggregate(other),
             boolField(other.boolField, this),
             int32Field(other.int32Field, this),
@@ -62,12 +64,13 @@ namespace Bct
             uint64Field(other.uint64Field, this),
             doubleField(other.doubleField, this),
             stringField(other.stringField, this),
-            enumField(other.enumField, this)
+            enumField(other.enumField, this),
+            aggField(other.aggField, this)
          {
             pushFields();
          }
 
-         ReferenceAggregate::ReferenceAggregate(const ReferenceAggregate & other, BaseAggregate * const parent) :
+         NestedWithReferenceAggregate::NestedWithReferenceAggregate(const NestedWithReferenceAggregate & other, BaseAggregate * const parent) :
             BaseAggregate(other, parent),
             boolField(other.boolField, this),
             int32Field(other.int32Field, this),
@@ -76,12 +79,13 @@ namespace Bct
             uint64Field(other.uint64Field, this),
             doubleField(other.doubleField, this),
             stringField(other.stringField, this),
-            enumField(other.enumField, this)
+            enumField(other.enumField, this),
+            aggField(other.aggField, this)
          {
             pushFields();
          }
 
-         ReferenceAggregate & ReferenceAggregate::operator=(const ReferenceAggregate &other)
+         NestedWithReferenceAggregate & NestedWithReferenceAggregate::operator=(const NestedWithReferenceAggregate &other)
          {
             if (&other != this)
             {
@@ -94,21 +98,22 @@ namespace Bct
                doubleField.Value(other.doubleField.Value());
                stringField.Value(other.stringField.Value());
                enumField.Value(other.enumField.Value());
+               aggField = other.aggField;
             }
-            
+
             return *this;
          }
 
-         ReferenceAggregate::~ReferenceAggregate()
+         NestedWithReferenceAggregate::~NestedWithReferenceAggregate()
          {
          }
 
-         AggregateMetaData & ReferenceAggregate::MetaData() const
+         AggregateMetaData & NestedWithReferenceAggregate::MetaData() const
          {
             return s_MetaData();
          };
 
-         void ReferenceAggregate::pushFields()
+         void NestedWithReferenceAggregate::pushFields()
          {
             FieldList().push_back(&boolField);
             FieldList().push_back(&int32Field);
@@ -118,9 +123,10 @@ namespace Bct
             FieldList().push_back(&doubleField);
             FieldList().push_back(&stringField);
             FieldList().push_back(&enumField);
+            AggList().push_back(&aggField);
          }
 
-         AggregateMetaData & ReferenceAggregate::s_MetaData()
+         AggregateMetaData & NestedWithReferenceAggregate::s_MetaData()
          {
             static AggregateMetaData tm;
             static bool initialized = false;
@@ -138,6 +144,7 @@ namespace Bct
                tm.addField(5, "doubleField", Bct::Workflow::TypeEnum::DoubleType);
                tm.addField(6, "stringField", Bct::Workflow::TypeEnum::StringType);
                tm.addField(7, "enumField", Bct::Workflow::TypeEnum::Int32Type);
+               tm.addAggField(8, "aggField");
 
                tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
                tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-1");
@@ -147,9 +154,8 @@ namespace Bct
                tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1.0");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
-
-               tm.addVersionChangeRule(5, 1, "doubleField 1 ==", "2") .toVersion(0);
-               tm.addVersionChangeRule(5, 0, "doubleField 1 ==", "3") .toVersion(1);
+               tm.addAggMetaToAllVersions(8, FieldStateEnum::Set, 0);
+               tm.addAggMetaToAllVersions(8, FieldStateEnum::Set, 1);
 
                initialized = true;
             }

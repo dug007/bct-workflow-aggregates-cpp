@@ -49,7 +49,22 @@ namespace Bct
             /// </summary>
             /// <param name="fieldIdAsNested">The field id of this nested aggregate.</param>
             /// <param name="parentAsNested">The parent of this nesteded aggregate</param>
-            BaseAggregate(int32_t fieldIdAsNested, BaseAggregate * parentAsNested);
+            BaseAggregate(int32_t fieldIdAsNested, BaseAggregate * const parentAsNested);
+
+            /// <summary>
+            /// Copy constructor.
+            /// </summary>
+            /// <param name="other">Object to be copied.</param>
+            BaseAggregate(const BaseAggregate & other);
+
+            /// <summary>
+            /// Constructor for copying a nested aggregate but not a copy constructor.
+            /// </summary>
+            /// <param name="other">Object to copy.</param>
+            /// <param name="parent">Parent aggregate.</param>
+            BaseAggregate(const BaseAggregate &other, BaseAggregate * const parent);
+
+            BaseAggregate & operator=(const BaseAggregate & other);
 
             /// <summary>
             /// Virtual destructor.
@@ -77,11 +92,8 @@ namespace Bct
             /// <summary>
             /// Converts current version to the specified version.
             /// </summary>
-            /// <param name="version">The new current version</param>
-            void convertVersion(std::string version)
-            {
-               // TODO implement - User Story 126595
-            };
+            /// <param name="version">The new version</param>
+            void convertToVersion(const std::string toVersion);
 
             void serialize(std::string & value) const;
             void deserialize(const std::string & value);
@@ -154,12 +166,13 @@ namespace Bct
             const std::string & Version() const;
 
          private:
+
             std::vector<AbstractField*> _fieldList;
             std::vector<AbstractAggregate*> _aggList;
             int16_t _ver;
             std::string _version;
             uint32_t _fieldSetCounter;
-            BaseAggregate * _parent;
+            BaseAggregate * const _parent;
             std::string _fieldNameAsNested;
             int32_t _fieldIdAsNested;
 

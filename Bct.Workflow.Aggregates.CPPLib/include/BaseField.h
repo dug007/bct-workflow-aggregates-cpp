@@ -29,8 +29,19 @@ namespace Bct
             /// </summary>
             /// <param name="fieldId">Id of this field. The id begins with 0 for the first field in the aggregate and proceeds by one for every field in the aggregate, including nested aggregates. This field will be uses as an index into the FieldInfo vector of the AggregateMetaData object.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(int32_t fieldId, AbstractAggregate *aggregate)
+            BaseField(int32_t fieldId, AbstractAggregate * const aggregate)
                : _fieldId(fieldId), _aggregate(aggregate), _fieldSetCounter(0)
+            {
+            }
+
+            /// <summary>
+            /// Constructor used for copying but not a copy constructor.
+            /// </summary>
+            /// <param name="other">Other field being copied.</param>
+            /// <param name="aggregate">The associated aggregate this field is a member of.</param>
+            BaseField(const BaseField & other, AbstractAggregate * const aggregate)
+               : _ver(other._ver), _val(other._val), _default(other._default), _state(other._state),
+                 _fieldSetCounter(other._fieldSetCounter), _aggregate(aggregate), _fieldId(other._fieldId)
             {
             }
 
@@ -82,14 +93,30 @@ namespace Bct
             }
 
             /// <summary>
-            /// Assignment operator
+            /// Assignment operator from wrapped type.
             /// </summary>
-            /// <param name="val"></param>
-            /// <returns></returns>
-            T operator=(const T &val)
+            /// <param name="val">Value of wrapped type.</param>
+            /// <returns>Value of field being assigned from.</returns>
+            T &operator=(const T &val)
             {
                this->Value(val);
-               return *this;
+               return this->_val;
+            }
+
+            /// <summary>
+            /// Assignment operator between fields. The semantics copies the
+            /// value only, so this receiving field goes through proper
+            /// Value() checking.
+            /// </summary>
+            /// <param name="fld">The field being assigned from</param>
+            /// <returns>Value of field being assigned from.</returns>
+            T & operator=(const BaseField & fld)
+            {
+               if (&fld != this)
+               {
+                  this->Value(fld.Value());
+               }
+               return this->_val;
             }
 
             /// <summary>
@@ -346,21 +373,29 @@ namespace Bct
                      }
                   }
                }
-               throw "error: metadata missing requested version of field";
+               std::string aggName = typeid(*_aggregate).name();
+               int32_t size = (int32_t)_aggregate->MetaData().fieldInfo.size();
+               std::string fieldName = "unknown";
+               std::string reqVersion = _aggregate->MetaData().versionInfo[_ver].Version();
+               if (size > _fieldId)
+               {
+                  fieldName = _aggregate->MetaData().fieldInfo[_fieldId].FieldName();
+                  throw NoSuchVersion(aggName, fieldName, reqVersion);
+               }
+               throw NoSuchVersion(aggName, reqVersion);
             }
 
             /// <summary>
             /// The current version.
             /// </summary>
             int16_t _ver;
+            T _val;
 
          private:
-
-            T _val;
             T _default;
             FieldStateEnum::FieldState _state;
             uint32_t _fieldSetCounter;
-            AbstractAggregate *_aggregate;
+            AbstractAggregate * const _aggregate;
             int32_t _fieldId;
         };
       }

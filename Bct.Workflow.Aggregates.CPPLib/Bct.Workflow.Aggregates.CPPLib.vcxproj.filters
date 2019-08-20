@@ -108,6 +108,15 @@
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
+    <ClInclude Include="include\FluentComputeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentAssessmentRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentVersionChangeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseAggregate.cpp">
@@ -151,6 +160,18 @@
     </ClCompile>
     <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp">
       <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentComputeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentAssessmentRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VersionChangeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentVersionChangeRule.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
