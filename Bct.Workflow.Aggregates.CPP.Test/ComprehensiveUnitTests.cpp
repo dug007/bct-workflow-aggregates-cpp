@@ -3,6 +3,8 @@
 #include "EnumField.h"
 #include "catch.hpp"
 #include "Sample1Aggregate.h"
+#include "PlateletTemplateAggregate.h"
+
 
 using namespace Bct::Workflow;
 using namespace Bct::Workflow::Implementation;
@@ -93,9 +95,9 @@ TEST_CASE("SetFieldBackToDefaultValueUsingAssignment", "[test]")
    a.stringField = "hello world";
    CHECK(a.stringField.Value() == "hello world");
    CHECK(a.stringField.State() == FieldStateEnum::Default);
-  /* a.enumField = 2;
+   a.enumField.ComputedValueString("2");
    CHECK(a.enumField.Value() == 2);
-   CHECK(a.enumField.State(), FieldStateEnum::FieldState::Default);*/ //These steps failed
+   CHECK(a.enumField.State() == FieldStateEnum::Default);//How to do with assignemt
 }
 //Tests set field value - sets the current value for a field by using function.
 TEST_CASE("SetFieldCurrentValueUsingFunction", "[test]")
@@ -115,8 +117,8 @@ TEST_CASE("SetFieldCurrentValueUsingFunction", "[test]")
    CHECK(a.doubleField.Value() == 15.0);
    a.stringField.Value("hello team");
    CHECK(a.stringField.Value() == "hello team");
-   /*a.enumField.Value(2);
-   CHECK(a.enumField.Value() == 2);*/ //These steps failed
+   a.enumField.ComputedValueString("2");
+   CHECK(a.enumField.Value() == ReferenceEnum::Average);
 }
 
 TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
@@ -143,17 +145,24 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
    a.stringField.Value("hello world");
    CHECK(a.stringField.Value() == "hello world");
    CHECK(a.stringField.State() == FieldStateEnum::Default);
-   /* a.enumField.Value(2);
+   a.enumField.ComputedValueString("2");
     CHECK(a.enumField.Value() == 2);
-    CHECK(a.enumField.State() == FieldStateEnum::Default);*/
+    CHECK(a.enumField.State() == FieldStateEnum::Default);
 }
 
 //Set field value shall throw an exception if the field is not available in the current version of the aggregate.
+//TEST_CASE("ThrowsExceptionIfEnumSetFieldNotAvailable", "[test]")
+//{
+//   Sample1Aggregate a;
+//   CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+//   CHECK_THROWS_AS(a.FieldEnumRo.ComputedValueString("1"), NotAbleToSet);//Ken????
+//}
+//Set field value shall throw an exception if the field is not available in the current version of the aggregate.
 TEST_CASE("ThrowsExceptionIfSetFieldNotAvailable", "[test]")
 {
-   Sample1Aggregate a;
-   CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
-   CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet);
+   PlateletTemplateAggregate a ("1.0.0");
+   CHECK(a.minYield.State()== FieldStateEnum::Unavailable);
+   CHECK_THROWS_AS(a.minYield =2, NotAbleToSet);
 }
 
 //Tests set field value shall throw an exception if the field is marked as constant in the current version of the aggregate.
@@ -225,8 +234,8 @@ TEST_CASE("SetCurrentFieldState", "[test]")
    CHECK(a.doubleField.State() == FieldStateEnum::Set);
    a.stringField = "Hi team";
    CHECK(a.uint64Field.State() == FieldStateEnum::Set);
-   /*a.enumField = 1;
-   CHECK(a.enumField.State() == FieldStateEnum::Set);*/ //These steps failed
+   a.enumField.ComputedValueString("1");
+   CHECK(a.enumField.State() == FieldStateEnum::Set);
 }
 
 //Tests get field state- gets the version 1.0.0 state for a field.
@@ -285,8 +294,8 @@ TEST_CASE("GetVersion", "[test]")
 //TEST_CASE("ConvertVersion", "[test]")
 //{
 //   Sample1Aggregate a;
-//   a.convertVersion("1.0.0");
-//   CHECK(a.getVersion() == "1.0.0");
+//   a.convertToVersion("1.1.0");
+//   CHECK(a.getVersion() == "1.1.0");
 //}
 
 // Test the method shall throw an exception if the specified version is not defined
@@ -301,6 +310,7 @@ TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
       CHECK(ex.requestedVersion() == "1.0.0.0");
       std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate requestedVersion=1.0.0.0";
       CHECK(ex.what() == message);
+
    }
 }
 
@@ -319,6 +329,7 @@ TEST_CASE("UpdateComputedField", "[test]")
    CHECK(a.Field1.Value() == 10);
    a.updateCalculatedFields();
    CHECK(a.Field1.Value() == 30.0);
+   CHECK(a.Field1.State() == FieldStateEnum::Computed);
 }
 
 
