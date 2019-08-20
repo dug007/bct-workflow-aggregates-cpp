@@ -374,7 +374,7 @@ namespace Bct
                   }
                }
                std::string aggName = typeid(*_aggregate).name();
-               size_t size = _aggregate->MetaData().fieldInfo.size();
+               int32_t size = (int32_t)_aggregate->MetaData().fieldInfo.size();
                std::string fieldName = "unknown";
                std::string reqVersion = _aggregate->MetaData().versionInfo[_ver].Version();
                if (size > _fieldId)

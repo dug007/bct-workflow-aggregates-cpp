@@ -8,13 +8,13 @@ namespace Bct
    {
       namespace Aggregates
       {
-         ComputeRule::ComputeRule(std::string const &id, std::string const &field, std::string const &condition, std::string const &expression, std::string const &versions) :
-            _id(id), _field(field), _condition(condition), _expression(expression), _versions(versions)
+         ComputeRule::ComputeRule(std::string const &id, int16_t fieldId, std::string const &condition, std::string const &expression) :
+            _id(id), _fieldId(fieldId), _condition(condition), _expression(expression)
          {
          };
-         std::string ComputeRule::FieldName()
+         int16_t ComputeRule::FieldId()
          {
-            return _field;
+            return _fieldId;
          }
          std::string ComputeRule::Id()
          {
@@ -27,14 +27,6 @@ namespace Bct
          std::string ComputeRule::Expression()
          {
             return _expression;
-         }
-         bool ComputeRule::InVersion(int16_t ver)
-         {
-            std::ostringstream ss;
-            ss << '.' << ver << '.';
-            std::string verStr = ss.str();
-            std::size_t f = _versions.find(verStr);
-            return (f != std::string::npos);
          }
       };
    }

@@ -21,8 +21,7 @@ namespace Bct
             /// <param name="stringId">Id for localization</param>
             /// <param name="condition">RPN condition that evaluates to bool. true means this rule is evaluated.</param>
             /// <param name="expression">RPN expression that evaluates to bool. true means this rule passes.</param>
-            /// <param name="versions">Version mask. This is a string beginning and ending with a period. This is a period delimited set of versions that this rule applies to. For example, ".3.4." means this rule applies to versions 3 and 4 only.</param>
-            AssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression, std::string const &versions);
+            AssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression);
 
             /// <summary>
             /// Gets rule id.
@@ -48,19 +47,11 @@ namespace Bct
             /// <returns>Expression.</returns>
             std::string Expression() const;
 
-            /// <summary>
-            /// Determines if this rule applies to the given version.
-            /// </summary>
-            /// <param name="ver">Version to check.</param>
-            /// <returns>True if the rule applies, falso if it does not apply.</returns>
-            bool InVersion(int16_t ver);
-
          private:
             std::string _ruleId;
             std::string _stringId;
             std::string _condition;
             std::string _expression;
-            std::string _versions;
          };
       }
    }

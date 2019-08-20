@@ -76,10 +76,10 @@ public:
 
       metaData.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "test");
 
-      AssessmentRule ar0("assessv0", "assessv0", "intField2 10 ==", "intField1 intField2 ==", ".0.");      // fails
-      AssessmentRule ar1("assessv1", "assessv1", "intField2 10 ==", "intField1 intField2 !=", ".1.");      // passes
-      AssessmentRule ar2("assessv2", "assessv2", "intField2 10 ==", "intField1 intField2 + 11 ==", ".2."); // passes
-      AssessmentRule ar3("assessv012", "assessv012", "intField2 10 ==", "intField1 intField2 + 1 - 10 ==", ".0.1.2.");
+      AssessmentRule ar0("assessv0", "assessv0", "intField2 10 ==", "intField1 intField2 ==");      // fails
+      AssessmentRule ar1("assessv1", "assessv1", "intField2 10 ==", "intField1 intField2 !=");      // passes
+      AssessmentRule ar2("assessv2", "assessv2", "intField2 10 ==", "intField1 intField2 + 11 =="); // passes
+      AssessmentRule ar3("assessv012", "assessv012", "intField2 10 ==", "intField1 intField2 + 1 - 10 ==");
 
       metaData.assessmentRules.push_back(ar0);
       metaData.versionMetaData[0].assessmentRulesI.push_back((int16_t)metaData.assessmentRules.size() - 1);
@@ -138,10 +138,10 @@ public:
 
       metaData.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "test");
 
-      AssessmentRule ar0("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==", ".0.");      // fails
-      AssessmentRule ar1("assessv1", "assessv1", "field2 10 ==", "field1 field2 !=", ".1.");      // passes
-      AssessmentRule ar2("assessv2", "assessv2", "field2 10 ==", "field1 field2 + 11 ==", ".2."); // passes
-      AssessmentRule ar3("assessv012", "assessv012", "field2 10 ==", "field1 field2 + 1 - 10 ==", ".0.1.2.");
+      AssessmentRule ar0("assessv0", "assessv0", "field2 10 ==", "field1 field2 ==");      // fails
+      AssessmentRule ar1("assessv1", "assessv1", "field2 10 ==", "field1 field2 !=");      // passes
+      AssessmentRule ar2("assessv2", "assessv2", "field2 10 ==", "field1 field2 + 11 =="); // passes
+      AssessmentRule ar3("assessv012", "assessv012", "field2 10 ==", "field1 field2 + 1 - 10 ==");
 
       metaData.assessmentRules.push_back(ar0);
       metaData.versionMetaData[0].assessmentRulesI.push_back((int16_t)metaData.assessmentRules.size() - 1);

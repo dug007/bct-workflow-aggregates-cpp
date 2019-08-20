@@ -140,42 +140,14 @@ public:
       metaData.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
       metaData.addField(2, "stringField", Bct::Workflow::TypeEnum::StringType);
 
-      // One set of field metadata for all version
-      FieldMeta field1Meta(0, FieldStateEnum::Default, "0", 0);
-      FieldMeta field2Meta(1, FieldStateEnum::Default, "21", 0);
+      metaData.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "0");
+      metaData.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "21");
 
-      int16_t k, cnt;
-
-      metaData.fieldMetaData.push_back(field1Meta);
-      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-
-      metaData.fieldMetaData.push_back(field2Meta);
-      k = 0; cnt = (int16_t)metaData.fieldMetaData.size() - 1;
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-      metaData.versionMetaData[k++].fieldMetaDataI.push_back(cnt);
-
-      ComputeRule cr0("field1v0",     "field1", "field2 21 ==", "field2 1 +", ".0.");       // version 0 computes 22
-      ComputeRule cr1("field1v1",     "field1", "field2 21 ==", "field2 2 +", ".1.");       // version 1 computes 23
-      ComputeRule cr2("field1v2",     "field1", "field2 21 ==", "field2 3 +", ".2.");       // version 2 computes 24
-      ComputeRule cr3_4("field1v3_4", "field1", "field2 21 ==", "field2 4 +", ".3.4.");     // version 3 and 4 computes 25
-
-      metaData.computeRules.push_back(cr0);
-      metaData.versionMetaData[0].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
-      metaData.computeRules.push_back(cr1);
-      metaData.versionMetaData[1].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
-      metaData.computeRules.push_back(cr2);
-      metaData.versionMetaData[2].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
-      metaData.computeRules.push_back(cr3_4);
-      metaData.versionMetaData[3].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
-      metaData.versionMetaData[4].computeRulesI.push_back((int16_t)metaData.computeRules.size() - 1);
+      metaData.addComputeRule("field1v0",   0,   "field2 21 ==",   "field2 1 +") .toVersion(0);
+      metaData.addComputeRule("field1v1",   0,   "field2 21 ==",   "field2 2 +") .toVersion(1);
+      metaData.addComputeRule("field1v2",   0,   "field2 21 ==",   "field2 3 +") .toVersion(2);
+      metaData.addComputeRule("field1v3_4", 0,   "field2 21 ==",   "field2 4 +")
+              .toVersion(3) .toVersion(4);
 
       metaData.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "");
    };

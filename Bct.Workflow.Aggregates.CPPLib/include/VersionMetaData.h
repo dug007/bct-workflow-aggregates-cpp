@@ -36,7 +36,10 @@ namespace Bct
             /// Index into a compute rule metadata item.
             /// </summary>
             std::vector<int16_t> computeRulesI;
-
+            /// <summary>
+            /// Index into a version change rule metadata item.
+            /// </summary>
+            std::vector<int16_t> versionChangeRulesI;
          };
       }
    }

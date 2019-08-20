@@ -208,7 +208,8 @@ namespace Bct
                std::string const &fieldName = MetaData().fieldInfo[f->FieldId()].FieldName();
                varMap[fieldName] = RPNEvaluator::RPNVariable(fieldName, f->Type(), strVal, state, f->FieldSetCounter());
             }
- 
+
+
             std::vector<int16_t> &cRulesV = MetaData().versionMetaData[Ver()].computeRulesI;
             for (size_t iRule = 0; iRule < cRulesV.size(); iRule++) // over rules in current version
             {
@@ -217,11 +218,9 @@ namespace Bct
                {
                   // find field calcuation in current version
                   AbstractField *f = _fieldList[iField];
-                  std::string const &fieldName = MetaData().fieldInfo[f->FieldId()].FieldName();
                   const FieldStateEnum::FieldState &state = f->State();
                   const TypeEnum::Type &type = f->Type();
-                  const std::string &ruleFieldName = cRule.FieldName();
-                  if (fieldName == ruleFieldName)
+                  if (f->FieldId() == cRule.FieldId())
                   {
                      const std::string &condition = cRule.Condition();
                      const std::string &expression = cRule.Expression();
@@ -238,6 +237,7 @@ namespace Bct
                }
             }
          }
+
 
          AssessmentResult BaseAggregate::Assess() const
          {
@@ -288,6 +288,79 @@ namespace Bct
             }
             return result;
          }
+
+         void BaseAggregate::convertToVersion(const std::string toVersionStr)
+         {
+            // TODO implement - User Story 126595
+
+            // populate variable map
+            int16_t toVersion = -1;
+            for (size_t i = 0; i < MetaData().versionInfo.size(); i++)
+            {
+               if (MetaData().versionInfo[i].Version() == toVersionStr)
+               {
+                  toVersion = (int16_t)i;
+                  break;
+               }
+            }
+            if (toVersion == -1)
+            {
+               std::string aggName = typeid(*this).name();
+               throw NoSuchVersion(aggName, toVersionStr);
+            }
+
+            std::map<std::string, RPNEvaluator::RPNVariable> varMap;
+            for (size_t i = 0; i < _fieldList.size(); i++)
+            {
+               AbstractField *f = _fieldList[i];
+               std::string strVal;
+               if (f->State() == FieldStateEnum::NotSet)
+               {
+                  strVal = "$Notset"; // TODO make sure this is correct - User Story 126600
+               }
+               else if (f->State() == FieldStateEnum::Unavailable)
+               {
+                  strVal = "$Unavailable"; // TODO make sure this is correct - User Story 126600
+               }
+               else
+               {
+                  strVal = f->ComputedValueString();
+               }
+
+               FieldStateEnum::FieldState &state = f->StateRef();
+               std::string const &fieldName = MetaData().fieldInfo[f->FieldId()].FieldName();
+               varMap[fieldName] = RPNEvaluator::RPNVariable(fieldName, f->Type(), strVal, state, f->FieldSetCounter());
+            }
+
+            std::vector<int16_t> const &vcRulesV = MetaData().versionMetaData[Ver()].versionChangeRulesI;
+            for (size_t j = 0; j < vcRulesV.size(); j++)
+            {
+               VersionChangeRule &vcRule = MetaData().versionChangeRules[vcRulesV[j]]; // indirection
+               const std::string &expression = vcRule.Expression();
+               for (size_t iField = 0; iField < _fieldList.size(); iField++) // over fields
+               {
+                  // find field calcuation in current version
+                  AbstractField *f = _fieldList[iField];
+                  const FieldStateEnum::FieldState &state = f->State();
+                  const TypeEnum::Type &type = f->Type();
+                  if (f->FieldId() == vcRule.FieldId() && toVersion == vcRule.ToVersion())
+                  {
+                     const std::string &condition = vcRule.Condition();
+                     const std::string &expression = vcRule.Expression();
+                     std::string answerValue;
+                     TypeEnum::Type answerType;
+                     RPNEvaluator::RPNEvaluator evaluator;
+                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
+                     if ("true" == answerValue)
+                     {
+                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
+                        f->ComputedValueString(answerValue);
+                     }
+                  }
+               }
+            }
+         };
+
 
          const uint32_t &BaseAggregate::FieldSetCounter()
          {

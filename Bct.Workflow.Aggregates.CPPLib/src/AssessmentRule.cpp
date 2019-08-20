@@ -7,8 +7,8 @@ namespace Bct
    {
       namespace Aggregates
       {
-         AssessmentRule::AssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression, std::string const &versions)
-            : _ruleId(ruleId), _stringId(stringId), _condition(condition), _expression(expression), _versions(versions)
+         AssessmentRule::AssessmentRule(std::string const &ruleId, std::string const &stringId, std::string const &condition, std::string const &expression)
+            : _ruleId(ruleId), _stringId(stringId), _condition(condition), _expression(expression)
          {
          }
 
@@ -31,16 +31,6 @@ namespace Bct
          {
             return _expression;
          }
-
-         bool AssessmentRule::InVersion(int16_t ver)
-         {
-            std::ostringstream ss;
-            ss << '.' << ver << '.';
-            std::string verStr = ss.str();
-            std::size_t f = _versions.find(verStr);
-            return (f != std::string::npos);
-         }
-
       }
    }
 }
