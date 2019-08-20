@@ -21,20 +21,20 @@ TEST_CASE("GetFieldValue", "[test]")
    CHECK(a.enumField.Value() == 2);
 }
 
-// Test get field value shall throw an exception if the field is not available in the current version of the aggregate.
-TEST_CASE("ThrowsExceptionIfFieldNotAvailable", "[test]")
+// Tests get field value shall throw an exception if the field is not available in the current version of the aggregate.
+TEST_CASE("ThrowsExceptionIfGetFieldNotAvailable", "[test]")
 {
    Sample1Aggregate a;
    CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
-   CHECK_THROWS_AS(a.FieldEnumRo.Value(), NotAbleToGet); //NotAbleToSet???
+   CHECK_THROWS_AS(a.FieldEnumRo.Value(), NotAbleToGet); 
 }
 
 // Tesst get field value shall throw an exception if the field is not set in the current version of the aggregate.
-TEST_CASE("ThrowsExceptionIfFieldNotSet", "[test]")
+TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
 {
    Sample1Aggregate a;
    CHECK(a.Field7x.State() == FieldStateEnum::NotSet);
-   CHECK_THROWS_AS(a.Field7x.Value(), NotAbleToGet);//NotAbleToSet???
+   CHECK_THROWS_AS(a.Field7x.Value(), NotAbleToGet);
 }
 
 //Tests set field value - sets the current value for a field by using assignment.
@@ -65,8 +65,8 @@ TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
    CHECK(a.enumField.Value() == ReferenceEnum::BelowAverage);
    a.enumField = ReferenceEnum::Poor;
    CHECK(a.enumField.Value() == ReferenceEnum::Poor);
-   /*a.enumField = ReferenceEnum::VeryGood;
-   CHECK(a.enumField.Value() == ReferenceEnum::VeryPoor); This step Fail*/
+   a.enumField = ReferenceEnum::VeryPoor;
+   CHECK(a.enumField.Value() == ReferenceEnum::VeryPoor);
 }
 //Tests set field value - sets the current value back to default value for a field by using assignment.
 TEST_CASE("SetFieldBackToDefaultValueUsingAssignment", "[test]")
@@ -294,12 +294,12 @@ TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
 {
    try
    {
-      Sample1Aggregate b("1.5.0");
+      Sample1Aggregate b("1.0.0.0");
    }
    catch (NoSuchVersion ex)
    {
-      CHECK(ex.requestedVersion() == "1.5.0");
-      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate requestedVersion=1.5.0";
+      CHECK(ex.requestedVersion() == "1.0.0.0");
+      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Aggregates::Sample1Aggregate requestedVersion=1.0.0.0";
       CHECK(ex.what() == message);
    }
 }
