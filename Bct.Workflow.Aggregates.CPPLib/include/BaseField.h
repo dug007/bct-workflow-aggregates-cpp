@@ -55,15 +55,6 @@ namespace Bct
             /// <param name="v">Value to give this field.</param>
             void Value(const T &v)
             {
-               switch (_state)
-               {
-               case FieldStateEnum::Constant:
-               case FieldStateEnum::Unavailable:
-               {
-                  std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
-               }
-               }
                ValueInternal(v, false);
             }
 
@@ -212,7 +203,7 @@ namespace Bct
                   T out;
                   std::stringstream ss;
                   ss << DefaultStr();
-                  ss >> out;
+                  ss >> std::boolalpha >> out;
                   setDefault(out);
                }
             }
@@ -305,6 +296,16 @@ namespace Bct
             /// <param name="fromCalculation">true if the value is being set by a calculation, false otherwase.</param>
             void ValueInternal(const T &v, bool fromCalculation)
             {
+               switch (_state)
+               {
+                  case FieldStateEnum::Constant:
+                  case FieldStateEnum::Unavailable:
+                  {
+                     std::string aggName = typeid(*_aggregate).name();
+                     throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  }
+               }
+
                _val = v;
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
                _fieldSetCounter = _aggregate->FieldSetCounter();
