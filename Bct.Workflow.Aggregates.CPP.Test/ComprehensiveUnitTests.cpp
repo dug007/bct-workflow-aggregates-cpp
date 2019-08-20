@@ -13,7 +13,7 @@ using namespace Bct::Workflow::Implementation;
 TEST_CASE("GetFieldValue", "[test]")
 {
    ReferenceAggregate a;
-   //CHECK(a.boolField.Value() == true);  This step failed 
+   CHECK(a.boolField.Value() == true);//  This step failed 
    CHECK(a.int32Field.Value() == -1); 
    CHECK(a.uint32Field.Value() == 1); 
    CHECK(a.int64Field.Value() == -1); 
@@ -151,12 +151,13 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
 }
 
 //Set field value shall throw an exception if the field is not available in the current version of the aggregate.
-//TEST_CASE("ThrowsExceptionIfEnumSetFieldNotAvailable", "[test]")
-//{
-//   Sample1Aggregate a;
-//   CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
-//   CHECK_THROWS_AS(a.FieldEnumRo.ComputedValueString("1"), NotAbleToSet);//Ken????
-//}
+TEST_CASE("ThrowsExceptionIfEnumSetFieldNotAvailable", "[test]")
+{
+   Sample1Aggregate a;
+   CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+   CHECK_THROWS_AS(a.FieldEnumRo.ComputedValueString("1"), NotAbleToSet);
+}
+
 //Set field value shall throw an exception if the field is not available in the current version of the aggregate.
 TEST_CASE("ThrowsExceptionIfSetFieldNotAvailable", "[test]")
 {
@@ -197,8 +198,8 @@ TEST_CASE("NullableField", "[test]")
 TEST_CASE("GetCurrentFieldState", "[test]")
 {
    ReferenceAggregate a;
-   //CHECK(a.boolField.Value() == true);
-   //CHECK(a.boolField.State() == FieldStateEnum::Default); //These two steps failed
+   CHECK(a.boolField.Value() == true);
+   CHECK(a.boolField.State() == FieldStateEnum::Default); //These two steps failed
    CHECK(a.int32Field.Value() == -1);
    CHECK(a.int32Field.State() == FieldStateEnum::Default);
    CHECK(a.uint32Field.Value() == 1);
@@ -291,12 +292,12 @@ TEST_CASE("GetVersion", "[test]")
 }
 
 // Tests Convert Version – Converts the aggregate to the specified version.
-//TEST_CASE("ConvertVersion", "[test]")
-//{
-//   Sample1Aggregate a;
-//   a.convertToVersion("1.1.0");
-//   CHECK(a.getVersion() == "1.1.0");
-//}
+TEST_CASE("ConvertVersion", "[test]")
+{
+   Sample1Aggregate a;
+   a.convertToVersion("1.1.0");
+   CHECK(a.getVersion() == "1.1.0");
+}
 
 // Test the method shall throw an exception if the specified version is not defined
 TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
@@ -314,12 +315,20 @@ TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
    }
 }
 
-//Set field value shall throw an exception if the field is not available in the current version of the aggregate.
-//TEST_CASE("Assess", "[test]")
-//{
-//   Sample1Aggregate a;
-//   CHECK(a.Assess.);
-//}
+// 1.       The system shall include assess functions to determine if specified data is valid.
+// 2.       The system shall return a list of string ID values of failed rules if the data is not valid.
+TEST_CASE("Assess", "[test]")
+{
+   Sample1Aggregate a;
+   a.Field1 = 50.0;
+   AssessmentResult res = a.Assess();
+   CHECK(res.isSuccess());
+   a.Field1 = 51.0;
+   res = a.Assess();
+   CHECK(res.isFailure());
+   CHECK(res.getErrorIds().size() == 1);
+   CHECK(res.getErrorIds()[0] == "aRuleStringId");
+}
 
 // Tests updates the values of any computed fields, as specified in the aggregate definition. 
 TEST_CASE("UpdateComputedField", "[test]")
