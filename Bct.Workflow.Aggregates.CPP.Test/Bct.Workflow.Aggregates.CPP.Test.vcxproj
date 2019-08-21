@@ -32,6 +32,7 @@
     <ClInclude Include="include\AggAssess.h" />
     <ClInclude Include="include\AggNested.h" />
     <ClInclude Include="include\AssessMetaData.h" />
+    <ClInclude Include="TestHelperBaseField.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bct.Workflow.Aggregates.CPP.GeneratedCode\Bct.Workflow.Aggregates.CPP.GeneratedCode.vcxproj">

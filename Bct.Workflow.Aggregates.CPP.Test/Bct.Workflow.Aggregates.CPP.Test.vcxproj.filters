@@ -12,6 +12,7 @@
     <ClCompile Include="test\MetaUnitTests.cpp" />
     <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
     <ClCompile Include="VersionChangeRuleUnitTests.cpp" />
+    <ClCompile Include="ComprehensiveUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\GeneralUnitTests.cpp">
@@ -41,9 +42,6 @@
     <ClCompile Include="test\ReferenceAggregateUnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ComprehensiveUnitTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClInclude Include="include\AggAssess.h" />
     <ClInclude Include="include\AggNested.h" />
     <ClInclude Include="include\AssessMetaData.h" />
@@ -51,5 +49,8 @@
   <ItemGroup>
     <None Include="test\Sample1.yaml" />
     <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TestHelperBaseField.h" />
   </ItemGroup>
 </Project>

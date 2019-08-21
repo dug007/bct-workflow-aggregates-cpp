@@ -1,13 +1,69 @@
 #include "ReferenceAggregate.h"
 #include "ReferenceEnum.h"
 #include "EnumField.h"
-#include "catch.hpp"
 #include "Sample1Aggregate.h"
 #include "PlateletTemplateAggregate.h"
+#include "BaseAggregate.h"
+#include "TestHelperBaseField.h"
+#include "AbstractAggregate.h"
+
+#include "catch.hpp"
 
 
 using namespace Bct::Workflow;
 using namespace Bct::Workflow::Implementation;
+using namespace Bct::Workflow::Aggregates;
+
+namespace Bct
+{
+   namespace Workflow
+   {
+      namespace Implementation
+      {
+         class TestBaseFieldSerialization : public BaseAggregate
+         {
+         private:
+            void pushFields()
+            {
+               FieldList().push_back(&boolField);
+            }
+         public:
+            TestHelperBaseField<bool>                     boolField;
+            virtual ~TestBaseFieldSerialization()
+            {
+            }
+
+            TestBaseFieldSerialization() :
+               BaseAggregate(BaseAggregate::UseMostRecentVersionStr),
+               boolField(0, this)
+            {
+               pushFields();
+               syncVersion();
+            }
+
+            static AggregateMetaData & s_MetaData()
+            {
+               static AggregateMetaData tm;
+               static bool initialized = false;
+
+               if (!initialized)
+               {
+                  tm.addVersion("1.0.0");
+                  tm.addField(0, "boolField", Bct::Workflow::TypeEnum::BoolType);
+                  tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
+                  initialized = true;
+               }
+               return tm;
+            };
+
+            AggregateMetaData & MetaData() const
+            {
+               return s_MetaData();
+            };
+         };
+      }
+   }
+}
 
 //Tests Get Field Value - gets the current value for a field.
 TEST_CASE("GetFieldValue", "[test]")
@@ -152,10 +208,10 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
 
 TEST_CASE("BoolStringFunctions", "[test]")
 {
-   ReferenceAggregate a;
-   a.boolField = true;
+   TestBaseFieldSerialization a;
+   a.boolField.Value( true);
    CHECK("true" == a.boolField.ComputedValueString());
-   a.boolField = false;
+   a.boolField.Value(false);
    CHECK("false" == a.boolField.ComputedValueString());
 
    a.boolField.ComputedValueString("false");
