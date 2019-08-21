@@ -410,9 +410,3 @@ TEST_CASE("UpdateComputedField", "[test]")
    CHECK(a.Field1.Value() == 30.0);
    CHECK(a.Field1.State() == FieldStateEnum::Computed);
 }
-
-TEST_CASE("String set fields", "[test]")
-{
-   Sample1Aggregate a;
- }
-
