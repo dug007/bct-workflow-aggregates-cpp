@@ -87,7 +87,7 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotAvailable", "[test]")
    CHECK_THROWS_AS(a.FieldEnumRo.Value(), NotAbleToGet); 
 }
 
-// Tesst get field value shall throw an exception if the field is not set in the current version of the aggregate.
+// Tests get field value shall throw an exception if the field is not set in the current version of the aggregate.
 TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
 {
    Sample1Aggregate a;
@@ -95,7 +95,7 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
    CHECK_THROWS_AS(a.Field7x.Value(), NotAbleToGet);
 }
 
-//Tests set field value - sets the current value for a field by using assignment.
+//Tests Set Field Value - sets the current value for a field by using assignment.
 TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
 {
    ReferenceAggregate a ("1.0.0");
@@ -125,8 +125,20 @@ TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
    CHECK(a.enumField.Value() == ReferenceEnum::Poor);
    a.enumField = ReferenceEnum::VeryPoor;
    CHECK(a.enumField.Value() == ReferenceEnum::VeryPoor);
+   a.enumField.ComputedValueString("0");
+   CHECK(a.enumField == ReferenceEnum::VeryGood);
+   a.enumField.ComputedValueString("1");
+   CHECK(a.enumField == ReferenceEnum::Good);
+   a.enumField.ComputedValueString("2");
+   CHECK(a.enumField == ReferenceEnum::Average);
+   a.enumField.ComputedValueString("4");
+   CHECK(a.enumField == ReferenceEnum::BelowAverage);
+   a.enumField.ComputedValueString("8");
+   CHECK(a.enumField == ReferenceEnum::Poor);
+   a.enumField.ComputedValueString("16");
+   CHECK(a.enumField == ReferenceEnum::VeryPoor);
 }
-//Tests set field value - sets the current value back to default value for a field by using assignment.
+//Tests Set Field Value - sets the current value back to default value for a field by using assignment.
 TEST_CASE("SetFieldBackToDefaultValueUsingAssignment", "[test]")
 {
    ReferenceAggregate a;
@@ -153,9 +165,9 @@ TEST_CASE("SetFieldBackToDefaultValueUsingAssignment", "[test]")
    CHECK(a.stringField.State() == FieldStateEnum::Default);
    a.enumField.ComputedValueString("2");
    CHECK(a.enumField.Value() == 2);
-   CHECK(a.enumField.State() == FieldStateEnum::Default);//How to do with assignemt
+   CHECK(a.enumField.State() == FieldStateEnum::Default);
 }
-//Tests set field value - sets the current value for a field by using function.
+//Tests Set Field Value - sets the current value for a field by using function.
 TEST_CASE("SetFieldCurrentValueUsingFunction", "[test]")
 {
    ReferenceAggregate a;
@@ -177,6 +189,7 @@ TEST_CASE("SetFieldCurrentValueUsingFunction", "[test]")
    CHECK(a.enumField.Value() == ReferenceEnum::Average);
 }
 
+//Tests Set Field Value - sets the current value back to default value for a field by using function.
 TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
 {
    ReferenceAggregate a;
@@ -206,6 +219,7 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
     CHECK(a.enumField.State() == FieldStateEnum::Default);
 }
 
+//Tests boolfield Value - sets the bool value for a field by using function.
 TEST_CASE("BoolStringFunctions", "[test]")
 {
    TestBaseFieldSerialization a;
@@ -385,8 +399,8 @@ TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
    }
 }
 
-// 1.       The system shall include assess functions to determine if specified data is valid.
-// 2.       The system shall return a list of string ID values of failed rules if the data is not valid.
+// Tests the system shall include assess functions to determine if specified data is valid.
+// Tests the system shall return a list of string ID values of failed rules if the data is not valid.
 TEST_CASE("Assess", "[test]")
 {
    Sample1Aggregate a;
