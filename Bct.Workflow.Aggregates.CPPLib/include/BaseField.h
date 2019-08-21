@@ -208,6 +208,32 @@ namespace Bct
                }
             }
 
+           /// <summary>
+           /// Gets the string representation value of this field. This function is only needed for RPN computations.
+           /// </summary>
+           /// <returns>String representation of this field.</returns>
+            virtual std::string ComputedValueString() const
+            {
+               // TODO Use serialization library for string<->type conversion - User Story 126886
+               std::stringstream ss;
+               ss << std::boolalpha << Value();
+               return ss.str();
+            }
+
+            /// <summary>
+            /// Sets the value of this field using its string representation. This function is only needed for RPN computations.
+            /// </summary>
+            /// <param name="val">String representation of this field.</param>
+            virtual void ComputedValueString(const std::string & val)
+            {
+               // TODO Use serialization library for string<->type conversion - User Story 126886
+               T out;
+               std::stringstream ss;
+               ss << val;
+               ss >> std::boolalpha >> out;
+               ValueInternal(out, true);
+            }
+
             // AbstractField -------------------<
 
             /// <summary>
@@ -251,31 +277,6 @@ namespace Bct
                 return _state;
              }
 
-             /// <summary>
-            /// Gets the string representation value of this field. This function is not public and is only needed for RPN computations.
-            /// </summary>
-            /// <returns>String representation of this field.</returns>
-            virtual std::string ComputedValueString() const
-            {
-               // TODO Use serialization library for string<->type conversion - User Story 126886
-               std::stringstream ss;
-               ss << Value();
-               return ss.str();
-            }
-
-            /// <summary>
-            /// Sets the value of this field using its string representation. This function is not public and is only needed for RPN computations.
-            /// </summary>
-            /// <param name="val">String representation of this field.</param>
-            virtual void ComputedValueString(const std::string & val)
-            {
-               // TODO Use serialization library for string<->type conversion - User Story 126886
-               T out;
-               std::stringstream ss;
-               ss << val;
-               ss >> out;
-               ValueInternal(out, true);
-            }
 
             // AbstractField ---------<
 
