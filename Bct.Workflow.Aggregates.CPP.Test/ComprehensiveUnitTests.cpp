@@ -13,7 +13,7 @@ using namespace Bct::Workflow::Implementation;
 TEST_CASE("GetFieldValue", "[test]")
 {
    ReferenceAggregate a;
-   CHECK(a.boolField.Value() == true);//  This step failed 
+   CHECK(a.boolField.Value() == true);
    CHECK(a.int32Field.Value() == -1); 
    CHECK(a.uint32Field.Value() == 1); 
    CHECK(a.int64Field.Value() == -1); 
@@ -76,7 +76,7 @@ TEST_CASE("SetFieldBackToDefaultValueUsingAssignment", "[test]")
    ReferenceAggregate a;
    a.boolField = true;
    CHECK(a.boolField.Value() == true);
-  // CHECK(a.boolField.State() == FieldStateEnum::Default); This step failed
+   CHECK(a.boolField.State() == FieldStateEnum::Default);
    a.int32Field = -1;
    CHECK(a.int32Field.Value() == -1);
    CHECK(a.int32Field.State() == FieldStateEnum::Default);
@@ -126,7 +126,7 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
    ReferenceAggregate a;
    a.boolField.Value(true);
    CHECK(a.boolField.Value() == true);
-   // CHECK(a.boolField.State() == FieldStateEnum::Default); This step failed
+   CHECK(a.boolField.State() == FieldStateEnum::Default);
    a.int32Field.Value(-1);
    CHECK(a.int32Field.Value() == -1);
    CHECK(a.int32Field.State() == FieldStateEnum::Default);
@@ -148,6 +148,20 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
    a.enumField.ComputedValueString("2");
     CHECK(a.enumField.Value() == 2);
     CHECK(a.enumField.State() == FieldStateEnum::Default);
+}
+
+TEST_CASE("BoolStringFunctions", "[test]")
+{
+   ReferenceAggregate a;
+   a.boolField = true;
+   CHECK("true" == a.boolField.ComputedValueString());
+   a.boolField = false;
+   CHECK("false" == a.boolField.ComputedValueString());
+
+   a.boolField.ComputedValueString("false");
+   CHECK(a.boolField == false);
+   a.boolField.ComputedValueString("true");
+   CHECK(a.boolField == true);
 }
 
 //Set field value shall throw an exception if the field is not available in the current version of the aggregate.
@@ -199,7 +213,7 @@ TEST_CASE("GetCurrentFieldState", "[test]")
 {
    ReferenceAggregate a;
    CHECK(a.boolField.Value() == true);
-   CHECK(a.boolField.State() == FieldStateEnum::Default); //These two steps failed
+   CHECK(a.boolField.State() == FieldStateEnum::Default);
    CHECK(a.int32Field.Value() == -1);
    CHECK(a.int32Field.State() == FieldStateEnum::Default);
    CHECK(a.uint32Field.Value() == 1);
@@ -222,7 +236,7 @@ TEST_CASE("SetCurrentFieldState", "[test]")
    ReferenceAggregate a;
    a.boolField = false;
    CHECK(a.boolField.Value() == false);
-  // CHECK(a.boolField.State() == FieldStateEnum::Set); this step failed
+   CHECK(a.boolField.State() == FieldStateEnum::Set);
    a.int32Field = -10;
    CHECK(a.int32Field.State() == FieldStateEnum::Set);
    a.uint32Field = 200;
@@ -341,4 +355,8 @@ TEST_CASE("UpdateComputedField", "[test]")
    CHECK(a.Field1.State() == FieldStateEnum::Computed);
 }
 
+TEST_CASE("String set fields", "[test]")
+{
+   Sample1Aggregate a;
+ }
 
