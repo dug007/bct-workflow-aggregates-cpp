@@ -12,13 +12,45 @@
     <ClCompile Include="test\MetaUnitTests.cpp" />
     <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
     <ClCompile Include="VersionChangeRuleUnitTests.cpp" />
+    <ClCompile Include="ComprehensiveUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="test\GeneralUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\ComputeFieldUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AggAssess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AggNested.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\AggNestedUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessMetaData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\MetaUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\ReferenceAggregateUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClInclude Include="include\AggAssess.h" />
     <ClInclude Include="include\AggNested.h" />
     <ClInclude Include="include\AssessMetaData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test\Sample1.yaml" />
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TestHelperBaseField.h" />
   </ItemGroup>
 </Project>

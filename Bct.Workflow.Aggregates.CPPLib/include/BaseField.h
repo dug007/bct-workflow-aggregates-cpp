@@ -55,15 +55,6 @@ namespace Bct
             /// <param name="v">Value to give this field.</param>
             void Value(const T &v)
             {
-               switch (_state)
-               {
-               case FieldStateEnum::Constant:
-               case FieldStateEnum::Unavailable:
-               {
-                  std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
-               }
-               }
                ValueInternal(v, false);
             }
 
@@ -212,7 +203,7 @@ namespace Bct
                   T out;
                   std::stringstream ss;
                   ss << DefaultStr();
-                  ss >> out;
+                  ss >> std::boolalpha >> out;
                   setDefault(out);
                }
             }
@@ -251,6 +242,32 @@ namespace Bct
 
             // AbstractField ----------->
 
+           /// <summary>
+           /// Gets the string representation value of this field. This function is only needed for RPN computations.
+           /// </summary>
+           /// <returns>String representation of this field.</returns>
+             virtual std::string ComputedValueString() const
+             {
+                // TODO Use serialization library for string<->type conversion - User Story 126886
+                std::stringstream ss;
+                ss << std::boolalpha << Value();
+                return ss.str();
+             }
+
+             /// <summary>
+             /// Sets the value of this field using its string representation. This function is only needed for RPN computations.
+             /// </summary>
+             /// <param name="val">String representation of this field.</param>
+             virtual void ComputedValueString(const std::string & val)
+             {
+                // TODO Use serialization library for string<->type conversion - User Story 126886
+                T out;
+                std::stringstream ss;
+                ss << val;
+                ss >> std::boolalpha >> out;
+                ValueInternal(out, true);
+             }
+
             /// <summary>
             /// Returns a ref to the state to allow changes.
             /// </summary>
@@ -260,31 +277,6 @@ namespace Bct
                 return _state;
              }
 
-             /// <summary>
-            /// Gets the string representation value of this field. This function is not public and is only needed for RPN computations.
-            /// </summary>
-            /// <returns>String representation of this field.</returns>
-            virtual std::string ComputedValueString() const
-            {
-               // TODO Use serialization library for string<->type conversion - User Story 126886
-               std::stringstream ss;
-               ss << Value();
-               return ss.str();
-            }
-
-            /// <summary>
-            /// Sets the value of this field using its string representation. This function is not public and is only needed for RPN computations.
-            /// </summary>
-            /// <param name="val">String representation of this field.</param>
-            virtual void ComputedValueString(const std::string & val)
-            {
-               // TODO Use serialization library for string<->type conversion - User Story 126886
-               T out;
-               std::stringstream ss;
-               ss << val;
-               ss >> out;
-               ValueInternal(out, true);
-            }
 
             // AbstractField ---------<
 
@@ -305,6 +297,16 @@ namespace Bct
             /// <param name="fromCalculation">true if the value is being set by a calculation, false otherwase.</param>
             void ValueInternal(const T &v, bool fromCalculation)
             {
+               switch (_state)
+               {
+                  case FieldStateEnum::Constant:
+                  case FieldStateEnum::Unavailable:
+                  {
+                     std::string aggName = typeid(*_aggregate).name();
+                     throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  }
+               }
+
                _val = v;
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
                _fieldSetCounter = _aggregate->FieldSetCounter();

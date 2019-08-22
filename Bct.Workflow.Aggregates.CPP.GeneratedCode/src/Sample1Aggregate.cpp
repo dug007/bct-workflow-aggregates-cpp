@@ -291,6 +291,8 @@ namespace Bct
             aggMeta.versionMetaData[1].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
             aggMeta.versionMetaData[2].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
 
+            aggMeta.addAssessmentRule("aRuleId", "aRuleStringId", "1 1 ==", "Field1 50.0 ==").toVersion(2);
+
             s_initialized = true;
          };
 

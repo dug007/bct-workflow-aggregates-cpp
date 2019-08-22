@@ -282,7 +282,7 @@ namespace Bct
                   evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
                   if (answerValue != "true")
                   {
-                     result.addError(aRule.RuleId(), answerValue);
+                     result.addError(aRule.StringId(), answerValue);
                   }
                }
             }
@@ -359,6 +359,8 @@ namespace Bct
                   }
                }
             }
+            _ver = toVersion;
+            _version = MetaData().versionInfo[_ver].Version();
          };
 
 

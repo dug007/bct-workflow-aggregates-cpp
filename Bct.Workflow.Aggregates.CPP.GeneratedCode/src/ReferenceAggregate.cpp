@@ -148,6 +148,9 @@ namespace Bct
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
 
+               tm.addAssessmentRule("ruleId1", "ruleStringId1", "1 1 ==", "1 1 +")
+                  .toVersion(0)  .toVersion(1);
+
                tm.addVersionChangeRule(5, 1, "doubleField 1 ==", "2") .toVersion(0);
                tm.addVersionChangeRule(5, 0, "doubleField 1 ==", "3") .toVersion(1);
 
