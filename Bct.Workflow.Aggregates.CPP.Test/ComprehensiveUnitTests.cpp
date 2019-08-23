@@ -98,7 +98,7 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
 //Tests Set Field Value - sets the current value for a field by using assignment.
 TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
 {
-   ReferenceAggregate a ("1.0.0");
+   ReferenceAggregate a ("v1.0.0");
    a.boolField = false; 
    CHECK(a.boolField.Value() == false); 
    a.int32Field = -2;
