@@ -1,10 +1,13 @@
+
 #pragma once
 #include "BaseAggregate.h"
 #include "BaseField.h"
 #include "AggregateMetaData.h"
+#include "AggComputeField.h"
 #include "AbstractAggregate.h"
 #include "EnumField.h"
 #include "ReferenceEnum.h"
+#include "AggComputeField.h"
 #include "StringField.h"
 
 using namespace Bct::Workflow::Aggregates;
@@ -16,46 +19,47 @@ namespace Bct
       namespace Implementation
       {
          /// <summary>
-         /// ReferenceAggregate-class-summary
+         /// ReferenceAggregate.
          /// </summary>
          class ReferenceAggregate : public BaseAggregate
          {
          private:
             void pushFields();
+
          public:
             /// <summary>
-            /// boolField-field-summary
+            /// Boolean field
             /// </summary>
             BaseField<bool>                     boolField;
-            /// <summary>
-            /// int32lField-field-summary
+                        /// <summary>
+            /// integer field
             /// </summary>
-            BaseField<int32_t>                  int32Field;
-            /// <summary>
-            /// uint32Field-field-summary
+            BaseField<int32_t>                     int32Field;
+                        /// <summary>
+            /// uinteger field
             /// </summary>
-            BaseField<uint32_t>                 uint32Field;
-            /// <summary>
-            /// int64-field-summary
+            BaseField<uint32_t>                     uint32Field;
+                        /// <summary>
+            /// integer field
             /// </summary>
-            BaseField<uint32_t>                 int64Field;
-            /// <summary>
-            /// uint64Field-field-summary
+            BaseField<int64_t>                     int64Field;
+                        /// <summary>
+            /// uinteger field
             /// </summary>
-            BaseField<int64_t>                  uint64Field;
-            /// <summary>
-            /// doubleField-field-summary
+            BaseField<uint64_t>                     uint64Field;
+                        /// <summary>
+            /// double field
             /// </summary>
-            BaseField<double>                   doubleField;
-            /// <summary>
-            /// stringField-field-summary
+            BaseField<double>                     doubleField;
+                        /// <summary>
+            /// string field
             /// </summary>
-            StringField                         stringField;
-            /// <summary>
-            /// enumField-field-summary
+            StringField                     stringField;
+                        /// <summary>
+            /// 
             /// </summary>
-            EnumField<uint32_t, ReferenceEnum::Reference> enumField;
-
+            EnumField<int32_t, ReferenceEnum::Reference>                     enumField;
+            
             /// <summary>
             /// Default constructor. Creates the most recent version.
             /// </summary>
@@ -90,12 +94,14 @@ namespace Bct
             /// <param name="parent">The parent of this nested aggregate.</param>
             ReferenceAggregate(const ReferenceAggregate & other, BaseAggregate * const parent);
 
+
             /// <summary>
             /// Assignment operator. 
             /// </summary>
             /// <param name="other">Object being copied.</param>
             /// <returns>Reference to new object.</returns>
             ReferenceAggregate & operator=(const ReferenceAggregate &other);
+
 
             /// <summary>
             /// Virtual destructor
@@ -105,7 +111,7 @@ namespace Bct
             /// <summary>
             /// Virtual function to return the metadata reference for this object. Aggregates must implement this at the most-derived level such as generated code.
             /// </summary>
-            /// <returns>The associated AggregateMetaData object.</returns>ReferenceAggregate-default-constructor-summary
+            /// <returns>The associated AggregateMetaData object.</returns>BaseAggregate-default-constructor-summary
             virtual AggregateMetaData &MetaData() const;
 
            /// <summary>
@@ -118,4 +124,5 @@ namespace Bct
       }
    }
 }
+
 

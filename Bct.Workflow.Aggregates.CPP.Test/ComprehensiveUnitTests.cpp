@@ -215,8 +215,8 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
    CHECK(a.stringField.Value() == "hello world");
    CHECK(a.stringField.State() == FieldStateEnum::Default);
    a.enumField.ComputedValueString("2");
-    CHECK(a.enumField.Value() == 2);
-    CHECK(a.enumField.State() == FieldStateEnum::Default);
+   CHECK(a.enumField.Value() == 2);
+   CHECK(a.enumField.State() == FieldStateEnum::Default);
 }
 
 //Tests boolfield Value - sets the bool value for a field by using function.
