@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CodeGenerationUnitTests.cpp" />
     <ClCompile Include="ComprehensiveUnitTests.cpp" />
     <ClCompile Include="src\AggAssess.cpp" />
     <ClCompile Include="src\AggNested.cpp" />

@@ -127,8 +127,8 @@ namespace Bct
 
             if (!initialized)
             {
-               tm.addVersion("1.0.0");
-               tm.addVersion("1.1.0");
+               tm.addVersion("v1.0.0");
+               tm.addVersion("v1.1.0");
 
                tm.addField(0, "boolField", Bct::Workflow::TypeEnum::BoolType);
                tm.addField(1, "int32Field", Bct::Workflow::TypeEnum::Int32Type);
@@ -148,7 +148,10 @@ namespace Bct
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
 
-               tm.addAssessmentRule("ruleId1", "ruleStringId1", "1 1 ==", "1 1 +")
+               tm.addComputeRule("doubleFieldCompute", 5, "1 1 ==", "1 3 +")
+                  .toVersion(0) .toVersion(1);
+
+               tm.addAssessmentRule("ruleId1", "ruleStringId1", "1 1 ==", "1 3 +")
                   .toVersion(0)  .toVersion(1);
 
                tm.addVersionChangeRule(5, 1, "doubleField 1 ==", "2") .toVersion(0);
