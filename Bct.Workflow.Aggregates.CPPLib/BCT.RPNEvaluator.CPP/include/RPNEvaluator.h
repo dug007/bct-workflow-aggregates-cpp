@@ -44,15 +44,15 @@ namespace Bct
 			/// <param name="variableMap">A map containing the variables used for this expression</param>
 			/// <param name="valueType">The value type as an enum</param>
 			/// <param name="value">The resulting data value from the function</param>
-         /// <returns> A boolean value corresponding to if the evaluation is a success</return>
-         bool EvaluateRPNExpression(const std::string &rpn, std::map<std::string, RPNVariable> &variableMap, Workflow::TypeEnum::Type &valueType, std::string &value);
+			/// <returns>A boolean value corresponding to if the evaluation is a success</returns>
+			bool EvaluateRPNExpression(const std::string &rpn, std::map<std::string, RPNVariable> &variableMap, Workflow::TypeEnum::Type &valueType, std::string &value);
 
 		private:
 			/// 
 			/// Takes a token that just has the name and fills-out the rest of the token information.
 			/// It looks up variables and replaces them with values.
 			/// 
-         static bool ClassifyToken(Token &token, std::map<std::string, RPNVariable> variableMap, std::list<std::string> &variables);
+			static bool ClassifyToken(Token &token, std::map<std::string, RPNVariable> variableMap, std::list<std::string> &variables);
 
 			/// 
 			/// Wrapped the pop from the stack so not to duplicate the check every time
@@ -64,151 +64,158 @@ namespace Bct
 			/// Optionally takes a type for the function/operator return to force the input arguments to match.
 			/// Can't convert strings to anything.
 			///
-         static bool NormalizeTypes(std::vector<Token> &argList, Workflow::TypeEnum::Type opReturnType = Workflow::TypeEnum::EmptyType);
+			static bool NormalizeTypes(std::vector<Token> &argList, Workflow::TypeEnum::Type opReturnType = Workflow::TypeEnum::EmptyType);
 
 			///
 			/// Execute the function/operator
 			///
-         static bool DoOp(std::string op, std::vector<Token> argList, std::map<std::string, RPNVariable> &variableMap, Token &rtnTok);
+			static bool DoOp(std::string op, std::vector<Token> argList, std::map<std::string, RPNVariable> &variableMap, Token &rtnTok);
 
 			///
 			/// Template for operations that return a bool but take a numeric type
 			///
-         template <typename T>
-         static bool DoOpBoolNum(std::string op, T lhs, T rhs, bool &rtn)
-         {
-            if (op == "<")
-            {
-               rtn = lhs < rhs;
-            }
-            else if (op == "<=")
-            {
-               rtn = lhs <= rhs;
-            }
-            else if (op == ">")
-            {
-               rtn = lhs > rhs;
-            }
-            else if (op == ">=")
-            {
-               rtn = lhs >= rhs;
-            }
-            else if (op == "==")
-            {
-               rtn = lhs == rhs;
-            }
-            else if (op == "!=")
-            {
-               rtn = lhs != rhs;
-            }
-            else
-            {
-               return false;
-            }
+			template <typename T>
+			static bool DoOpBoolNum(std::string op, std::vector<T> args, bool &rtn)
+			{
+				T rhs = args[0];
+				T lhs = args[1];
+				if (op == "<")
+				{
+					rtn = lhs < rhs;
+				}
+				else if (op == "<=")
+				{
+					rtn = lhs <= rhs;
+				}
+				else if (op == ">")
+				{
+					rtn = lhs > rhs;
+				}
+				else if (op == ">=")
+				{
+					rtn = lhs >= rhs;
+				}
+				else if (op == "==")
+				{
+					rtn = lhs == rhs;
+				}
+				else if (op == "!=")
+				{
+					rtn = lhs != rhs;
+				}
+				else if (op == "$RangeCheck")
+				{
+					rtn = (args[2] <= args[0] && args[2] >= args[1]); //args[0] = max, args[1] = min
+				}
+				else
+				{
+					return false;
+				}
 
-            return true;
-         }
+				return true;
+			}
 
 			///
 			/// Template for operations that take and return a type of int
 			///
-         template <typename T>
-         static T DoOpInt(std::string op, std::vector<T> &args, T &rtn)
-         {
-            T result;
-            if (op == "$Negate")
-            {
-               rtn = args[0] * -1;
-            }
-            else if (op == "$Min")
-            {
-               if (args.size() == 0)
-               {
-                  rtn = 0;
-               }
-               else
-               {
-                  result = args[0];
-                  for (unsigned int i = 0; i < args.size(); ++i)
-                  {
-                     result = result < args[i] ? result : args[i];
-                  }
-                  rtn = result;
-               }
-            }
-            else if (op == "$Max")
-            {
-               if (args.size() == 0)
-               {
-                  rtn = 0;
-               }
-               else
-               {
-                  result = args[0];
-                  for (unsigned int i = 0; i < args.size(); ++i)
-                  {
-                     result = result > args[i] ? result : args[i];
-                  }
-                  rtn = result;
-               }
-            }
-            else if (op == "$Mean")
-            {
-               result = 0;
-               for (unsigned int i = 0; i < args.size(); ++i)
-               {
-                  result += args[i];
-               }
-               result = result / args.size();
-               rtn = result;
-            }
-            else if (op == "*")
-            {
-               rtn = args[0] * args[1];
-            }
-            else if (op == "/")
-            {
-               if (args[0] > 0)
-               {
-                  rtn = args[1] / args[0];
-               }
-               else
-               {
-                  return false;
-               }
-            }
-            else if (op == "+")
-            {
-               rtn = args[0] + args[1];
-            }
-            else if (op == "-")
-            {
-               rtn = args[1] - args[0];
-            }
-            else if (op == "&")
-            {
-               rtn = args[0] & args[1];
-            }
-            else if (op == "|")
-            {
-               rtn = args[0] | args[1];
-            }
-            else if (op == "^")
-            {
-               rtn = args[0] ^ args[1];
-            }
-            else
-            {
-               return false;
-            }
-            return true;
-         }
+			template <typename T>
+			static T DoOpInt(std::string op, std::vector<T> &args, T &rtn)
+			{
+				T result;
+				if (op == "$Negate")
+				{
+					rtn = args[0] * -1;
+				}
+				else if (op == "$Min")
+				{
+					if (args.size() == 0)
+					{
+						rtn = 0;
+					}
+					else
+					{
+						result = args[0];
+						for (unsigned int i = 0; i < args.size(); ++i)
+						{
+							result = result < args[i] ? result : args[i];
+						}
+						rtn = result;
+					}
+				}
+				else if (op == "$Max")
+				{
+					if (args.size() == 0)
+					{
+						rtn = 0;
+					}
+					else
+					{
+						result = args[0];
+						for (unsigned int i = 0; i < args.size(); ++i)
+						{
+							result = result > args[i] ? result : args[i];
+						}
+						rtn = result;
+					}
+				}
+				else if (op == "$Mean")
+				{
+					result = 0;
+					for (unsigned int i = 0; i < args.size(); ++i)
+					{
+						result += args[i];
+					}
+					result = result / args.size();
+					rtn = result;
+				}
+				else if (op == "*")
+				{
+					rtn = args[0] * args[1];
+				}
+				else if (op == "/")
+				{
+					if (args[0] > 0)
+					{
+						rtn = args[1] / args[0];
+					}
+					else
+					{
+						return false;
+					}
+				}
+				else if (op == "+")
+				{
+					rtn = args[0] + args[1];
+				}
+				else if (op == "-")
+				{
+					rtn = args[1] - args[0];
+				}
+				else if (op == "&")
+				{
+					rtn = args[0] & args[1];
+				}
+				else if (op == "|")
+				{
+					rtn = args[0] | args[1];
+				}
+				else if (op == "^")
+				{
+					rtn = args[0] ^ args[1];
+				}
+				else
+				{
+					return false;
+				}
+				return true;
+			}
 
 			// functions for the other cases
-         static bool DoOpBoolVar(std::string op, std::vector<Token> argList, std::map<std::string, RPNVariable> &variableMap, bool &rtn);
-         static bool DoOpBool(std::string op, bool lhs, bool rhs, bool &rtn);
-         static bool DoOpDbl(std::string op, std::vector<double> &args, double &rtn);
-         static bool DoOpStr(std::string op, std::vector<std::string> &args, std::string &rtnStr);
+			static bool DoOpBoolVar(std::string op, std::vector<Token> argList, std::map<std::string, RPNVariable> &variableMap, bool &rtn);
+			static bool DoOpVar(std::string op, std::vector<Token> argList, std::map<std::string, RPNVariable> &variableMap, std::string &rtn);
+			static bool DoOpBool(std::string op, std::vector<bool> &args, bool &rtn);
+			static bool DoOpDbl(std::string op, std::vector<double> &args, double &rtn);
+			static bool DoOpStr(std::string op, std::vector<std::string> &args, std::string &rtnStr);
 
 			// conversion functions from strings to units
 			static int32_t to_int32(const char *str);
@@ -252,8 +259,18 @@ namespace Bct
 				tmpMap["&&"] = FuncOper("&&", 2, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
 				tmpMap["||"] = FuncOper("||", 2, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
 				tmpMap["$IsSet"] = FuncOper("$IsSet", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$SetState"] = FuncOper("$SetState", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
+				tmpMap["$SetState"] = FuncOper("$SetState", 2, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
 				tmpMap["$EnteredLater"] = FuncOper("$EnteredLater", 2, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
+				tmpMap["$GetState"] = FuncOper("$GetState", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::VariableType);
+				tmpMap["$IsComputed"] = FuncOper("$IsComputed", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
+				tmpMap["$IsDefault"] = FuncOper("$IsDefault", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
+				tmpMap["$IsConstant"] = FuncOper("$IsConstant", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
+				tmpMap["$IsNull"] = FuncOper("$IsNull", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
+				tmpMap["$HasValue"] = FuncOper("$HasValue", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
+				tmpMap["$If"] = FuncOper("$If", 3, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
+				tmpMap["$RangeCheck"] = FuncOper("$RangeCheck", 3, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::BoolType);
+				tmpMap["true"] = FuncOper("true", 0, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
+				tmpMap["false"] = FuncOper("false", 0, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
 				return tmpMap;
 			}
 
