@@ -9,7 +9,7 @@ namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          bool AggNested::s_initialized = false;
          AggregateMetaData *AggNested::s_metaData;

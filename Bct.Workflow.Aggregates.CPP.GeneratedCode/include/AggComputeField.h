@@ -4,11 +4,13 @@
 #include "AggregateMetaData.h"
 #include "StringField.h"
 
+using namespace Bct::Workflow::Aggregates;
+
 namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          /// <summary>
          /// Aggregate for ComputeRuleVersion unit test. This provides a simple 2-field aggregate to test at different versions in metadata.

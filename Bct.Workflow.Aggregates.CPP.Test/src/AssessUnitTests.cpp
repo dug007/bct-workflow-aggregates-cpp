@@ -5,6 +5,7 @@
 #include "catch.hpp"
 
 using namespace Bct::Workflow::Aggregates;
+using namespace Bct::Workflow::Implementation;
 
 class AssessMetaDataLocal
 {

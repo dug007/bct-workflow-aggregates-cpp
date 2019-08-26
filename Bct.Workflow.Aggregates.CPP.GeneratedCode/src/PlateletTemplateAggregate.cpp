@@ -6,7 +6,7 @@ namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          PlateletTemplateAggregate::PlateletTemplateAggregate() :
             BaseAggregate(),

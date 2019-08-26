@@ -8,11 +8,13 @@
 #include "TypeEnum.h"
 #include "StringField.h"
 
+
+
 namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          class AggNested : public BaseAggregate
          {

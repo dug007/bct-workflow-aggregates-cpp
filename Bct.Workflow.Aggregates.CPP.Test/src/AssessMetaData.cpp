@@ -1,11 +1,13 @@
 #include "AssessMetaData.h"
 #include "BaseAggregate.h"
 
+using namespace Bct::Workflow::Aggregates;
+
 namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          AssessMetaData::AssessMetaData()
          {
