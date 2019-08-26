@@ -29,7 +29,7 @@ TEST_CASE("PlateletTemplateAggregate100", "[test]")
    }
    catch (NotAbleToGet exc)
    {
-      std::string message = "Bct::Workflow::Aggregates::NotAbleToGet: aggregate=class Bct::Workflow::Aggregates::PlateletTemplateAggregate fieldName=maxYield fieldState=Unavailable";
+      std::string message = "Bct::Workflow::Aggregates::NotAbleToGet: aggregate=class Bct::Workflow::Implementation::PlateletTemplateAggregate fieldName=maxYield fieldState=Unavailable";
       CHECK(exc.what() == message);
    }
 
