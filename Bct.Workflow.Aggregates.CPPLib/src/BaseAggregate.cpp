@@ -393,10 +393,57 @@ namespace Bct
          void BaseAggregate::serialize(std::string & value) const
          {
             //TODO - User Story 129258
+            // Elsewhere, ensure computedValueString() uses serialializeValue/deserializeValue as appropriate.
+            // See deserialize below.
+
+            // Fields
+            for (int32_t i = 0; i < static_cast<int32_t>(_fieldList.size()); i++)
+            {
+               const AbstractField *fld = _fieldList[i];
+               //const std::string &val = fld->serializeValue();
+               int32_t fieldId = fld->FieldId();
+               const std::string &fieldName = MetaData().fieldInfo[fieldId].FieldName();
+               const TypeEnum::Type &type = fld->Type();
+               // now put into JSON
+            }
+            // Nested aggregates
+            for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
+            {
+               AbstractAggregate *agg = _aggList[i];
+               int32_t fieldIdNested = agg->FieldIdAsNested();
+               const std::string &fieldName = MetaData().fieldInfo[fieldIdNested].FieldName();
+               //std::string aggAsString = agg->serailize();
+               // Now put into JSON
+            }
          }
          void BaseAggregate::deserialize(const std::string & value)
          {
             //TODO - User Story 129259
+            // Change valueInternal() to use an enum {Set, Deserialize, Compute} instead of just bool.
+            // Add serializeValue/deserializeValue() to AbstractField similar to computedValueString(). Implement as appropriate.
+            // Ensure computedValueString() uses serialializeValue/deserializeValue as appropriate.
+
+            // for each fieldNameIn/fieldValueIn from JSON, do the following loop
+            std::string fieldNameIn = "field1-for-example";
+            std::string fieldValueIn = "avalue-for-example";
+            for (int32_t i = 0; i < static_cast<int32_t>(MetaData().fieldInfo.size()); i++)
+            {
+               const std::string &fieldName = MetaData().fieldInfo[i].FieldName();
+               if (fieldName == fieldNameIn)
+               {
+                  int16_t index = MetaData().fieldInfo[i].FieldId();
+                  //_fieldList[index]->deserializeValue(fieldValueIn);
+               }
+            }
+            // for each nested aggregate from JSON, do the following loop
+            std::string aggNameIn = "agg-name";
+            std::string aggValueIn = "agg-json";
+            for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
+            {
+               const std::string &fieldName = MetaData().fieldInfo[i].FieldName();
+               int16_t index = MetaData().fieldInfo[i].FieldId();
+               //_aggList[index]->deserializeValue(aggValueIn);
+            }
          }
          void BaseAggregate::log(std::ostream & logStream, int flags) const
          {
