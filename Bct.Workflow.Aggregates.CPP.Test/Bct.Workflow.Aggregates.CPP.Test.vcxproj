@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CodeGenerationUnitTests.cpp" />
-    <ClCompile Include="ComprehensiveUnitTests.cpp" />
+    <ClCompile Include="test\CodeGenerationUnitTests.cpp" />
+    <ClCompile Include="test\ComprehensiveUnitTests.cpp" />
     <ClCompile Include="src\AggAssess.cpp" />
     <ClCompile Include="src\AggNested.cpp" />
     <ClCompile Include="src\AssessMetaData.cpp" />
@@ -23,7 +23,7 @@
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
     <ClCompile Include="test\MetaUnitTests.cpp" />
     <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
-    <ClCompile Include="VersionChangeRuleUnitTests.cpp" />
+    <ClCompile Include="test\VersionChangeRuleUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -33,7 +33,7 @@
     <ClInclude Include="include\AggAssess.h" />
     <ClInclude Include="include\AggNested.h" />
     <ClInclude Include="include\AssessMetaData.h" />
-    <ClInclude Include="TestHelperBaseField.h" />
+    <ClInclude Include="test\TestHelperBaseField.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bct.Workflow.Aggregates.CPP.GeneratedCode\Bct.Workflow.Aggregates.CPP.GeneratedCode.vcxproj">

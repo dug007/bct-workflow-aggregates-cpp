@@ -11,9 +11,9 @@
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
     <ClCompile Include="test\MetaUnitTests.cpp" />
     <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
-    <ClCompile Include="VersionChangeRuleUnitTests.cpp" />
-    <ClCompile Include="ComprehensiveUnitTests.cpp" />
-    <ClCompile Include="CodeGenerationUnitTests.cpp" />
+    <ClCompile Include="test\CodeGenerationUnitTests.cpp" />
+    <ClCompile Include="test\ComprehensiveUnitTests.cpp" />
+    <ClCompile Include="test\VersionChangeRuleUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\GeneralUnitTests.cpp">
@@ -52,6 +52,6 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestHelperBaseField.h" />
+    <ClInclude Include="test\TestHelperBaseField.h" />
   </ItemGroup>
 </Project>
