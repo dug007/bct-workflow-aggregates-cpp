@@ -51,27 +51,27 @@ namespace Bct
 			}
 
 		}
-      bool RPNEvaluator::EvaluateRPNExpression(const std::string &rpn, std::map<std::string, RPNVariable> &variableMap, Workflow::TypeEnum::Type &valueType, std::string &value)
+		bool RPNEvaluator::EvaluateRPNExpression(const std::string &rpn, std::map<std::string, RPNVariable> &variableMap, Workflow::TypeEnum::Type &valueType, std::string &value)
 		{
-         if (rpn.empty())
-         {
-            //throw std::invalid_argument("rpn is null or empty");
-            return false;
-         }
+			if (rpn.empty())
+			{
+				//throw std::invalid_argument("rpn is null or empty");
+				return false;
+			}
 
-         std::map<std::string, RPNVariable>::iterator map_it;
+			std::map<std::string, RPNVariable>::iterator map_it;
 
-         for (map_it = variableMap.begin(); map_it != variableMap.end(); ++map_it)
-         {
+			for (map_it = variableMap.begin(); map_it != variableMap.end(); ++map_it)
+			{
 
-            if (SupportedTypes.find(map_it->second.VarType) == SupportedTypes.end())
-            {
-               //std::stringstream msg;
-               //msg << "Type " << TypeName(variable.second.VarType) << " is not supported for variable " << variable.first;
-               //throw std::invalid_argument(msg.str());
-               return false;
-            }
-         }
+				if (SupportedTypes.find(map_it->second.VarType) == SupportedTypes.end())
+				{
+					//std::stringstream msg;
+					//msg << "Type " << TypeName(variable.second.VarType) << " is not supported for variable " << variable.first;
+					//throw std::invalid_argument(msg.str());
+					return false;
+				}
+			}
 
 			// split the string by spaces
 			std::istringstream rpnStrstr(rpn);
@@ -82,17 +82,17 @@ namespace Bct
 			// we don't need this, but ClassifyToken takes it
 			std::list<std::string> variables;
 
-         std::list<std::string>::iterator it;
-         for (it = baseTokens.begin(); it != baseTokens.end(); ++it)
-         {
-            Token token;
-            token.Tok = *it;
-            if (!ClassifyToken(token, variableMap, variables))
-            {
-               return false;
-            }
-            rpnQueue.push(token);
-         }
+			std::list<std::string>::iterator it;
+			for (it = baseTokens.begin(); it != baseTokens.end(); ++it)
+			{
+				Token token;
+				token.Tok = *it;
+				if (!ClassifyToken(token, variableMap, variables))
+				{
+					return false;
+				}
+				rpnQueue.push(token);
+			}
 
 			// process the tokens - all we should have at this point are values and functions/operators
 			std::stack<Token> workStack;
@@ -141,18 +141,18 @@ namespace Bct
 						// do any type conversions, don't normalize for variable map functions
 						if (FuncOpers[token.Tok].RequiredType != Workflow::TypeEnum::VariableType)
 						{
-                     if (!NormalizeTypes(argList, FuncOpers[token.Tok].RequiredType))
-                     {
-                        return false;
-                     }
+							if (!NormalizeTypes(argList, FuncOpers[token.Tok].RequiredType))
+							{
+								return false;
+							}
 						}
 
 						// do the function/operation
-                  Token rtnTok;
-                  if (!DoOp(token.Tok, argList, variableMap, rtnTok))
-                  {
-                     return false;
-                  }
+						Token rtnTok;
+						if (!DoOp(token.Tok, argList, variableMap, rtnTok))
+						{
+							return false;
+						}
 
 						// push the result on the stack
 						workStack.push(rtnTok);
@@ -162,16 +162,16 @@ namespace Bct
 						//std::stringstream msg;
 						//msg << "Unknown function or operator " << token.Tok << " on workQueue";
 						//throw std::invalid_argument(msg.str());
-                  return false;
-               }
+						return false;
+					}
 				}
 				else
 				{
 					//std::stringstream msg;
 					//msg << "Unknown token class " << token.TokClass << " on workQueue";
 					//throw std::invalid_argument(msg.str());
-               return false;
-            }
+					return false;
+				}
 			}
 
 			// grab the top of the stack for output
@@ -179,327 +179,392 @@ namespace Bct
 			valueType = result.TokType;
 			value = result.TokValue;
 
-         return true;
-      }
+			return true;
+		}
 
 		///
 		/// Execute the function/operator
 		///
-      bool RPNEvaluator::DoOp(std::string op, std::vector<Token> argList, std::map<std::string, RPNVariable> &variableMap, Token &rtnTok)
-		{
-			Workflow::TypeEnum::Type argType;
-			if (argList.size() > 0)
-			{
-				argType = argList.front().TokType;
-			}
-			else
-			{
-				argType = Workflow::TypeEnum::DoubleType;
-			}
+	  bool RPNEvaluator::DoOp(std::string op, std::vector<Token> argList, std::map<std::string, RPNVariable> &variableMap, Token &rtnTok)
+	  {
+		  Workflow::TypeEnum::Type argType;
+		  if (argList.size() > 0)
+		  {
+			  argType = argList.front().TokType;
+		  }
+		  else
+		  {
+			  argType = Workflow::TypeEnum::DoubleType;
+		  }
+		  if (op == "true")
+		  {
+			  bool result = true;
+			  //std::string resultStr = result ? "true" : "false";
+			  rtnTok.Tok = op;
+			  rtnTok.TokType = Workflow::TypeEnum::BoolType;
+			  rtnTok.TokClass = value_t;
+			  rtnTok.TokValue = op;
+			  return true;
+		  }
+		  else if (op == "false")
+		  {
+			  bool result = false;
+			  //std::string resultStr = result ? "true" : "false";
+			  rtnTok.Tok = op;
+			  rtnTok.TokType = Workflow::TypeEnum::BoolType;
+			  rtnTok.TokClass = value_t;
+			  rtnTok.TokValue = op;
+			  return true;
+		  }
+		  else if (op == "$If")
+		  {
+			  if (argList[2].TokValue == "true")
+			  {
+				  rtnTok.Tok = argList[1].Tok; //result 1
+				  rtnTok.TokType = argList[1].TokType;
+				  rtnTok.TokClass = value_t;
+				  rtnTok.TokValue = argList[1].TokValue;
+				  return true;
 
-			if (FuncOpers[op].ReturnType == Workflow::TypeEnum::BoolType)
-			{
-				// functions on the variable list
-				if (FuncOpers[op].RequiredType == Workflow::TypeEnum::VariableType)
-				{
-               bool result;
-               if (!DoOpBoolVar(op, argList, variableMap, result))
-               {
-                  return false;
-               }
-               std::string resultStr = result ? "true" : "false";
-               rtnTok.Tok = resultStr.c_str();
-               rtnTok.TokType = Workflow::TypeEnum::BoolType;
-               rtnTok.TokClass = value_t;
-               rtnTok.TokValue = resultStr.c_str();
-               return true;
-				}
-				// the compiler will upconvert for us
-				else if (argType == Workflow::TypeEnum::Int32Type || argType == Workflow::TypeEnum::Int64Type)
-				{
-					// Int boolean operators need 2 args
-					if (argList.size() > 1)
-					{
-                  int64_t rhs = to_int64(argList[0].TokValue.c_str());
-                  int64_t lhs = to_int64(argList[1].TokValue.c_str());
-                  bool result;
-                  if (!DoOpBoolNum(op, lhs, rhs, result))
-                  {
-                     return false;
-                  }
-                  std::string resultStr = result ? "true" : "false";
+			  }
+			  else if (argList[2].TokValue == "false")
+			  {
+				  rtnTok.Tok = argList[0].Tok; //result 2
+				  rtnTok.TokType = argList[0].TokType;
+				  rtnTok.TokClass = value_t;
+				  rtnTok.TokValue = argList[0].TokValue;
+				  return true;
+			  }
+			  else
+			  {
+				  return false;
+			  }
+		  }
+		  else if (FuncOpers[op].RequiredType == Workflow::TypeEnum::VariableType)
+		  {
+			  if (FuncOpers[op].Name == "$GetState")
+			  {
+				  std::string result;
+				  if (!DoOpVar(op, argList, variableMap, result))
+				  {
+					  return false;
+				  }
+				  std::stringstream ss;
+				  ss << result;
+				  std::string resultStr = ss.str();
 
-                  rtnTok.Tok = resultStr.c_str();
-                  rtnTok.TokType = Workflow::TypeEnum::BoolType;
-                  rtnTok.TokClass = value_t;
-                  rtnTok.TokValue = resultStr.c_str();
-                  return true;
-					}
-					else
-					{
-						//std::stringstream msg;
-						//msg << "Incorrect number of arguments for " << op;
-						//throw std::invalid_argument(msg.str());
-                  return false;
-               }
-				}
-				// the compiler will upconvert for us
-				else if (argType == Workflow::TypeEnum::UInt32Type || argType == Workflow::TypeEnum::UInt64Type)
-				{
-					// Int boolean operators need 2 args
-					if (argList.size() > 1)
-					{
-                  uint64_t rhs = to_uint64(argList[0].TokValue.c_str());
-                  uint64_t lhs = to_uint64(argList[1].TokValue.c_str());
-                  bool result;
-                  if (!DoOpBoolNum(op, lhs, rhs, result))
-                  {
-                     return false;
-                  }
-                  std::string resultStr = result ? "true" : "false";
+				  rtnTok.Tok = resultStr;
+				  rtnTok.TokType = Workflow::TypeEnum::VariableType;
+				  rtnTok.TokClass = value_t;
+				  rtnTok.TokValue = resultStr;
+				  return true;
+			  }
+			  else
+			  {
+				  bool result;
+				  if (!DoOpBoolVar(op, argList, variableMap, result))
+				  {
+					  return false;
+				  }
+				  std::string resultStr = result ? "true" : "false";
+				  rtnTok.Tok = resultStr.c_str();
+				  rtnTok.TokType = Workflow::TypeEnum::BoolType;
+				  rtnTok.TokClass = value_t;
+				  rtnTok.TokValue = resultStr.c_str();
+				  return true;
+			  }
+		  }
+		  else if (FuncOpers[op].ReturnType == Workflow::TypeEnum::BoolType)
+		  {
+			  // the compiler will upconvert for us
+			  if (argType == Workflow::TypeEnum::Int32Type || argType == Workflow::TypeEnum::Int64Type)
+			  {
+				  // Int boolean operators need 2 args
+				  if (argList.size() > 1)
+				  {
+					  std::vector<int64_t> argVect;
+					  std::vector<Token>::iterator argList_it;
+					  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+					  {
+						  int64_t tmp = to_int64(argList_it->TokValue.c_str());
+						  argVect.push_back(tmp);
+					  }
+					  bool result;
+					  if (!DoOpBoolNum(op, argVect, result))
+					  {
+						  return false;
+					  }
+					  std::string resultStr = result ? "true" : "false";
 
-                  rtnTok.Tok = resultStr.c_str();
-                  rtnTok.TokType = Workflow::TypeEnum::BoolType;
-                  rtnTok.TokClass = value_t;
-                  rtnTok.TokValue = resultStr.c_str();
-                  return true;
-					}
-					else
-					{
-						//std::stringstream msg;
-						//msg << "Incorrect number of arguments for " << op;
-						//throw std::invalid_argument(msg.str());
-                  return false;
-               }
-				}
-				else if (argType == Workflow::TypeEnum::DoubleType)
-				{
-					// Int boolean operators need 2 args
-					if (argList.size() > 1)
-					{
-                  double rhs = to_double(argList[0].TokValue.c_str());
-                  double lhs = to_double(argList[1].TokValue.c_str());
-                  bool result;
-                  if (!DoOpBoolNum(op, lhs, rhs, result))
-                  {
-                     return false;
-                  }
-                  std::string resultStr = result ? "true" : "false";
+					  rtnTok.Tok = resultStr.c_str();
+					  rtnTok.TokType = Workflow::TypeEnum::BoolType;
+					  rtnTok.TokClass = value_t;
+					  rtnTok.TokValue = resultStr.c_str();
+					  return true;
+				  }
+				  else
+				  {
+					  //std::stringstream msg;
+					  //msg << "Incorrect number of arguments for " << op;
+					  //throw std::invalid_argument(msg.str());
+					  return false;
+				  }
+			  }
+			  // the compiler will upconvert for us
+			  else if (argType == Workflow::TypeEnum::UInt32Type || argType == Workflow::TypeEnum::UInt64Type)
+			  {
+				  // Int boolean operators need 2 args
+				  if (argList.size() > 1)
+				  {
+					  std::vector<uint64_t> argVect;
+					  std::vector<Token>::iterator argList_it;
+					  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+					  {
+						  uint64_t tmp = to_int64(argList_it->TokValue.c_str());
+						  argVect.push_back(tmp);
+					  }
+					  bool result;
+					  if (!DoOpBoolNum(op, argVect, result))
+					  {
+						  return false;
+					  }
+					  std::string resultStr = result ? "true" : "false";
 
-                  rtnTok.Tok = resultStr.c_str();
-                  rtnTok.TokType = Workflow::TypeEnum::BoolType;
-                  rtnTok.TokClass = value_t;
-                  rtnTok.TokValue = resultStr.c_str();
-                  return true;
-					}
-					else
-					{
-						//std::stringstream msg;
-						//msg << "Incorrect number of arguments for " << op;
-						//throw std::invalid_argument(msg.str());
-                  return false;
-               }
-				}
-				else if (argType == Workflow::TypeEnum::BoolType)
-				{
-					// Int boolean operators need 2 args
-					if (argList.size() > 1)
-					{
-                  bool rhs = to_bool(argList[0].TokValue.c_str());
-                  bool lhs = to_bool(argList[1].TokValue.c_str());
-                  bool result;
-                  if (!DoOpBool(op, lhs, rhs, result))
-                  {
-                     return false;
-                  }
-                  std::string resultStr = result ? "true" : "false";
+					  rtnTok.Tok = resultStr.c_str();
+					  rtnTok.TokType = Workflow::TypeEnum::BoolType;
+					  rtnTok.TokClass = value_t;
+					  rtnTok.TokValue = resultStr.c_str();
+					  return true;
+				  }
+				  else
+				  {
+					  //std::stringstream msg;
+					  //msg << "Incorrect number of arguments for " << op;
+					  //throw std::invalid_argument(msg.str());
+					  return false;
+				  }
+			  }
+			  else if (argType == Workflow::TypeEnum::DoubleType)
+			  {
+				  // Int boolean operators need 2 args
+				  if (argList.size() > 1)
+				  {
+					  std::vector<double> argVect;
+					  std::vector<Token>::iterator argList_it;
+					  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+					  {
+						  double tmp = to_double(argList_it->TokValue.c_str());
+						  argVect.push_back(tmp);
+					  }
+					  bool result;
+					  if (!DoOpBoolNum(op, argVect, result))
+					  {
+						  return false;
+					  }
+					  std::string resultStr = result ? "true" : "false";
 
-                  rtnTok.Tok = resultStr.c_str();
-                  rtnTok.TokType = Workflow::TypeEnum::BoolType;
-                  rtnTok.TokClass = value_t;
-                  rtnTok.TokValue = resultStr.c_str();
-                  return true;
-					}
-					else
-					{
-                  bool rhs = false;
-                  bool lhs = to_bool(argList[0].TokValue.c_str());
-                  bool result;
-                  if (!DoOpBool(op, lhs, rhs, result))
-                  {
-                     return false;
-                  }
-                  std::string resultStr = result ? "true" : "false";
+					  rtnTok.Tok = resultStr.c_str();
+					  rtnTok.TokType = Workflow::TypeEnum::BoolType;
+					  rtnTok.TokClass = value_t;
+					  rtnTok.TokValue = resultStr.c_str();
+					  return true;
+				  }
+				  else
+				  {
+					  //std::stringstream msg;
+					  //msg << "Incorrect number of arguments for " << op;
+					  //throw std::invalid_argument(msg.str());
+					  return false;
+				  }
+			  }
+			  else if (argType == Workflow::TypeEnum::BoolType)
+			  {
+				  std::vector<bool> argVect;
+				  std::vector<Token>::iterator argList_it;
+				  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+				  {
+					  bool tmp = false;
+					  if (argList_it->TokValue == "true")
+					  {
+						  tmp = true;
+					  }
+					  argVect.push_back(tmp);
+				  }
+				  bool result;
+				  if (!DoOpBool(op, argVect, result))
+				  {
+					  return false;
+				  }
+				  std::string resultStr = result ? "true" : "false";
 
-                  rtnTok.Tok = resultStr.c_str();
-                  rtnTok.TokType = Workflow::TypeEnum::BoolType;
-                  rtnTok.TokClass = value_t;
-                  rtnTok.TokValue = resultStr.c_str();
-                  return true;
-					}
-				}
-			}
-			else if (argType == Workflow::TypeEnum::Int32Type)
-			{
-            std::vector<int32_t> argVect;
-            std::vector<Token>::iterator argList_it;
-            for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
-            {
-               int32_t tmp = to_int32(argList_it->TokValue.c_str());
-               argVect.push_back(tmp);
-            }
+				  rtnTok.Tok = resultStr.c_str();
+				  rtnTok.TokType = Workflow::TypeEnum::BoolType;
+				  rtnTok.TokClass = value_t;
+				  rtnTok.TokValue = resultStr.c_str();
+				  return true;
+			  }
+		  }
+		  else if (argType == Workflow::TypeEnum::Int32Type)
+		  {
+			  std::vector<int32_t> argVect;
+			  std::vector<Token>::iterator argList_it;
+			  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+			  {
+				  int32_t tmp = to_int32(argList_it->TokValue.c_str());
+				  argVect.push_back(tmp);
+			  }
 
-            int32_t result;
-            if (!DoOpInt(op, argVect, result))
-            {
-               return false;
-            }
+			  int32_t result;
+			  if (!DoOpInt(op, argVect, result))
+			  {
+				  return false;
+			  }
 
-            std::stringstream ss;
-            ss << result;
-            std::string result_str = ss.str();
+			  std::stringstream ss;
+			  ss << result;
+			  std::string result_str = ss.str();
 
-            rtnTok.Tok = result_str;
-            rtnTok.TokType = argType;
-            rtnTok.TokClass = value_t;
-            rtnTok.TokValue = result_str;
-            return true;
-			}
-			else if (argType == Workflow::TypeEnum::UInt32Type)
-			{
-            std::vector<uint32_t> argVect;
-            std::vector<Token>::iterator argList_it;
-            for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
-            {
-               uint32_t tmp = to_uint32(argList_it->TokValue.c_str());
-               argVect.push_back(tmp);
-            }
+			  rtnTok.Tok = result_str;
+			  rtnTok.TokType = argType;
+			  rtnTok.TokClass = value_t;
+			  rtnTok.TokValue = result_str;
+			  return true;
+		  }
+		  else if (argType == Workflow::TypeEnum::UInt32Type)
+		  {
+			  std::vector<uint32_t> argVect;
+			  std::vector<Token>::iterator argList_it;
+			  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+			  {
+				  uint32_t tmp = to_uint32(argList_it->TokValue.c_str());
+				  argVect.push_back(tmp);
+			  }
 
-            uint32_t result;
-            if (!DoOpInt(op, argVect, result))
-            {
-               return false;
-            }
-            std::stringstream ss;
-            ss << result;
-            std::string result_str = ss.str();
+			  uint32_t result;
+			  if (!DoOpInt(op, argVect, result))
+			  {
+				  return false;
+			  }
+			  std::stringstream ss;
+			  ss << result;
+			  std::string result_str = ss.str();
 
-            rtnTok.Tok = result_str;
-            rtnTok.TokType = argType;
-            rtnTok.TokClass = value_t;
-            rtnTok.TokValue = result_str;
-            return true;
-         }
-			else if (argType == Workflow::TypeEnum::Int64Type)
-			{
-            std::vector<int64_t> argVect;
-            std::vector<Token>::iterator argList_it;
-            for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
-            {
-               int64_t tmp = to_int64(argList_it->TokValue.c_str());
-               argVect.push_back(tmp);
-            }
+			  rtnTok.Tok = result_str;
+			  rtnTok.TokType = argType;
+			  rtnTok.TokClass = value_t;
+			  rtnTok.TokValue = result_str;
+			  return true;
+		  }
+		  else if (argType == Workflow::TypeEnum::Int64Type)
+		  {
+			  std::vector<int64_t> argVect;
+			  std::vector<Token>::iterator argList_it;
+			  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+			  {
+				  int64_t tmp = to_int64(argList_it->TokValue.c_str());
+				  argVect.push_back(tmp);
+			  }
 
-            int64_t result;
-            if (!DoOpInt(op, argVect, result))
-            {
-               return false;
-            }
-            std::stringstream ss;
-            ss << result;
-            std::string result_str = ss.str();
+			  int64_t result;
+			  if (!DoOpInt(op, argVect, result))
+			  {
+				  return false;
+			  }
+			  std::stringstream ss;
+			  ss << result;
+			  std::string result_str = ss.str();
 
-            rtnTok.Tok = result_str;
-            rtnTok.TokType = argType;
-            rtnTok.TokClass = value_t;
-            rtnTok.TokValue = result_str;
-            return true;
-         }
-			else if (argType == Workflow::TypeEnum::UInt64Type)
-			{
-            std::vector<uint64_t> argVect;
-            std::vector<Token>::iterator argList_it;
-            for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
-            {
-               uint64_t tmp = to_uint64(argList_it->TokValue.c_str());
-               argVect.push_back(tmp);
-            }
+			  rtnTok.Tok = result_str;
+			  rtnTok.TokType = argType;
+			  rtnTok.TokClass = value_t;
+			  rtnTok.TokValue = result_str;
+			  return true;
+		  }
+		  else if (argType == Workflow::TypeEnum::UInt64Type)
+		  {
+			  std::vector<uint64_t> argVect;
+			  std::vector<Token>::iterator argList_it;
+			  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+			  {
+				  uint64_t tmp = to_uint64(argList_it->TokValue.c_str());
+				  argVect.push_back(tmp);
+			  }
 
-            uint64_t result;
-            if (!DoOpInt(op, argVect, result))
-            {
-               return false;
-            }
-            std::stringstream ss;
-            ss << result;
-            std::string result_str = ss.str();
+			  uint64_t result;
+			  if (!DoOpInt(op, argVect, result))
+			  {
+				  return false;
+			  }
+			  std::stringstream ss;
+			  ss << result;
+			  std::string result_str = ss.str();
 
-            rtnTok.Tok = result_str;
-            rtnTok.TokType = argType;
-            rtnTok.TokClass = value_t;
-            rtnTok.TokValue = result_str;
-            return true;
-         }
-			else if (argType == Workflow::TypeEnum::DoubleType)
-			{
-            std::vector<double> argVect;
+			  rtnTok.Tok = result_str;
+			  rtnTok.TokType = argType;
+			  rtnTok.TokClass = value_t;
+			  rtnTok.TokValue = result_str;
+			  return true;
+		  }
+		  else if (argType == Workflow::TypeEnum::DoubleType)
+		  {
+			  std::vector<double> argVect;
 
-            std::vector<Token>::iterator argList_it;
-            for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
-            {
-               double tmp = to_double(argList_it->TokValue.c_str());
-               argVect.push_back(tmp);
-            }
+			  std::vector<Token>::iterator argList_it;
+			  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+			  {
+				  double tmp = to_double(argList_it->TokValue.c_str());
+				  argVect.push_back(tmp);
+			  }
 
-            double result;
-            if (!DoOpDbl(op, argVect, result))
-            {
-               return false;
-            }
-            std::ostringstream ss;
-            ss << std::setprecision(10) << std::fixed << result;
-            std::string result_str = ss.str();
+			  double result;
+			  if (!DoOpDbl(op, argVect, result))
+			  {
+				  return false;
+			  }
+			  std::ostringstream ss;
+			  ss << std::setprecision(10) << std::fixed << result;
+			  std::string result_str = ss.str();
 
-            rtnTok.Tok = result_str;
-            rtnTok.TokType = argType;
-            rtnTok.TokClass = value_t;
-            rtnTok.TokValue = result_str;
-            return true;
-			}
-			else if (argType == Workflow::TypeEnum::StringType)
-			{
-            std::vector<std::string> argVect;
+			  rtnTok.Tok = result_str;
+			  rtnTok.TokType = argType;
+			  rtnTok.TokClass = value_t;
+			  rtnTok.TokValue = result_str;
+			  return true;
+		  }
+		  else if (argType == Workflow::TypeEnum::StringType)
+		  {
+			  std::vector<std::string> argVect;
 
-            std::vector<Token>::iterator argList_it;
-            for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
-            {
-               argVect.push_back(argList_it->TokValue);
-            }
+			  std::vector<Token>::iterator argList_it;
+			  for (argList_it = argList.begin(); argList_it != argList.end(); ++argList_it)
+			  {
+				  argVect.push_back(argList_it->TokValue);
+			  }
 
-            std::string result;
-            if (!DoOpStr(op, argVect, result))
-            {
-               return false;
-            }
+			  std::string result;
+			  if (!DoOpStr(op, argVect, result))
+			  {
+				  return false;
+			  }
 
-            rtnTok.Tok = result.c_str();
-            rtnTok.TokType = argType;
-            rtnTok.TokClass = value_t;
-            rtnTok.TokValue = result.c_str();
-            return true;
-         }
-			else
-			{
-				//throw std::invalid_argument("Invalid data type");
-            return false;
-         }
+			  rtnTok.Tok = result.c_str();
+			  rtnTok.TokType = argType;
+			  rtnTok.TokClass = value_t;
+			  rtnTok.TokValue = result.c_str();
+			  return true;
+		  }
+		  else
+		  {
+			  //throw std::invalid_argument("Invalid data type");
+			  return false;
+		  }
 
-         rtnTok.Tok = "";
-         rtnTok.TokType = Workflow::TypeEnum::EmptyType;
-         rtnTok.TokClass = value_t;
-         rtnTok.TokValue = "";
-         return false;
-		}
+		  rtnTok.Tok = "";
+		  rtnTok.TokType = Workflow::TypeEnum::EmptyType;
+		  rtnTok.TokClass = value_t;
+		  rtnTok.TokValue = "";
+		  return false;
+	  }
 
 		///
 	   /// Operations with boolean return that take do operations on the variable list, like IsSet, etc
@@ -520,12 +585,38 @@ namespace Bct
             Token tok = argList[0];
             rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Set == variableMap[tok.Tok].VarState);
          }
-         else if (op == "$SetState")
-         {
-            Token tok = argList[0];
-            variableMap[tok.Tok].VarState = Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Set;
-            rtn = true;
-         }
+		 else if (op == "$IsComputed")
+		 {
+			 Token tok = argList[0];
+			 rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Computed == variableMap[tok.Tok].VarState);
+		 }
+		 else if (op == "$IsDefault")
+		 {
+			 Token tok = argList[0];
+			 rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Default == variableMap[tok.Tok].VarState);
+		 }
+		 else if (op == "$IsConstant")
+		 {
+			 Token tok = argList[0];
+			 rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Constant == variableMap[tok.Tok].VarState);
+		 }
+		 else if (op == "$IsNull")
+		 {
+			 Token tok = argList[0];
+			 rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::NotSet == variableMap[tok.Tok].VarState);
+		 }
+		 else if (op == "$HasValue")
+		 {
+			 Token tok = argList[0];
+			 rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Set == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Computed == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Default == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Constant == variableMap[tok.Tok].VarState);
+		 }
+		 else if (op == "$SetState")
+		 {
+			 Token state = argList[0];
+			 Token tok = argList[1];
+			 variableMap[tok.Tok].VarState = variableMap[state.Tok].VarState;
+			 rtn = true;
+		 }
          else if (op == "$EnteredLater")
          {
             if (argList.size() == 2)
@@ -540,6 +631,7 @@ namespace Bct
                   rtn = false;
                }
             }
+			//else if (op == "$")
             else
             {
                //throw std::invalid_argument("Incorrect number of arguments");
@@ -554,13 +646,35 @@ namespace Bct
 
          return true;
       }
-      
+	  bool RPNEvaluator::DoOpVar(std::string op, std::vector<Token> argList, std::map<std::string, RPNVariable> &variableMap, std::string &rtn)
+	  {
+		  if (op == "$GetState")
+		  {
+			  Token tok = argList[0];
+			  rtn = Bct::Workflow::Aggregates::FieldStateEnum::FieldStateString(variableMap[tok.Tok].VarState);
+		  }
+		  else
+		  {
+			  return false;
+		  }
+		  return true;
+	  }
 
 		///
 		/// Operations with boolean return that take bools
 		///
-      bool RPNEvaluator::DoOpBool(std::string op, bool lhs, bool rhs, bool &rtn)
+      bool RPNEvaluator::DoOpBool(std::string op, std::vector<bool> &args, bool &rtn)
       {
+		  bool lhs, rhs;
+		  if (args.size() > 1)
+		  {
+			  lhs = args[1];
+			  rhs = args[0];
+		  }
+		  else
+		  {
+			  lhs = args[0];
+		  }
          if (op == "!")
          {
             rtn = !lhs;
@@ -678,6 +792,21 @@ namespace Bct
             result = result / args.size();
             rtn = result;
          }
+		 else if (op == "$If")
+		 {
+			 if (bool(args[2]) == true)
+			 {
+				 rtn = args[1]; //result 1
+			 }
+			 else if (bool(args[2]) == false)
+			 {
+				 rtn = args[0]; //result 2
+			 }
+			 else
+			 {
+				 return false;
+			 }
+		 }
          else if (op == "*")
          {
             rtn = args[0] * args[1];

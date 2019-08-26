@@ -14,13 +14,13 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="BCT.RPNEvaluator.CPP">
-      <UniqueIdentifier>{baa09da1-19d3-42ce-9daa-10d744001743}</UniqueIdentifier>
+      <UniqueIdentifier>{fb2b3ef9-fa32-41cc-8ab4-e9ea71331b29}</UniqueIdentifier>
     </Filter>
     <Filter Include="BCT.RPNEvaluator.CPP\src">
-      <UniqueIdentifier>{e9673fca-de5c-44b3-92b2-4a07bb216dfa}</UniqueIdentifier>
+      <UniqueIdentifier>{e289be67-8c23-4666-acc9-7b0cd4202d38}</UniqueIdentifier>
     </Filter>
     <Filter Include="BCT.RPNEvaluator.CPP\include">
-      <UniqueIdentifier>{46a15eda-442a-4d76-9ef3-8aeb8ce14b3b}</UniqueIdentifier>
+      <UniqueIdentifier>{3e7acda7-032e-4efb-b3dc-78a770afa60f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +84,15 @@
     <ClInclude Include="include\FieldInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\FluentComputeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentAssessmentRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentVersionChangeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\TypeEnum.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
@@ -107,15 +116,6 @@
     </ClInclude>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FluentComputeRule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FluentAssessmentRule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FluentVersionChangeRule.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,15 +152,6 @@
     <ClCompile Include="src\FieldInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BCT.RPNEvaluator.CPP\src\Token.cpp">
-      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
-    </ClCompile>
-    <ClCompile Include="BCT.RPNEvaluator.CPP\src\RPNEvaluator.cpp">
-      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
-    </ClCompile>
-    <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp">
-      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
-    </ClCompile>
     <ClCompile Include="src\FluentComputeRule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -172,6 +163,15 @@
     </ClCompile>
     <ClCompile Include="src\FluentVersionChangeRule.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\Token.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\RPNEvaluator.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

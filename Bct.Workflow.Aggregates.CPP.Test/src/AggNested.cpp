@@ -65,7 +65,6 @@ namespace Bct
             intField2.Value(other.intField1.Value());
             aggField.operator=(other.aggField);
             aggFieldV2.operator=(other.aggFieldV2);
-            // TODO make copy semantics when enum is complete
             stringField.Value(other.stringField.Value());
             return *this;
          }

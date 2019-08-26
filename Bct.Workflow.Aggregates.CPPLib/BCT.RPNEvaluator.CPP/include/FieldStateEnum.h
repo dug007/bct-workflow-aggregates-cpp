@@ -63,8 +63,6 @@ namespace Bct
 					return "Unavailable";
 				}
 			}
-
-			
          }
       }
    }
