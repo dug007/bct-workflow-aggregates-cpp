@@ -160,12 +160,12 @@ namespace Bct
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
 
-               tm.addComputeRule("DoubleFieldCompute", 5, "1 1 ==", "1 3 +")
+               tm.addComputeRule("DoubleFieldCompute", 5, "true", "1 3 +")
                      .toVersion(1)
                      .toVersion(0)
                ;
 
-               tm.addAssessmentRule("ruleId1", "ruleStringId1", "1 1 ==", "1 1 +")
+               tm.addAssessmentRule("ruleId1", "ruleStringId1", "true", "1 1 +")
                      .toVersion(1)
                      .toVersion(0)
                ;
