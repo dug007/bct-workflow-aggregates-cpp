@@ -239,7 +239,7 @@ namespace Bct
             }
             // Simple computation rules
             {
-               ComputeRule cr1("yieldId1", 2, "true", "cellsPerMl volumeMl *"); // TODO make $True - User Story 126600
+               ComputeRule cr1("yieldId1", 2, "true", "cellsPerMl volumeMl *");
                aggMeta.computeRules.push_back(cr1);
             }
             {
