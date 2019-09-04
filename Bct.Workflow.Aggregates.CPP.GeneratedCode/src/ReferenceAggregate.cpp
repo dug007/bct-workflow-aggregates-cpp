@@ -1,5 +1,4 @@
 #include "ReferenceAggregate.h"
-
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
 
@@ -18,36 +17,49 @@ namespace Bct
 
          ReferenceAggregate::ReferenceAggregate(const std::string &version) :
             BaseAggregate(version),
-            boolField(0, this),
-            int32Field(1, this),
-            uint32Field(2, this),
-            int64Field(3, this),
-            uint64Field(4, this),
-            doubleField(5, this),
-            stringField(6, this),
+
+            boolField(0, this), 
+
+            int32Field(1, this), 
+
+            uint32Field(2, this), 
+
+            int64Field(3, this), 
+
+            uint64Field(4, this), 
+
+            doubleField(5, this), 
+
+            stringField(6, this), 
+
             enumField(7, "ReferenceEnum::Reference",
-               "0 1 2 4 8 16",
-               "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
-               this)
-         {
+            "0 1 2 4 8 16 ",
+            "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this)
+          {
             pushFields();
             syncVersion();
-         }
+          }
 
          ReferenceAggregate::ReferenceAggregate(int32_t fieldId, BaseAggregate * const parent) :
             BaseAggregate(fieldId, parent),
-            boolField(0, this),
-            int32Field(1, this),
-            uint32Field(2, this),
-            int64Field(3, this),
-            uint64Field(4, this),
-            doubleField(5, this),
-            stringField(6, this),
-            enumField(7, "ReferenceEnum::Reference",
-               "0 1 2 4 8 16",
-               "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
-               this)
 
+           boolField(0, this), 
+
+           int32Field(1, this), 
+
+           uint32Field(2, this), 
+
+           int64Field(3, this), 
+
+           uint64Field(4, this), 
+
+           doubleField(5, this), 
+
+           stringField(6, this), 
+
+           enumField(7, "ReferenceEnum::Reference",
+           "0 1 2 4 8 16 ",
+           "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this)
          {
             pushFields();
             syncVersion();
@@ -55,13 +67,13 @@ namespace Bct
 
          ReferenceAggregate::ReferenceAggregate(const ReferenceAggregate & other) :
             BaseAggregate(other),
-            boolField(other.boolField, this),
-            int32Field(other.int32Field, this),
-            uint32Field(other.uint32Field, this),
-            int64Field(other.int64Field, this),
-            uint64Field(other.uint64Field, this),
-            doubleField(other.doubleField, this),
-            stringField(other.stringField, this),
+            boolField(other.boolField, this), 
+            int32Field(other.int32Field, this), 
+            uint32Field(other.uint32Field, this), 
+            int64Field(other.int64Field, this), 
+            uint64Field(other.uint64Field, this), 
+            doubleField(other.doubleField, this), 
+            stringField(other.stringField, this), 
             enumField(other.enumField, this)
          {
             pushFields();
@@ -69,13 +81,13 @@ namespace Bct
 
          ReferenceAggregate::ReferenceAggregate(const ReferenceAggregate & other, BaseAggregate * const parent) :
             BaseAggregate(other, parent),
-            boolField(other.boolField, this),
-            int32Field(other.int32Field, this),
-            uint32Field(other.uint32Field, this),
-            int64Field(other.int64Field, this),
-            uint64Field(other.uint64Field, this),
-            doubleField(other.doubleField, this),
-            stringField(other.stringField, this),
+            boolField(other.boolField, this), 
+            int32Field(other.int32Field, this), 
+            uint32Field(other.uint32Field, this), 
+            int64Field(other.int64Field, this), 
+            uint64Field(other.uint64Field, this), 
+            doubleField(other.doubleField, this), 
+            stringField(other.stringField, this), 
             enumField(other.enumField, this)
          {
             pushFields();
@@ -127,33 +139,39 @@ namespace Bct
 
             if (!initialized)
             {
-               tm.addVersion("1.0.0");
-               tm.addVersion("1.1.0");
+               tm.addVersion("v1.0.0");
+               tm.addVersion("v1.1.0");
 
-               tm.addField(0, "boolField", Bct::Workflow::TypeEnum::BoolType);
-               tm.addField(1, "int32Field", Bct::Workflow::TypeEnum::Int32Type);
-               tm.addField(2, "uint32Field", Bct::Workflow::TypeEnum::UInt32Type);
-               tm.addField(3, "int64Field", Bct::Workflow::TypeEnum::Int64Type);
-               tm.addField(4, "uint64Field", Bct::Workflow::TypeEnum::UInt64Type);
-               tm.addField(5, "doubleField", Bct::Workflow::TypeEnum::DoubleType);
-               tm.addField(6, "stringField", Bct::Workflow::TypeEnum::StringType);
-               tm.addField(7, "enumField", Bct::Workflow::TypeEnum::Int32Type);
 
+               tm.addField(0, "boolField", TypeEnum::BoolType);
+               tm.addField(1, "int32Field", TypeEnum::Int32Type);
+               tm.addField(2, "uint32Field", TypeEnum::UInt32Type);
+               tm.addField(3, "int64Field", TypeEnum::Int64Type);
+               tm.addField(4, "uint64Field", TypeEnum::UInt64Type);
+               tm.addField(5, "doubleField", TypeEnum::DoubleType);
+               tm.addField(6, "stringField", TypeEnum::StringType);
+               tm.addField(7, "enumField", TypeEnum::Int32Type);
                tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
                tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-1");
                tm.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(3, FieldStateEnum::Default, "-1");
                tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "1");
-               tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1.0");
+               tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
 
+               tm.addComputeRule("DoubleFieldCompute", 5, "1 1 ==", "1 3 +")
+                     .toVersion(1)
+                     .toVersion(0)
+               ;
+
                tm.addAssessmentRule("ruleId1", "ruleStringId1", "1 1 ==", "1 1 +")
-                  .toVersion(0)  .toVersion(1);
+                     .toVersion(1)
+                     .toVersion(0)
+               ;
 
-               tm.addVersionChangeRule(5, 1, "doubleField 1 ==", "2") .toVersion(0);
-               tm.addVersionChangeRule(5, 0, "doubleField 1 ==", "3") .toVersion(1);
-
+               tm.addVersionChangeRule(5, 0, "doubleField 1 ==", "1 2 +") .toVersion(1);
+               tm.addVersionChangeRule(5, 1, "doubleField 1 ==", "1 1 +") .toVersion(0);
                initialized = true;
             }
 
@@ -162,3 +180,4 @@ namespace Bct
       };
    }
 }
+

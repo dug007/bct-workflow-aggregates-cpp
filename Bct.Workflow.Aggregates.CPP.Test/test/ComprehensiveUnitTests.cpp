@@ -98,7 +98,7 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
 //Tests Set Field Value - sets the current value for a field by using assignment.
 TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
 {
-   ReferenceAggregate a ("1.0.0");
+   ReferenceAggregate a ("v1.0.0");
    a.boolField = false; 
    CHECK(a.boolField.Value() == false); 
    a.int32Field = -2;
@@ -215,8 +215,8 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
    CHECK(a.stringField.Value() == "hello world");
    CHECK(a.stringField.State() == FieldStateEnum::Default);
    a.enumField.ComputedValueString("2");
-    CHECK(a.enumField.Value() == 2);
-    CHECK(a.enumField.State() == FieldStateEnum::Default);
+   CHECK(a.enumField.Value() == 2);
+   CHECK(a.enumField.State() == FieldStateEnum::Default);
 }
 
 //Tests boolfield Value - sets the bool value for a field by using function.

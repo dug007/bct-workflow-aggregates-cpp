@@ -10,7 +10,7 @@ TEST_CASE("ReferenceUnitTest", "[test]")
 { 
    ReferenceAggregate ref;
 
-   CHECK(ref.getVersion() == "1.1.0");
+   CHECK(ref.getVersion() == "v1.1.0");
 
    // EnumField tests
 
