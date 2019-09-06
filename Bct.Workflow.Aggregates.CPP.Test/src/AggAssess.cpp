@@ -9,7 +9,7 @@ namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          AggAssess::AggAssess(const std::string &version) :
             BaseAggregate(version),

@@ -9,7 +9,7 @@ namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          Sample1Aggregate::Sample1Aggregate(const std::string &version) :
             BaseAggregate(version),
@@ -274,7 +274,7 @@ namespace Bct
             }
 
             // Simple computation rules
-            ComputeRule cr1("Field1Id1", 0, "1 1 ==", "Field1 20.0 +");
+            ComputeRule cr1("Field1Id1", 0, "true", "Field1 20.0 +");
             ComputeRule cr2("Field7Id1", 1, "Field7x Field7d $EnteredLater", "Field7x");
             ComputeRule cr3("Field7Id2", 1, "Field7d Field7x $EnteredLater", "Field7d");
 
@@ -291,7 +291,7 @@ namespace Bct
             aggMeta.versionMetaData[1].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
             aggMeta.versionMetaData[2].computeRulesI.push_back((int16_t)aggMeta.computeRules.size() - 1);
 
-            aggMeta.addAssessmentRule("aRuleId", "aRuleStringId", "1 1 ==", "Field1 50.0 ==").toVersion(2);
+            aggMeta.addAssessmentRule("aRuleId", "aRuleStringId", "true", "Field1 50.0 ==").toVersion(2);
 
             s_initialized = true;
          };

@@ -7,7 +7,7 @@ namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
  
          PlateletConfigAggregate::PlateletConfigAggregate(const std::string &version) :

@@ -6,7 +6,7 @@ namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          PlateletTemplateAggregate::PlateletTemplateAggregate() :
             BaseAggregate(),
@@ -239,7 +239,7 @@ namespace Bct
             }
             // Simple computation rules
             {
-               ComputeRule cr1("yieldId1", 2, "1 1 ==", "cellsPerMl volumeMl *"); // TODO make $True - User Story 126600
+               ComputeRule cr1("yieldId1", 2, "true", "cellsPerMl volumeMl *");
                aggMeta.computeRules.push_back(cr1);
             }
             {

@@ -5,11 +5,13 @@
 #include "AssessMetaData.h"
 #include "AbstractAggregate.h"
 
+using namespace Bct::Workflow::Aggregates;
+
 namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          class AggAssess : public BaseAggregate
          {

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "AggregateMetaData.h"
-
+using namespace Bct::Workflow::Aggregates;
 
 namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          class AssessMetaData
          {

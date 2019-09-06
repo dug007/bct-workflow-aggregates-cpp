@@ -31,7 +31,7 @@ namespace Bct
             /// Boolean field
             /// </summary>
             BaseField<bool>                     boolField;
-                        /// <summary>
+            /// <summary>
             /// integer field
             /// </summary>
             BaseField<int32_t>                     int32Field;

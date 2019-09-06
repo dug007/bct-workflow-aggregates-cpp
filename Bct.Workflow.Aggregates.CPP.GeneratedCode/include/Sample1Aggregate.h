@@ -8,12 +8,13 @@
 #include "EnumField.h"
 #include "EnumFieldRo.h"
 
+using namespace Bct::Workflow::Aggregates;
 
 namespace Bct
 {
    namespace Workflow
    {
-      namespace Aggregates
+      namespace Implementation
       {
          class Sample1Aggregate : public BaseAggregate
          {
