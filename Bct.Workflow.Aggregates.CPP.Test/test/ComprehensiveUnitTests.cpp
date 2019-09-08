@@ -269,6 +269,7 @@ TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
    }
 }
 
+// Tests set field value shall throw and exception if the field is marked as computedOnly.
 TEST_CASE("ThrowsExceptionIfFieldComputeOnly", "[test]")
 {
    Sample1Aggregate a("1.2.0");
