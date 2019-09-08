@@ -269,6 +269,24 @@ TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
    }
 }
 
+TEST_CASE("ThrowsExceptionIfFieldComputeOnly", "[test]")
+{
+   Sample1Aggregate a("1.2.0");
+   CHECK(a.Field7com.State() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(a.Field7com = 3, NotAbleToSet);  // throws on assignment since it is compute only
+   try //Trying to set a computeOnly field
+   {
+      a.Field7com.Value(5);
+   }
+   catch (NotAbleToSet exc)
+   {
+      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7com fieldState=Computed";
+      std::string actual = exc.what();
+      CHECK(actual == expected);
+   }
+}
+
+
 //Set fet field value shall allow changing a field to “nullable” which will set the state to “not set”..
 TEST_CASE("NullableField", "[test]")
 {
