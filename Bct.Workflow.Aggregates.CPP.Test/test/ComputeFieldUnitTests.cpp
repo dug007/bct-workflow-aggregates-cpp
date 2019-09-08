@@ -141,7 +141,7 @@ public:
       metaData.addField(1, "field2", Bct::Workflow::TypeEnum::Int32Type);
       metaData.addField(2, "stringField", Bct::Workflow::TypeEnum::StringType);
 
-      metaData.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "0");
+      metaData.addFieldMetaToAllVersions(0, FieldStateEnum::Computed, "");
       metaData.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "21");
 
       metaData.addComputeRule("field1v0",   0,   "field2 21 ==",   "field2 1 +") .toVersion(0);

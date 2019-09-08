@@ -206,6 +206,11 @@ namespace Bct
                   ss >> std::boolalpha >> out;
                   setDefault(out);
                }
+               // If metatdata state is computed, initial value is not set
+               else if (state == FieldStateEnum::Computed)
+               {
+                  _state = FieldStateEnum::NotSet;
+               }
             }
 
             // AbstractField -------------------<

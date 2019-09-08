@@ -363,7 +363,7 @@ TEST_CASE("GetFieldStateVersion2", "[test]")
    CHECK(a.Field7c.State() == FieldStateEnum::Constant);
    CHECK(a.Field7d.State() == FieldStateEnum::Default);
    CHECK(a.Field7x.State() == FieldStateEnum::NotSet);
-   CHECK(a.Field7com.State() == FieldStateEnum::Computed);
+   CHECK(a.Field7com.State() == FieldStateEnum::NotSet);
    CHECK(a.FieldEnum.State() == FieldStateEnum::Default);
    CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
 }
