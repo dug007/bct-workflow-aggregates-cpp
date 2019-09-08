@@ -226,7 +226,7 @@ namespace Bct
             const bool &hasValue() const
             {
                // TODO handle Computed after field as been computed - User Story 126600
-               return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default);
+               return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default || _state==FieldStateEnum::Computed);
             }
 
             /// <summary>
@@ -307,8 +307,20 @@ namespace Bct
                   }
                }
 
-               _val = v;
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
+               switch (metaState)
+               {
+                  case FieldStateEnum::Computed:
+                  {
+                     if (!fromCalculation)
+                     {
+                        std::string aggName = typeid(*_aggregate).name();
+                        throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
+                     }
+                  }
+               }
+
+               _val = v;
                _fieldSetCounter = _aggregate->FieldSetCounter();
                if (metaState == FieldStateEnum::Default)
                {
