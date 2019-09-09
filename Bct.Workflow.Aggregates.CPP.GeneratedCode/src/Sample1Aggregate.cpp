@@ -3,6 +3,8 @@
 
 #include "Sample1Aggregate.h"
 #include "AbstractAggregate.h"
+#include "StringField.h"
+
 
 
 namespace Bct
@@ -25,7 +27,9 @@ namespace Bct
                "Unavailable NotSet Set Constant Default Computed", this),
             FieldEnumRo(8, "FieldStateEnum::FieldState",
                "0 1 2 3 4 5 6",
-               "Unavailable NotSet Set Constant Default Computed", this)
+               "Unavailable NotSet Set Constant Default Computed", this),
+            FieldString(9, this),
+            FieldStringro(10, this)
 
          {
 
@@ -38,6 +42,7 @@ namespace Bct
             FieldList().push_back(&Field7x);
             FieldList().push_back(&FieldEnum);
             FieldList().push_back(&FieldEnumRo);
+            FieldList().push_back(&FieldString);
             if (!s_initialized)
             {
                bindMetaData();
@@ -60,7 +65,9 @@ namespace Bct
                "Unavailable NotSet Set Constant Default Computed", this),
             FieldEnumRo(8, "FieldStateEnum::FieldState",
                "0 1 2 3 4 5 6",
-               "Unavailable NotSet Set Constant Default Computed", this)
+               "Unavailable NotSet Set Constant Default Computed", this),
+            FieldString(9, this),
+            FieldStringro(10, this)
          {
 
             FieldList().push_back(&Field1);
@@ -72,6 +79,8 @@ namespace Bct
             FieldList().push_back(&Field7x);
             FieldList().push_back(&FieldEnum);
             FieldList().push_back(&FieldEnumRo);
+            FieldList().push_back(&FieldString);
+            FieldList().push_back(&FieldStringro);
             if (!s_initialized)
             {
                bindMetaData();
@@ -221,6 +230,32 @@ namespace Bct
                "0"
             };
 
+            FieldStateEnum::FieldState _FieldStringstates[3] =
+            {
+               FieldStateEnum::Default,
+               FieldStateEnum::Default,
+               FieldStateEnum::Default
+            };
+
+            std::string _FieldStringdefaults[3] =
+            {
+               "hi",
+               "there",
+               "sam"
+            };
+            FieldStateEnum::FieldState _FieldStringrostates[3] =
+            {
+               FieldStateEnum::Default,
+               FieldStateEnum::Default,
+               FieldStateEnum::Default
+            };
+
+            std::string _FieldStringrodefaults[3] =
+            {
+               "hiro",
+               "therero",
+               "samro"
+            };
 
 
             for (uint16_t i = 0; i <std::size(vers); i++)
@@ -239,6 +274,8 @@ namespace Bct
             aggMeta.addField(6, "Field7x", Bct::Workflow::TypeEnum::Int32Type);
             aggMeta.addField(7, "FieldEnum", Bct::Workflow::TypeEnum::Int32Type);
             aggMeta.addField(8, "FieldEnumRo", Bct::Workflow::TypeEnum::Int32Type);
+            aggMeta.addField(9, "FieldString", Bct::Workflow::TypeEnum::StringType);
+            aggMeta.addField(10, "FieldStringro", Bct::Workflow::TypeEnum::StringType);
 
             for (uint16_t i = 0; i < std::size(vers); i++)
             {
@@ -251,6 +288,8 @@ namespace Bct
                FieldMeta Field7x_(6, _Field7xstates[i], _Field7xdefaults[i], i);
                FieldMeta FieldEnum_(7, _FieldEnumstates[i], _FieldEnumdefaults[i], i);
                FieldMeta FieldEnumRo_(8, _FieldEnumRostates[i], _FieldEnumRodefaults[i], i);
+               FieldMeta FieldString_(9, _FieldStringstates[i], _FieldStringdefaults[i], i);
+               FieldMeta FieldStringro_(10, _FieldStringrostates[i], _FieldStringrodefaults[i], i);
 
 
                aggMeta.fieldMetaData.push_back(Field1_);
@@ -270,6 +309,10 @@ namespace Bct
                aggMeta.fieldMetaData.push_back(FieldEnum_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(FieldEnumRo_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
+               aggMeta.fieldMetaData.push_back(FieldString_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
+               aggMeta.fieldMetaData.push_back(FieldStringro_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
             }
 

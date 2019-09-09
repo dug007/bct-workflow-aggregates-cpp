@@ -7,6 +7,8 @@
 #include "AbstractField.h"
 #include "EnumField.h"
 #include "EnumFieldRo.h"
+#include "StringField.h"
+#include "StringFieldRo.h"
 
 using namespace Bct::Workflow::Aggregates;
 
@@ -34,6 +36,8 @@ namespace Bct
             BaseField<int32_t>   Field7x;     // extra field for tests
             EnumField<int32_t, FieldStateEnum::FieldState> FieldEnum;
             EnumFieldRo<FieldStateEnum::FieldState, int32_t, FieldStateEnum::FieldState> FieldEnumRo;
+            StringField FieldString;
+            StringFieldRo FieldStringro;
 
             Sample1Aggregate();
             Sample1Aggregate(const std::string &version);

@@ -1,0 +1,48 @@
+#pragma once
+
+#include "StringField.h"
+
+namespace Bct
+{
+   namespace Workflow
+   {
+      namespace Aggregates
+      {
+         /// <summary>
+         /// Class for read-only string fields.
+         /// </summary>
+         class StringFieldRo : public StringField
+         {
+         private:
+            using StringField::Value; // hide value set/get
+         public:
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="fieldId">Id of this field.</param>
+            /// <param name="aggregate">The associated aggregate this field is a member of.</param>
+            StringFieldRo(int32_t fieldId, AbstractAggregate * const aggregate);
+
+            /// <summary>
+            /// Constructor for copying but not copy constructor.
+            /// </summary>
+            /// <param name="other">The object being copied.</param>
+            /// <param name="aggregate">The associated aggregate this field is a member of.</param>
+            StringFieldRo(const StringFieldRo &other, AbstractAggregate * const aggregate);
+
+            /// <summary>
+            /// Destructor.
+            /// </summary>
+            virtual ~StringFieldRo();
+
+            /// <summary>
+            /// Gets the read-only value.
+            /// </summary>
+            /// <returns>Value.</returns>
+            const std::string Value();
+         };
+      }
+   }
+}
+
+
