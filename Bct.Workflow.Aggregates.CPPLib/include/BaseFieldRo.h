@@ -40,7 +40,11 @@ namespace Bct
             virtual ~BaseFieldRo()
             {
             }
-            
+
+            /// <summary>
+            /// Gets the read-only value.
+            /// </summary>
+            /// <returns>Value.</returns>
             const T Value()
             {
                return BaseField<T>::Value();

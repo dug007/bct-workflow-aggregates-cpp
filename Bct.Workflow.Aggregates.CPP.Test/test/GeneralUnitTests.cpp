@@ -80,6 +80,15 @@ TEST_CASE("General", "[test]")
    CHECK(a.FieldEnumRo.State() == FieldStateEnum::Unavailable);
    //   a.FieldEnumRo.Value(FieldStateEnum::Set);
    //   a.FieldEnumRo = FieldStateEnum::Default;
+
+   CHECK(a.FieldString.Value() == "sam");
+   a.FieldString = "joe";
+   CHECK((std::string)a.FieldString == "joe");
+
+   CHECK(a.FieldStringro.Value() == "samro");
+   // compile error as expected a.FieldStringro = "joe";
+   CHECK((std::string)a.FieldStringro == "samro");
+
 }
 
 TEST_CASE("NoSuchVersion", "[test]")

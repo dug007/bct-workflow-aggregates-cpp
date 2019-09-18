@@ -55,7 +55,7 @@ namespace Bct
          {
          public:
             /// <summary>
-            /// Instantiate a NotAbleToSet exception which is thrown if the requested field is trying to set its value while the state is Constant or Unavailable
+            /// Instantiate a NotAbleToSet exception which is thrown if the requested field is trying to set its value while the state is Constant or Unavailable or ComputeOnly
             /// </summary>
             /// <param name="aggregateName">Associated aggregate name for exception</param>
             /// <param name="fieldName">Name of the field trying to be set</param>
