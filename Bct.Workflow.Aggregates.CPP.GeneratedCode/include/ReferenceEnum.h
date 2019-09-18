@@ -5,9 +5,9 @@ namespace Bct
    {
       namespace Implementation
       {
-         namespace ReferenceEnum
+         namespace ReferenceEnumx
          {
-            enum Reference
+            enum Referencex
             {
                VeryGood = 0,      // very good description
                Good = 1,          // good description

@@ -101,13 +101,28 @@ namespace Bct
             /// </summary>
             /// <param name="fld">The field being assigned from</param>
             /// <returns>Value of field being assigned from.</returns>
-            T & operator=(const BaseField & fld)
+            /// //TODO KWC
+            //T & operator=(const BaseField & fld)
+            //{
+            //   if (&fld != this)
+            //   {
+            //      this->Value(fld.Value());
+            //   }
+            //   return this->_val;
+            //}
+
+            BaseField<T> & operator=(const BaseField<T> & fld)
             {
                if (&fld != this)
                {
-                  this->Value(fld.Value());
+                  this->_val = fld._val;
+                  this->_ver = fld._ver;
+                  this->_default = fld._default;
+                  this->_state = fld._state;
+                  this->_fieldSetCounter = fld._fieldSetCounter;
+                  this->_fieldId = fld._fieldId;
                }
-               return this->_val;
+               return *this;
             }
 
             /// <summary>
