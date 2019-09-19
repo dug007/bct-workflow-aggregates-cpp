@@ -39,7 +39,7 @@ namespace Bct
             /// </summary>
             /// <param name="fieldId">Object being copied</param>
             /// <param name="aggregate">The associated nested aggregate this field is a member of.</param>
-            std::string & operator=(const StringField & fld);
+            StringField & operator=(const StringField & fld);
 
             /// <summary>
             /// Assignment operator.
