@@ -36,6 +36,11 @@ namespace Bct
             /// </summary>
             virtual ~StringFieldRo();
 
+            /// <summary>
+            /// Assignment operator.
+            /// </summary>
+            /// <param name="fld">Other to assign from.</param>
+            /// <returns>Reference to assigned.</returns>
             StringFieldRo & operator=(const StringFieldRo & fld);
 
             /// <summary>
