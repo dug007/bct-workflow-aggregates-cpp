@@ -101,7 +101,7 @@ namespace Bct
                uint64Field = other.uint64Field;
                doubleField = other.doubleField;
                stringField = other.stringField;
-               boolFieldRequiredv2= other.boolFieldRequiredv2;
+               boolFieldRequiredv2 = other.boolFieldRequiredv2;
                enumField = other.enumField;
                v100Field = other.v100Field;
                boolFieldRequiredv0 = other.boolFieldRequiredv0;
