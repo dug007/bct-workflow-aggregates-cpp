@@ -16,6 +16,7 @@ namespace Bct
          {
          private:
             using BaseField<T>::Value; // hide value set/get
+            using BaseField<T>::unset;
          public:
             /// <summary>
             /// Constructor.
@@ -37,6 +38,9 @@ namespace Bct
             {
             }
 
+            /// <summary>
+            /// Virtual destructor
+            /// </summary>
             virtual ~BaseFieldRo()
             {
             }
