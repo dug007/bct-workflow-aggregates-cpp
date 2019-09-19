@@ -35,7 +35,7 @@ namespace Bct
             BaseField<int32_t>   Field7com;   // computed
             BaseField<int32_t>   Field7x;     // extra field for tests
             EnumField<int32_t, FieldStateEnum::FieldState> FieldEnum;
-            EnumFieldRo<FieldStateEnum::FieldState, int32_t, FieldStateEnum::FieldState> FieldEnumRo;
+            EnumFieldRo<int32_t, FieldStateEnum::FieldState> FieldEnumRo;
             StringField FieldString;
             StringFieldRo FieldStringro;
 
