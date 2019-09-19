@@ -15,6 +15,7 @@ namespace Bct
          {
          private:
             using StringField::Value; // hide value set/get
+            using StringField::unset;
          public:
             /// <summary>
             /// Constructor.
@@ -34,6 +35,8 @@ namespace Bct
             /// Destructor.
             /// </summary>
             virtual ~StringFieldRo();
+
+            StringFieldRo & operator=(const StringFieldRo & fld);
 
             /// <summary>
             /// Gets the read-only value.

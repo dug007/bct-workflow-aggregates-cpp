@@ -20,6 +20,17 @@ namespace Bct
          {
          }
 
+         StringFieldRo & StringFieldRo::operator=(const StringFieldRo & fld)
+         {
+            if (&fld != this)
+            {
+               StringField::operator=(fld);
+            }
+            return *this;
+         }
+
+
+
          const std::string StringFieldRo::Value()
          {
             return StringField::Value();
