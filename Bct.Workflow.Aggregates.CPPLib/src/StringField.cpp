@@ -18,10 +18,13 @@ namespace Bct
          {
          }
 
-         std::string & StringField::operator=(const StringField & fld)
+         StringField & StringField::operator=(const StringField & fld)
          {
-            this->Value(fld.Value());
-            return this->_val;
+            if (&fld != this)
+            {
+               BaseField<std::string>::operator=(fld);
+            }
+            return *this;
          }
 
          StringField::~StringField()

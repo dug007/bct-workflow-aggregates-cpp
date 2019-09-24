@@ -118,6 +118,16 @@ namespace Bct
                }
                return "";
             }
+
+            EnumField & operator=(const EnumField & fld)
+            {
+               if (&fld != this)
+               {
+                  BaseField<U>::operator=(fld);
+               }
+               return *this;
+            }
+
             
             /// /// <summary>
             /// Provides the string representation of the numeric value for of and enumeration given the string name of the value.

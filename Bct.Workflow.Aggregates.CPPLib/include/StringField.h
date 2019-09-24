@@ -32,14 +32,17 @@ namespace Bct
             /// <param name="aggregate">The associated nested aggregate this field is a member of.</param>
             StringField(const StringField &other, AbstractAggregate * const aggregate);
 
+            /// <summary>
+            /// Virtual destructor.
+            /// </summary>
             virtual ~StringField();
 
             /// <summary>
-            /// Assignment operator to string object.
+            /// Assignment operator.
             /// </summary>
-            /// <param name="fieldId">Object being copied</param>
-            /// <param name="aggregate">The associated nested aggregate this field is a member of.</param>
-            std::string & operator=(const StringField & fld);
+            /// <param name="fld">Other assigning from.</param>
+            /// <returns>Reference to assigned.</returns>
+            StringField & operator=(const StringField & fld);
 
             /// <summary>
             /// Assignment operator.
@@ -57,6 +60,10 @@ namespace Bct
                return BaseField::ComputedValueString();
             }
 
+            /// <summary>
+            /// Returns value as a string.
+            /// </summary>
+            /// <returns>Value as a string.</returns>
             virtual std::string ComputedValueString() const;
 
             virtual void initMetaData(int16_t ver);

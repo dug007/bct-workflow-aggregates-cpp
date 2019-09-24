@@ -11,11 +11,12 @@ namespace Bct
          /// <summary>
          /// Base template class for read-only enum class. All read-only enum fields must derive from this class.
          /// </summary>
-         template<class T, class U, class X>
+         template<class U, class X>
          class EnumFieldRo : public EnumField<U, X>
          {
          private:
             using EnumField<U,X>::Value; // hide value set/get
+            using EnumField<U, X>::unset;
          public:
             /// <summary>
             /// Constructor.
@@ -37,10 +38,31 @@ namespace Bct
             {
             }
 
+            /// <summary>
+            /// Virtual destructor.
+            /// </summary>
             virtual ~EnumFieldRo()
             {
             }
 
+            /// <summary>
+            /// Assignment operator.
+            /// </summary>
+            /// <param name="fld">Other to assign from.</param>
+            /// <returns>Reference to assigned to.</returns>
+            EnumFieldRo & operator=(const EnumFieldRo & fld)
+            {
+               if (&fld != this)
+               {
+                  EnumField<U,X>::operator=(fld);
+               }
+               return *this;
+            }
+
+            /// <summary>
+            /// Gets numeric value.
+            /// </summary>
+            /// <returns>Numeric value of enumeration.</returns>
             const X Value()
             {
                return EnumField<U, X>::Value();

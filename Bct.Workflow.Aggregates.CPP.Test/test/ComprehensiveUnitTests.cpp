@@ -95,6 +95,51 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
    CHECK_THROWS_AS(a.Field7x.Value(), NotAbleToGet);
 }
 
+TEST_CASE("SetFieldUsingAssignment","[test]")
+{
+   ReferenceAggregate from;
+   ReferenceAggregate to;
+
+   from.boolField = false;
+   from.boolField = false;
+   to.boolField = true;
+   CHECK( to.boolField.FieldSetCounter() != from.boolField.FieldSetCounter());
+   to.boolField = from.boolField;
+   CHECK(to.boolField == false);
+   CHECK(to.boolField.FieldSetCounter() == from.boolField.FieldSetCounter());
+
+   from.int32Field = 200;
+   from.int32Field = 200;
+   to.int32Field = 201;
+   CHECK(to.int32Field.FieldSetCounter() != from.int32Field.FieldSetCounter());
+   to.int32Field = from.int32Field;
+   CHECK(to.int32Field == 200);
+   CHECK(to.int32Field.FieldSetCounter() == from.int32Field.FieldSetCounter());
+
+   from.enumField = ReferenceEnum::Poor;
+   from.enumField = ReferenceEnum::Poor;
+   to.enumField = ReferenceEnum::VeryPoor;
+   CHECK(to.enumField.FieldSetCounter() != from.enumField.FieldSetCounter());
+   to.enumField = from.enumField;
+   CHECK(to.enumField == ReferenceEnum::Poor);
+   CHECK(to.enumField.FieldSetCounter() == from.enumField.FieldSetCounter());
+
+   from.stringField = "happy";
+   from.stringField = "happy";
+   to.stringField = "days";
+   CHECK(to.stringField.FieldSetCounter() != from.stringField.FieldSetCounter());
+   to.stringField = from.stringField;
+   CHECK((std::string)to.stringField == "happy");
+   CHECK(to.stringField.FieldSetCounter() == from.stringField.FieldSetCounter());
+
+   Sample1Aggregate fromS;
+   Sample1Aggregate toS;
+
+   // Just make sure assignment does not throw exception on ro fields.
+   toS.FieldEnumRo = fromS.FieldEnumRo;
+   toS.FieldStringro = fromS.FieldStringro;
+}
+
 //Tests Set Field Value - sets the current value for a field by using assignment.
 TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
 {

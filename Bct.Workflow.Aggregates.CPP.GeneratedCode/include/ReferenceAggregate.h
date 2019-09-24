@@ -18,6 +18,26 @@ namespace Bct
    {
       namespace Implementation
       {
+
+         namespace ReferenceEnum
+         {
+            enum Reference
+            {
+               /// <summary>very good reference</summary>
+               VeryGood = 0, 
+               /// <summary>good reference</summary>
+               Good = 1, 
+               /// <summary>average reference</summary>
+               Average = 2, 
+               /// <summary>below average reference</summary>
+               BelowAverage = 4, 
+               /// <summary>poor reference</summary>
+               Poor = 8, 
+               /// <summary>very poor reference</summary>
+               VeryPoor = 16
+            };
+         }
+
          /// <summary>
          /// ReferenceAggregate.
          /// </summary>
@@ -31,7 +51,7 @@ namespace Bct
             /// Boolean field
             /// </summary>
             BaseField<bool>                     boolField;
-            /// <summary>
+                        /// <summary>
             /// integer field
             /// </summary>
             BaseField<int32_t>                     int32Field;
@@ -58,7 +78,19 @@ namespace Bct
                         /// <summary>
             /// 
             /// </summary>
+            BaseField<bool>                     boolFieldRequiredv2;
+                        /// <summary>
+            /// 
+            /// </summary>
             EnumField<int32_t, ReferenceEnum::Reference>                     enumField;
+                        /// <summary>
+            /// double field
+            /// </summary>
+            BaseField<double>                     v100Field;
+                        /// <summary>
+            /// 
+            /// </summary>
+            BaseField<bool>                     boolFieldRequiredv0;
             
             /// <summary>
             /// Default constructor. Creates the most recent version.

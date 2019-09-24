@@ -95,19 +95,22 @@ namespace Bct
             }
 
             /// <summary>
-            /// Assignment operator between fields. The semantics copies the
-            /// value only, so this receiving field goes through proper
-            /// Value() checking.
+            /// Assignment operator for whole object
             /// </summary>
-            /// <param name="fld">The field being assigned from</param>
-            /// <returns>Value of field being assigned from.</returns>
-            T & operator=(const BaseField & fld)
+            /// <param name="fld">Other from object.</param>
+            /// <returns>Reference to assigned object.</returns>
+            BaseField<T> & operator=(const BaseField<T> & fld)
             {
                if (&fld != this)
                {
-                  this->Value(fld.Value());
+                  this->_val = fld._val;
+                  this->_ver = fld._ver;
+                  this->_default = fld._default;
+                  this->_state = fld._state;
+                  this->_fieldSetCounter = fld._fieldSetCounter;
+                  this->_fieldId = fld._fieldId;
                }
-               return this->_val;
+               return *this;
             }
 
             /// <summary>
@@ -230,7 +233,6 @@ namespace Bct
             /// <returns>true if the field has a  value, false if the field does not hava a value.</returns>
             const bool &hasValue() const
             {
-               // TODO handle Computed after field as been computed - User Story 126600
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default || _state==FieldStateEnum::Computed);
             }
 

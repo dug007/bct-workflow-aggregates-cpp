@@ -209,13 +209,13 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    aCopy.aggField.field1 = 333;
    CHECK(aOrig.aggField.field1 == 222);
 
-   // make sure field assignment semantics is working ok - field set counter not copied
+   // make sure field assignment semantics is working ok - field set counter IS copied
    aCopy.aggField.field1 = 444;
    aCopy.aggField.field1 = 444;
    aCopy.aggField.field1 = 444;
    aOrig.aggField.field1 = aCopy.aggField.field1;
    aOrig.aggField.stringField = aCopy.aggField.stringField;
-   CHECK(aOrig.aggField.field1.FieldSetCounter() != aCopy.aggField.field1.FieldSetCounter());
+   CHECK(aOrig.aggField.field1.FieldSetCounter() == aCopy.aggField.field1.FieldSetCounter());
    CHECK(aOrig.aggField.field1 == 444);
 
    AggNested aAssign;
