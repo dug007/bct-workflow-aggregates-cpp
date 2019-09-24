@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP">
+      <UniqueIdentifier>{fb2b3ef9-fa32-41cc-8ab4-e9ea71331b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP\src">
+      <UniqueIdentifier>{e289be67-8c23-4666-acc9-7b0cd4202d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP\include">
+      <UniqueIdentifier>{3e7acda7-032e-4efb-b3dc-78a770afa60f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AbstractAggregate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AbstractField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AssessmentRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseAggregate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ComputeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Exceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FieldMeta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VersionChangeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VersionInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AggregateMetaData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AssessmentResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VersionMetaData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnumField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnumFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentMeta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StringField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FieldInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentComputeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentAssessmentRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentVersionChangeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\TypeEnum.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\Token.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\stdafx.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNVariable.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNEvaluator.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StringFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BaseAggregate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Exceptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessmentRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FieldMeta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComputeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VersionInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessmentResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentMeta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AggregateMetaData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FieldInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentComputeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentAssessmentRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VersionChangeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentVersionChangeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\Token.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\RPNEvaluator.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringFieldRo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
