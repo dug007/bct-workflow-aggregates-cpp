@@ -95,22 +95,10 @@ namespace Bct
             }
 
             /// <summary>
-            /// Assignment operator between fields. The semantics copies the
-            /// value only, so this receiving field goes through proper
-            /// Value() checking.
+            /// Assignment operator for whole object
             /// </summary>
-            /// <param name="fld">The field being assigned from</param>
-            /// <returns>Value of field being assigned from.</returns>
-            /// //TODO KWC
-            //T & operator=(const BaseField & fld)
-            //{
-            //   if (&fld != this)
-            //   {
-            //      this->Value(fld.Value());
-            //   }
-            //   return this->_val;
-            //}
-
+            /// <param name="fld">Other from object.</param>
+            /// <returns>Reference to assigned object.</returns>
             BaseField<T> & operator=(const BaseField<T> & fld)
             {
                if (&fld != this)
