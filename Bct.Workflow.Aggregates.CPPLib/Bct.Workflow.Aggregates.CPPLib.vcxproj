@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h" />
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h" />
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FunctionMap.h" />
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNEvaluator.h" />
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNVariable.h" />
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\stdafx.h" />

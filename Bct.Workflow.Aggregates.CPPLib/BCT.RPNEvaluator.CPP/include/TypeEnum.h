@@ -17,7 +17,8 @@ namespace Bct
             DoubleType = 7, //double
             StringType = 8, //std::string
             EnumType = 9, //enum
-            VariableType = 10, //internal use 
+            VariableType = 10, //internal use
+            ArrayType = 11, //array or vector type
          };
 
          /// Get the name of a Type value for display
@@ -47,6 +48,8 @@ namespace Bct
                return "EnumType";
             case VariableType:
                return "VariableType";
+            case ArrayType:
+               return "ArrayType";
             default:
                return "Empty";
             }
