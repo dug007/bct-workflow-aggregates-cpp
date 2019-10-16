@@ -1,6 +1,5 @@
 #ifndef RPNEvaluator_H
 #define RPNEvaluator_H
-#include "FuncOper.h"
 #include "RPNVariable.h"
 #include "Token.h"
 #include "TypeEnum.h"
@@ -226,53 +225,8 @@ namespace Bct
 			static bool to_bool(const char *str);
 
 			// maps of functions/operators and units
-			typedef std::map<std::string, FuncOper> FuncOpersMap;
-			static FuncOpersMap FuncOpers;
 			typedef std::map<Workflow::TypeEnum::Type, int> SupportedTypesMap;
 			static SupportedTypesMap SupportedTypes;
-
-			// map: name, number of arguments, the required input type of the function, the return type if it can be different from the inputs
-			static FuncOpersMap initFuncOpersMap()
-			{
-				FuncOpersMap tmpMap;
-				tmpMap["$Negate"] = FuncOper("$Negate", 1, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["$Sqrt"] = FuncOper("$Sqrt", 1, Workflow::TypeEnum::DoubleType, Workflow::TypeEnum::EmptyType);
-				tmpMap["$Pow"] = FuncOper("$Pow", 2, Workflow::TypeEnum::DoubleType, Workflow::TypeEnum::EmptyType);
-				tmpMap["$Min"] = FuncOper("$Min", 99, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["$Max"] = FuncOper("$Max", 99, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["$Mean"] = FuncOper("$Min", 99, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["$Min"] = FuncOper("$Mean", 99, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["!"] = FuncOper("!", 1, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
-				tmpMap["*"] = FuncOper("*", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["/"] = FuncOper("/", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["+"] = FuncOper("+", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["-"] = FuncOper("-", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["<"] = FuncOper("<", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::BoolType);
-				tmpMap["<="] = FuncOper("<=", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::BoolType);
-				tmpMap[">"] = FuncOper(">", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::BoolType);
-				tmpMap[">="] = FuncOper(">=", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::BoolType);
-				tmpMap["=="] = FuncOper("==", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::BoolType);
-				tmpMap["!="] = FuncOper("!=", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::BoolType);
-				tmpMap["&"] = FuncOper("&", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["^"] = FuncOper("^", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["|"] = FuncOper("|", 2, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["&&"] = FuncOper("&&", 2, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
-				tmpMap["||"] = FuncOper("||", 2, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
-				tmpMap["$IsSet"] = FuncOper("$IsSet", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$SetState"] = FuncOper("$SetState", 2, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$EnteredLater"] = FuncOper("$EnteredLater", 2, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$GetState"] = FuncOper("$GetState", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::VariableType);
-				tmpMap["$IsComputed"] = FuncOper("$IsComputed", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$IsDefault"] = FuncOper("$IsDefault", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$IsConstant"] = FuncOper("$IsConstant", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$IsNull"] = FuncOper("$IsNull", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$HasValue"] = FuncOper("$HasValue", 1, Workflow::TypeEnum::VariableType, Workflow::TypeEnum::BoolType);
-				tmpMap["$If"] = FuncOper("$If", 3, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::EmptyType);
-				tmpMap["$RangeCheck"] = FuncOper("$RangeCheck", 3, Workflow::TypeEnum::EmptyType, Workflow::TypeEnum::BoolType);
-				tmpMap["true"] = FuncOper("true", 0, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
-				tmpMap["false"] = FuncOper("false", 0, Workflow::TypeEnum::BoolType, Workflow::TypeEnum::BoolType);
-				return tmpMap;
-			}
 
 			static SupportedTypesMap initSupportedTypesMap()
 			{
