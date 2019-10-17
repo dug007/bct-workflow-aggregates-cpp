@@ -21,7 +21,7 @@ namespace Bct
             static bool s_initialized;
 
          public:
-            VectorField<PlateletTemplateAggregate> templates;
+            //VectorField<PlateletTemplateAggregate> templates;
             BaseField<double>  postCellsPerMl;
             BaseField<int32_t> minTemplateCount;
             BaseField<int32_t> maxTemplateCount;

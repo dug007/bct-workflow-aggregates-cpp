@@ -18,8 +18,8 @@ namespace Bct
             minPostCellsPerMl(3, this),
             maxPostCellsPerMl(4, this),
             malePostCellsPerMl(5, this),
-            femalePostCellsPerMl(6, this),
-            templates(7, this)
+            femalePostCellsPerMl(6, this)
+            //templates(7, this)
          {
             FieldList().push_back(&postCellsPerMl);
             FieldList().push_back(&minTemplateCount);
@@ -28,7 +28,7 @@ namespace Bct
             FieldList().push_back(&maxPostCellsPerMl);
             FieldList().push_back(&malePostCellsPerMl);
             FieldList().push_back(&femalePostCellsPerMl);
-            FieldList().push_back(&templates);
+            //FieldList().push_back(&templates);
 
             if (!s_initialized)
             {

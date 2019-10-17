@@ -104,7 +104,8 @@ namespace Bct
             /// <returns>The string representation of the value of this vector.</returns>
             virtual std::string ComputedValueString()
             {
-               return BaseField<std::vector<T>>::ComputedValueString();
+               //return BaseField<std::vector<T>>::ComputedValueString();
+               return "";
             };
 
             /// <summary>
@@ -114,7 +115,7 @@ namespace Bct
             /// <param name="val">The string representation of the value of this field.</param>
             virtual void ComputedValueString(const std::string &val)
             {
-               BaseField<std::vector<T>>::ComputedValueString(val);
+               //BaseField<std::vector<T>>::ComputedValueString(val);
             };
          };
       }

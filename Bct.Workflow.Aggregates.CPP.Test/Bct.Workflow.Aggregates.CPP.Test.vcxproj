@@ -23,6 +23,7 @@
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
     <ClCompile Include="test\MetaUnitTests.cpp" />
     <ClCompile Include="test\ReferenceAggregateUnitTests.cpp" />
+    <ClCompile Include="test\VectorFieldUnitTests.cpp" />
     <ClCompile Include="test\VersionChangeRuleUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
