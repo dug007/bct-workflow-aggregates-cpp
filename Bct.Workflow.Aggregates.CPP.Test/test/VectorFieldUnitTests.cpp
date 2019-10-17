@@ -1,3 +1,4 @@
+#include "ReferenceAggregate.h"
 #include "AggregateMetaData.h"
 #include "FluentMeta.h"
 #include "FieldMeta.h"
@@ -6,9 +7,11 @@
 #include "VectorField.h"
 #include "StringField.h"
 
+
 #include "catch.hpp"
 
 using namespace Bct::Workflow::Aggregates;
+using namespace Bct::Workflow::Implementation;
 
 class TestVectorFieldAggregate : public BaseAggregate
 {
@@ -33,6 +36,8 @@ public:
       tm.addVersion("1.0.0");
       tm.addVersion("1.1.0");
       tm.addVersion("1.2.0");
+
+
 
       tm.addFieldMetaToAllVersions(0, FieldStateEnum::NotSet, "notset");
 
@@ -59,11 +64,21 @@ AggregateMetaData *TestVectorFieldAggregate::s_metaData;
 
 TEST_CASE("VectorFieldUnitTests", "[test]")
 {
+   
    TestVectorFieldAggregate t0("1.0.0");
    TestVectorFieldAggregate t1("1.1.0");
    TestVectorFieldAggregate t2("1.2.0");
+   std::vector<int32_t> from;
+   from.push_back(1);
+   from.push_back(2);
+
+   t0.vectorInt32Field = from;
 
    CHECK(t0.getVersion() == "1.0.0");
    CHECK(t1.getVersion() == "1.1.0");
    CHECK(t2.getVersion() == "1.2.0");
+
+   //ReferenceAggregate aOrig;
+   //aOrig..Value(ReferenceEnum::Good);
+   
 }

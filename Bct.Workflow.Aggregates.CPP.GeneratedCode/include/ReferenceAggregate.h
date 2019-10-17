@@ -83,6 +83,12 @@ namespace Bct
             /// 
             /// </summary>
             EnumField<int32_t, ReferenceEnum::Reference>                     enumField;
+
+            /// <summary>
+            /// 
+            /// </summary>
+            //VectorField<int32_t>                     vectorField;
+
                         /// <summary>
             /// double field
             /// </summary>
