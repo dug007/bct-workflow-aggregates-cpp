@@ -155,12 +155,12 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(t0.vectorStrField.Value().size() == assignFromStr.size());
    
    // check assignment (Aggregate)
-   //std::vector<Sample1Aggregate> assignFromAgg;
-   //Sample1Aggregate a;
-   //Sample1Aggregate b;
-   //assignFromAgg.push_back(a);
-   //assignFromAgg.push_back(b);
-   ////t0.vectorAggField = assignFromAgg;
+   std::vector<Sample1Aggregate> assignFromAgg;
+   Sample1Aggregate a;
+   Sample1Aggregate b;
+   assignFromAgg.push_back(a);
+   assignFromAgg.push_back(b);
+   //t0.vectorAggField = assignFromAgg;
    ////t0.vectorAggField.Value(assignFromAgg);
    //CHECK(t0.vectorAggField.Value() == assignFromAgg);
    //CHECK(t0.vectorAggField.Value().size() == assignFromAgg.size());
