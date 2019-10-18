@@ -17,7 +17,7 @@ namespace Bct
       namespace Aggregates
       {
          /// <summary>
-         /// Base template class for scalar fields and derives from the AbstractField class. All scalar fields must derive from this class.
+         ///  Template class for vector fields and derives from the AbstractField class. 
          /// </summary>
          template<class T>
          class VectorField: public AbstractField
@@ -130,7 +130,6 @@ namespace Bct
                _state = FieldStateEnum::NotSet;
             }
 
-
             /// <summary>
             /// Conversion operator.
             /// </summary>
@@ -202,12 +201,7 @@ namespace Bct
 
                if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
                {
-                  // TODO Use serialization library for string<->type conversion - User Story 126886
-                  //std::vector<T> out;
-                  //std::stringstream ss;
-                  //ss << DefaultStr();
-                  //ss >> std::boolalpha >> out;
-                  //setDefault(out);
+                  // No Constant or Default for Vector field. Should we throw an exception or just set to NotSet? 
                }
                // If metatdata state is computed, initial value is not set
                else if (state == FieldStateEnum::Computed)
@@ -219,7 +213,7 @@ namespace Bct
             // AbstractField -------------------<
 
             /// <summary>
-            /// Get the default value of this field as a string.
+            /// Get the default value of this field as a string. Question: need this?
             /// </summary>
             /// <returns>Default value of field as a string.</returns>
             const std::string &DefaultStr() const
@@ -249,33 +243,24 @@ namespace Bct
 
             // AbstractField ----------->
 
-           /// <summary>
-           /// Gets the string representation value of this field. This function is only needed for RPN computations.
-           /// </summary>
-           /// <returns>String representation of this field.</returns>
+            /// <summary>
+            /// Gets the string representation value of this field. 
+            /// This function is only needed for RPN computations, which does not support vector.
+            /// </summary>
+            /// <returns>String representation of this field.</returns>
             virtual std::string ComputedValueString() const
-            {
-               //// TODO Use serialization library for string<->type conversion - User Story 126886
-               //std::stringstream ss;
-               ////ss << std::boolalpha << Value();
-               //ss << Value();
-               //return ss.str();
+            {              
                return "";
             }
 
             /// <summary>
-            /// Sets the value of this field using its string representation. This function is only needed for RPN computations.
+            /// Sets the value of this field using its string representation. 
+            /// This function is only needed for RPN computations, which does not support vector.
             /// </summary>
             /// <param name="val">String representation of this field.</param>
             virtual void ComputedValueString(const std::string & val)
             {
-               //// TODO Use serialization library for string<->type conversion - User Story 126886
-               //std::vector<T> out;
-               //std::stringstream ss;
-               //ss << val;
-               ////ss >> std::boolalpha >> out;
-               //ss >> out;
-               //ValueInternal(out, true);
+               
             }
 
             /// <summary>
@@ -291,7 +276,7 @@ namespace Bct
             // AbstractField ---------<
 
             /// <summary>
-            /// Sets default value.
+            /// Sets default value.  Question: do we need this?
             /// </summary>
             /// <param name="def">Default value.</param>
             void setDefault(const std::vector<T> &def)
@@ -309,25 +294,25 @@ namespace Bct
             {
                switch (_state)
                {
-               case FieldStateEnum::Constant:
-               case FieldStateEnum::Unavailable:
-               {
-                  std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
-               }
+                  case FieldStateEnum::Constant:
+                  case FieldStateEnum::Unavailable:
+                  {
+                     std::string aggName = typeid(*_aggregate).name();
+                     throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  }
                }
 
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
                switch (metaState)
                {
-               case FieldStateEnum::Computed:
-               {
-                  if (!fromCalculation)
+                  case FieldStateEnum::Computed:
                   {
-                     std::string aggName = typeid(*_aggregate).name();
-                     throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
+                     if (!fromCalculation)
+                     {
+                        std::string aggName = typeid(*_aggregate).name();
+                        throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
+                     }
                   }
-               }
                }
 
                _val = v;
@@ -434,6 +419,9 @@ namespace Bct
             /// </summary>
             int16_t _ver;
 
+            /// <summary>
+            /// The vector field of template <T>
+            /// </summary>
             std::vector<T> _val;
 
          private:

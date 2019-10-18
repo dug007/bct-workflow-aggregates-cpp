@@ -18,8 +18,8 @@ namespace Bct
             minPostCellsPerMl(3, this),
             maxPostCellsPerMl(4, this),
             malePostCellsPerMl(5, this),
-            femalePostCellsPerMl(6, this)
-            //templates(7, this)
+            femalePostCellsPerMl(6, this),
+            templates(7, this)
          {
             FieldList().push_back(&postCellsPerMl);
             FieldList().push_back(&minTemplateCount);
@@ -28,7 +28,7 @@ namespace Bct
             FieldList().push_back(&maxPostCellsPerMl);
             FieldList().push_back(&malePostCellsPerMl);
             FieldList().push_back(&femalePostCellsPerMl);
-            //FieldList().push_back(&templates);
+            FieldList().push_back(&templates);
 
             if (!s_initialized)
             {
@@ -135,6 +135,18 @@ namespace Bct
                "100.0"
             };
 
+            FieldStateEnum::FieldState _templates[2] =
+            {
+               FieldStateEnum::Unavailable,
+               FieldStateEnum::NotSet
+            };
+
+            std::string _templatesDefaults[2] =
+            {
+               "TODO1",
+               "TODO2"
+            };
+
             aggMeta.addField(0, "postCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
             aggMeta.addField(1, "minTemplateCount", Bct::Workflow::TypeEnum::Int32Type);
             aggMeta.addField(2, "maxTemplateCount", Bct::Workflow::TypeEnum::Int32Type);
@@ -142,6 +154,7 @@ namespace Bct
             aggMeta.addField(4, "maxPostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
             aggMeta.addField(5, "malePostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
             aggMeta.addField(6, "femalePostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
+            aggMeta.addField(7, "templates", Bct::Workflow::TypeEnum::ArrayType);
 
             for (uint16_t i = 0; i < std::size(vers); i++)
             {
@@ -156,6 +169,7 @@ namespace Bct
                FieldMeta maxPostCellsPerMl_(4, _maxPostCellsPerMlStates[i], _maxPostCellsPerMlDefaults[i], i);
                FieldMeta malePostCellsPerMl_(5, _malePostCellsPerMlStates[i], _malePostCellsPerMlDefaults[i], i);
                FieldMeta femalePostCellsPerMl_(6, _femalePostCellsPerMlStates[i], _femalePostCellsPerMlDefaults[i], i);
+               FieldMeta templates_(7, _templates[i], _templatesDefaults[i], i);
 
                aggMeta.fieldMetaData.push_back(postCellsPerMl_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
@@ -170,6 +184,8 @@ namespace Bct
                aggMeta.fieldMetaData.push_back(malePostCellsPerMl_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
                aggMeta.fieldMetaData.push_back(femalePostCellsPerMl_);
+               aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
+               aggMeta.fieldMetaData.push_back(templates_);
                aggMeta.versionMetaData[i].fieldMetaDataI.push_back((int16_t)aggMeta.fieldMetaData.size() - 1);
             }
 
