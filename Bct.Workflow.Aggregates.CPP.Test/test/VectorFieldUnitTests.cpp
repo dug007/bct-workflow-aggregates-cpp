@@ -106,33 +106,46 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(!t0.vectorStrField.hasValue());
 
    // arrange some external vectors for testing
-   std::vector<int32_t> from;
-   from.push_back(1);
-   from.push_back(2);
+   std::vector<int32_t> fromInt;
+   fromInt.push_back(1);
+   fromInt.push_back(2);
+
+   std::vector<double> fromDbl;
+   fromDbl.push_back(1.0);
+   fromDbl.push_back(2.0);
+
    std::vector<std::string> fromStr;
    fromStr.push_back("hi");
    fromStr.push_back("there");
 
-   // arrange assignment from external vectors
-   t0.vectorInt32Field = from;
+   // arrange assignment fromInt external vectors
+   t0.vectorInt32Field = fromInt;
+   t0.vectorDblField = fromDbl;
    t0.vectorStrField = fromStr;
 
    // assert that vectors now have correct values and size
    CHECK(t0.vectorInt32Field.hasValue());
+   CHECK(t0.vectorDblField.hasValue());
    CHECK(t0.vectorStrField.hasValue());
    CHECK(t0.vectorInt32Field.Value()[0] == 1);
+   CHECK(t0.vectorDblField.Value()[0] == 1.0);
    CHECK(t0.vectorStrField.Value()[0] == "hi");
    CHECK(t0.vectorInt32Field.FieldSetCounter() == 1);
-   CHECK(t0.vectorStrField.FieldSetCounter() == 2);
+   CHECK(t0.vectorDblField.FieldSetCounter() == 2);
+   CHECK(t0.vectorStrField.FieldSetCounter() == 3);
    CHECK(t0.vectorInt32Field.Value().size() == 2);
+   CHECK(t0.vectorDblField.Value().size() == 2);
    CHECK(t0.vectorStrField.Value().size() == 2);
 
-   // make sure from and field vectors are independent
-   from.push_back(3);
+   // make sure fromInt and field vectors are independent
+   fromInt.push_back(3);
+   fromDbl.push_back(3.0);
    fromStr.push_back("again");
    CHECK(t0.vectorInt32Field.Value().size() == 2);
+   CHECK(t0.vectorDblField.Value().size() == 2);
    CHECK(t0.vectorStrField.Value().size() == 2);
-   CHECK(from.size() == 3);
+   CHECK(fromInt.size() == 3);
+   CHECK(fromDbl.size() == 3);
    CHECK(fromStr.size() == 3);
 
    // check assignment (int)
