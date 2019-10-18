@@ -96,7 +96,7 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
 
    // assert no values yet on vector fields
    CHECK(!t0.vectorInt32Field.hasValue());
-   CHECK(!t0.vectorStringField.hasValue());
+   CHECK(!t0.vectorStrField.hasValue());
 
    // arrange some external vectors for testing
    std::vector<int32_t> from;
@@ -108,23 +108,23 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
 
    // arrange assignment from external vectors
    t0.vectorInt32Field = from;
-   t0.vectorStringField = fromStr;
+   t0.vectorStrField = fromStr;
 
    // assert that vectors now have correct values and size
    CHECK(t0.vectorInt32Field.hasValue());
-   CHECK(t0.vectorStringField.hasValue());
+   CHECK(t0.vectorStrField.hasValue());
    CHECK(t0.vectorInt32Field.Value()[0] == 1);
-   CHECK(t0.vectorStringField.Value()[0] == "hi");
+   CHECK(t0.vectorStrField.Value()[0] == "hi");
    CHECK(t0.vectorInt32Field.FieldSetCounter() == 1);
-   CHECK(t0.vectorStringField.FieldSetCounter() == 2);
+   CHECK(t0.vectorStrField.FieldSetCounter() == 2);
    CHECK(t0.vectorInt32Field.Value().size() == 2);
-   CHECK(t0.vectorStringField.Value().size() == 2);
+   CHECK(t0.vectorStrField.Value().size() == 2);
 
    // make sure from and field vectors are independent
    from.push_back(3);
    fromStr.push_back("again");
    CHECK(t0.vectorInt32Field.Value().size() == 2);
-   CHECK(t0.vectorStringField.Value().size() == 2);
+   CHECK(t0.vectorStrField.Value().size() == 2);
    CHECK(from.size() == 3);
    CHECK(fromStr.size() == 3);
 
