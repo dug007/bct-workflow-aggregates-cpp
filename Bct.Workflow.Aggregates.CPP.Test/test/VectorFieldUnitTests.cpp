@@ -27,6 +27,8 @@ public:
    VectorField<double> vectorDblField;
    VectorField<std::string> vectorStrField;
    VectorField<Sample1Aggregate> vectorAggField;
+   VectorField<VectorField<int32_t>> vectorVectorField;
+
 
    TestVectorFieldAggregate(const std::string &version)
       :
@@ -62,6 +64,11 @@ public:
       // <----------------- metadata TestVectorFieldAggregate 
 
       syncVersion();
+   }
+
+   friend bool operator==(const TestVectorFieldAggregate& lhs, const TestVectorFieldAggregate& rhs)
+   {
+      return true;
    }
 
    static void bindMetaData(AggregateMetaData  *metaData)
@@ -155,15 +162,28 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(t0.vectorStrField.Value().size() == assignFromStr.size());
    
    // check assignment (Aggregate)
-   //std::vector<Sample1Aggregate> assignFromAgg;
-   //Sample1Aggregate a;
-   //Sample1Aggregate b;
-   //assignFromAgg.push_back(a);
-   //assignFromAgg.push_back(b);
-   ////t0.vectorAggField = assignFromAgg;
-   ////t0.vectorAggField.Value(assignFromAgg);
+   std::vector<Sample1Aggregate> assignFromAgg;
+   Sample1Aggregate a;
+   Sample1Aggregate b;
+   a.Field1 = 1;
+   a.Field7 = 7;
+   b.Field1 = 101;
+   b.Field7 = 107;
+   assignFromAgg.push_back(a);
+   assignFromAgg.push_back(b);
+   t0.vectorAggField = assignFromAgg;
+//   t0.vectorAggField.Value(assignFromAgg);
+
    //CHECK(t0.vectorAggField.Value() == assignFromAgg);
-   //CHECK(t0.vectorAggField.Value().size() == assignFromAgg.size());
- 
-   
+   CHECK(t0.vectorAggField.Value().size() == assignFromAgg.size());
+   CHECK(t0.vectorAggField.Value()[0].Field1.Value() == 1);
+   CHECK(t0.vectorAggField.Value()[0].Field7.Value() == 7);
+   CHECK(t0.vectorAggField.Value()[1].Field1.Value() == 101);
+   CHECK(t0.vectorAggField.Value()[1].Field7.Value() == 107);
+
+   std::vector<Sample1Aggregate> testAgg = t0.vectorAggField.Value();
+   CHECK(testAgg[0].Field1.Value() == 1);
+   CHECK(testAgg[0].Field7.Value() == 7);
+
+
 }
