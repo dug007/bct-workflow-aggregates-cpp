@@ -97,7 +97,7 @@ namespace Bct
             /// <summary>
             /// Vector field
             /// </summary>
-            VectorField<int32_t>                     vectorField;
+            VectorField<int32_t>                     vectorIntField;
 
             /// <summary>
             /// Default constructor. Creates the most recent version.

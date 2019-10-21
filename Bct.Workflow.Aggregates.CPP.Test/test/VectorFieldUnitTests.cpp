@@ -98,7 +98,9 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
 
    // assert no values yet on vector fields
    CHECK(!t0.vectorInt32Field.hasValue());
+   CHECK(!t0.vectorDblField.hasValue());
    CHECK(!t0.vectorStrField.hasValue());
+   CHECK(!t0.vectorAggField.hasValue());  
 
    // arrange some external vectors for testing
    std::vector<int32_t> fromInt;
@@ -171,20 +173,39 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
 
    t0a = t0;
    CHECK(t0a.vectorDblField.Value().size() == t0a.vectorDblField.Value().size());
+   CHECK(t0a.vectorDblField.Value() == t0a.vectorDblField.Value());
 
-   
    // check assignment (Aggregate)
    std::vector<ReferenceAggregate> assignFromAggVect;
    std::vector<ReferenceAggregate> assignToAggVect;
-   ReferenceAggregate a;
-   ReferenceAggregate b;
+   ReferenceAggregate a("v1.0.0");
+   CHECK(!a.vectorIntField.hasValue());
+   a.int32Field = 100;
+   a.vectorIntField = assignFromInt;
    assignFromAggVect.push_back(a);
+
+   ReferenceAggregate b("v1.1.0");
+   CHECK(!b.vectorIntField.hasValue());
+   b.doubleField = 99.99;
+   b.vectorIntField = assignFromInt;   
    assignFromAggVect.push_back(b);
 
    assignToAggVect = assignFromAggVect;
    CHECK(assignToAggVect == assignFromAggVect);
+
    t0.vectorAggField = assignFromAggVect;
    t0a.vectorAggField = assignFromAggVect;
+   CHECK(t0a.vectorAggField.Value().size() == t0.vectorAggField.Value().size());
+   CHECK(t0a.vectorAggField.Value() == t0.vectorAggField.Value());
    CHECK(t0a.vectorAggField == t0.vectorAggField);
-   const ReferenceAggregate &x = t0.vectorAggField.Value()[0];
+
+   const ReferenceAggregate &ra = t0.vectorAggField.Value()[0];
+   const ReferenceAggregate &rb = t0.vectorAggField.Value()[1];  
+   CHECK(ra.getVersion() == "v1.0.0");
+   CHECK(ra.vectorIntField.State() == a.vectorIntField.State());
+   CHECK(rb.getVersion() == "v1.1.0");
+   CHECK(rb.vectorIntField.State() == b.vectorIntField.State());
+   CHECK(ra == a);
+   CHECK(rb == b);
+   CHECK(ra != rb);
 }
