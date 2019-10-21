@@ -9,6 +9,7 @@
 #include "ReferenceEnum.h"
 #include "AggComputeField.h"
 #include "StringField.h"
+#include "VectorField.h"
 
 using namespace Bct::Workflow::Aggregates;
 
@@ -84,11 +85,6 @@ namespace Bct
             /// </summary>
             EnumField<int32_t, ReferenceEnum::Reference>                     enumField;
 
-            /// <summary>
-            /// 
-            /// </summary>
-            //VectorField<int32_t>                     vectorField;
-
                         /// <summary>
             /// double field
             /// </summary>
@@ -97,7 +93,12 @@ namespace Bct
             /// 
             /// </summary>
             BaseField<bool>                     boolFieldRequiredv0;
-            
+
+            /// <summary>
+            /// Vector field
+            /// </summary>
+            VectorField<int32_t>                     vectorField;
+
             /// <summary>
             /// Default constructor. Creates the most recent version.
             /// </summary>
@@ -140,6 +141,19 @@ namespace Bct
             /// <returns>Reference to new object.</returns>
             ReferenceAggregate & operator=(const ReferenceAggregate &other);
 
+            /// <summary>
+            /// Equal operator.
+            /// </summary>
+            /// <param name="fld">Other field to compare to</param>
+            /// <returns>True if the two field's values are equal.</returns>
+            bool operator ==(const ReferenceAggregate &other) const;
+
+            /// <summary>
+            /// Not equal operator.
+            /// </summary>
+            /// <param name="fld">Other field to compare to.</param>
+            /// <returns>True if the two field's values are not equal.</returns>
+            bool operator !=(const ReferenceAggregate &other) const;
 
             /// <summary>
             /// Virtual destructor

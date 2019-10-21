@@ -1,4 +1,5 @@
 #include "Sample1Aggregate.h"
+#include "ReferenceAggregate.h"
 #include "AggregateMetaData.h"
 #include "FluentMeta.h"
 #include "FieldMeta.h"
@@ -26,9 +27,7 @@ public:
    VectorField<int32_t> vectorInt32Field;
    VectorField<double> vectorDblField;
    VectorField<std::string> vectorStrField;
-   VectorField<Sample1Aggregate> vectorAggField;
-   VectorField<VectorField<int32_t>> vectorVectorField;
-
+   VectorField<ReferenceAggregate> vectorAggField;
 
    TestVectorFieldAggregate(const std::string &version)
       :
@@ -66,11 +65,6 @@ public:
       syncVersion();
    }
 
-   friend bool operator==(const TestVectorFieldAggregate& lhs, const TestVectorFieldAggregate& rhs)
-   {
-      return true;
-   }
-
    static void bindMetaData(AggregateMetaData  *metaData)
    {
       s_metaData = metaData;
@@ -93,6 +87,7 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
 {
    // Arrange (initial)
    TestVectorFieldAggregate t0("1.0.0");
+   TestVectorFieldAggregate t0a("1.0.0");
    TestVectorFieldAggregate t1("1.1.0");
    TestVectorFieldAggregate t2("1.2.0");
 
@@ -170,33 +165,26 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    assignFromStr.push_back("1");
    assignFromStr.push_back("2");
    t0.vectorStrField = assignFromStr;
-   //t0.vectorStrField.Value(assignFromStr);
+   t0.vectorStrField.Value(assignFromStr);
    CHECK(t0.vectorStrField.Value() == assignFromStr);
    CHECK(t0.vectorStrField.Value().size() == assignFromStr.size());
+
+   t0a = t0;
+   CHECK(t0a.vectorDblField.Value().size() == t0a.vectorDblField.Value().size());
+
    
    // check assignment (Aggregate)
-   std::vector<Sample1Aggregate> assignFromAgg;
-   Sample1Aggregate a;
-   Sample1Aggregate b;
-   a.Field1 = 1;
-   a.Field7 = 7;
-   b.Field1 = 101;
-   b.Field7 = 107;
-   assignFromAgg.push_back(a);
-   assignFromAgg.push_back(b);
-   t0.vectorAggField = assignFromAgg;
-//   t0.vectorAggField.Value(assignFromAgg);
+   std::vector<ReferenceAggregate> assignFromAggVect;
+   std::vector<ReferenceAggregate> assignToAggVect;
+   ReferenceAggregate a;
+   ReferenceAggregate b;
+   assignFromAggVect.push_back(a);
+   assignFromAggVect.push_back(b);
 
-   //CHECK(t0.vectorAggField.Value() == assignFromAgg);
-   CHECK(t0.vectorAggField.Value().size() == assignFromAgg.size());
-   CHECK(t0.vectorAggField.Value()[0].Field1.Value() == 1);
-   CHECK(t0.vectorAggField.Value()[0].Field7.Value() == 7);
-   CHECK(t0.vectorAggField.Value()[1].Field1.Value() == 101);
-   CHECK(t0.vectorAggField.Value()[1].Field7.Value() == 107);
-
-   std::vector<Sample1Aggregate> testAgg = t0.vectorAggField.Value();
-   CHECK(testAgg[0].Field1.Value() == 1);
-   CHECK(testAgg[0].Field7.Value() == 7);
-
-
+   assignToAggVect = assignFromAggVect;
+   CHECK(assignToAggVect == assignFromAggVect);
+   t0.vectorAggField = assignFromAggVect;
+   t0a.vectorAggField = assignFromAggVect;
+   CHECK(t0a.vectorAggField == t0.vectorAggField);
+   const ReferenceAggregate &x = t0.vectorAggField.Value()[0];
 }
