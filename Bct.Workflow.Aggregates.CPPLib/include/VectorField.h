@@ -418,26 +418,7 @@ namespace Bct
                }
                throw NoSuchVersion(aggName, reqVersion);
             }
-
-            //// need to overload the stream operators
-            //friend std::ostream& operator<< (std::ostream& out, const std::vector<T>& v)
-            //{
-            //   out << "{";
-            //   size_t last = v.size() - 1;
-            //   for (size_t i = 0; i < v.size(); ++i) {
-            //      out << v[i];
-            //      if (i != last)
-            //         out << ", ";
-            //   }
-            //   out << "}";
-            //   return out;
-            //}
-            //friend std::istream &operator>> (std::istream& input, const std::vector<T>& v)
-            //{
-            //   return input;
-            //}
-
-
+          
 
             /// <summary>
             /// The current version.
