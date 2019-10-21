@@ -114,6 +114,26 @@ namespace Bct
             }
 
             /// <summary>
+            /// Equal operator.
+            /// </summary>
+            /// <param name="fld">Other field to compare to</param>
+            /// <returns>True if the two field's values are equal.</returns>
+            bool operator==(const BaseField<T> & fld) const
+            {
+               return (fld._val == _val);
+            }
+
+            /// <summary>
+            /// Not equal operator.
+            /// </summary>
+            /// <param name="fld">Other field to compare to.</param>
+            /// <returns>True if the two field's values are not equal.</returns>
+            bool operator!=(const BaseField<T> & fld) const
+            {
+               return (fld._val != _val);
+            }
+
+            /// <summary>
             /// Sets the state of the field to NotSet.
             /// </summary>
             void unset()

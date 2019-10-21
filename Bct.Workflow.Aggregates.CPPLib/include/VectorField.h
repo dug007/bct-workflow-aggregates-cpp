@@ -114,6 +114,31 @@ namespace Bct
             }
 
             /// <summary>
+            /// Equal operator.
+            /// </summary>
+            /// <param name="fld">Other field to compare to</param>
+            /// <returns>True if the two field's values are equal.</returns>
+            bool operator==(const VectorField<T> & fld) const
+            {
+               if (fld._val.size() != this->_val.size()) return false;
+               for (size_t i = 0; i < _val.size(); i++)
+               {
+                  if (fld._val[i] != this->_val[i]) return false;
+               }
+               return true;
+            }
+
+            /// <summary>
+            /// Not equal operator.
+            /// </summary>
+            /// <param name="fld">Other field to compare to.</param>
+            /// <returns>True if the two field's values are not equal.</returns>
+            bool operator!=(const VectorField<T> & fld) const
+            {
+               return (fld._val != _val);
+            }
+
+            /// <summary>
             /// Sets the state of the field to NotSet.
             /// </summary>
             void unset()
