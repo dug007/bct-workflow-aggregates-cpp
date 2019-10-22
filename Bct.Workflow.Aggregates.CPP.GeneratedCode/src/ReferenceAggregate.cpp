@@ -117,18 +117,54 @@ namespace Bct
 
          bool ReferenceAggregate::operator==(const ReferenceAggregate &other) const
          {
-            if (boolField != other.boolField) return false;
-            if (int32Field != other.int32Field) return false;
-            if (uint32Field != other.uint32Field) return false;
-            if (int64Field != other.int64Field) return false;
-            if (uint64Field != other.uint64Field) return false;
-            if (doubleField != other.doubleField) return false;
-            if (stringField != other.stringField) return false;
-            if (boolFieldRequiredv2 != other.boolFieldRequiredv2) return false;
-            if (enumField != other.enumField) return false;
-            if (v100Field != other.v100Field) return false;
-            if (boolFieldRequiredv0 != other.boolFieldRequiredv0) return false;
-            if (vectorIntField != other.vectorIntField) return false;
+            if (boolField != other.boolField)
+            {
+               return false;
+            }
+            if (int32Field != other.int32Field)
+            {
+               return false;
+            }
+            if (uint32Field != other.uint32Field)
+            {
+               return false;
+            }
+            if (int64Field != other.int64Field)
+            {
+               return false;
+            }
+            if (uint64Field != other.uint64Field)
+            {
+               return false;
+            }
+            if (doubleField != other.doubleField)
+            {
+               return false;
+            }
+            if (stringField != other.stringField)
+            {
+               return false;
+            }
+            if (boolFieldRequiredv2 != other.boolFieldRequiredv2)
+            {
+               return false;
+            }
+            if (enumField != other.enumField)
+            {
+               return false;
+            }
+            if (v100Field != other.v100Field)
+            {
+               return false;
+            }
+            if (boolFieldRequiredv0 != other.boolFieldRequiredv0)
+            {
+               return false;
+            }
+            if (vectorIntField != other.vectorIntField)
+            {
+               return false;
+            }
 
             return true;
          }
