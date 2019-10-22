@@ -245,7 +245,7 @@ namespace Bct
             /// Determines if this field has a value.
             /// </summary>
             /// <returns>true if the field has a  value, false if the field does not hava a value.</returns>
-            const bool &hasValue() const
+            const bool hasValue() const
             {
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default || _state == FieldStateEnum::Computed);
             }
@@ -312,14 +312,11 @@ namespace Bct
             /// <param name="fromCalculation">true if the value is being set by a calculation, false otherwase.</param>
             void ValueInternal(const std::vector<T> &v, bool fromCalculation)
             {
-               // Is just these 3 lines ok for this function??
-               //_val = v;
-               //_fieldSetCounter = _aggregate->FieldSetCounter();
-               //_state = FieldStateEnum::Set;
+               
 
                switch (_state)
                {
-                  case FieldStateEnum::Constant:
+                 
                   case FieldStateEnum::Unavailable:
                   {
                      std::string aggName = typeid(*_aggregate).name();
@@ -327,18 +324,7 @@ namespace Bct
                   }
                }
 
-               FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
-               switch (metaState)
-               {
-                  case FieldStateEnum::Computed:
-                  {
-                     if (!fromCalculation)
-                     {
-                        std::string aggName = typeid(*_aggregate).name();
-                        throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
-                     }
-                  }
-               }
+               FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;              
 
                _val = v;
                _fieldSetCounter = _aggregate->FieldSetCounter();
