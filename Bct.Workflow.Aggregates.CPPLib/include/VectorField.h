@@ -40,7 +40,7 @@ namespace Bct
             /// <param name="other">Other field being copied.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
             VectorField(const VectorField & other, AbstractAggregate * const aggregate)
-               : _ver(other._ver), _val(other._val), _default(other._default), _state(other._state),
+               : _ver(other._ver), _val(other._val), _state(other._state),
                _fieldSetCounter(other._fieldSetCounter), _aggregate(aggregate), _fieldId(other._fieldId)
             {
             }
@@ -77,8 +77,8 @@ namespace Bct
                   std::string aggName_Unavail = typeid(*_aggregate).name();
                   throw NotAbleToGet(aggName_Unavail, FieldName(), FieldStateEnum::FieldStateString(State()));
                }
-               case FieldStateEnum::Default:
-                  return _default;
+               //case FieldStateEnum::Default:
+               //   return _default;
                }
                return _val;
             }
@@ -105,7 +105,7 @@ namespace Bct
                {
                   this->_val = fld._val;
                   this->_ver = fld._ver;
-                  this->_default = fld._default;
+                  //this->_default = fld._default;
                   this->_state = fld._state;
                   this->_fieldSetCounter = fld._fieldSetCounter;
                   this->_fieldId = fld._fieldId;
@@ -224,15 +224,15 @@ namespace Bct
                const FieldStateEnum::FieldState &state = fm._fieldState;
                _state = state;
 
-               if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
-               {
-                  // No Constant or Default for Vector field. Should we throw an exception or just set to NotSet? 
-               }
-               // If metatdata state is computed, initial value is not set
-               else if (state == FieldStateEnum::Computed)
-               {
-                  _state = FieldStateEnum::NotSet;
-               }
+               //if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
+               //{
+               //   // No Constant or Default for Vector field. Should we throw an exception or just set to NotSet? 
+               //}
+               //// If metatdata state is computed, initial value is not set
+               //else if (state == FieldStateEnum::Computed)
+               //{
+               //   _state = FieldStateEnum::NotSet;
+               //}
             }
 
             // AbstractField -------------------<
@@ -304,11 +304,11 @@ namespace Bct
             /// Sets default value.  Question: do we need this?
             /// </summary>
             /// <param name="def">Default value.</param>
-            void setDefault(const std::vector<T> &def)
-            {
-               _default = def;
-               _val = def;
-            }
+            //void setDefault(const std::vector<T> &def)
+            //{
+            //   _default = def;
+            //   _val = def;
+            //}
 
             /// <summary>
             /// Internal value setter. This setter distinguishes between setting the value from a calculation and other cases.
@@ -317,6 +317,11 @@ namespace Bct
             /// <param name="fromCalculation">true if the value is being set by a calculation, false otherwase.</param>
             void ValueInternal(const std::vector<T> &v, bool fromCalculation)
             {
+               // Is just these 3 lines ok for this function??
+               //_val = v;
+               //_fieldSetCounter = _aggregate->FieldSetCounter();
+               //_state = FieldStateEnum::Set;
+
                switch (_state)
                {
                   case FieldStateEnum::Constant:
@@ -343,15 +348,8 @@ namespace Bct
                _val = v;
                _fieldSetCounter = _aggregate->FieldSetCounter();
                if (metaState == FieldStateEnum::Default)
-               {
-                  if (_val == _default)
-                  {
-                     _state = FieldStateEnum::Default;
-                  }
-                  else
-                  {
-                     _state = FieldStateEnum::Set;
-                  }
+               {                
+                  _state = FieldStateEnum::Set;                
                }
                else
                {
@@ -431,7 +429,7 @@ namespace Bct
             std::vector<T> _val;
 
          private:
-            std::vector<T> _default;
+            //std::vector<T> _default; // no needed to start with for VectorField
             FieldStateEnum::FieldState _state;
             uint32_t _fieldSetCounter;
             AbstractAggregate * const _aggregate;
