@@ -174,6 +174,8 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    t0a = t0;
    CHECK(t0a.vectorDblField.Value().size() == t0a.vectorDblField.Value().size());
    CHECK(t0a.vectorDblField.Value() == t0a.vectorDblField.Value());
+   // check != operation
+   CHECK(!(t0.vectorInt32Field != t0a.vectorInt32Field));
 
    // check assignment (Aggregate)
    std::vector<ReferenceAggregate> assignFromAggVect;
@@ -208,4 +210,6 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(ra == a);
    CHECK(rb == b);
    CHECK(ra != rb);
+
+
 }

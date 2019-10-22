@@ -120,12 +120,7 @@ namespace Bct
             /// <returns>True if the two field's values are equal.</returns>
             bool operator==(const VectorField<T> & fld) const
             {
-               if (fld._val.size() != this->_val.size()) return false;
-               for (size_t i = 0; i < _val.size(); i++)
-               {
-                  if (fld._val[i] != this->_val[i]) return false;
-               }
-               return true;
+               return (fld._val == _val);
             }
 
             /// <summary>
