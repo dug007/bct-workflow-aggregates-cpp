@@ -534,12 +534,12 @@ TEST_CASE("ThrowsExceptionIfSetFieldNotAvailable", "[test]")
 TEST_CASE("ThrowsExceptionIfSetVectorFieldNotAvailable", "[test]")
 {
    VectorFieldUnitTest a("1.0.0");
-   std::vector<std::string> fromStr;
-   fromStr.push_back("Hi");
-   fromStr.push_back("Hello");
+   std::vector<int64_t> fromInt64;
+   fromInt64.push_back(100);
+   fromInt64.push_back(200);
 
    CHECK(a.vectorVersion1only.State() == FieldStateEnum::Unavailable);
-   CHECK_THROWS_AS(a.vectorStrField = fromStr, NotAbleToSet);
+   CHECK_THROWS_AS(a.vectorVersion1only = fromInt64, NotAbleToSet);
 }
 
 //Tests set field value shall throw an exception if the field is marked as constant in the current version of the aggregate.
