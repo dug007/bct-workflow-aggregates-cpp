@@ -17,7 +17,9 @@ namespace Bct
       namespace Aggregates
       {
          /// <summary>
-         ///  Template class for vector fields and derives from the AbstractField class. 
+         ///  Template class for vector fields, which derives from the AbstractField class. 
+         /// 
+         ///  Note: there is no Constant, Default, or Computed states for VectorField.
          /// </summary>
          template<class T>
          class VectorField: public AbstractField
@@ -77,8 +79,6 @@ namespace Bct
                   std::string aggName_Unavail = typeid(*_aggregate).name();
                   throw NotAbleToGet(aggName_Unavail, FieldName(), FieldStateEnum::FieldStateString(State()));
                }
-               //case FieldStateEnum::Default:
-               //   return _default;
                }
                return _val;
             }
@@ -105,7 +105,6 @@ namespace Bct
                {
                   this->_val = fld._val;
                   this->_ver = fld._ver;
-                  //this->_default = fld._default;
                   this->_state = fld._state;
                   this->_fieldSetCounter = fld._fieldSetCounter;
                   this->_fieldId = fld._fieldId;
@@ -223,16 +222,6 @@ namespace Bct
                FieldMeta &fm = findFieldMeta();
                const FieldStateEnum::FieldState &state = fm._fieldState;
                _state = state;
-
-               //if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
-               //{
-               //   // No Constant or Default for Vector field. Should we throw an exception or just set to NotSet? 
-               //}
-               //// If metatdata state is computed, initial value is not set
-               //else if (state == FieldStateEnum::Computed)
-               //{
-               //   _state = FieldStateEnum::NotSet;
-               //}
             }
 
             // AbstractField -------------------<
@@ -298,17 +287,7 @@ namespace Bct
             }
 
 
-            // AbstractField ---------<
-
-            /// <summary>
-            /// Sets default value.  Question: do we need this?
-            /// </summary>
-            /// <param name="def">Default value.</param>
-            //void setDefault(const std::vector<T> &def)
-            //{
-            //   _default = def;
-            //   _val = def;
-            //}
+            // AbstractField ---------<        
 
             /// <summary>
             /// Internal value setter. This setter distinguishes between setting the value from a calculation and other cases.
@@ -415,7 +394,6 @@ namespace Bct
             std::vector<T> _val;
 
          private:
-            //std::vector<T> _default; // no needed to start with for VectorField
             FieldStateEnum::FieldState _state;
             uint32_t _fieldSetCounter;
             AbstractAggregate * const _aggregate;
