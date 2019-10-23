@@ -26,9 +26,14 @@ public:
    VectorField<std::string> vectorStrField;
    VectorField<ReferenceAggregate> vectorAggField;
    VectorField<uint32_t> vectorUint32Field;
-   //VectorField<int64_t> vectorInt64Field;
-   //VectorField<uint64_t> vectorUint64Field;
-   //VectorField<bool> vectorBoolField;
+   VectorField<int64_t> vectorInt64Field;
+   VectorField<uint64_t> vectorUint64Field;
+   VectorField<bool> vectorBoolField;
+   VectorField<int64_t> vectorVersion0only;
+   VectorField<int64_t> vectorVersion1only;
+   VectorField<bool> vectorVersion2only;
+
+
 
    VectorFieldUnitTest(const std::string &version)
       :
@@ -37,10 +42,13 @@ public:
       vectorDblField(1, this),
       vectorStrField(2, this),
       vectorAggField(3, this),
-      vectorUint32Field(4, this)
-      /*vectorInt64Field(5, this),
+      vectorUint32Field(4, this),
+      vectorInt64Field(5, this),
       vectorUint64Field(6, this),
-      vectorBoolField(7, this)*/
+      vectorBoolField(7, this),
+      vectorVersion0only(8, this),
+      vectorVersion1only(9, this),
+      vectorVersion2only(10, this)
 
    {
       FieldList().push_back(&vectorInt32Field);
@@ -48,9 +56,12 @@ public:
       FieldList().push_back(&vectorStrField);
       FieldList().push_back(&vectorAggField);
       FieldList().push_back(&vectorUint32Field);
-     /*FieldList().push_back(&vectorInt64Field);
+      FieldList().push_back(&vectorInt64Field);
       FieldList().push_back(&vectorUint64Field);
-      FieldList().push_back(&vectorBoolField);*/
+      FieldList().push_back(&vectorBoolField);
+      FieldList().push_back(&vectorVersion0only);
+      FieldList().push_back(&vectorVersion1only);
+      FieldList().push_back(&vectorVersion2only);
 
       // metadata TestVectorFieldAggregate------------------->
       static AggregateMetaData tm;
@@ -59,22 +70,41 @@ public:
       tm.addField(2, "vectorStrField", Bct::Workflow::TypeEnum::ArrayType);
       tm.addField(3, "vectorAggField", Bct::Workflow::TypeEnum::ArrayType);
       tm.addField(4, "vectorUint32Field", Bct::Workflow::TypeEnum::ArrayType);
-     /*tm.addField(5, "vectorInt64Field", Bct::Workflow::TypeEnum::ArrayType);
+      tm.addField(5, "vectorInt64Field", Bct::Workflow::TypeEnum::ArrayType);
       tm.addField(6, "vectorUint64Field", Bct::Workflow::TypeEnum::ArrayType);
-      tm.addField(7, "vectorBoolField", Bct::Workflow::TypeEnum::ArrayType);*/
+      tm.addField(7, "vectorBoolField", Bct::Workflow::TypeEnum::ArrayType);
+      tm.addField(8, "vectorVersion0only", Bct::Workflow::TypeEnum::ArrayType);
+      tm.addField(9, "vectorVersion1only", Bct::Workflow::TypeEnum::ArrayType);
+      tm.addField(10, "vectorVersion2only", Bct::Workflow::TypeEnum::ArrayType);
 
       tm.addVersion("1.0.0");
       tm.addVersion("1.1.0");
       tm.addVersion("1.2.0");
-      
+
       tm.addFieldMetaToAllVersions(0, FieldStateEnum::NotSet, "notset");
       tm.addFieldMetaToAllVersions(1, FieldStateEnum::NotSet, "notset");
       tm.addFieldMetaToAllVersions(2, FieldStateEnum::NotSet, "notset");
       tm.addFieldMetaToAllVersions(3, FieldStateEnum::NotSet, "notset");
       tm.addFieldMetaToAllVersions(4, FieldStateEnum::NotSet, "notset");
-      //tm.addFieldMetaToAllVersions(5, FieldStateEnum::NotSet, "notset");
-      //tm.addFieldMetaToAllVersions(6, FieldStateEnum::NotSet, "notset");
-      //tm.addFieldMetaToAllVersions(7, FieldStateEnum::NotSet, "notset");
+      tm.addFieldMetaToAllVersions(5, FieldStateEnum::NotSet, "notset");
+      tm.addFieldMetaToAllVersions(6, FieldStateEnum::NotSet, "notset");
+      tm.addFieldMetaToAllVersions(7, FieldStateEnum::NotSet, "notset");
+      tm.addFieldMeta(8, FieldStateEnum::NotSet, "notset").toVersion(0);
+      tm.addFieldMeta(8, FieldStateEnum::Unavailable, "unavailable")
+         .toVersion(1)
+         .toVersion(2)
+         ;
+      tm.addFieldMeta(9, FieldStateEnum::Unavailable, "unavailable").toVersion(0);
+      tm.addFieldMeta(9, FieldStateEnum::NotSet, "notset").toVersion(1);
+      tm.addFieldMeta(9, FieldStateEnum::Unavailable, "unavailable").toVersion(2);
+      tm.addFieldMeta(10, FieldStateEnum::Unavailable, "unavailable")
+         .toVersion(0)
+         .toVersion(1)
+         ;
+    /*  tm.addFieldMeta(11, FieldStateEnum::NotSet, "notset").toVersion(2);
+      initialized = true;*/
+  
+      
 
 
       bindMetaData(&tm);
@@ -184,13 +214,13 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
    CHECK_THROWS_AS(a.Field7x.Value(), NotAbleToGet);
 }
 
-// Tests get vector field value shall throw an exception if the vector field is not available in the current version of the aggregate.
-/*TEST_CASE("ThrowsExceptionIfGetFieldNotAvailable", "[test]")
+ //Tests get vector field value shall throw an exception if the vector field is not available in the current version of the aggregate.
+TEST_CASE("ThrowsExceptionIfGetVecotrFieldNotAvailable", "[test]")
 {
-   Sample1Aggregate a;
-   CHECK(a.vectorIntField.State() == FieldStateEnum::Unavailable);
-   CHECK_THROWS_AS(a.vectorIntField.Value(), NotAbleToGet);
-}*/
+   VectorFieldUnitTest a ("1.0.0");
+   CHECK(a.vectorVersion1only.State() == FieldStateEnum::Unavailable);
+   CHECK_THROWS_AS(a.vectorVersion1only.Value(), NotAbleToGet);
+}
 
 // Tests get vector field value shall throw an exception if the vector field is not set in the current version of the aggregate.
 TEST_CASE("ThrowsExceptionIfGetVectorFieldNotSet", "[test]")
@@ -294,8 +324,6 @@ TEST_CASE("SetVectorFieldUsingAssignment", "[test]")
 {
 
    VectorFieldUnitTest fromAgg("1.0.0");
-   //TestVectorFieldAggregate toAgg("1.0.0");
-
 
    std::vector<int32_t> fromInt32;
    fromInt32.push_back(-100);
@@ -304,26 +332,26 @@ TEST_CASE("SetVectorFieldUsingAssignment", "[test]")
    CHECK(fromAgg.vectorInt32Field.Value()[0] == -100);
    CHECK(fromAgg.vectorInt32Field.Value()[1] == -200);
 
-  /* std::vector<uint32_t> fromUint32;
+   std::vector<uint32_t> fromUint32;
    fromUint32.push_back(100);
    fromUint32.push_back(200);
    fromAgg.vectorUint32Field = fromUint32;
    CHECK(fromAgg.vectorUint32Field.Value()[0] == 100);
-   CHECK(fromAgg.vectorUint32Field.Value()[1] == 200);*/
+   CHECK(fromAgg.vectorUint32Field.Value()[1] == 200);
 
-   /* std::vector<uint64_t> fromUint64;
+   std::vector<uint64_t> fromUint64;
    fromUint64.push_back(100);
    fromUint64.push_back(200);
    fromAgg.vectorUint64Field = fromUint64;
    CHECK(fromAgg.vectorUint64Field.Value()[0] == 100);
-   CHECK(fromAgg.vectorUint64Field.Value()[1] == 200);*/
+   CHECK(fromAgg.vectorUint64Field.Value()[1] == 200);
 
-   /*std::vector<int64_t> fromInt64;
-   fromInt64.push_back(-100);
-   fromInt64.push_back(-200);
+   std::vector<int64_t> fromInt64;
+   fromInt64.push_back(-1000);
+   fromInt64.push_back(-2000);
    fromAgg.vectorInt64Field = fromInt64;
-   CHECK(fromAgg.vectorInt32Field.Value()[0] == -1000);
-   CHECK(fromAgg.vectorInt32Field.Value()[1] == -2000);*/
+   CHECK(fromAgg.vectorInt64Field.Value()[0] == -1000);
+   CHECK(fromAgg.vectorInt64Field.Value()[1] == -2000);
 
    std::vector<double> fromDb;
    fromDb.push_back(99.00);
@@ -339,12 +367,12 @@ TEST_CASE("SetVectorFieldUsingAssignment", "[test]")
    CHECK(fromAgg.vectorStrField.Value()[0] == "Hello Team");
    CHECK(fromAgg.vectorStrField.Value()[1] == "Hello World!");
 
-   /*std::vector<bool> fromBo;
+   std::vector<bool> fromBo;
    fromBo.push_back(false);
    fromBo.push_back(true);
-   fromAgg.vectorDblField = fromBo;
-   CHECK(fromAgg.vectorDblField.Value()[0] == false);
-   CHECK(fromAgg.vectorDblField.Value()[1] == true);*/
+   fromAgg.vectorBoolField = fromBo;
+   CHECK(fromAgg.vectorBoolField.Value()[0] == false);
+   CHECK(fromAgg.vectorBoolField.Value()[1] == true);
 
 }
 //Tests Set Field Value - sets the current value back to default value for a field by using assignment.
@@ -408,20 +436,20 @@ TEST_CASE("SetVectorFieldCurrentValueUsingFunction", "[test]")
    fromAgg.vectorInt32Field.Value(fromInt32);
    CHECK(fromAgg.vectorInt32Field.Value()[0] == -100);
 
-   /*std::vector<uint32_t> fromUint32;
+   std::vector<uint32_t> fromUint32;
    fromUint32.push_back(100);
    fromAgg.vectorUint32Field.Value(fromUint32);
-   CHECK(fromAgg.vectorUint32Field.Value()[0] == 100);*/
+   CHECK(fromAgg.vectorUint32Field.Value()[0] == 100);
 
-   /*std::vector<int64_t> fromInt64;
+   std::vector<int64_t> fromInt64;
    fromInt64.push_back(-10000);
    fromAgg.vectorInt64Field.Value(fromInt64);
-   CHECK(fromAgg.vectorInt32Field.Value()[0] == -10000);*/
+   CHECK(fromAgg.vectorInt64Field.Value()[0] == -10000);
 
-   /*std::vector<uint64_t> fromUint64;
+   std::vector<uint64_t> fromUint64;
    fromUint64.push_back(100);
    fromAgg.vectorUint64Field.Value(fromUint64);
-   CHECK(fromAgg.vectorUint64Field.Value()[0] == 100);*/
+   CHECK(fromAgg.vectorUint64Field.Value()[0] == 100);
 
    std::vector<double_t> fromDb;
    fromDb.push_back(89.00);
@@ -433,10 +461,10 @@ TEST_CASE("SetVectorFieldCurrentValueUsingFunction", "[test]")
    fromAgg.vectorStrField.Value(fromStr);
    CHECK(fromAgg.vectorStrField.Value()[0] == "Hello Team");
 
-  /* std::vector<bool> fromBo;
+   std::vector<bool> fromBo;
    fromBo.push_back(true);
    fromAgg.vectorBoolField.Value(fromBo);
-   CHECK(fromAgg.vectorBoolField.Value()[0] == true);*/
+   CHECK(fromAgg.vectorBoolField.Value()[0] == true);
 
 
 }
@@ -503,12 +531,16 @@ TEST_CASE("ThrowsExceptionIfSetFieldNotAvailable", "[test]")
 }
 
 //Set Vector field value shall throw an exception if the Vector field is not available in the current version of the aggregate.
-/*TEST_CASE("ThrowsExceptionIfSetVectorFieldNotAvailable", "[test]")
+TEST_CASE("ThrowsExceptionIfSetVectorFieldNotAvailable", "[test]")
 {
-   TestVectorFieldAggregate fromAgg("1.0.0");
-   CHECK(a.minYield??.State() == FieldStateEnum::Unavailable);
-   CHECK_THROWS_AS(a.minYield?? = 2, NotAbleToSet);
-}*/
+   VectorFieldUnitTest a("1.0.0");
+   std::vector<std::string> fromStr;
+   fromStr.push_back("Hi");
+   fromStr.push_back("Hello");
+
+   CHECK(a.vectorVersion1only.State() == FieldStateEnum::Unavailable);
+   CHECK_THROWS_AS(a.vectorStrField = fromStr, NotAbleToSet);
+}
 
 //Tests set field value shall throw an exception if the field is marked as constant in the current version of the aggregate.
 TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
@@ -594,12 +626,12 @@ TEST_CASE("GetCurrentVectorFieldState", "[test]")
    VectorFieldUnitTest fromAgg("1.0.0");
 
    CHECK(fromAgg.vectorInt32Field.State() == FieldStateEnum::NotSet);
-   //CHECK(fromAgg.vectorUint32Field.State() == FieldStateEnum::NotSet);
-  //CHECK(fromAgg.vectorInt64Field.State() == FieldStateEnum::NotSet);
-   //CHECK(fromAgg.vectorUint64Field.State() == FieldStateEnum::NotSet);
+   CHECK(fromAgg.vectorUint32Field.State() == FieldStateEnum::NotSet);
+   CHECK(fromAgg.vectorInt64Field.State() == FieldStateEnum::NotSet);
+   CHECK(fromAgg.vectorUint64Field.State() == FieldStateEnum::NotSet);
    CHECK(fromAgg.vectorDblField.State() == FieldStateEnum::NotSet);
    CHECK(fromAgg.vectorStrField.State() == FieldStateEnum::NotSet);
-   //CHECK(fromAgg.vectorBoolField.State() == FieldStateEnum::NotSet);
+   CHECK(fromAgg.vectorBoolField.State() == FieldStateEnum::NotSet);
   
    //CHECK(fromAgg.vectorEnumField.State() == FieldStateEnum::NotSet);
    //CHECK(fromAgg.vectorAggField.State() == FieldStateEnum::NotSet);
@@ -638,20 +670,20 @@ TEST_CASE("SetCurrentVectorFieldState", "[test]")
    fromAgg.vectorInt32Field.Value(fromInt32);
    CHECK(fromAgg.vectorInt32Field.State() == FieldStateEnum::Set);
 
-   /*std::vector<uint32_t> fromUint32;
+   std::vector<uint32_t> fromUint32;
    fromUint32.push_back(100);
    fromAgg.vectorUint32Field.Value(fromUint32);
-   CHECK(fromAgg.vectorUint32Field.State() == FieldStateEnum::Set);*/
+   CHECK(fromAgg.vectorUint32Field.State() == FieldStateEnum::Set);
 
-   /*std::vector<int64_t> fromInt64;
+   std::vector<int64_t> fromInt64;
    fromInt64.push_back(-100000);
    fromAgg.vectorInt64Field.Value(fromInt64);
-   CHECK(fromAgg.vectorInt64Field.State() == FieldStateEnum::Set);*/
+   CHECK(fromAgg.vectorInt64Field.State() == FieldStateEnum::Set);
 
-   /*std::vector<uint64_t> fromUint64;
+   std::vector<uint64_t> fromUint64;
    fromUint64.push_back(100);
-   fromAgg.vectorUint64Field.Value(fromUint32);
-   CHECK(fromAgg.vectorUint64Field.State() == FieldStateEnum::Set);*/
+   fromAgg.vectorUint64Field.Value(fromUint64);
+   CHECK(fromAgg.vectorUint64Field.State() == FieldStateEnum::Set);
 
    std::vector<double> fromDb;
    fromDb.push_back(1000.89);
