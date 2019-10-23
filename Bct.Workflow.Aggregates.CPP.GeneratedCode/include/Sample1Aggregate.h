@@ -44,25 +44,6 @@ namespace Bct
             virtual ~Sample1Aggregate();
             AggregateMetaData &MetaData() const;
 
-            friend bool operator==(const Sample1Aggregate& lhs, const Sample1Aggregate& rhs)
-            {
-               return true;
-               //return (lhs.Field1.State == rhs.Field1.State && 
-               //   lhs.Field7 == rhs.Field7 &&
-               //   lhs.Field7ro == rhs.Field7ro &&
-               //   lhs.Field7c == rhs.Field7c &&
-               //   lhs.Field7d == rhs.Field7d &&
-               //   lhs.Field7com == rhs.Field7com &&
-               //   lhs.Field7x == rhs.Field7x
-                  //lhs.FieldEnum == rhs.FieldEnum &&
-                  //lhs.FieldEnumRo == rhs.FieldEnumRo &&
-                  //lhs.FieldString == rhs.FieldString &&
-                  //lhs.FieldStringRo == rhs.FieldStringRo
-//                  );
-
-            }
-
-
          };
 
       }
