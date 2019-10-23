@@ -123,6 +123,9 @@
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
+    <ClInclude Include="include\VectorField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseAggregate.cpp">

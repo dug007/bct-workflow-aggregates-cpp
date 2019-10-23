@@ -29,7 +29,8 @@ namespace Bct
             "0 1 2 4 8 16 ",
             "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
             v100Field(9, this), 
-            boolFieldRequiredv0(10, this)
+            boolFieldRequiredv0(10, this),
+            vectorIntField(11, this)
           {
             pushFields();
             syncVersion();
@@ -49,7 +50,8 @@ namespace Bct
            "0 1 2 4 8 16 ",
            "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
            v100Field(9, this), 
-           boolFieldRequiredv0(10, this)
+           boolFieldRequiredv0(10, this),
+            vectorIntField(11, this)
          {
             pushFields();
             syncVersion();
@@ -67,7 +69,8 @@ namespace Bct
             boolFieldRequiredv2(other.boolFieldRequiredv2, this), 
             enumField(other.enumField, this), 
             v100Field(other.v100Field, this), 
-            boolFieldRequiredv0(other.boolFieldRequiredv0, this)
+            boolFieldRequiredv0(other.boolFieldRequiredv0, this),
+            vectorIntField(other.vectorIntField, this)
          {
             pushFields();
          }
@@ -84,7 +87,8 @@ namespace Bct
             boolFieldRequiredv2(other.boolFieldRequiredv2, this), 
             enumField(other.enumField, this), 
             v100Field(other.v100Field, this), 
-            boolFieldRequiredv0(other.boolFieldRequiredv0, this)
+            boolFieldRequiredv0(other.boolFieldRequiredv0, this),
+            vectorIntField(other.vectorIntField, this)
          {
             pushFields();
          }
@@ -105,9 +109,69 @@ namespace Bct
                enumField = other.enumField;
                v100Field = other.v100Field;
                boolFieldRequiredv0 = other.boolFieldRequiredv0;
+               vectorIntField = other.vectorIntField;
             }
             
             return *this;
+         }
+
+         bool ReferenceAggregate::operator==(const ReferenceAggregate &other) const
+         {
+            if (boolField != other.boolField)
+            {
+               return false;
+            }
+            if (int32Field != other.int32Field)
+            {
+               return false;
+            }
+            if (uint32Field != other.uint32Field)
+            {
+               return false;
+            }
+            if (int64Field != other.int64Field)
+            {
+               return false;
+            }
+            if (uint64Field != other.uint64Field)
+            {
+               return false;
+            }
+            if (doubleField != other.doubleField)
+            {
+               return false;
+            }
+            if (stringField != other.stringField)
+            {
+               return false;
+            }
+            if (boolFieldRequiredv2 != other.boolFieldRequiredv2)
+            {
+               return false;
+            }
+            if (enumField != other.enumField)
+            {
+               return false;
+            }
+            if (v100Field != other.v100Field)
+            {
+               return false;
+            }
+            if (boolFieldRequiredv0 != other.boolFieldRequiredv0)
+            {
+               return false;
+            }
+            if (vectorIntField != other.vectorIntField)
+            {
+               return false;
+            }
+
+            return true;
+         }
+
+         bool ReferenceAggregate::operator!=(const ReferenceAggregate &other) const
+         {
+            return ! (*this == other);
          }
 
          ReferenceAggregate::~ReferenceAggregate()
@@ -132,6 +196,7 @@ namespace Bct
             FieldList().push_back(&enumField);
             FieldList().push_back(&v100Field);
             FieldList().push_back(&boolFieldRequiredv0);
+            FieldList().push_back(&vectorIntField);
          }
 
          AggregateMetaData & ReferenceAggregate::s_MetaData()
@@ -155,6 +220,7 @@ namespace Bct
                tm.addField(8, "enumField", TypeEnum::Int32Type);
                tm.addField(9, "v100Field", TypeEnum::DoubleType);
                tm.addField(10, "boolFieldRequiredv0", TypeEnum::BoolType);
+               tm.addField(11, "vectorIntField", TypeEnum::ArrayType);
                tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
                tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-1");
                tm.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "1");
@@ -162,6 +228,8 @@ namespace Bct
                tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
+               tm.addFieldMetaToAllVersions(11, FieldStateEnum::NotSet, "notset");
+
                tm.addFieldMeta(7, FieldStateEnum::NotSet, "notset")
                      .toVersion(1)
                ;
