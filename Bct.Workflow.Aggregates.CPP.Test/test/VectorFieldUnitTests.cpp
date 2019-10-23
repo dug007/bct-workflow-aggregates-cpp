@@ -51,12 +51,6 @@ public:
       syncVersion();
    }
 
-   //static void bindMetaData(AggregateMetaData  *metaData)
-   //{
-   //   s_metaData = metaData;
-   //   s_initialized = true;
-   //}
-
    virtual AggregateMetaData &MetaData() const
    {
       return s_MetaData();

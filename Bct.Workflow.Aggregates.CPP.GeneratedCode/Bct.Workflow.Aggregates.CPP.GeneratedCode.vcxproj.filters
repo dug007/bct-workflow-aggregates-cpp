@@ -39,9 +39,6 @@
     <ClInclude Include="include\NestedWithReference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\PlateletConfigVectorAggregate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PlateletConfigAggregate.cpp">
@@ -60,9 +57,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\NestedWithReference.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PlateletConfigVectorAggregate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
