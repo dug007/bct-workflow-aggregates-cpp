@@ -86,14 +86,18 @@ public:
          tm.addFieldMetaToAllVersions(2, FieldStateEnum::NotSet, "notset");
          tm.addFieldMetaToAllVersions(3, FieldStateEnum::NotSet, "notset");
          tm.addFieldMeta(4, FieldStateEnum::NotSet, "notset").toVersion(0);
-         tm.addFieldMeta(4, FieldStateEnum::Unavailable, "unavailable").toVersion(1);
-         tm.addFieldMeta(4, FieldStateEnum::Unavailable, "unavailable").toVersion(2);
+         tm.addFieldMeta(4, FieldStateEnum::Unavailable, "unavailable")
+            .toVersion(1)
+            .toVersion(2)
+         ;
          tm.addFieldMeta(5, FieldStateEnum::Unavailable, "unavailable").toVersion(0);
          tm.addFieldMeta(5, FieldStateEnum::NotSet, "notset").toVersion(1);
          tm.addFieldMeta(5, FieldStateEnum::Unavailable, "unavailable").toVersion(2);
 
-         tm.addFieldMeta(6, FieldStateEnum::Unavailable, "unavailable").toVersion(0);
-         tm.addFieldMeta(6, FieldStateEnum::Unavailable, "unavailable").toVersion(1);
+         tm.addFieldMeta(6, FieldStateEnum::Unavailable, "unavailable")
+            .toVersion(0)
+            .toVersion(1)
+         ;
          tm.addFieldMeta(6, FieldStateEnum::NotSet, "notset").toVersion(2);
          initialized = true;
       }
@@ -122,7 +126,7 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(!t0.vectorInt32Field.hasValue());
    CHECK(!t0.vectorDblField.hasValue());
    CHECK(!t0.vectorStrField.hasValue());
-   CHECK(!t0.vectorAggField.hasValue());  
+   CHECK(!t0.vectorAggField.hasValue());
 
    // arrange some external vectors for testing
    std::vector<int32_t> fromInt;
@@ -184,7 +188,7 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(t0.vectorDblField.Value().size() == assignFromDbl.size());
 
    // check assignment (string)
-   
+
    std::vector<std::string> assignFromStr;
    assignFromStr.push_back("1");
    assignFromStr.push_back("2");
@@ -211,7 +215,7 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    ReferenceAggregate b("v1.1.0");
    CHECK(!b.vectorIntField.hasValue());
    b.doubleField = 99.99;
-   b.vectorIntField = assignFromInt;   
+   b.vectorIntField = assignFromInt;
    assignFromAggVect.push_back(b);
 
    assignToAggVect = assignFromAggVect;
@@ -224,7 +228,7 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(t0a.vectorAggField == t0.vectorAggField);
 
    const ReferenceAggregate &ra = t0.vectorAggField.Value()[0];
-   const ReferenceAggregate &rb = t0.vectorAggField.Value()[1];  
+   const ReferenceAggregate &rb = t0.vectorAggField.Value()[1];
    CHECK(ra.getVersion() == "v1.0.0");
    CHECK(ra.vectorIntField.State() == a.vectorIntField.State());
    CHECK(rb.getVersion() == "v1.1.0");
@@ -232,6 +236,12 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(ra == a);
    CHECK(rb == b);
    CHECK(ra != rb);
+}
+/// <summary>
+/// This tests vector field being unavailable in various versions of aggregate objects
+/// </summary>
+TEST_CASE("VectorFieldVersionUnitTests", "[test]")
+{
 
    // Test for vector versions
    TestVectorFieldAggregate tv0("1.0.0");
@@ -291,5 +301,4 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    tv2.vectorVersion2only.unset();
    CHECK_THROWS_AS(tv0.vectorVersion2only.unset(), NotAbleToSet);
    CHECK_THROWS_AS(tv1.vectorVersion2only.unset(), NotAbleToSet);
-
 }
