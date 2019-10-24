@@ -101,12 +101,8 @@ public:
          .toVersion(0)
          .toVersion(1)
          ;
-    /*  tm.addFieldMeta(11, FieldStateEnum::NotSet, "notset").toVersion(2);
-      initialized = true;*/
-  
       
-
-
+      
       bindMetaData(&tm);
       // <----------------- metadata TestVectorFieldAggregate 
 
@@ -230,7 +226,7 @@ TEST_CASE("ThrowsExceptionIfGetVectorFieldNotSet", "[test]")
    CHECK_THROWS_AS(a.vectorIntField.Value(), NotAbleToGet);
 }
 
-/*TEST_CASE("SetFieldUsingAssignment","[test]")
+TEST_CASE("SetFieldUsingAssignment","[test]")
 {
    ReferenceAggregate from;
    ReferenceAggregate to;
@@ -273,7 +269,7 @@ TEST_CASE("ThrowsExceptionIfGetVectorFieldNotSet", "[test]")
    // Just make sure assignment does not throw exception on ro fields.
    toS.FieldEnumRo = fromS.FieldEnumRo;
    toS.FieldStringro = fromS.FieldStringro;
-}*/
+}
 
 //Tests Set Field Value - sets the current value for a field by using assignment.
 TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
@@ -592,10 +588,10 @@ TEST_CASE("NullableVectorField", "[test]")
 //Set vector field value shall allow changing a field to “nullable” which will set the state to “not set”..
 TEST_CASE("NullableField", "[test]")
 {
-   Sample1Aggregate a;
-   a.Field1.unset();
-   CHECK(a.Field7.State() == FieldStateEnum::NotSet);
-   CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet);
+   ReferenceAggregate a;
+   a.int32Field.unset();
+   CHECK(a.int32Field.State() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(a.int32Field.Value(), NotAbleToGet);
 }
 
 //Tests get Field state- gets the current state for a field.
@@ -632,11 +628,7 @@ TEST_CASE("GetCurrentVectorFieldState", "[test]")
    CHECK(fromAgg.vectorDblField.State() == FieldStateEnum::NotSet);
    CHECK(fromAgg.vectorStrField.State() == FieldStateEnum::NotSet);
    CHECK(fromAgg.vectorBoolField.State() == FieldStateEnum::NotSet);
-  
-   //CHECK(fromAgg.vectorEnumField.State() == FieldStateEnum::NotSet);
-   //CHECK(fromAgg.vectorAggField.State() == FieldStateEnum::NotSet);
-
-
+     
 }
 //Tests set field value - sets the new value for a field.
 TEST_CASE("SetCurrentFieldState", "[test]")
