@@ -296,3 +296,30 @@ TEST_CASE("VectorFieldVersionUnitTests", "[test]")
    CHECK_THROWS_AS(tv0.vectorVersion2only.unset(), NotAbleToSet);
    CHECK_THROWS_AS(tv1.vectorVersion2only.unset(), NotAbleToSet);
 }
+
+// Tests the swap function for vector field
+TEST_CASE("VectorFieldSwapTests", "[test]")
+{
+   // arrange
+   TestVectorFieldAggregate tv0("1.0.0");
+   CHECK(tv0.vectorVersion0only.State() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(tv0.vectorDblField.Value().size() == 0, NotAbleToGet);
+   int count = tv0.vectorDblField.FieldSetCounter();
+   std::vector<double> v;
+   v.push_back(1.0);
+   v.push_back(2.0);
+   v.push_back(3.0);
+   CHECK(v.size() == 3);
+   CHECK(v[2] == 3.0);
+
+   // action
+   tv0.vectorDblField.swap(v);
+
+   // assert
+   CHECK(tv0.vectorDblField.Value().size() == 3);
+   CHECK(tv0.vectorDblField.Value()[2] == 3.0);
+   CHECK(tv0.vectorDblField.FieldSetCounter() == ++count);
+   CHECK(tv0.vectorDblField.State() == FieldStateEnum::Set);
+   CHECK(v.size() == 0);
+}
+

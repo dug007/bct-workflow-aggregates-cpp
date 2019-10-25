@@ -84,6 +84,25 @@ namespace Bct
             }
 
             /// <summary>
+            /// Swaps vector field value with other vector.
+            /// </summary>
+            /// <param name="other">Other vector to swap with.</param>
+            void swap(std::vector<T> &other)
+            {
+               switch (_state)
+               {
+               case FieldStateEnum::Unavailable:
+               {
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+               }
+               }
+               _val.swap(other);
+               _fieldSetCounter = _aggregate->FieldSetCounter();
+               _state = FieldStateEnum::Set;
+            }
+
+            /// <summary>
             /// Assignment operator from wrapped type.
             /// </summary>
             /// <param name="val">Value of wrapped type.</param>
