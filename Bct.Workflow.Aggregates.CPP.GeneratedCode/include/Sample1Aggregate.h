@@ -43,6 +43,7 @@ namespace Bct
             Sample1Aggregate(const std::string &version);
             virtual ~Sample1Aggregate();
             AggregateMetaData &MetaData() const;
+
          };
 
       }
