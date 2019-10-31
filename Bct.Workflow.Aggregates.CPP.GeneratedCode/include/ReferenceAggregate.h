@@ -11,7 +11,6 @@
 #include "StringField.h"
 #include "VectorField.h"
 #include "SimpleAggregate.h"
-#include "SimpleAggregate.h"
 
 using namespace Bct::Workflow::Aggregates;
 
