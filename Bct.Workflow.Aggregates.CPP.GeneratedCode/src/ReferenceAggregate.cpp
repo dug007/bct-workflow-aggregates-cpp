@@ -4,6 +4,8 @@
 
 using namespace Bct::Workflow::Aggregates;
 
+
+
 namespace Bct
 {
    namespace Workflow
@@ -28,9 +30,11 @@ namespace Bct
             enumField(8, "ReferenceEnum::Reference",
             "0 1 2 4 8 16 ",
             "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
-            v100Field(9, this), 
-            boolFieldRequiredv0(10, this),
-            vectorIntField(11, this)
+            vectorIntField(9, this), 
+            nestedField(10, this), 
+            v100Field(11, this), 
+            nestedField2(12, this), 
+            boolFieldRequiredv0(13, this)
           {
             pushFields();
             syncVersion();
@@ -49,9 +53,11 @@ namespace Bct
            enumField(8, "ReferenceEnum::Reference",
            "0 1 2 4 8 16 ",
            "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
-           v100Field(9, this), 
-           boolFieldRequiredv0(10, this),
-            vectorIntField(11, this)
+           vectorIntField(9, this), 
+           nestedField(10, this), 
+           v100Field(11, this), 
+           nestedField2(12, this), 
+           boolFieldRequiredv0(13, this)
          {
             pushFields();
             syncVersion();
@@ -68,9 +74,11 @@ namespace Bct
             stringField(other.stringField, this), 
             boolFieldRequiredv2(other.boolFieldRequiredv2, this), 
             enumField(other.enumField, this), 
+            vectorIntField(other.vectorIntField, this), 
+            nestedField(other.nestedField, this), 
             v100Field(other.v100Field, this), 
-            boolFieldRequiredv0(other.boolFieldRequiredv0, this),
-            vectorIntField(other.vectorIntField, this)
+            nestedField2(other.nestedField2, this), 
+            boolFieldRequiredv0(other.boolFieldRequiredv0, this)
          {
             pushFields();
          }
@@ -86,9 +94,11 @@ namespace Bct
             stringField(other.stringField, this), 
             boolFieldRequiredv2(other.boolFieldRequiredv2, this), 
             enumField(other.enumField, this), 
+            vectorIntField(other.vectorIntField, this), 
+            nestedField(other.nestedField, this), 
             v100Field(other.v100Field, this), 
-            boolFieldRequiredv0(other.boolFieldRequiredv0, this),
-            vectorIntField(other.vectorIntField, this)
+            nestedField2(other.nestedField2, this), 
+            boolFieldRequiredv0(other.boolFieldRequiredv0, this)
          {
             pushFields();
          }
@@ -107,9 +117,11 @@ namespace Bct
                stringField = other.stringField;
                boolFieldRequiredv2 = other.boolFieldRequiredv2;
                enumField = other.enumField;
-               v100Field = other.v100Field;
-               boolFieldRequiredv0 = other.boolFieldRequiredv0;
                vectorIntField = other.vectorIntField;
+               nestedField = other.nestedField;
+               v100Field = other.v100Field;
+               nestedField2 = other.nestedField2;
+               boolFieldRequiredv0 = other.boolFieldRequiredv0;
             }
             
             return *this;
@@ -153,7 +165,19 @@ namespace Bct
             {
                return false;
             }
+            if (vectorIntField != other.vectorIntField)
+            {
+               return false;
+            }
+            if (nestedField != other.nestedField)
+            {
+               return false;
+            }
             if (v100Field != other.v100Field)
+            {
+               return false;
+            }
+            if (nestedField2 != other.nestedField2)
             {
                return false;
             }
@@ -161,11 +185,6 @@ namespace Bct
             {
                return false;
             }
-            if (vectorIntField != other.vectorIntField)
-            {
-               return false;
-            }
-
             return true;
          }
 
@@ -194,9 +213,11 @@ namespace Bct
             FieldList().push_back(&stringField);
             FieldList().push_back(&boolFieldRequiredv2);
             FieldList().push_back(&enumField);
-            FieldList().push_back(&v100Field);
-            FieldList().push_back(&boolFieldRequiredv0);
             FieldList().push_back(&vectorIntField);
+            AggList().push_back(&nestedField);
+            FieldList().push_back(&v100Field);
+            AggList().push_back(&nestedField2);
+            FieldList().push_back(&boolFieldRequiredv0);
          }
 
          AggregateMetaData & ReferenceAggregate::s_MetaData()
@@ -218,9 +239,11 @@ namespace Bct
                tm.addField(6, "stringField", TypeEnum::StringType);
                tm.addField(7, "boolFieldRequiredv2", TypeEnum::BoolType);
                tm.addField(8, "enumField", TypeEnum::Int32Type);
-               tm.addField(9, "v100Field", TypeEnum::DoubleType);
-               tm.addField(10, "boolFieldRequiredv0", TypeEnum::BoolType);
-               tm.addField(11, "vectorIntField", TypeEnum::ArrayType);
+               tm.addField(9, "vectorIntField", TypeEnum::ArrayType);
+               tm.addAggField(10, "nestedField");
+               tm.addField(11, "v100Field", TypeEnum::DoubleType);
+               tm.addAggField(12, "nestedField2");
+               tm.addField(13, "boolFieldRequiredv0", TypeEnum::BoolType);
                tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
                tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-1");
                tm.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "1");
@@ -228,25 +251,31 @@ namespace Bct
                tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
-               tm.addFieldMetaToAllVersions(11, FieldStateEnum::NotSet, "notset");
-
                tm.addFieldMeta(7, FieldStateEnum::NotSet, "notset")
                      .toVersion(1)
                ;
                tm.addFieldMetaToAllVersions(8, FieldStateEnum::Default, "2");
-               tm.addFieldMeta(9, FieldStateEnum::Default, "1")
+               tm.addFieldMetaToAllVersions(9, FieldStateEnum::NotSet, "notset");
+               tm.addAggMetaToAllVersions(10, FieldStateEnum::NotSet, 0);
+               tm.addFieldMeta(11, FieldStateEnum::Default, "1")
                      .toVersion(0)
                ;
-               tm.addFieldMeta(10, FieldStateEnum::NotSet, "notset")
+               tm.addAggMeta(12, FieldStateEnum::NotSet, 0)
+                     .toVersion(0)
+               ;
+               tm.addFieldMeta(13, FieldStateEnum::NotSet, "notset")
                      .toVersion(0)
                ;
                tm.addFieldMeta(7, FieldStateEnum::Unavailable, "notset")
                      .toVersion(0)
                ;
-               tm.addFieldMeta(9, FieldStateEnum::Unavailable, "notset")
+               tm.addFieldMeta(11, FieldStateEnum::Unavailable, "notset")
                      .toVersion(1)
                ;
-               tm.addFieldMeta(10, FieldStateEnum::Unavailable, "notset")
+               tm.addAggMeta(12, FieldStateEnum::Unavailable, 0)
+                     .toVersion(1)
+               ;
+               tm.addFieldMeta(13, FieldStateEnum::Unavailable, "notset")
                      .toVersion(1)
                ;
 
@@ -273,7 +302,9 @@ namespace Bct
 
             return tm;
          }
-      };
+
+
+      }
    }
 }
 
