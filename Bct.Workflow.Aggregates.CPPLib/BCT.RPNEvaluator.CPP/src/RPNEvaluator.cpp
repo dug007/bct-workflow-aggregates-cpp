@@ -13,7 +13,7 @@ namespace Bct
 	namespace RPNEvaluator
 	{
 
-		Bct::FunctionMap::FuncOpersMap FuncOpers = Bct::FunctionMap::initFuncOpersMap();
+		FunctionMap::FuncOpersMap FuncOpers = FunctionMap::initFuncOpersMap();
 		RPNEvaluator::SupportedTypesMap RPNEvaluator::SupportedTypes = initSupportedTypesMap();
 
 		RPNEvaluator::RPNEvaluator()
@@ -240,6 +240,24 @@ namespace Bct
 				{
 					return false;
 				}
+			}
+			// Currently $Size is the only function supported for Arrays
+			else if (FuncOpers[op].RequiredType == Workflow::TypeEnum::ArrayType)
+			{
+				std::string  tmpStr = argList[0].TokValue;
+				for (size_t i = 0; i < tmpStr.length(); i++)
+				{
+					if (!isdigit(tmpStr[i]))
+					{
+						return false;
+					}
+				}
+					rtnTok.Tok = argList[0].Tok;
+					rtnTok.TokType = Workflow::TypeEnum::UInt32Type;
+					rtnTok.TokClass = value_t;
+					// Array values come in as their size so just return the value
+					rtnTok.TokValue = argList[0].TokValue;
+					return true;
 			}
 			else if (FuncOpers[op].RequiredType == Workflow::TypeEnum::VariableType)
 			{
