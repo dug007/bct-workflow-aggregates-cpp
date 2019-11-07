@@ -251,7 +251,7 @@ namespace Bct
             /// Determines if this field has a value.
             /// </summary>
             /// <returns>true if the field has a  value, false if the field does not hava a value.</returns>
-            const bool &hasValue() const
+            const bool hasValue() const
             {
                return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default || _state==FieldStateEnum::Computed);
             }
