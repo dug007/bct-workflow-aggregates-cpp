@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\CodeGenerationUnitTests.cpp" />
-    <ClCompile Include="test\ComprehensiveUnitTests.cpp" />
+    <ClCompile Include="test\QAComprehensiveUnitTests.cpp" />
     <ClCompile Include="src\AggAssess.cpp" />
     <ClCompile Include="src\AggNested.cpp" />
     <ClCompile Include="src\AssessMetaData.cpp" />
