@@ -164,7 +164,7 @@ namespace Bct
 					{
 						result += args[i];
 					}
-					result = result / args.size();
+					result = result / static_cast<T>(args.size());
 					rtn = result;
 				}
 				else if (op == "*")
