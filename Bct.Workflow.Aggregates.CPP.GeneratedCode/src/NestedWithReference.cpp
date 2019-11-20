@@ -12,9 +12,23 @@ namespace Bct
       namespace Implementation
       {
          NestedWithReferenceAggregate::NestedWithReferenceAggregate() :
-            NestedWithReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
-         {
-         }
+            BaseAggregate(BaseAggregate::UseMostRecentVersionStr),
+            boolField(0, this),
+            int32Field(1, this),
+            uint32Field(2, this),
+            int64Field(3, this),
+            uint64Field(4, this),
+            doubleField(5, this),
+            stringField(6, this),
+            enumField(7, "ReferenceEnum::Reference",
+               "0 1 2 4 8 16",
+               "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
+               this),
+            aggField(8, this)
+      {
+         pushFields();
+         syncVersion();
+      }
 
          NestedWithReferenceAggregate::NestedWithReferenceAggregate(const std::string &version) :
             BaseAggregate(version),
@@ -147,11 +161,11 @@ namespace Bct
                tm.addAggField(8, "aggField");
 
                tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
-               tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-1");
-               tm.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "1");
-               tm.addFieldMetaToAllVersions(3, FieldStateEnum::Default, "-1");
-               tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "1");
-               tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1.0");
+               tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-32");
+               tm.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "32");
+               tm.addFieldMetaToAllVersions(3, FieldStateEnum::Default, "-64");
+               tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "64");
+               tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "3.14");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
                tm.addAggMetaToAllVersions(8, FieldStateEnum::Set, 0);

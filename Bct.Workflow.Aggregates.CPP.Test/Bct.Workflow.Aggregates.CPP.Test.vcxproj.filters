@@ -14,6 +14,7 @@
     <ClCompile Include="test\CodeGenerationUnitTests.cpp" />
     <ClCompile Include="test\ComprehensiveUnitTests.cpp" />
     <ClCompile Include="test\VersionChangeRuleUnitTests.cpp" />
+    <ClCompile Include="test\VectorFieldUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\GeneralUnitTests.cpp">

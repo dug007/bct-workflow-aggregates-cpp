@@ -17,19 +17,21 @@ namespace Bct
       namespace Aggregates
       {
          /// <summary>
-         /// Base template class for scalar fields and derives from the AbstractField class. All scalar fields must derive from this class.
+         ///  Template class for vector fields, which derives from the AbstractField class. 
+         /// 
+         ///  Note: there is no Constant, Default, or Computed states for VectorField.
          /// </summary>
          template<class T>
-         class BaseField : public AbstractField
+         class VectorField: public AbstractField
          {
+            
          public:
-
             /// <summary>
             /// Constructor.
             /// </summary>
             /// <param name="fieldId">Id of this field. The id begins with 0 for the first field in the aggregate and proceeds by one for every field in the aggregate, including nested aggregates. This field will be uses as an index into the FieldInfo vector of the AggregateMetaData object.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(int32_t fieldId, AbstractAggregate * const aggregate)
+            VectorField(int32_t fieldId, AbstractAggregate * const aggregate)
                : _fieldId(fieldId), _aggregate(aggregate), _fieldSetCounter(0)
             {
             }
@@ -39,13 +41,13 @@ namespace Bct
             /// </summary>
             /// <param name="other">Other field being copied.</param>
             /// <param name="aggregate">The associated aggregate this field is a member of.</param>
-            BaseField(const BaseField & other, AbstractAggregate * const aggregate)
-               : _ver(other._ver), _val(other._val), _default(other._default), _state(other._state),
-                 _fieldSetCounter(other._fieldSetCounter), _aggregate(aggregate), _fieldId(other._fieldId)
+            VectorField(const VectorField & other, AbstractAggregate * const aggregate)
+               : _ver(other._ver), _val(other._val), _state(other._state),
+               _fieldSetCounter(other._fieldSetCounter), _aggregate(aggregate), _fieldId(other._fieldId)
             {
             }
 
-            virtual ~BaseField() {};
+            virtual ~VectorField() {};
 
             // Set/Get --------------------->
 
@@ -53,7 +55,7 @@ namespace Bct
             /// Set the value of this field.
             /// </summary>
             /// <param name="v">Value to give this field.</param>
-            void Value(const T &v)
+            void Value(const std::vector<T> &v)
             {
                ValueInternal(v, false);
             }
@@ -62,7 +64,7 @@ namespace Bct
             /// Get the value of this field.
             /// </summary>
             /// <returns>The value of this field.</returns>
-            const T &Value() const
+            const std::vector<T> &Value() const
             {
                // rules to implement here - User Story 126598
                switch (_state)
@@ -77,10 +79,6 @@ namespace Bct
                   std::string aggName_Unavail = typeid(*_aggregate).name();
                   throw NotAbleToGet(aggName_Unavail, FieldName(), FieldStateEnum::FieldStateString(State()));
                }
-               case FieldStateEnum::Default:
-                  return _default;
-
-               default: break;
                }
                return _val;
             }
@@ -90,7 +88,7 @@ namespace Bct
             /// </summary>
             /// <param name="val">Value of wrapped type.</param>
             /// <returns>Value of field being assigned from.</returns>
-            T &operator=(const T &val)
+            std::vector<T> &operator=(const std::vector<T> &val)
             {
                this->Value(val);
                return this->_val;
@@ -101,18 +99,37 @@ namespace Bct
             /// </summary>
             /// <param name="fld">Other from object.</param>
             /// <returns>Reference to assigned object.</returns>
-            BaseField<T> & operator=(const BaseField<T> & fld)
+            VectorField<T> & operator=(const VectorField<T> & fld)
             {
                if (&fld != this)
                {
                   this->_val = fld._val;
                   this->_ver = fld._ver;
-                  this->_default = fld._default;
                   this->_state = fld._state;
                   this->_fieldSetCounter = fld._fieldSetCounter;
                   this->_fieldId = fld._fieldId;
                }
                return *this;
+            }
+
+            /// <summary>
+            /// Equal operator.
+            /// </summary>
+            /// <param name="fld">Other field to compare to</param>
+            /// <returns>True if the two field's values are equal.</returns>
+            bool operator==(const VectorField<T> & fld) const
+            {
+               return (fld._val == _val);
+            }
+
+            /// <summary>
+            /// Not equal operator.
+            /// </summary>
+            /// <param name="fld">Other field to compare to.</param>
+            /// <returns>True if the two field's values are not equal.</returns>
+            bool operator!=(const VectorField<T> & fld) const
+            {
+               return (fld._val != _val);
             }
 
             /// <summary>
@@ -132,12 +149,11 @@ namespace Bct
                _state = FieldStateEnum::NotSet;
             }
 
-
             /// <summary>
             /// Conversion operator.
             /// </summary>
             /// <returns>The value of this field.</returns>
-            operator T() const
+            operator std::vector<T>() const
             {
                return this->Value();
             }
@@ -145,7 +161,7 @@ namespace Bct
             // Set/Get ------------------------------<
 
             // AbstractField ------------>
-            
+
             /// <summary>
             /// Get the name of this field.
             /// </summary>
@@ -201,27 +217,12 @@ namespace Bct
                FieldMeta &fm = findFieldMeta();
                const FieldStateEnum::FieldState &state = fm._fieldState;
                _state = state;
-
-               if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
-               {
-                  // TODO Use serialization library for string<->type conversion - User Story 126886
-                  T out;
-                  std::stringstream ss;
-                  ss << DefaultStr();
-                  ss >> std::boolalpha >> out;
-                  setDefault(out);
-               }
-               // If metatdata state is computed, initial value is not set
-               else if (state == FieldStateEnum::Computed)
-               {
-                  _state = FieldStateEnum::NotSet;
-               }
             }
 
             // AbstractField -------------------<
 
             /// <summary>
-            /// Get the default value of this field as a string.
+            /// Get the default value of this field as a string. Question: need this?
             /// </summary>
             /// <returns>Default value of field as a string.</returns>
             const std::string &DefaultStr() const
@@ -233,9 +234,9 @@ namespace Bct
             /// Determines if this field has a value.
             /// </summary>
             /// <returns>true if the field has a  value, false if the field does not hava a value.</returns>
-            const bool &hasValue() const
+            const bool hasValue() const
             {
-               return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default || _state==FieldStateEnum::Computed);
+               return (_state == FieldStateEnum::Set || _state == FieldStateEnum::Constant || _state == FieldStateEnum::Default || _state == FieldStateEnum::Computed);
             }
 
             /// <summary>
@@ -247,102 +248,68 @@ namespace Bct
                return _fieldId;
             }
 
-          protected:
+         protected:
 
             // AbstractField ----------->
 
-           /// <summary>
-           /// Gets the string representation value of this field. This function is only needed for RPN computations.
-           /// </summary>
-           /// <returns>String representation of this field.</returns>
-             virtual std::string ComputedValueString() const
-             {
-                // TODO Use serialization library for string<->type conversion - User Story 126886
-                std::stringstream ss;
-                ss << std::boolalpha << Value();
-                return ss.str();
-             }
+            /// <summary>
+            /// Gets the string representation value of this field. 
+            /// This function is only needed for RPN computations, which does not support vector.
+            /// </summary>
+            /// <returns>String representation of this field.</returns>
+            virtual std::string ComputedValueString() const
+            {              
+               return "";
+            }
 
-             /// <summary>
-             /// Sets the value of this field using its string representation. This function is only needed for RPN computations.
-             /// </summary>
-             /// <param name="val">String representation of this field.</param>
-             virtual void ComputedValueString(const std::string & val)
-             {
-                // TODO Use serialization library for string<->type conversion - User Story 126886
-                T out;
-                std::stringstream ss;
-                ss << val;
-                ss >> std::boolalpha >> out;
-                ValueInternal(out, true);
-             }
+            /// <summary>
+            /// Sets the value of this field using its string representation. 
+            /// This function is only needed for RPN computations, which does not support vector.
+            /// </summary>
+            /// <param name="val">String representation of this field.</param>
+            virtual void ComputedValueString(const std::string & val)
+            {
+               
+            }
 
             /// <summary>
             /// Returns a ref to the state to allow changes.
             /// </summary>
             /// <returns>The state reference.</returns>
-             virtual FieldStateEnum::FieldState &StateRef()
-             {
-                return _state;
-             }
-
-
-            // AbstractField ---------<
-
-            /// <summary>
-            /// Sets default value.
-            /// </summary>
-            /// <param name="def">Default value.</param>
-            void setDefault(const T &def)
+            virtual FieldStateEnum::FieldState &StateRef()
             {
-               _default = def;
-               _val = def;
+               return _state;
             }
+
+
+            // AbstractField ---------<        
 
             /// <summary>
             /// Internal value setter. This setter distinguishes between setting the value from a calculation and other cases.
             /// </summary>
             /// <param name="v">The new value to be set.</param>
             /// <param name="fromCalculation">true if the value is being set by a calculation, false otherwase.</param>
-            void ValueInternal(const T &v, bool fromCalculation)
+            void ValueInternal(const std::vector<T> &v, bool fromCalculation)
             {
+               
+
                switch (_state)
                {
-                  case FieldStateEnum::Constant:
+                 
                   case FieldStateEnum::Unavailable:
                   {
                      std::string aggName = typeid(*_aggregate).name();
                      throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                   }
-                  default: break;
                }
 
-               FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
-               switch (metaState)
-               {
-                  case FieldStateEnum::Computed:
-                  {
-                     if (!fromCalculation)
-                     {
-                        std::string aggName = typeid(*_aggregate).name();
-                        throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
-                     }
-                  }
-                  default: break;
-               }
+               FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;              
 
                _val = v;
                _fieldSetCounter = _aggregate->FieldSetCounter();
                if (metaState == FieldStateEnum::Default)
-               {
-                  if (_val == _default)
-                  {
-                     _state = FieldStateEnum::Default;
-                  }
-                  else
-                  {
-                     _state = FieldStateEnum::Set;
-                  }
+               {                
+                  _state = FieldStateEnum::Set;                
                }
                else
                {
@@ -409,20 +376,24 @@ namespace Bct
                }
                throw NoSuchVersion(aggName, reqVersion);
             }
+          
 
             /// <summary>
             /// The current version.
             /// </summary>
             int16_t _ver;
-            T _val;
+
+            /// <summary>
+            /// The vector field of template <T>
+            /// </summary>
+            std::vector<T> _val;
 
          private:
-            T _default;
             FieldStateEnum::FieldState _state;
             uint32_t _fieldSetCounter;
             AbstractAggregate * const _aggregate;
             int32_t _fieldId;
-        };
+         };
       }
    }
 }

@@ -99,6 +99,15 @@
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNEvaluator.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StringFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\Token.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
@@ -108,16 +117,13 @@
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNVariable.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
-    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNEvaluator.h">
-      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
-    </ClInclude>
-    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h">
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FunctionMap.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\StringFieldRo.h">
+    <ClInclude Include="include\VectorField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

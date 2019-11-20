@@ -39,11 +39,11 @@ namespace Bct
             /// <summary>
             /// int64-field-summary
             /// </summary>
-            BaseField<uint32_t>                 int64Field;
+            BaseField<int64_t>                 int64Field;
             /// <summary>
             /// uint64Field-field-summary
             /// </summary>
-            BaseField<int64_t>                  uint64Field;
+            BaseField<uint64_t>                  uint64Field;
             /// <summary>
             /// doubleField-field-summary
             /// </summary>
