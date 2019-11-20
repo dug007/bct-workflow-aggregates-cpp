@@ -5,18 +5,16 @@
 
 namespace Bct
 {
-	namespace RPNEvaluator
-	{
 		/// <summary>
 		/// This class holds a map of the different function operations that can be performed.
 		/// </summary>
-		class FuncOper
-		{
-		public:
-			/// <summary>
-			/// Constructor
-			/// </summary>
-			FuncOper();
+	class FuncOper
+	{
+	public:
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		FuncOper();
 
 			/// <summary>
 			/// The instance of a single function operation that can be performed.
@@ -32,15 +30,15 @@ namespace Bct
 			/// </summary>
 			virtual ~FuncOper();
 
-			/// <summary>
-			/// The string name used to identify the rpn function that begins with "$"
-			/// </summary>
-			std::string Name;
+		/// <summary>
+		/// The string name used to identify the rpn function that begins with "$"
+		/// </summary>
+		std::string Name;
 
-			/// <summary>
-			/// The number of arguments used in the rpn function
-			/// </summary>
-			int ArgNum;  // 99 == variable number
+		/// <summary>
+		/// The number of arguments used in the rpn function
+		/// </summary>
+		int ArgNum;  // 99 == variable number
 
 			/// <summary>
 			/// The required input type of the rpn function
@@ -52,7 +50,6 @@ namespace Bct
 			   /// </summary>
 			Workflow::TypeEnum::Type ReturnType; // = Workflow::TypeEnum::EmptyType;  // the return type if it can be different from the inputs - e.g. boolean compares of ints
 
-		};
-	}
+	};
 }
 #endif

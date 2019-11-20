@@ -86,6 +86,7 @@ namespace Bct
             /// 
             /// </summary>
             EnumField<int32_t, ReferenceEnum::Reference>                     enumField;
+
                         /// <summary>
             /// 
             /// </summary>
@@ -106,7 +107,12 @@ namespace Bct
             /// 
             /// </summary>
             BaseField<bool>                     boolFieldRequiredv0;
-            
+
+            /// <summary>
+            /// Vector field
+            /// </summary>
+            VectorField<int32_t>                     vectorIntField;
+
             /// <summary>
             /// Default constructor. Creates the most recent version.
             /// </summary>

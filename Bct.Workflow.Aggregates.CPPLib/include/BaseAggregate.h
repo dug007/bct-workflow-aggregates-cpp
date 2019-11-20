@@ -8,6 +8,10 @@
 #include "AggregateMetaData.h"
 #include "AssessmentResult.h"
 
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/stringbuffer.h"
+
+using namespace rapidjson;
 
 namespace Bct
 {
@@ -95,7 +99,7 @@ namespace Bct
             /// <param name="version">The new version</param>
             void convertToVersion(const std::string toVersion);
 
-            void serialize(std::string & value) const;
+            void serialize( PrettyWriter<StringBuffer> & writer ) const;
             void deserialize(const std::string & value);
             void log(std::ostream & logStream, int flags) const;
 

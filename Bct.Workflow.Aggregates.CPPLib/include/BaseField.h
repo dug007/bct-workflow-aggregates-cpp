@@ -79,6 +79,8 @@ namespace Bct
                }
                case FieldStateEnum::Default:
                   return _default;
+
+               default: break;
                }
                return _val;
             }
@@ -332,6 +334,7 @@ namespace Bct
                      std::string aggName = typeid(*_aggregate).name();
                      throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                   }
+                  default: break;
                }
 
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
@@ -345,6 +348,7 @@ namespace Bct
                         throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
                      }
                   }
+                  default: break;
                }
 
                _val = v;

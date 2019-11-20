@@ -9,7 +9,7 @@ namespace Bct
       namespace Aggregates
       {
          StringField::StringField(int32_t fieldId, AbstractAggregate * const aggregate)
-            : BaseField(fieldId, aggregate)
+            : BaseField<std::string>(fieldId, aggregate)
          {
          }
 
@@ -60,7 +60,7 @@ namespace Bct
 
          std::string StringField::ComputedValueString() const
          {
-            return BaseField::ComputedValueString();
+            return BaseField<std::string>::ComputedValueString();
          }
 
       }

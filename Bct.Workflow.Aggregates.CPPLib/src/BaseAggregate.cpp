@@ -10,6 +10,16 @@
 #include "Exceptions.h"
 #include "FieldInfo.h"
 
+#include "BaseField.h"
+#include "StringField.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/stringbuffer.h"
+#include <iostream>  // [PL] just for testing
+
+using namespace std;
+using namespace rapidjson;
+
+#define nullptr (NULL)
 
 namespace Bct
 {
@@ -390,32 +400,88 @@ namespace Bct
             return _version;
          }
 
-         void BaseAggregate::serialize(std::string & value) const
+// [PL] #define COUT cout<<__LINE__<<endl;
+         void BaseAggregate::serialize( PrettyWriter<StringBuffer> & writer ) const
          {
             //TODO - User Story 129258
             // Elsewhere, ensure computedValueString() uses serialializeValue/deserializeValue as appropriate.
             // See deserialize below.
-
+            writer.StartObject();
             // Fields
             for (int32_t i = 0; i < static_cast<int32_t>(_fieldList.size()); i++)
             {
                const AbstractField *fld = _fieldList[i];
                //const std::string &val = fld->serializeValue();
-               int32_t fieldId = fld->FieldId();
+               const int32_t fieldId = fld->FieldId();
                const std::string &fieldName = MetaData().fieldInfo[fieldId].FieldName();
                const TypeEnum::Type &type = fld->Type();
                // now put into JSON
-            }
-            // Nested aggregates
+               writer.Key(fieldName.c_str());
+               cout << "fieldName: " << fieldName.c_str() << ";   type: " << type << endl;
+               try
+               {
+                  switch( type )
+                  {
+                     case TypeEnum::BoolType:
+                        writer.Bool( (static_cast<const BaseField<bool>*>(fld))->Value() );
+                        break;
+                     case TypeEnum::Int32Type:
+                        writer.Int( (static_cast<const BaseField<int32_t>*>(fld))->Value() );
+                        break;
+                     case TypeEnum::UInt32Type:
+                        writer.Uint( (static_cast<const BaseField<uint32_t>*>(fld))->Value() );
+                        break;
+                     case TypeEnum::Int64Type:
+                        writer.Int64( (static_cast<const BaseField<int64_t>*>(fld))->Value() );
+                        break;
+                     case TypeEnum::UInt64Type:
+                        writer.Uint64( (static_cast<const BaseField<uint64_t>*>(fld))->Value() );
+                        break;
+                     case TypeEnum::DoubleType:
+                        writer.Double( (static_cast<const BaseField<double>*>(fld))->Value() );
+                        break;
+                     case TypeEnum::StringType:
+                        {
+                           const std::string tmpStringValue = (std::string)( *(static_cast<const StringField*>(fld)) );
+                           writer.String( tmpStringValue.c_str() );
+                        }
+                        break;
+                     case TypeEnum::EnumType:
+                        // [PL] TODO As of 10-24-19, this case is never executed. Rather, it goes to case TypeEnum::Int32Type.
+                        break;
+                     case TypeEnum::ArrayType:// [PL] TODO
+                        writer.String( "<TODO: ArrayType>");
+                        break;
+                     case TypeEnum::EmptyType: // [PL] TODO ?
+                        writer.String( "<TODO: EmptyType>");
+                        break;
+                     default:
+                        writer.String( "ERROR: unexpected type");
+                        break;
+                  }// switch(type)
+               }//try
+               catch(NotAbleToGet & exNotAbleToGet)
+               {
+                  cout << "NotAbleToGet exception caught" << endl;
+                  writer.String( "<not set>");
+               }
+            }// for(_fieldList)
+
+// Nested aggregates
+            cout << "Nested count: " << static_cast<int32_t>(_aggList.size()) << endl;
             for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
             {
                AbstractAggregate *agg = _aggList[i];
-               int32_t fieldIdNested = agg->FieldIdAsNested();
+               const int32_t fieldIdNested = agg->FieldIdAsNested();
                const std::string &fieldName = MetaData().fieldInfo[fieldIdNested].FieldName();
-               //std::string aggAsString = agg->serailize();
                // Now put into JSON
+               writer.Key( fieldName.c_str());
+               static_cast<BaseAggregate*>(agg)->serialize( writer );
             }
+
+            writer.EndObject();
          }
+
          void BaseAggregate::deserialize(const std::string & value)
          {
             //TODO - User Story 129259
@@ -426,13 +492,14 @@ namespace Bct
             // for each fieldNameIn/fieldValueIn from JSON, do the following loop
             std::string fieldNameIn = "field1-for-example";
             std::string fieldValueIn = "avalue-for-example";
-            for (int32_t i = 0; i < static_cast<int32_t>(MetaData().fieldInfo.size()); i++)
+            for (int32_t i = 0; i < static_cast<int32_t>(_fieldList.size()); i++)
             {
-               const std::string &fieldName = MetaData().fieldInfo[i].FieldName();
+               const AbstractField *fld = _fieldList[i];
+               const int32_t fieldId = fld->FieldId();
+               const std::string &fieldName = MetaData().fieldInfo[fieldId].FieldName();
                if (fieldName == fieldNameIn)
                {
-                  int16_t index = MetaData().fieldInfo[i].FieldId();
-                  //_fieldList[index]->deserializeValue(fieldValueIn);
+                  //fld->deserializeValue(fieldValueIn);
                }
             }
             // for each nested aggregate from JSON, do the following loop
@@ -440,9 +507,13 @@ namespace Bct
             std::string aggValueIn = "agg-json";
             for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
             {
-               const std::string &fieldName = MetaData().fieldInfo[i].FieldName();
-               int16_t index = MetaData().fieldInfo[i].FieldId();
-               //_aggList[index]->deserializeValue(aggValueIn);
+               AbstractAggregate *agg = _aggList[i];
+               const int32_t fieldIdNested = agg->FieldIdAsNested();
+               const std::string &fieldName = MetaData().fieldInfo[fieldIdNested].FieldName();
+               if (aggNameIn == fieldName)
+               {
+                  //agg->deserialize(aggValueIn);
+               }          
             }
          }
          void BaseAggregate::log(std::ostream & logStream, int flags) const

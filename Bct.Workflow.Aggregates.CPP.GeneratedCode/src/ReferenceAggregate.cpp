@@ -13,8 +13,24 @@ namespace Bct
       namespace Implementation
       {
          ReferenceAggregate::ReferenceAggregate() :
-            ReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
+            BaseAggregate(BaseAggregate::UseMostRecentVersionStr),
+            boolField(0, this), 
+            int32Field(1, this), 
+            uint32Field(2, this), 
+            int64Field(3, this), 
+            uint64Field(4, this), 
+            doubleField(5, this), 
+            stringField(6, this), 
+            boolFieldRequiredv2(7, this), 
+            enumField(8, "ReferenceEnum::Reference",
+            "0 1 2 4 8 16 ",
+            "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
+            v100Field(9, this), 
+            boolFieldRequiredv0(10, this),
+            vectorIntField(11, this)
          {
+            pushFields();
+            syncVersion();
          }
 
          ReferenceAggregate::ReferenceAggregate(const std::string &version) :
@@ -122,6 +138,7 @@ namespace Bct
                v100Field = other.v100Field;
                nestedField2 = other.nestedField2;
                boolFieldRequiredv0 = other.boolFieldRequiredv0;
+               vectorIntField = other.vectorIntField;
             }
             
             return *this;
@@ -218,6 +235,7 @@ namespace Bct
             FieldList().push_back(&v100Field);
             AggList().push_back(&nestedField2);
             FieldList().push_back(&boolFieldRequiredv0);
+            FieldList().push_back(&vectorIntField);
          }
 
          AggregateMetaData & ReferenceAggregate::s_MetaData()
@@ -251,6 +269,8 @@ namespace Bct
                tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
+               tm.addFieldMetaToAllVersions(11, FieldStateEnum::NotSet, "notset");
+
                tm.addFieldMeta(7, FieldStateEnum::NotSet, "notset")
                      .toVersion(1)
                ;
