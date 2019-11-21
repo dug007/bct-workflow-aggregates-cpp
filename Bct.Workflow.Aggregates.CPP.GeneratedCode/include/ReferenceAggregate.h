@@ -3,13 +3,12 @@
 #include "BaseAggregate.h"
 #include "BaseField.h"
 #include "AggregateMetaData.h"
-#include "AggComputeField.h"
 #include "AbstractAggregate.h"
 #include "EnumField.h"
-#include "ReferenceEnum.h"
-#include "AggComputeField.h"
 #include "StringField.h"
 #include "VectorField.h"
+#include "BaseAggregate.h"
+#include "BaseField.h"
 #include "SimpleAggregate.h"
 
 using namespace Bct::Workflow::Aggregates;
@@ -86,7 +85,6 @@ namespace Bct
             /// 
             /// </summary>
             EnumField<int32_t, ReferenceEnum::Reference>                     enumField;
-
                         /// <summary>
             /// 
             /// </summary>
@@ -107,12 +105,7 @@ namespace Bct
             /// 
             /// </summary>
             BaseField<bool>                     boolFieldRequiredv0;
-
-            /// <summary>
-            /// Vector field
-            /// </summary>
-            VectorField<int32_t>                     vectorIntField;
-
+            
             /// <summary>
             /// Default constructor. Creates the most recent version.
             /// </summary>

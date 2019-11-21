@@ -2,7 +2,7 @@
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
 
-using namespace Bct::Workflow::Aggregates;
+using namespace Bct::Workflow::Aggregates; 
 
 
 
@@ -25,9 +25,11 @@ namespace Bct
             enumField(8, "ReferenceEnum::Reference",
             "0 1 2 4 8 16 ",
             "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
-            v100Field(9, this), 
-            boolFieldRequiredv0(10, this),
-            vectorIntField(11, this)
+            vectorIntField(9, this), 
+            nestedField(10, this), 
+            v100Field(11, this), 
+            nestedField2(12, this), 
+            boolFieldRequiredv0(13, this)
          {
             pushFields();
             syncVersion();
@@ -138,7 +140,6 @@ namespace Bct
                v100Field = other.v100Field;
                nestedField2 = other.nestedField2;
                boolFieldRequiredv0 = other.boolFieldRequiredv0;
-               vectorIntField = other.vectorIntField;
             }
             
             return *this;
@@ -235,7 +236,6 @@ namespace Bct
             FieldList().push_back(&v100Field);
             AggList().push_back(&nestedField2);
             FieldList().push_back(&boolFieldRequiredv0);
-            FieldList().push_back(&vectorIntField);
          }
 
          AggregateMetaData & ReferenceAggregate::s_MetaData()
@@ -269,8 +269,6 @@ namespace Bct
                tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
-               tm.addFieldMetaToAllVersions(11, FieldStateEnum::NotSet, "notset");
-
                tm.addFieldMeta(7, FieldStateEnum::NotSet, "notset")
                      .toVersion(1)
                ;
