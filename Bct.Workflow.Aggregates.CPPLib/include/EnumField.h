@@ -9,6 +9,11 @@ namespace Bct
    {
       namespace Aggregates
       {
+         template<class U, class X> class EnumField;
+
+         template <class U, class X>
+         std::ostream & operator<< (std::ostream& OutStream, const EnumField<U, X> enumField);
+
          /// <summary>
          /// Enumeration wrapper for fields. U is the underlying type. X is the enum being wrapped.
          /// 
@@ -166,6 +171,7 @@ namespace Bct
                BaseField<U>::ComputedValueString(val);
             };
 
+            friend std::ostream & operator<< <U, X>(std::ostream& OutStream, const EnumField enumField);
 
          private:
 
@@ -173,6 +179,13 @@ namespace Bct
             std::vector<std::string> _enumNames;
             std::vector<std::string> _enums;
          };
+
+         template <class U, class X>
+         std::ostream & operator<< (std::ostream& OutStream, const EnumField<U, X> enumField )
+         {
+            OutStream << enumField.Value();
+            return OutStream;
+         }
       }
    }
 }

@@ -1,4 +1,5 @@
 #include "NestedWithReference.h"
+#include "NestedWithReference.h"
 
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
@@ -161,11 +162,11 @@ namespace Bct
                tm.addAggField(8, "aggField");
 
                tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
-               tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-32");
-               tm.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "32");
-               tm.addFieldMetaToAllVersions(3, FieldStateEnum::Default, "-64");
-               tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "64");
-               tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "3.14");
+               tm.addFieldMetaToAllVersions(1, FieldStateEnum::Default, "-1");
+               tm.addFieldMetaToAllVersions(2, FieldStateEnum::Default, "1");
+               tm.addFieldMetaToAllVersions(3, FieldStateEnum::Default, "-1");
+               tm.addFieldMetaToAllVersions(4, FieldStateEnum::Default, "1");
+               tm.addFieldMetaToAllVersions(5, FieldStateEnum::Default, "1.0");
                tm.addFieldMetaToAllVersions(6, FieldStateEnum::Default, "hello world");
                tm.addFieldMetaToAllVersions(7, FieldStateEnum::Default, "2");
                tm.addAggMetaToAllVersions(8, FieldStateEnum::Set, 0);

@@ -239,7 +239,6 @@ namespace Bct
 				tmpMap[Workflow::TypeEnum::DoubleType] = 6;
 				tmpMap[Workflow::TypeEnum::StringType] = 100;
 				tmpMap[Workflow::TypeEnum::VariableType] = 200;
-            tmpMap[Workflow::TypeEnum::ArrayType] = 300;
 				return tmpMap;
 			}
 		};
