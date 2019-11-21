@@ -44,11 +44,8 @@ namespace Bct
             AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;
 
-            std::string vers[2] =
-            {
-               "1.0.0",
-               "1.1.0"
-            };
+            std::vector<std::string> vers;
+            vers.push_back( "1.0.0" ); vers.push_back( "1.1.0" );
 
             FieldStateEnum::FieldState _postCellsPerMlStates[2] =
             {
@@ -141,9 +138,10 @@ namespace Bct
             aggMeta.addField(5, "malePostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
             aggMeta.addField(6, "femalePostCellsPerMl", Bct::Workflow::TypeEnum::DoubleType);
 
-            for (uint16_t i = 0; i < std::size(vers); i++)
+            uint16_t i = 0;
+            for ( std::vector<std::string>::const_iterator itr = vers.begin(); itr != vers.end(); ++itr, ++i )
             {
-               aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
+               aggMeta.versionInfo.push_back(VersionInfo(*itr));
                VersionMetaData vm;
                aggMeta.versionMetaData.push_back(vm);
 
