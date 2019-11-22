@@ -171,9 +171,6 @@ namespace Bct
             /// <returns>Current verson string.</returns>
             const std::string & Version() const;
 
-            AbstractAggregate * findLastKeyAggregate() const;
-            AbstractField     * findLastKeyField() const;
-
          private:
 
             std::vector<AbstractField*> _fieldList;
@@ -190,7 +187,6 @@ namespace Bct
             // Use as a requested version to indicate the most recent version is requested.
             static const int16_t UseMostRecentVersion = -1;
 
-         public:
             struct DeserializeEventHandler // Required by the RapidJSON SAX parser.
             {
                bool Null() { cout << "Null()" << endl; return true; }
@@ -204,6 +200,7 @@ namespace Bct
                    cout << "Number(" << str << ", " << length << ", " << boolalpha << copy << ")" << endl;
                    return true;
                }
+
                bool String(const char* str, SizeType length, bool copy);
                bool StartObject();
 
@@ -218,8 +215,6 @@ namespace Bct
 
                template <typename ScalarType>
                void setField(ScalarType theValue);
-
-            private:
                void setCurrentAggregate(BaseAggregate * ag);
                void setCurrentAggregateToParent(void);
                BaseAggregate * getCurrentAggregate(void);
@@ -230,6 +225,9 @@ namespace Bct
                // _currentAggregate[2] is the "level-2" nested aggregate, and so on. Once it has been parsed, the EndObject()
                //   event handler removes it from the vector, and its parent, _currentAggregate[1], becomes the current aggregate.
                vector<BaseAggregate *> _currentAggregate;
+
+               AbstractAggregate * findLastKeyAggregate() const;
+               AbstractField     * findLastKeyField() const;
             };
 
          };
