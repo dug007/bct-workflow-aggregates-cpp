@@ -9,7 +9,6 @@
     <ClCompile Include="src\AssessmentRule.cpp" />
     <ClCompile Include="src\BaseAggregate.cpp" />
     <ClCompile Include="src\ComputeRule.cpp" />
-    <ClCompile Include="src\Exceptions.cpp" />
     <ClCompile Include="src\FieldMeta.cpp" />
     <ClCompile Include="src\FluentAssessmentRule.cpp" />
     <ClCompile Include="src\FluentComputeRule.cpp" />
@@ -44,7 +43,6 @@
     <ClInclude Include="include\ComputeRule.h" />
     <ClInclude Include="include\EnumField.h" />
     <ClInclude Include="include\EnumFieldRo.h" />
-    <ClInclude Include="include\Exceptions.h" />
     <ClInclude Include="include\FieldInfo.h" />
     <ClInclude Include="include\FieldMeta.h" />
     <ClInclude Include="include\FluentAssessmentRule.h" />
