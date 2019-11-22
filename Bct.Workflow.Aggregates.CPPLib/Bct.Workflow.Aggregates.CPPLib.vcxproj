@@ -129,9 +129,6 @@
     <ClInclude Include="include\VersionInfo.h" />
     <ClInclude Include="include\AggregateMetaData.h" />
     <ClInclude Include="include\VersionMetaData.h" />
-    <ClInclude Include="NoSuchVersion.h" />
-    <ClInclude Include="NotAbleToGet.h" />
-    <ClInclude Include="NotAbleToSet.h" />
     <ClInclude Include="rapidjson-1.1.0\include\rapidjson\allocators.h" />
     <ClInclude Include="rapidjson-1.1.0\include\rapidjson\document.h" />
     <ClInclude Include="rapidjson-1.1.0\include\rapidjson\encodedstream.h" />
@@ -173,9 +170,6 @@
     <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp" />
     <ClCompile Include="BCT.RPNEvaluator.CPP\src\RPNEvaluator.cpp" />
     <ClCompile Include="BCT.RPNEvaluator.CPP\src\Token.cpp" />
-    <ClCompile Include="NoSuchVersion.cpp" />
-    <ClCompile Include="NotAbleToGet.cpp" />
-    <ClCompile Include="NotAbleToSet.cpp" />
     <ClCompile Include="src\AggregateMetaData.cpp" />
     <ClCompile Include="src\AssessmentResult.cpp" />
     <ClCompile Include="src\AssessmentRule.cpp" />
