@@ -22,6 +22,7 @@
     <ClCompile Include="src\VersionInfo.cpp" />
     <ClCompile Include="NoSuchVersion.cpp" />
     <ClCompile Include="NotAbleToSet.cpp" />
+    <ClCompile Include="NotAbleToGet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h" />
@@ -95,6 +96,7 @@
     <ClInclude Include="rapidjson-1.1.0\include\rapidjson\writer.h" />
     <ClInclude Include="NoSuchVersion.h" />
     <ClInclude Include="NotAbleToSet.h" />
+    <ClInclude Include="NotAbleToGet.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
