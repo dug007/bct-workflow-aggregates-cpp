@@ -119,6 +119,9 @@
     <ClInclude Include="include\FluentComputeRule.h" />
     <ClInclude Include="include\FluentMeta.h" />
     <ClInclude Include="include\FluentVersionChangeRule.h" />
+    <ClInclude Include="include\NoSuchVersion.h" />
+    <ClInclude Include="include\NotAbleToGet.h" />
+    <ClInclude Include="include\NotAbleToSet.h" />
     <ClInclude Include="include\StringField.h" />
     <ClInclude Include="include\StringFieldRo.h" />
     <ClInclude Include="include\VectorField.h" />
@@ -185,6 +188,9 @@
     <ClCompile Include="src\FluentMeta.cpp" />
     <ClCompile Include="src\FieldInfo.cpp" />
     <ClCompile Include="src\FluentVersionChangeRule.cpp" />
+    <ClCompile Include="src\NoSuchVersion.cpp" />
+    <ClCompile Include="src\NotAbleToGet.cpp" />
+    <ClCompile Include="src\NotAbleToSet.cpp" />
     <ClCompile Include="src\StringField.cpp" />
     <ClCompile Include="src\StringFieldRo.cpp" />
     <ClCompile Include="src\VersionChangeRule.cpp" />
