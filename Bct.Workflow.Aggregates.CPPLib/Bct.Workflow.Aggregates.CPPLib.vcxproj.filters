@@ -22,6 +22,7 @@
     <ClCompile Include="src\NoSuchVersion.cpp" />
     <ClCompile Include="src\NotAbleToGet.cpp" />
     <ClCompile Include="src\NotAbleToSet.cpp" />
+    <ClCompile Include="src\AggregateNotFound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h" />
@@ -95,6 +96,7 @@
     <ClInclude Include="include\NoSuchVersion.h" />
     <ClInclude Include="include\NotAbleToGet.h" />
     <ClInclude Include="include\NotAbleToSet.h" />
+    <ClInclude Include="include\AggregateNotFound.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

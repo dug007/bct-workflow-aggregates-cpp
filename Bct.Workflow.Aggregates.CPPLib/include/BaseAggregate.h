@@ -171,6 +171,9 @@ namespace Bct
             /// <returns>Current verson string.</returns>
             const std::string & Version() const;
 
+            AbstractAggregate * findLastKeyAggregate() const;
+            AbstractField     * findLastKeyField() const;
+
          private:
 
             std::vector<AbstractField*> _fieldList;
@@ -226,8 +229,6 @@ namespace Bct
                //   event handler removes it from the vector, and its parent, _currentAggregate[1], becomes the current aggregate.
                vector<BaseAggregate *> _currentAggregate;
 
-               AbstractAggregate * findLastKeyAggregate() const;
-               AbstractField     * findLastKeyField() const;
             };
 
          };
