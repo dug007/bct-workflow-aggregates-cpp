@@ -596,7 +596,7 @@ namespace Bct
                   BaseField<int32_t> * fld_int32 = dynamic_cast<BaseField<int32_t>*>(fldAbs);
                   if (fld_int32)
                   {
-                     int32_t i(theValue);
+                     int32_t i(static_cast<int32_t>(theValue));
                      setFieldReinterpretType(fld_int32, i );
                   }
                   else {
