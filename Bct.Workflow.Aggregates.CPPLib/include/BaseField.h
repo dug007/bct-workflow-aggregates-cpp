@@ -9,7 +9,6 @@
 #include "AggregateMetaData.h"
 #include "Exceptions.h"
 
-
 namespace Bct
 {
    namespace Workflow
@@ -79,6 +78,8 @@ namespace Bct
                }
                case FieldStateEnum::Default:
                   return _default;
+
+               default: break;
                }
                return _val;
             }
@@ -146,6 +147,8 @@ namespace Bct
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                }
+
+               default: break;
                }
                _state = FieldStateEnum::NotSet;
             }
@@ -332,6 +335,9 @@ namespace Bct
                      std::string aggName = typeid(*_aggregate).name();
                      throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                   }
+                  break;
+
+                  default: break;
                }
 
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
@@ -345,6 +351,9 @@ namespace Bct
                         throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
                      }
                   }
+                  break;
+
+                  default: break;
                }
 
                _val = v;

@@ -6,9 +6,14 @@
 #include "BaseAggregate.h"
 #include "TestHelperBaseField.h"
 #include "AbstractAggregate.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/stringbuffer.h"
+#include <iostream>
 
 #include "catch.hpp"
 
+using namespace std;
+using namespace rapidjson;
 using namespace Bct::Workflow::Aggregates;
 using namespace Bct::Workflow::Implementation;
 using namespace Bct::Workflow;
@@ -837,4 +842,46 @@ TEST_CASE("UpdateComputedField", "[test]")
    SamAgg13.updateCalculatedFields();
    CHECK(SamAgg13.Field1.Value() == 30.0);
    CHECK(SamAgg13.Field1.State() == FieldStateEnum::Computed);
+}
+
+
+
+// Test Serialize the aggregate data to a JSON string and Deserialize a JSON string, setting the aggregate data appropriately
+TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
+{   
+   ReferenceAggregate fromRefAgg10;
+   ReferenceAggregate toRefAgg10;
+
+   fromRefAgg10.boolField = false; //Set values to something other than default
+   fromRefAgg10.int32Field = -123;
+   fromRefAgg10.int64Field = -246;
+   fromRefAgg10.uint64Field = 246;
+   fromRefAgg10.doubleField = 12.00;
+   fromRefAgg10.stringField = "Hi Team";
+   fromRefAgg10.enumField = ReferenceEnum::Good;
+   /*std::vector<int32_t> fromInt; Keep this for later vector serialization
+   fromInt.push_back(3);
+   fromRefAgg10.vectorIntField = fromInt;*/
+   SimpleAggregate fromNestedField;
+   fromNestedField.doubleValue = 2;
+   fromRefAgg10.nestedField = fromNestedField;
+
+   rapidjson::StringBuffer buffer;
+   PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+   fromRefAgg10.serialize(writer);
+   toRefAgg10.deserialize(buffer.GetString());
+
+   CHECK(toRefAgg10.boolField == false);
+   CHECK(toRefAgg10.int32Field == -123);
+   CHECK(toRefAgg10.int64Field == -246);
+   CHECK(toRefAgg10.uint64Field == 246);
+   CHECK(toRefAgg10.doubleField == 12.00);
+   CHECK((std::string)toRefAgg10.stringField == "Hi Team");
+   CHECK(toRefAgg10.enumField == ReferenceEnum::Good);
+   //CHECK(toRefAgg10.vectorIntField.Value()[0] == 3); Keep this for later vector serialization
+   CHECK(toRefAgg10.nestedField.doubleValue == 2);
+   CHECK(toRefAgg10.boolField.State() == FieldStateEnum::Set);
+   CHECK(toRefAgg10.boolFieldRequiredv2.State() == FieldStateEnum::NotSet);
+   CHECK(toRefAgg10.uint32Field.State() == FieldStateEnum::Default);
+  
 }

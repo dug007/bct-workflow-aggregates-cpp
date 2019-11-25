@@ -1,4 +1,5 @@
 #include "NestedWithReference.h"
+#include "NestedWithReference.h"
 
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
@@ -12,9 +13,23 @@ namespace Bct
       namespace Implementation
       {
          NestedWithReferenceAggregate::NestedWithReferenceAggregate() :
-            NestedWithReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
-         {
-         }
+            BaseAggregate(BaseAggregate::UseMostRecentVersionStr),
+            boolField(0, this),
+            int32Field(1, this),
+            uint32Field(2, this),
+            int64Field(3, this),
+            uint64Field(4, this),
+            doubleField(5, this),
+            stringField(6, this),
+            enumField(7, "ReferenceEnum::Reference",
+               "0 1 2 4 8 16",
+               "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
+               this),
+            aggField(8, this)
+      {
+         pushFields();
+         syncVersion();
+      }
 
          NestedWithReferenceAggregate::NestedWithReferenceAggregate(const std::string &version) :
             BaseAggregate(version),

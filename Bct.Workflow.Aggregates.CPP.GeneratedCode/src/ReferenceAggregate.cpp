@@ -2,7 +2,7 @@
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
 
-using namespace Bct::Workflow::Aggregates;
+using namespace Bct::Workflow::Aggregates; 
 
 
 
@@ -13,8 +13,26 @@ namespace Bct
       namespace Implementation
       {
          ReferenceAggregate::ReferenceAggregate() :
-            ReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
+            BaseAggregate(BaseAggregate::UseMostRecentVersionStr),
+            boolField(0, this), 
+            int32Field(1, this), 
+            uint32Field(2, this), 
+            int64Field(3, this), 
+            uint64Field(4, this), 
+            doubleField(5, this), 
+            stringField(6, this), 
+            boolFieldRequiredv2(7, this), 
+            enumField(8, "ReferenceEnum::Reference",
+            "0 1 2 4 8 16 ",
+            "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
+            vectorIntField(9, this), 
+            nestedField(10, this), 
+            v100Field(11, this), 
+            nestedField2(12, this), 
+            boolFieldRequiredv0(13, this)
          {
+            pushFields();
+            syncVersion();
          }
 
          ReferenceAggregate::ReferenceAggregate(const std::string &version) :

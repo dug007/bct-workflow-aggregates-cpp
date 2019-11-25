@@ -8,6 +8,12 @@
 #include "AggregateMetaData.h"
 #include "AssessmentResult.h"
 
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/stringbuffer.h"
+#include <iostream>  // [PL] just for testing
+
+using namespace rapidjson;
+using namespace std;
 
 namespace Bct
 {
@@ -95,7 +101,7 @@ namespace Bct
             /// <param name="version">The new version</param>
             void convertToVersion(const std::string toVersion);
 
-            void serialize(std::string & value) const;
+            void serialize( PrettyWriter<StringBuffer> & writer ) const;
             void deserialize(const std::string & value);
             void log(std::ostream & logStream, int flags) const;
 
@@ -165,6 +171,9 @@ namespace Bct
             /// <returns>Current verson string.</returns>
             const std::string & Version() const;
 
+            AbstractAggregate * findLastKeyAggregate() const;
+            AbstractField     * findLastKeyField() const;
+
          private:
 
             std::vector<AbstractField*> _fieldList;
@@ -180,6 +189,49 @@ namespace Bct
 
             // Use as a requested version to indicate the most recent version is requested.
             static const int16_t UseMostRecentVersion = -1;
+
+         public:
+            struct DeserializeEventHandler // Required by the RapidJSON SAX parser.
+            {
+               bool Null() { cout << "Null()" << endl; return true; }
+               bool Bool(bool b);
+               bool Int(int i);
+               bool Uint(unsigned u);
+               bool Int64(int64_t i);
+               bool Uint64(uint64_t u);
+               bool Double(double d);
+               bool RawNumber(const char* str, SizeType length, bool copy) {
+                   cout << "Number(" << str << ", " << length << ", " << boolalpha << copy << ")" << endl;
+                   return true;
+               }
+               bool String(const char* str, SizeType length, bool copy);
+               bool StartObject();
+
+               bool Key(const char* str, SizeType length, bool copy);
+
+               bool EndObject(SizeType memberCount);
+               bool StartArray() { cout << "StartArray()" << endl; return true; }
+               bool EndArray(SizeType elementCount) { cout << "EndArray(" << elementCount << ")" << endl; return true; }
+
+               DeserializeEventHandler(BaseAggregate * ag) { setCurrentAggregate(ag); };
+               DeserializeEventHandler() {};
+
+               template <typename ScalarType>
+               void setField(ScalarType theValue);
+
+            private:
+               void setCurrentAggregate(BaseAggregate * ag);
+               void setCurrentAggregateToParent(void);
+               BaseAggregate * getCurrentAggregate(void);
+
+               // _currentAggregate keeps track of the current nested aggregate being parsed.
+               // _currentAggregate[0] is the top-level/outermost aggregate
+               // _currentAggregate[1] is the "level-1" nested aggregate.
+               // _currentAggregate[2] is the "level-2" nested aggregate, and so on. Once it has been parsed, the EndObject()
+               //   event handler removes it from the vector, and its parent, _currentAggregate[1], becomes the current aggregate.
+               vector<BaseAggregate *> _currentAggregate;
+            };
+
          };
       }
    }

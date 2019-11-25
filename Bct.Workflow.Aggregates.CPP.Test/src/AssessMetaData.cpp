@@ -1,3 +1,4 @@
+#include <vector>
 #include "AssessMetaData.h"
 #include "BaseAggregate.h"
 
@@ -11,18 +12,13 @@ namespace Bct
       {
          AssessMetaData::AssessMetaData()
          {
-            std::string vers[5] =
-            {
-               "1.0.0",
-               "1.1.0",
-               "1.2.0",
-               "1.3.0",
-               "1.4.0"
-            };
+            std::vector<std::string> vers;
+            vers.push_back( "1.0.0" ); vers.push_back( "1.1.0" ); vers.push_back( "1.2.0" );
+            vers.push_back( "1.3.0" ); vers.push_back( "1.4.0" );
 
-            for (uint16_t i = 0; i < std::size(vers); i++)
+            for (std::vector<std::string>::const_iterator itr = vers.begin(); itr != vers.end(); ++itr )
             {
-               metaData.versionInfo.push_back(VersionInfo(vers[i]));
+               metaData.versionInfo.push_back(VersionInfo(*itr));
                VersionMetaData vm;
                metaData.versionMetaData.push_back(vm);
             }

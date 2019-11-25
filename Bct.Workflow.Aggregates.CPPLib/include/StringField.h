@@ -57,7 +57,7 @@ namespace Bct
             /// <returns>The value of this field.</returns>
             operator std::string() const
             {
-               return BaseField::ComputedValueString();
+               return BaseField<std::string>::ComputedValueString();
             }
 
             /// <summary>
