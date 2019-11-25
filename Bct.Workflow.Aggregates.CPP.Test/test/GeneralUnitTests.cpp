@@ -33,7 +33,7 @@ TEST_CASE("General", "[test]")
    {
       a.Field7c.Value(5);
    }
-   catch (NotAbleToSet exc)
+   catch (NotAbleToSet &exc)
    {
       std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7c fieldState=Constant";
       std::string actual = exc.what();
@@ -97,7 +97,7 @@ TEST_CASE("NoSuchVersion", "[test]")
    {
       Sample1Aggregate b("1.3.0");
    }
-   catch (NoSuchVersion ex)
+   catch (NoSuchVersion &ex)
    {
       CHECK(ex.requestedVersion() == "1.3.0");
       std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate requestedVersion=1.3.0";
