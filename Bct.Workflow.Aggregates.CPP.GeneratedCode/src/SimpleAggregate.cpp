@@ -13,7 +13,8 @@ namespace Bct
       namespace Implementation
       {
          SimpleAggregate::SimpleAggregate() :
-            SimpleAggregate(BaseAggregate::UseMostRecentVersionStr)
+            BaseAggregate(BaseAggregate::UseMostRecentVersionStr),
+            doubleValue(0, this)
          {
          }
 

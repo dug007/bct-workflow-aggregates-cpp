@@ -14,11 +14,11 @@ TEST_CASE("General", "[test]")
 {
    // General unit tests ----------------------------------------------
    Sample1Aggregate a;
-   CHECK(a.Field1.State() == FieldStateEnum::FieldState::NotSet);
-   CHECK(a.Field7.State() == FieldStateEnum::FieldState::NotSet);
+   CHECK(a.Field1.State() == FieldStateEnum::NotSet);
+   CHECK(a.Field7.State() == FieldStateEnum::NotSet);
    CHECK_THROWS_AS(a.Field7.Value(), NotAbleToGet);
-   CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Default);
-   CHECK(a.Field7c.State() == FieldStateEnum::FieldState::Constant);
+   CHECK(a.Field7d.State() == FieldStateEnum::Default);
+   CHECK(a.Field7c.State() == FieldStateEnum::Constant);
    CHECK(a.Field1.FieldSetCounter() == 0);
    a.Field1 = 2.0;
    a.Field7 = 3;          // via assignment operator
@@ -40,24 +40,24 @@ TEST_CASE("General", "[test]")
       CHECK(actual == expected);
    }
    CHECK(f1 == 2.0);
-   CHECK(a.Field1.State() == FieldStateEnum::FieldState::Set);
+   CHECK(a.Field1.State() == FieldStateEnum::Set);
    CHECK(a.Field7.Value() == 3);
    CHECK((int32_t)a.Field7 == 3);
    CHECK(a.Field7ro.Value() == 5);  // readable but not writeable
    CHECK((int32_t)a.Field7ro == 5); // readable but not writeable
-   CHECK(a.Field7ro.State() == FieldStateEnum::FieldState::Constant);
+   CHECK(a.Field7ro.State() == FieldStateEnum::Constant);
    CHECK(a.Field7c.Value() == 6);  // readable but not writeable
    CHECK((int32_t)a.Field7c == 6); // readable but not writeable
-   CHECK(a.Field7c.State() == FieldStateEnum::FieldState::Constant);
-   CHECK(a.Field7.State() == FieldStateEnum::FieldState::Set);
+   CHECK(a.Field7c.State() == FieldStateEnum::Constant);
+   CHECK(a.Field7.State() == FieldStateEnum::Set);
    CHECK(a.Field7d.Value() == 4);
    CHECK((int32_t)a.Field7d == 4);
-   CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Set);
+   CHECK(a.Field7d.State() == FieldStateEnum::Set);
 
    // set back to default
    a.Field7d = -1;
    CHECK(a.Field7d.Value() == -1);
-   CHECK(a.Field7d.State() == FieldStateEnum::FieldState::Default);
+   CHECK(a.Field7d.State() == FieldStateEnum::Default);
 
    a.updateCalculatedFields();
    CHECK(a.Field1.Value() == 22.0);
