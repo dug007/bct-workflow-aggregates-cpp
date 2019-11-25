@@ -23,7 +23,6 @@
     <ClCompile Include="src\NotAbleToGet.cpp" />
     <ClCompile Include="src\NotAbleToSet.cpp" />
     <ClCompile Include="src\AggregateNotFound.cpp" />
-    <ClCompile Include="CannotConvertScalar.cpp" />
     <ClCompile Include="src\CannotConvertScalar.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +98,6 @@
     <ClInclude Include="include\NotAbleToGet.h" />
     <ClInclude Include="include\NotAbleToSet.h" />
     <ClInclude Include="include\AggregateNotFound.h" />
-    <ClInclude Include="CannotConvertScalar.h" />
     <ClInclude Include="include\CannotConvertScalar.h" />
   </ItemGroup>
   <ItemGroup>

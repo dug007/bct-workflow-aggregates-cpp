@@ -626,7 +626,7 @@ namespace Bct
                            else {
                               // [PL] TODO: error handling.
                               std::string tempAggName = typeid(*this).name();
-                              throw CannotConvertScalar(tempAggName, fld->FieldName);
+                              throw CannotConvertScalar(tempAggName, fld->FieldName());
                            }
                         }
                      }
