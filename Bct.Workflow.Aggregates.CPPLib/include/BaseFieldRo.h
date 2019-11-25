@@ -15,7 +15,7 @@ namespace Bct
          class BaseFieldRo : public BaseField<T>
          {
          private:
-            using BaseField<T>::Value; // hide value set/get
+            using BaseField<T>::value; // hide value set/get
             using BaseField<T>::unset;
          public:
             /// <summary>
@@ -49,9 +49,9 @@ namespace Bct
             /// Gets the read-only value.
             /// </summary>
             /// <returns>Value.</returns>
-            const T Value()
+            const T value()
             {
-               return BaseField<T>::Value();
+               return BaseField<T>::value();
             };
          };
       }

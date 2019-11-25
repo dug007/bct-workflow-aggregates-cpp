@@ -176,18 +176,18 @@ TEST_CASE("GetFieldValue", "[test]")
 {
    ReferenceAggregate RefAgg1;
 
-   CHECK(RefAgg1.boolField.Value() == true);
-   CHECK(RefAgg1.int32Field.Value() == -1); 
-   CHECK(RefAgg1.uint32Field.Value() == 1); 
-   CHECK(RefAgg1.int64Field.Value() == -1); 
-   CHECK(RefAgg1.uint64Field.Value() == 1); 
-   CHECK(RefAgg1.doubleField.Value() == 1.0); 
-   CHECK(RefAgg1.stringField.Value() == "hello world"); 
-   CHECK(RefAgg1.enumField.Value() == 2);
+   CHECK(RefAgg1.boolField.value() == true);
+   CHECK(RefAgg1.int32Field.value() == -1); 
+   CHECK(RefAgg1.uint32Field.value() == 1); 
+   CHECK(RefAgg1.int64Field.value() == -1); 
+   CHECK(RefAgg1.uint64Field.value() == 1); 
+   CHECK(RefAgg1.doubleField.value() == 1.0); 
+   CHECK(RefAgg1.stringField.value() == "hello world"); 
+   CHECK(RefAgg1.enumField.value() == 2);
    std::vector<int32_t> fromInt;
    fromInt.push_back(3);
    RefAgg1.vectorIntField = fromInt;
-   CHECK(RefAgg1.vectorIntField.Value()[0] == 3);
+   CHECK(RefAgg1.vectorIntField.value()[0] == 3);
 }
 
 // Tests get field value shall throw an exception if the field is not available in the current version of the aggregate.
@@ -195,8 +195,8 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotAvailable", "[test]")
 {
    Sample1Aggregate SamAgg1;
 
-   CHECK(SamAgg1.FieldEnumRo.State() == FieldStateEnum::Unavailable);
-   CHECK_THROWS_AS(SamAgg1.FieldEnumRo.Value(), NotAbleToGet);
+   CHECK(SamAgg1.FieldEnumRo.state() == FieldStateEnum::Unavailable);
+   CHECK_THROWS_AS(SamAgg1.FieldEnumRo.value(), NotAbleToGet);
 }
 
 // Tests get field value shall throw an exception if the field is not set in the current version of the aggregate.
@@ -204,8 +204,8 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
 {
    Sample1Aggregate SamAgg2;
 
-   CHECK(SamAgg2.Field7x.State() == FieldStateEnum::NotSet);
-   CHECK_THROWS_AS(SamAgg2.Field7x.Value(), NotAbleToGet);
+   CHECK(SamAgg2.Field7x.state() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(SamAgg2.Field7x.value(), NotAbleToGet);
 }
 
  //Tests get vector field value shall throw an exception if the vector field is not available in the current version of the aggregate.
@@ -213,8 +213,8 @@ TEST_CASE("ThrowsExceptionIfGetVecotrFieldNotAvailable", "[test]")
 {
    VectorFieldAggregate VecAgg1 ("1.0.0");
 
-   CHECK(VecAgg1.vectorVersion1only.State() == FieldStateEnum::Unavailable);
-   CHECK_THROWS_AS(VecAgg1.vectorVersion1only.Value(), NotAbleToGet);
+   CHECK(VecAgg1.vectorVersion1only.state() == FieldStateEnum::Unavailable);
+   CHECK_THROWS_AS(VecAgg1.vectorVersion1only.value(), NotAbleToGet);
 }
 
 // Tests get vector field value shall throw an exception if the vector field is not set in the current version of the aggregate.
@@ -222,8 +222,8 @@ TEST_CASE("ThrowsExceptionIfGetVectorFieldNotSet", "[test]")
 {
    ReferenceAggregate RefAgg2;
 
-   CHECK(RefAgg2.vectorIntField.State() == FieldStateEnum::NotSet);
-   CHECK_THROWS_AS(RefAgg2.vectorIntField.Value(), NotAbleToGet);
+   CHECK(RefAgg2.vectorIntField.state() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(RefAgg2.vectorIntField.value(), NotAbleToGet);
 }
 
 //This test ensure field assignment are correct
@@ -235,66 +235,66 @@ TEST_CASE("SetFieldCounterAssignCorrectly","[test]")
    fromRefAgg.boolField = false; //set boolField twice to ensure FieldSetCounter increases twice
    fromRefAgg.boolField = false;
    toRefAgg.boolField = true;
-   CHECK( toRefAgg.boolField.FieldSetCounter() != fromRefAgg.boolField.FieldSetCounter());
+   CHECK( toRefAgg.boolField.fieldSetCounter() != fromRefAgg.boolField.fieldSetCounter());
    toRefAgg.boolField = fromRefAgg.boolField;
    CHECK(toRefAgg.boolField == false);
-   CHECK(toRefAgg.boolField.FieldSetCounter() == fromRefAgg.boolField.FieldSetCounter());
+   CHECK(toRefAgg.boolField.fieldSetCounter() == fromRefAgg.boolField.fieldSetCounter());
 
    fromRefAgg.int32Field = -200;
    fromRefAgg.int32Field = -200;
    toRefAgg.int32Field = -201;
-   CHECK(toRefAgg.int32Field.FieldSetCounter() != fromRefAgg.int32Field.FieldSetCounter());
+   CHECK(toRefAgg.int32Field.fieldSetCounter() != fromRefAgg.int32Field.fieldSetCounter());
    toRefAgg.int32Field = fromRefAgg.int32Field;
    CHECK(toRefAgg.int32Field == -200);
-   CHECK(toRefAgg.int32Field.FieldSetCounter() == fromRefAgg.int32Field.FieldSetCounter());
+   CHECK(toRefAgg.int32Field.fieldSetCounter() == fromRefAgg.int32Field.fieldSetCounter());
 
    fromRefAgg.uint32Field = -2000;
    fromRefAgg.uint32Field = -2000;
    toRefAgg.uint32Field = -2010;
-   CHECK(toRefAgg.uint32Field.FieldSetCounter() != fromRefAgg.uint32Field.FieldSetCounter());
+   CHECK(toRefAgg.uint32Field.fieldSetCounter() != fromRefAgg.uint32Field.fieldSetCounter());
    toRefAgg.uint32Field = fromRefAgg.uint32Field;
    CHECK(toRefAgg.uint32Field == -2000);
-   CHECK(toRefAgg.uint32Field.FieldSetCounter() == fromRefAgg.uint32Field.FieldSetCounter());
+   CHECK(toRefAgg.uint32Field.fieldSetCounter() == fromRefAgg.uint32Field.fieldSetCounter());
 
    fromRefAgg.int64Field = -300;
    fromRefAgg.int64Field = -300;
    toRefAgg.int64Field = -301;
-   CHECK(toRefAgg.int64Field.FieldSetCounter() != fromRefAgg.int64Field.FieldSetCounter());
+   CHECK(toRefAgg.int64Field.fieldSetCounter() != fromRefAgg.int64Field.fieldSetCounter());
    toRefAgg.int64Field = fromRefAgg.int64Field;
    CHECK(toRefAgg.int64Field == -300);
-   CHECK(toRefAgg.int64Field.FieldSetCounter() == fromRefAgg.int64Field.FieldSetCounter());
+   CHECK(toRefAgg.int64Field.fieldSetCounter() == fromRefAgg.int64Field.fieldSetCounter());
 
    fromRefAgg.uint64Field = 3000;
    fromRefAgg.uint64Field = 3000;
    toRefAgg.uint64Field = 3010;
-   CHECK(toRefAgg.uint64Field.FieldSetCounter() != fromRefAgg.uint64Field.FieldSetCounter());
+   CHECK(toRefAgg.uint64Field.fieldSetCounter() != fromRefAgg.uint64Field.fieldSetCounter());
    toRefAgg.uint64Field = fromRefAgg.uint64Field;
    CHECK(toRefAgg.uint64Field == 3000.00);
-   CHECK(toRefAgg.uint64Field.FieldSetCounter() == fromRefAgg.uint64Field.FieldSetCounter());
+   CHECK(toRefAgg.uint64Field.fieldSetCounter() == fromRefAgg.uint64Field.fieldSetCounter());
 
    fromRefAgg.doubleField = 3000.00;
    fromRefAgg.doubleField = 3000.00;
    toRefAgg.doubleField = 3010.00;
-   CHECK(toRefAgg.doubleField.FieldSetCounter() != fromRefAgg.doubleField.FieldSetCounter());
+   CHECK(toRefAgg.doubleField.fieldSetCounter() != fromRefAgg.doubleField.fieldSetCounter());
    toRefAgg.doubleField = fromRefAgg.doubleField;
    CHECK(toRefAgg.doubleField == 3000.00);
-   CHECK(toRefAgg.doubleField.FieldSetCounter() == fromRefAgg.doubleField.FieldSetCounter());
+   CHECK(toRefAgg.doubleField.fieldSetCounter() == fromRefAgg.doubleField.fieldSetCounter());
 
    fromRefAgg.enumField = ReferenceEnum::Poor;
    fromRefAgg.enumField = ReferenceEnum::Poor;
    toRefAgg.enumField = ReferenceEnum::VeryPoor;
-   CHECK(toRefAgg.enumField.FieldSetCounter() != fromRefAgg.enumField.FieldSetCounter());
+   CHECK(toRefAgg.enumField.fieldSetCounter() != fromRefAgg.enumField.fieldSetCounter());
    toRefAgg.enumField = fromRefAgg.enumField;
    CHECK(toRefAgg.enumField == ReferenceEnum::Poor);
-   CHECK(toRefAgg.enumField.FieldSetCounter() == fromRefAgg.enumField.FieldSetCounter());
+   CHECK(toRefAgg.enumField.fieldSetCounter() == fromRefAgg.enumField.fieldSetCounter());
 
    fromRefAgg.stringField = "happy";
    fromRefAgg.stringField = "happy";
    toRefAgg.stringField = "days";
-   CHECK(toRefAgg.stringField.FieldSetCounter() != fromRefAgg.stringField.FieldSetCounter());
+   CHECK(toRefAgg.stringField.fieldSetCounter() != fromRefAgg.stringField.fieldSetCounter());
    toRefAgg.stringField = fromRefAgg.stringField;
    CHECK((std::string)toRefAgg.stringField == "happy");
-   CHECK(toRefAgg.stringField.FieldSetCounter() == fromRefAgg.stringField.FieldSetCounter());
+   CHECK(toRefAgg.stringField.fieldSetCounter() == fromRefAgg.stringField.fieldSetCounter());
 }
 
 //This test ensure field assignment are correct
@@ -315,42 +315,42 @@ TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
    ReferenceAggregate RefAgg3 ("v1.0.0");
 
    RefAgg3.boolField = false; 
-   CHECK(RefAgg3.boolField.Value() == false); 
+   CHECK(RefAgg3.boolField.value() == false); 
    RefAgg3.int32Field = -2;
-   CHECK(RefAgg3.int32Field.Value() == -2);
+   CHECK(RefAgg3.int32Field.value() == -2);
    RefAgg3.uint32Field = 5;
-   CHECK(RefAgg3.uint32Field.Value() == 5);
+   CHECK(RefAgg3.uint32Field.value() == 5);
    RefAgg3.int64Field = -10;
-   CHECK(RefAgg3.int64Field.Value() == -10);
+   CHECK(RefAgg3.int64Field.value() == -10);
    RefAgg3.uint64Field = 11;
-   CHECK(RefAgg3.uint64Field.Value() == 11);
+   CHECK(RefAgg3.uint64Field.value() == 11);
    RefAgg3.doubleField = 20.0;
-   CHECK(RefAgg3.doubleField.Value() == 20.0);
+   CHECK(RefAgg3.doubleField.value() == 20.0);
    RefAgg3.stringField = "hello team";
-   CHECK(RefAgg3.stringField.Value() == "hello team");
+   CHECK(RefAgg3.stringField.value() == "hello team");
    RefAgg3.enumField = ReferenceEnum::VeryGood;
-   CHECK(RefAgg3.enumField.Value() == ReferenceEnum::VeryGood);
+   CHECK(RefAgg3.enumField.value() == ReferenceEnum::VeryGood);
    RefAgg3.enumField = ReferenceEnum::Good;
-   CHECK(RefAgg3.enumField.Value() == ReferenceEnum::Good);
+   CHECK(RefAgg3.enumField.value() == ReferenceEnum::Good);
    RefAgg3.enumField = ReferenceEnum::Average;
-   CHECK(RefAgg3.enumField.Value() == ReferenceEnum::Average);
+   CHECK(RefAgg3.enumField.value() == ReferenceEnum::Average);
    RefAgg3.enumField = ReferenceEnum::BelowAverage;
-   CHECK(RefAgg3.enumField.Value() == ReferenceEnum::BelowAverage);
+   CHECK(RefAgg3.enumField.value() == ReferenceEnum::BelowAverage);
    RefAgg3.enumField = ReferenceEnum::Poor;
-   CHECK(RefAgg3.enumField.Value() == ReferenceEnum::Poor);
+   CHECK(RefAgg3.enumField.value() == ReferenceEnum::Poor);
    RefAgg3.enumField = ReferenceEnum::VeryPoor;
-   CHECK(RefAgg3.enumField.Value() == ReferenceEnum::VeryPoor);
-   RefAgg3.enumField.ComputedValueString("0");
+   CHECK(RefAgg3.enumField.value() == ReferenceEnum::VeryPoor);
+   RefAgg3.enumField.computedValueString("0");
    CHECK(RefAgg3.enumField == ReferenceEnum::VeryGood);
-   RefAgg3.enumField.ComputedValueString("1");
+   RefAgg3.enumField.computedValueString("1");
    CHECK(RefAgg3.enumField == ReferenceEnum::Good);
-   RefAgg3.enumField.ComputedValueString("2");
+   RefAgg3.enumField.computedValueString("2");
    CHECK(RefAgg3.enumField == ReferenceEnum::Average);
-   RefAgg3.enumField.ComputedValueString("4");
+   RefAgg3.enumField.computedValueString("4");
    CHECK(RefAgg3.enumField == ReferenceEnum::BelowAverage);
-   RefAgg3.enumField.ComputedValueString("8");
+   RefAgg3.enumField.computedValueString("8");
    CHECK(RefAgg3.enumField == ReferenceEnum::Poor);
-   RefAgg3.enumField.ComputedValueString("16");
+   RefAgg3.enumField.computedValueString("16");
    CHECK(RefAgg3.enumField == ReferenceEnum::VeryPoor);
 }
 
@@ -363,50 +363,50 @@ TEST_CASE("SetVectorFieldUsingAssignment", "[test]")
    fromInt32.push_back(-100);
    fromInt32.push_back(-200);
    VecAgg2.vectorInt32Field = fromInt32;
-   CHECK(VecAgg2.vectorInt32Field.Value()[0] == -100);
-   CHECK(VecAgg2.vectorInt32Field.Value()[1] == -200);
+   CHECK(VecAgg2.vectorInt32Field.value()[0] == -100);
+   CHECK(VecAgg2.vectorInt32Field.value()[1] == -200);
 
    std::vector<uint32_t> fromUint32;
    fromUint32.push_back(100);
    fromUint32.push_back(200);
    VecAgg2.vectorUint32Field = fromUint32;
-   CHECK(VecAgg2.vectorUint32Field.Value()[0] == 100);
-   CHECK(VecAgg2.vectorUint32Field.Value()[1] == 200);
+   CHECK(VecAgg2.vectorUint32Field.value()[0] == 100);
+   CHECK(VecAgg2.vectorUint32Field.value()[1] == 200);
 
    std::vector<uint64_t> fromUint64;
    fromUint64.push_back(100);
    fromUint64.push_back(200);
    VecAgg2.vectorUint64Field = fromUint64;
-   CHECK(VecAgg2.vectorUint64Field.Value()[0] == 100);
-   CHECK(VecAgg2.vectorUint64Field.Value()[1] == 200);
+   CHECK(VecAgg2.vectorUint64Field.value()[0] == 100);
+   CHECK(VecAgg2.vectorUint64Field.value()[1] == 200);
 
    std::vector<int64_t> fromInt64;
    fromInt64.push_back(-1000);
    fromInt64.push_back(-2000);
    VecAgg2.vectorInt64Field = fromInt64;
-   CHECK(VecAgg2.vectorInt64Field.Value()[0] == -1000);
-   CHECK(VecAgg2.vectorInt64Field.Value()[1] == -2000);
+   CHECK(VecAgg2.vectorInt64Field.value()[0] == -1000);
+   CHECK(VecAgg2.vectorInt64Field.value()[1] == -2000);
 
    std::vector<double> fromDb;
    fromDb.push_back(99.00);
    fromDb.push_back(101.00);
    VecAgg2.vectorDblField = fromDb;
-   CHECK(VecAgg2.vectorDblField.Value()[0] == 99.00);
-   CHECK(VecAgg2.vectorDblField.Value()[1] == 101.00);
+   CHECK(VecAgg2.vectorDblField.value()[0] == 99.00);
+   CHECK(VecAgg2.vectorDblField.value()[1] == 101.00);
 
    std::vector<std::string> fromStr;
    fromStr.push_back("Hello Team");
    fromStr.push_back("Hello World!");
    VecAgg2.vectorStrField = fromStr;
-   CHECK(VecAgg2.vectorStrField.Value()[0] == "Hello Team");
-   CHECK(VecAgg2.vectorStrField.Value()[1] == "Hello World!");
+   CHECK(VecAgg2.vectorStrField.value()[0] == "Hello Team");
+   CHECK(VecAgg2.vectorStrField.value()[1] == "Hello World!");
 
    std::vector<bool> fromBo;
    fromBo.push_back(false);
    fromBo.push_back(true);
    VecAgg2.vectorBoolField = fromBo;
-   CHECK(VecAgg2.vectorBoolField.Value()[0] == false);
-   CHECK(VecAgg2.vectorBoolField.Value()[1] == true);
+   CHECK(VecAgg2.vectorBoolField.value()[0] == false);
+   CHECK(VecAgg2.vectorBoolField.value()[1] == true);
 }
 
 //Tests Set Field Value - sets the current value back to default value for a field by using assignment.
@@ -415,29 +415,29 @@ TEST_CASE("SetFieldBackToDefaultValueUsingAssignment", "[test]")
    ReferenceAggregate RefAgg4;
 
    RefAgg4.boolField = true;
-   CHECK(RefAgg4.boolField.Value() == true);
-   CHECK(RefAgg4.boolField.State() == FieldStateEnum::Default);
+   CHECK(RefAgg4.boolField.value() == true);
+   CHECK(RefAgg4.boolField.state() == FieldStateEnum::Default);
    RefAgg4.int32Field = -1;
-   CHECK(RefAgg4.int32Field.Value() == -1);
-   CHECK(RefAgg4.int32Field.State() == FieldStateEnum::Default);
+   CHECK(RefAgg4.int32Field.value() == -1);
+   CHECK(RefAgg4.int32Field.state() == FieldStateEnum::Default);
    RefAgg4.uint32Field = 1;
-   CHECK(RefAgg4.uint32Field.Value() == 1);
-   CHECK(RefAgg4.uint32Field.State() == FieldStateEnum::Default);
+   CHECK(RefAgg4.uint32Field.value() == 1);
+   CHECK(RefAgg4.uint32Field.state() == FieldStateEnum::Default);
    RefAgg4.int64Field = -1;
-   CHECK(RefAgg4.int64Field.Value() == -1);
-   CHECK(RefAgg4.int64Field.State() == FieldStateEnum::Default);
+   CHECK(RefAgg4.int64Field.value() == -1);
+   CHECK(RefAgg4.int64Field.state() == FieldStateEnum::Default);
    RefAgg4.uint64Field = 1;
-   CHECK(RefAgg4.uint64Field.Value() == 1);
-   CHECK(RefAgg4.uint64Field.State() == FieldStateEnum::Default);
+   CHECK(RefAgg4.uint64Field.value() == 1);
+   CHECK(RefAgg4.uint64Field.state() == FieldStateEnum::Default);
    RefAgg4.doubleField = 1.0;
-   CHECK(RefAgg4.doubleField.Value() == 1.0);
-   CHECK(RefAgg4.doubleField.State() == FieldStateEnum::Default);
+   CHECK(RefAgg4.doubleField.value() == 1.0);
+   CHECK(RefAgg4.doubleField.state() == FieldStateEnum::Default);
    RefAgg4.stringField = "hello world";
-   CHECK(RefAgg4.stringField.Value() == "hello world");
-   CHECK(RefAgg4.stringField.State() == FieldStateEnum::Default);
-   RefAgg4.enumField.ComputedValueString("2");
-   CHECK(RefAgg4.enumField.Value() == 2);
-   CHECK(RefAgg4.enumField.State() == FieldStateEnum::Default);
+   CHECK(RefAgg4.stringField.value() == "hello world");
+   CHECK(RefAgg4.stringField.state() == FieldStateEnum::Default);
+   RefAgg4.enumField.computedValueString("2");
+   CHECK(RefAgg4.enumField.value() == 2);
+   CHECK(RefAgg4.enumField.state() == FieldStateEnum::Default);
 }
 
 //Tests Set Field Value - sets the current value for a field by using function.
@@ -445,22 +445,22 @@ TEST_CASE("SetFieldCurrentValueUsingFunction", "[test]")
 {
    ReferenceAggregate RefAgg5;
 
-   RefAgg5.boolField.Value(false);
-   CHECK(RefAgg5.boolField.Value() == false);
-   RefAgg5.int32Field.Value(-10);
-   CHECK(RefAgg5.int32Field.Value() == -10);
-   RefAgg5.uint32Field.Value(150);
-   CHECK(RefAgg5.uint32Field.Value() == 150);
-   RefAgg5.int64Field.Value(-100);
-   CHECK(RefAgg5.int64Field.Value() == -100);
-   RefAgg5.uint64Field.Value(1500);
-   CHECK(RefAgg5.uint64Field.Value() == 1500);
-   RefAgg5.doubleField.Value(15.0);
-   CHECK(RefAgg5.doubleField.Value() == 15.0);
-   RefAgg5.stringField.Value("hello team");
-   CHECK(RefAgg5.stringField.Value() == "hello team");
-   RefAgg5.enumField.ComputedValueString("2");
-   CHECK(RefAgg5.enumField.Value() == ReferenceEnum::Average);
+   RefAgg5.boolField.value(false);
+   CHECK(RefAgg5.boolField.value() == false);
+   RefAgg5.int32Field.value(-10);
+   CHECK(RefAgg5.int32Field.value() == -10);
+   RefAgg5.uint32Field.value(150);
+   CHECK(RefAgg5.uint32Field.value() == 150);
+   RefAgg5.int64Field.value(-100);
+   CHECK(RefAgg5.int64Field.value() == -100);
+   RefAgg5.uint64Field.value(1500);
+   CHECK(RefAgg5.uint64Field.value() == 1500);
+   RefAgg5.doubleField.value(15.0);
+   CHECK(RefAgg5.doubleField.value() == 15.0);
+   RefAgg5.stringField.value("hello team");
+   CHECK(RefAgg5.stringField.value() == "hello team");
+   RefAgg5.enumField.computedValueString("2");
+   CHECK(RefAgg5.enumField.value() == ReferenceEnum::Average);
 }
 
 //Tests Set Vector Field Value - sets the current value for a Vector field by using function.
@@ -470,38 +470,38 @@ TEST_CASE("SetVectorFieldCurrentValueUsingFunction", "[test]")
 
    std::vector<int32_t> fromInt32;
    fromInt32.push_back(-100);
-   VecAgg3.vectorInt32Field.Value(fromInt32);
-   CHECK(VecAgg3.vectorInt32Field.Value()[0] == -100);
+   VecAgg3.vectorInt32Field.value(fromInt32);
+   CHECK(VecAgg3.vectorInt32Field.value()[0] == -100);
 
    std::vector<uint32_t> fromUint32;
    fromUint32.push_back(100);
-   VecAgg3.vectorUint32Field.Value(fromUint32);
-   CHECK(VecAgg3.vectorUint32Field.Value()[0] == 100);
+   VecAgg3.vectorUint32Field.value(fromUint32);
+   CHECK(VecAgg3.vectorUint32Field.value()[0] == 100);
 
    std::vector<int64_t> fromInt64;
    fromInt64.push_back(-10000);
-   VecAgg3.vectorInt64Field.Value(fromInt64);
-   CHECK(VecAgg3.vectorInt64Field.Value()[0] == -10000);
+   VecAgg3.vectorInt64Field.value(fromInt64);
+   CHECK(VecAgg3.vectorInt64Field.value()[0] == -10000);
 
    std::vector<uint64_t> fromUint64;
    fromUint64.push_back(100);
-   VecAgg3.vectorUint64Field.Value(fromUint64);
-   CHECK(VecAgg3.vectorUint64Field.Value()[0] == 100);
+   VecAgg3.vectorUint64Field.value(fromUint64);
+   CHECK(VecAgg3.vectorUint64Field.value()[0] == 100);
 
    std::vector<double_t> fromDb;
    fromDb.push_back(89.00);
-   VecAgg3.vectorDblField.Value(fromDb);
-   CHECK(VecAgg3.vectorDblField.Value()[0] == 89.00);
+   VecAgg3.vectorDblField.value(fromDb);
+   CHECK(VecAgg3.vectorDblField.value()[0] == 89.00);
 
    std::vector<std::string> fromStr;
    fromStr.push_back("Hello Team");
-   VecAgg3.vectorStrField.Value(fromStr);
-   CHECK(VecAgg3.vectorStrField.Value()[0] == "Hello Team");
+   VecAgg3.vectorStrField.value(fromStr);
+   CHECK(VecAgg3.vectorStrField.value()[0] == "Hello Team");
 
    std::vector<bool> fromBo;
    fromBo.push_back(true);
-   VecAgg3.vectorBoolField.Value(fromBo);
-   CHECK(VecAgg3.vectorBoolField.Value()[0] == true);
+   VecAgg3.vectorBoolField.value(fromBo);
+   CHECK(VecAgg3.vectorBoolField.value()[0] == true);
 }
 
 //Tests Set Field Value - sets the current value back to default value for a field by using function.
@@ -509,30 +509,30 @@ TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
 {
    ReferenceAggregate RefAgg6;
 
-   RefAgg6.boolField.Value(true);
-   CHECK(RefAgg6.boolField.Value() == true);
-   CHECK(RefAgg6.boolField.State() == FieldStateEnum::Default);
-   RefAgg6.int32Field.Value(-1);
-   CHECK(RefAgg6.int32Field.Value() == -1);
-   CHECK(RefAgg6.int32Field.State() == FieldStateEnum::Default);
-   RefAgg6.uint32Field.Value(1);
-   CHECK(RefAgg6.uint32Field.Value() == 1);
-   CHECK(RefAgg6.uint32Field.State() == FieldStateEnum::Default);
-   RefAgg6.int64Field.Value(-1);
-   CHECK(RefAgg6.int64Field.Value() == -1);
-   CHECK(RefAgg6.int64Field.State() == FieldStateEnum::Default);
-   RefAgg6.uint64Field.Value(1);
-   CHECK(RefAgg6.uint64Field.Value() == 1);
-   CHECK(RefAgg6.uint64Field.State() == FieldStateEnum::Default);
-   RefAgg6.doubleField.Value(1.0);
-   CHECK(RefAgg6.doubleField.Value() == 1.0);
-   CHECK(RefAgg6.doubleField.State() == FieldStateEnum::Default);
-   RefAgg6.stringField.Value("hello world");
-   CHECK(RefAgg6.stringField.Value() == "hello world");
-   CHECK(RefAgg6.stringField.State() == FieldStateEnum::Default);
-   RefAgg6.enumField.ComputedValueString("2");
-   CHECK(RefAgg6.enumField.Value() == 2);
-   CHECK(RefAgg6.enumField.State() == FieldStateEnum::Default);
+   RefAgg6.boolField.value(true);
+   CHECK(RefAgg6.boolField.value() == true);
+   CHECK(RefAgg6.boolField.state() == FieldStateEnum::Default);
+   RefAgg6.int32Field.value(-1);
+   CHECK(RefAgg6.int32Field.value() == -1);
+   CHECK(RefAgg6.int32Field.state() == FieldStateEnum::Default);
+   RefAgg6.uint32Field.value(1);
+   CHECK(RefAgg6.uint32Field.value() == 1);
+   CHECK(RefAgg6.uint32Field.state() == FieldStateEnum::Default);
+   RefAgg6.int64Field.value(-1);
+   CHECK(RefAgg6.int64Field.value() == -1);
+   CHECK(RefAgg6.int64Field.state() == FieldStateEnum::Default);
+   RefAgg6.uint64Field.value(1);
+   CHECK(RefAgg6.uint64Field.value() == 1);
+   CHECK(RefAgg6.uint64Field.state() == FieldStateEnum::Default);
+   RefAgg6.doubleField.value(1.0);
+   CHECK(RefAgg6.doubleField.value() == 1.0);
+   CHECK(RefAgg6.doubleField.state() == FieldStateEnum::Default);
+   RefAgg6.stringField.value("hello world");
+   CHECK(RefAgg6.stringField.value() == "hello world");
+   CHECK(RefAgg6.stringField.state() == FieldStateEnum::Default);
+   RefAgg6.enumField.computedValueString("2");
+   CHECK(RefAgg6.enumField.value() == 2);
+   CHECK(RefAgg6.enumField.state() == FieldStateEnum::Default);
 }
 
 //Tests boolfield Value - sets the bool value for a field by using function.
@@ -540,14 +540,14 @@ TEST_CASE("BoolStringFunctions", "[test]")
 {
    TestBaseFieldSerialization TesBas1;
 
-   TesBas1.boolField.Value( true);
-   CHECK("true" == TesBas1.boolField.ComputedValueString());
-   TesBas1.boolField.Value(false);
-   CHECK("false" == TesBas1.boolField.ComputedValueString());
+   TesBas1.boolField.value( true);
+   CHECK("true" == TesBas1.boolField.computedValueString());
+   TesBas1.boolField.value(false);
+   CHECK("false" == TesBas1.boolField.computedValueString());
 
-   TesBas1.boolField.ComputedValueString("false");
+   TesBas1.boolField.computedValueString("false");
    CHECK(TesBas1.boolField == false);
-   TesBas1.boolField.ComputedValueString("true");
+   TesBas1.boolField.computedValueString("true");
    CHECK(TesBas1.boolField == true);
 }
 
@@ -556,8 +556,8 @@ TEST_CASE("ThrowsExceptionIfEnumSetFieldNotAvailable", "[test]")
 {
    Sample1Aggregate SamAgg3;
 
-   CHECK(SamAgg3.FieldEnumRo.State() == FieldStateEnum::Unavailable);
-   CHECK_THROWS_AS(SamAgg3.FieldEnumRo.ComputedValueString("1"), NotAbleToSet);
+   CHECK(SamAgg3.FieldEnumRo.state() == FieldStateEnum::Unavailable);
+   CHECK_THROWS_AS(SamAgg3.FieldEnumRo.computedValueString("1"), NotAbleToSet);
 }
 
 //Set field value shall throw an exception if the field is not available in the current version of the aggregate.
@@ -565,7 +565,7 @@ TEST_CASE("ThrowsExceptionIfSetFieldNotAvailable", "[test]")
 {
    PlateletTemplateAggregate PltAgg1 ("1.0.0");
 
-   CHECK(PltAgg1.minYield.State()== FieldStateEnum::Unavailable);
+   CHECK(PltAgg1.minYield.state()== FieldStateEnum::Unavailable);
    CHECK_THROWS_AS(PltAgg1.minYield =2, NotAbleToSet);
 }
 
@@ -577,7 +577,7 @@ TEST_CASE("ThrowsExceptionIfSetVectorFieldNotAvailable", "[test]")
    std::vector<int64_t> fromInt64;
    fromInt64.push_back(100);
    fromInt64.push_back(200);
-   CHECK(VecAgg4.vectorVersion1only.State() == FieldStateEnum::Unavailable);
+   CHECK(VecAgg4.vectorVersion1only.state() == FieldStateEnum::Unavailable);
    CHECK_THROWS_AS(VecAgg4.vectorVersion1only = fromInt64, NotAbleToSet);
 }
 
@@ -586,12 +586,12 @@ TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
 {
    Sample1Aggregate SamAgg4;
 
-   CHECK(SamAgg4.Field7c.State() == FieldStateEnum::Constant);
+   CHECK(SamAgg4.Field7c.state() == FieldStateEnum::Constant);
    CHECK_THROWS_AS(SamAgg4.Field7c = 3, NotAbleToSet);  // throws on assignment
-   CHECK_THROWS_AS(SamAgg4.Field7c.Value(3), NotAbleToSet);  // throws on set
+   CHECK_THROWS_AS(SamAgg4.Field7c.value(3), NotAbleToSet);  // throws on set
    try //Trying to set a constant field
    {
-      SamAgg4.Field7c.Value(5);
+      SamAgg4.Field7c.value(5);
    }
    catch (NotAbleToSet exc)
    {
@@ -606,11 +606,11 @@ TEST_CASE("ThrowsExceptionIfFieldComputeOnly", "[test]")
 {
    Sample1Aggregate SamAgg5("1.2.0");
 
-   CHECK(SamAgg5.Field7com.State() == FieldStateEnum::NotSet);
+   CHECK(SamAgg5.Field7com.state() == FieldStateEnum::NotSet);
    CHECK_THROWS_AS(SamAgg5.Field7com = 3, NotAbleToSet);  // throws on assignment since it is compute only
    try //Trying to set a computeOnly field
    {
-      SamAgg5.Field7com.Value(5);
+      SamAgg5.Field7com.value(5);
    }
    catch (NotAbleToSet exc)
    {
@@ -626,8 +626,8 @@ TEST_CASE("NullableVectorField", "[test]")
    VectorFieldAggregate VecAgg5("1.0.0");
 
    VecAgg5.vectorAggField.unset();
-   CHECK(VecAgg5.vectorAggField.State() == FieldStateEnum::NotSet);
-   CHECK_THROWS_AS(VecAgg5.vectorAggField.Value(), NotAbleToGet);
+   CHECK(VecAgg5.vectorAggField.state() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(VecAgg5.vectorAggField.value(), NotAbleToGet);
 }
 
 //Set vector field value shall allow changing a field to “nullable” which will set the state to “not set”..
@@ -636,8 +636,8 @@ TEST_CASE("NullableField", "[test]")
    ReferenceAggregate RefAgg7;
 
    RefAgg7.int32Field.unset();
-   CHECK(RefAgg7.int32Field.State() == FieldStateEnum::NotSet);
-   CHECK_THROWS_AS(RefAgg7.int32Field.Value(), NotAbleToGet);
+   CHECK(RefAgg7.int32Field.state() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(RefAgg7.int32Field.value(), NotAbleToGet);
 }
 
 //Tests get Field state- gets the current state for a field.
@@ -645,22 +645,22 @@ TEST_CASE("GetCurrentFieldState", "[test]")
 {
    ReferenceAggregate RefAgg8;
 
-   CHECK(RefAgg8.boolField.Value() == true);
-   CHECK(RefAgg8.boolField.State() == FieldStateEnum::Default);
-   CHECK(RefAgg8.int32Field.Value() == -1);
-   CHECK(RefAgg8.int32Field.State() == FieldStateEnum::Default);
-   CHECK(RefAgg8.uint32Field.Value() == 1);
-   CHECK(RefAgg8.uint32Field.State() == FieldStateEnum::Default);
-   CHECK(RefAgg8.int64Field.Value() == -1);
-   CHECK(RefAgg8.int64Field.State() == FieldStateEnum::Default);
-   CHECK(RefAgg8.uint64Field.Value() == 1);
-   CHECK(RefAgg8.uint64Field.State() == FieldStateEnum::Default);
-   CHECK(RefAgg8.doubleField.Value() == 1.0);
-   CHECK(RefAgg8.doubleField.State() == FieldStateEnum::Default);
-   CHECK(RefAgg8.stringField.Value() == "hello world");
-   CHECK(RefAgg8.stringField.State() == FieldStateEnum::Default);
-   CHECK(RefAgg8.enumField.Value() == 2);
-   CHECK(RefAgg8.enumField.State() == FieldStateEnum::Default);
+   CHECK(RefAgg8.boolField.value() == true);
+   CHECK(RefAgg8.boolField.state() == FieldStateEnum::Default);
+   CHECK(RefAgg8.int32Field.value() == -1);
+   CHECK(RefAgg8.int32Field.state() == FieldStateEnum::Default);
+   CHECK(RefAgg8.uint32Field.value() == 1);
+   CHECK(RefAgg8.uint32Field.state() == FieldStateEnum::Default);
+   CHECK(RefAgg8.int64Field.value() == -1);
+   CHECK(RefAgg8.int64Field.state() == FieldStateEnum::Default);
+   CHECK(RefAgg8.uint64Field.value() == 1);
+   CHECK(RefAgg8.uint64Field.state() == FieldStateEnum::Default);
+   CHECK(RefAgg8.doubleField.value() == 1.0);
+   CHECK(RefAgg8.doubleField.state() == FieldStateEnum::Default);
+   CHECK(RefAgg8.stringField.value() == "hello world");
+   CHECK(RefAgg8.stringField.state() == FieldStateEnum::Default);
+   CHECK(RefAgg8.enumField.value() == 2);
+   CHECK(RefAgg8.enumField.state() == FieldStateEnum::Default);
 }
 
 //Tests get Vector field state- gets the current state for a Vector field.
@@ -668,13 +668,13 @@ TEST_CASE("GetCurrentVectorFieldState", "[test]")
 {
    VectorFieldAggregate VecAgg6("1.0.0");
 
-   CHECK(VecAgg6.vectorInt32Field.State() == FieldStateEnum::NotSet);
-   CHECK(VecAgg6.vectorUint32Field.State() == FieldStateEnum::NotSet);
-   CHECK(VecAgg6.vectorInt64Field.State() == FieldStateEnum::NotSet);
-   CHECK(VecAgg6.vectorUint64Field.State() == FieldStateEnum::NotSet);
-   CHECK(VecAgg6.vectorDblField.State() == FieldStateEnum::NotSet);
-   CHECK(VecAgg6.vectorStrField.State() == FieldStateEnum::NotSet);
-   CHECK(VecAgg6.vectorBoolField.State() == FieldStateEnum::NotSet);
+   CHECK(VecAgg6.vectorInt32Field.state() == FieldStateEnum::NotSet);
+   CHECK(VecAgg6.vectorUint32Field.state() == FieldStateEnum::NotSet);
+   CHECK(VecAgg6.vectorInt64Field.state() == FieldStateEnum::NotSet);
+   CHECK(VecAgg6.vectorUint64Field.state() == FieldStateEnum::NotSet);
+   CHECK(VecAgg6.vectorDblField.state() == FieldStateEnum::NotSet);
+   CHECK(VecAgg6.vectorStrField.state() == FieldStateEnum::NotSet);
+   CHECK(VecAgg6.vectorBoolField.state() == FieldStateEnum::NotSet);
 }
 //Tests set field value - sets the new value for a field.
 TEST_CASE("SetCurrentFieldState", "[test]")
@@ -682,22 +682,22 @@ TEST_CASE("SetCurrentFieldState", "[test]")
    ReferenceAggregate RefAgg9;
 
    RefAgg9.boolField = false;
-   CHECK(RefAgg9.boolField.Value() == false);
-   CHECK(RefAgg9.boolField.State() == FieldStateEnum::Set);
+   CHECK(RefAgg9.boolField.value() == false);
+   CHECK(RefAgg9.boolField.state() == FieldStateEnum::Set);
    RefAgg9.int32Field = -10;
-   CHECK(RefAgg9.int32Field.State() == FieldStateEnum::Set);
+   CHECK(RefAgg9.int32Field.state() == FieldStateEnum::Set);
    RefAgg9.uint32Field = 200;
-   CHECK(RefAgg9.uint32Field.State() == FieldStateEnum::Set);
+   CHECK(RefAgg9.uint32Field.state() == FieldStateEnum::Set);
    RefAgg9.int64Field = -1000;
-   CHECK(RefAgg9.int64Field.State() == FieldStateEnum::Set);
+   CHECK(RefAgg9.int64Field.state() == FieldStateEnum::Set);
    RefAgg9.uint64Field = 200;
-   CHECK(RefAgg9.uint64Field.State() == FieldStateEnum::Set);
+   CHECK(RefAgg9.uint64Field.state() == FieldStateEnum::Set);
    RefAgg9.doubleField = 200.0;
-   CHECK(RefAgg9.doubleField.State() == FieldStateEnum::Set);
+   CHECK(RefAgg9.doubleField.state() == FieldStateEnum::Set);
    RefAgg9.stringField = "Hi team";
-   CHECK(RefAgg9.uint64Field.State() == FieldStateEnum::Set);
-   RefAgg9.enumField.ComputedValueString("1");
-   CHECK(RefAgg9.enumField.State() == FieldStateEnum::Set);
+   CHECK(RefAgg9.uint64Field.state() == FieldStateEnum::Set);
+   RefAgg9.enumField.computedValueString("1");
+   CHECK(RefAgg9.enumField.state() == FieldStateEnum::Set);
 }
 
 //Tests set Vector field value - sets the new value for a Vector field.
@@ -707,33 +707,33 @@ TEST_CASE("SetCurrentVectorFieldState", "[test]")
 
    std::vector<int32_t> fromInt32;
    fromInt32.push_back(-100);
-   VecAgg7.vectorInt32Field.Value(fromInt32);
-   CHECK(VecAgg7.vectorInt32Field.State() == FieldStateEnum::Set);
+   VecAgg7.vectorInt32Field.value(fromInt32);
+   CHECK(VecAgg7.vectorInt32Field.state() == FieldStateEnum::Set);
 
    std::vector<uint32_t> fromUint32;
    fromUint32.push_back(100);
-   VecAgg7.vectorUint32Field.Value(fromUint32);
-   CHECK(VecAgg7.vectorUint32Field.State() == FieldStateEnum::Set);
+   VecAgg7.vectorUint32Field.value(fromUint32);
+   CHECK(VecAgg7.vectorUint32Field.state() == FieldStateEnum::Set);
 
    std::vector<int64_t> fromInt64;
    fromInt64.push_back(-100000);
-   VecAgg7.vectorInt64Field.Value(fromInt64);
-   CHECK(VecAgg7.vectorInt64Field.State() == FieldStateEnum::Set);
+   VecAgg7.vectorInt64Field.value(fromInt64);
+   CHECK(VecAgg7.vectorInt64Field.state() == FieldStateEnum::Set);
 
    std::vector<uint64_t> fromUint64;
    fromUint64.push_back(100);
-   VecAgg7.vectorUint64Field.Value(fromUint64);
-   CHECK(VecAgg7.vectorUint64Field.State() == FieldStateEnum::Set);
+   VecAgg7.vectorUint64Field.value(fromUint64);
+   CHECK(VecAgg7.vectorUint64Field.state() == FieldStateEnum::Set);
 
    std::vector<double> fromDb;
    fromDb.push_back(1000.89);
-   VecAgg7.vectorDblField.Value(fromDb);
-   CHECK(VecAgg7.vectorDblField.State() == FieldStateEnum::Set);
+   VecAgg7.vectorDblField.value(fromDb);
+   CHECK(VecAgg7.vectorDblField.state() == FieldStateEnum::Set);
 
    std::vector<std::string> fromStr;
    fromStr.push_back("Hi Team");
-   VecAgg7.vectorStrField.Value(fromStr);
-   CHECK(VecAgg7.vectorStrField.State() == FieldStateEnum::Set);
+   VecAgg7.vectorStrField.value(fromStr);
+   CHECK(VecAgg7.vectorStrField.state() == FieldStateEnum::Set);
 }
 
 //Tests get field state- gets the version 1.0.0 state for a field.
@@ -741,15 +741,15 @@ TEST_CASE("GetFieldStateVersion0", "[test]")
 {
    Sample1Aggregate SamAgg6("1.0.0");
 
-   CHECK(SamAgg6.Field1.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg6.Field7.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg6.Field7ro.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg6.Field7c.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg6.Field7d.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg6.Field7x.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg6.Field7com.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg6.FieldEnum.State() == FieldStateEnum::Default);
-   CHECK(SamAgg6.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+   CHECK(SamAgg6.Field1.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg6.Field7.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg6.Field7ro.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg6.Field7c.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg6.Field7d.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg6.Field7x.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg6.Field7com.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg6.FieldEnum.state() == FieldStateEnum::Default);
+   CHECK(SamAgg6.FieldEnumRo.state() == FieldStateEnum::Unavailable);
 }
 
 //Tests get field state- gets the version 1.1.0 state for a field.
@@ -757,15 +757,15 @@ TEST_CASE("GetFieldStateVersion1", "[test]")
 {
    Sample1Aggregate SamAgg7("1.1.0");
 
-   CHECK(SamAgg7.Field1.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg7.Field7.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg7.Field7ro.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg7.Field7c.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg7.Field7d.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg7.Field7x.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg7.Field7com.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg7.FieldEnum.State() == FieldStateEnum::Default);
-   CHECK(SamAgg7.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+   CHECK(SamAgg7.Field1.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg7.Field7.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg7.Field7ro.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg7.Field7c.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg7.Field7d.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg7.Field7x.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg7.Field7com.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg7.FieldEnum.state() == FieldStateEnum::Default);
+   CHECK(SamAgg7.FieldEnumRo.state() == FieldStateEnum::Unavailable);
 }
 
 //Tests get field state- gets the version 1.1.0 state for a field.
@@ -773,15 +773,15 @@ TEST_CASE("GetFieldStateVersion2", "[test]")
 {
    Sample1Aggregate SamAgg8("1.2.0");
 
-   CHECK(SamAgg8.Field1.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg8.Field7.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg8.Field7ro.State() == FieldStateEnum::Constant);
-   CHECK(SamAgg8.Field7c.State() == FieldStateEnum::Constant);
-   CHECK(SamAgg8.Field7d.State() == FieldStateEnum::Default);
-   CHECK(SamAgg8.Field7x.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg8.Field7com.State() == FieldStateEnum::NotSet);
-   CHECK(SamAgg8.FieldEnum.State() == FieldStateEnum::Default);
-   CHECK(SamAgg8.FieldEnumRo.State() == FieldStateEnum::Unavailable);
+   CHECK(SamAgg8.Field1.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg8.Field7.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg8.Field7ro.state() == FieldStateEnum::Constant);
+   CHECK(SamAgg8.Field7c.state() == FieldStateEnum::Constant);
+   CHECK(SamAgg8.Field7d.state() == FieldStateEnum::Default);
+   CHECK(SamAgg8.Field7x.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg8.Field7com.state() == FieldStateEnum::NotSet);
+   CHECK(SamAgg8.FieldEnum.state() == FieldStateEnum::Default);
+   CHECK(SamAgg8.FieldEnumRo.state() == FieldStateEnum::Unavailable);
 }
 
 //Tests GetVersion – Returns the current version of an aggregate.
@@ -838,10 +838,10 @@ TEST_CASE("UpdateComputedField", "[test]")
    Sample1Aggregate SamAgg13;
 
    SamAgg13.Field1 = 10;
-   CHECK(SamAgg13.Field1.Value() == 10);
+   CHECK(SamAgg13.Field1.value() == 10);
    SamAgg13.updateCalculatedFields();
-   CHECK(SamAgg13.Field1.Value() == 30.0);
-   CHECK(SamAgg13.Field1.State() == FieldStateEnum::Computed);
+   CHECK(SamAgg13.Field1.value() == 30.0);
+   CHECK(SamAgg13.Field1.state() == FieldStateEnum::Computed);
 }
 
 
@@ -878,10 +878,10 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    CHECK(toRefAgg10.doubleField == 12.00);
    CHECK((std::string)toRefAgg10.stringField == "Hi Team");
    CHECK(toRefAgg10.enumField == ReferenceEnum::Good);
-   //CHECK(toRefAgg10.vectorIntField.Value()[0] == 3); Keep this for later vector serialization
+   //CHECK(toRefAgg10.vectorIntField.value()[0] == 3); Keep this for later vector serialization
    CHECK(toRefAgg10.nestedField.doubleValue == 2);
-   CHECK(toRefAgg10.boolField.State() == FieldStateEnum::Set);
-   CHECK(toRefAgg10.boolFieldRequiredv2.State() == FieldStateEnum::NotSet);
-   CHECK(toRefAgg10.uint32Field.State() == FieldStateEnum::Default);
+   CHECK(toRefAgg10.boolField.state() == FieldStateEnum::Set);
+   CHECK(toRefAgg10.boolFieldRequiredv2.state() == FieldStateEnum::NotSet);
+   CHECK(toRefAgg10.uint32Field.state() == FieldStateEnum::Default);
   
 }

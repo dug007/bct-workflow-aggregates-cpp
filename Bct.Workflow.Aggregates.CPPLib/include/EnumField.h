@@ -71,19 +71,19 @@ namespace Bct
             /// Set the value of this field.
             /// </summary>
             /// <param name="v">Value to give this field.</param>
-            void Value(const X &v)
+            void value(const X &v)
             {
                U c = v;
-               BaseField<U>::Value(c);
+               BaseField<U>::value(c);
             }
 
             /// <summary>
             /// Get the value of this field.
             /// </summary>
             /// <returns>The value of this field.</returns>
-            X Value() const
+            X value() const
             {
-               X r = static_cast<X>(BaseField<U>::Value());
+               X r = static_cast<X>(BaseField<U>::value());
                return r;
             }
 
@@ -94,7 +94,7 @@ namespace Bct
             /// <returns>Coerced to integer.</returns>
             U operator=(const X &val)
             {
-               this->Value(val);
+               this->value(val);
                return *this;
             }
 
@@ -104,7 +104,7 @@ namespace Bct
             /// <returns>External representation.</returns>
             operator X() const
             {
-               return this->Value();
+               return this->value();
             }
 
             /// <summary>
@@ -113,7 +113,7 @@ namespace Bct
             /// <returns></returns>
             std::string EnumName() const
             {
-               std::string val = BaseField<U>::ComputedValueString();
+               std::string val = BaseField<U>::computedValueString();
                for (size_t i = 0; i < _enums.size(); i++)
                {
                   if (_enums[i] == val)
@@ -156,9 +156,9 @@ namespace Bct
             /// intended to be used internally for evaluating RPN expressions and not for public set/get operations.
             /// </summary>
             /// <returns>The string representation of the value of this enum.</returns>
-            virtual std::string ComputedValueString()
+            virtual std::string computedValueString()
             {
-               return BaseField<U>::ComputedValueString();
+               return BaseField<U>::computedValueString();
             };
 
             /// <summary>
@@ -166,9 +166,9 @@ namespace Bct
             /// intended to be used internally for evaluating RPN expressions and not for public set/get operations.
             /// </summary>
             /// <param name="val">The string representation of the value of this field.</param>
-            virtual void ComputedValueString(const std::string &val)
+            virtual void computedValueString(const std::string &val)
             {
-               BaseField<U>::ComputedValueString(val);
+               BaseField<U>::computedValueString(val);
             };
 
             friend std::ostream & operator<< <U, X>(std::ostream& OutStream, const EnumField enumField);
@@ -183,7 +183,7 @@ namespace Bct
          template <class U, class X>
          std::ostream & operator<< (std::ostream& OutStream, const EnumField<U, X> enumField )
          {
-            OutStream << enumField.Value();
+            OutStream << enumField.value();
             return OutStream;
          }
       }

@@ -15,7 +15,7 @@ TEST_CASE("ReferenceUnitTest", "[test]")
 
    // EnumField tests
 
-   CHECK(ReferenceEnum::Average == ref.enumField.Value());
+   CHECK(ReferenceEnum::Average == ref.enumField.value());
    ReferenceEnum::Reference r;
    r = ReferenceEnum::Good;
    ref.enumField = r;
@@ -31,10 +31,10 @@ TEST_CASE("ReferenceUnitTest", "[test]")
    CHECK("2" == ref.enumField.s_enumValueString("ReferenceEnum::Average"));
 
    ReferenceAggregate ref2;
-   ref.stringField.Value("another world");
+   ref.stringField.value("another world");
    rapidjson::StringBuffer buffer;
    PrettyWriter<rapidjson::StringBuffer> writer(buffer);
    ref.serialize(writer);
    ref2.deserialize(buffer.GetString());
-   CHECK(ref2.stringField.Value() == "another world");
+   CHECK(ref2.stringField.value() == "another world");
 }

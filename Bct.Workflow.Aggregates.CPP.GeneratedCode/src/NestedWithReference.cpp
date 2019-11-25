@@ -105,14 +105,14 @@ namespace Bct
             if (&other != this)
             {
                BaseAggregate::operator=(other);
-               boolField.Value(other.boolField.Value());
-               int32Field.Value(other.int32Field.Value());
-               uint32Field.Value(other.uint32Field.Value());
-               int64Field.Value(other.int64Field.Value());
-               uint64Field.Value(other.uint64Field.Value());
-               doubleField.Value(other.doubleField.Value());
-               stringField.Value(other.stringField.Value());
-               enumField.Value(other.enumField.Value());
+               boolField.value(other.boolField.value());
+               int32Field.value(other.int32Field.value());
+               uint32Field.value(other.uint32Field.value());
+               int64Field.value(other.int64Field.value());
+               uint64Field.value(other.uint64Field.value());
+               doubleField.value(other.doubleField.value());
+               stringField.value(other.stringField.value());
+               enumField.value(other.enumField.value());
                aggField = other.aggField;
             }
 

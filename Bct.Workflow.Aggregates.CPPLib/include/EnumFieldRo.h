@@ -15,7 +15,7 @@ namespace Bct
          class EnumFieldRo : public EnumField<U, X>
          {
          private:
-            using EnumField<U,X>::Value; // hide value set/get
+            using EnumField<U,X>::value; // hide value set/get
             using EnumField<U, X>::unset;
          public:
             /// <summary>
@@ -63,9 +63,9 @@ namespace Bct
             /// Gets numeric value.
             /// </summary>
             /// <returns>Numeric value of enumeration.</returns>
-            const X Value()
+            const X value()
             {
-               return EnumField<U, X>::Value();
+               return EnumField<U, X>::value();
             };
          };
       }

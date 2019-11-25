@@ -195,7 +195,7 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    CHECK(r1b.isSuccess() == true);  // intField1 intField2 !=
 
    // enum tests
-   CHECK(a0.enumField.Value() == Bct::Workflow::TypeEnum::BoolType);
+   CHECK(a0.enumField.value() == Bct::Workflow::TypeEnum::BoolType);
 
    // copy constructor tests
    AggNested aOrig;
@@ -215,7 +215,7 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    aCopy.aggField.field1 = 444;
    aOrig.aggField.field1 = aCopy.aggField.field1;
    aOrig.aggField.stringField = aCopy.aggField.stringField;
-   CHECK(aOrig.aggField.field1.FieldSetCounter() == aCopy.aggField.field1.FieldSetCounter());
+   CHECK(aOrig.aggField.field1.fieldSetCounter() == aCopy.aggField.field1.fieldSetCounter());
    CHECK(aOrig.aggField.field1 == 444);
 
    AggNested aAssign;
@@ -226,8 +226,8 @@ TEST_CASE("AggNestedUnitTests", "[test]")
    aAssign = aCopy;
    CHECK(aAssign.intField1 == 777);
    CHECK(aAssign.aggField.field1 == 888);
-   CHECK(aAssign.aggField.stringField.Value() == "test999");
-   CHECK(aAssign.aggField.stringField.FieldSetCounter() != aCopy.aggField.stringField.FieldSetCounter());
+   CHECK(aAssign.aggField.stringField.value() == "test999");
+   CHECK(aAssign.aggField.stringField.fieldSetCounter() != aCopy.aggField.stringField.fieldSetCounter());
 
 
 

@@ -144,23 +144,23 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    CHECK(t0.vectorInt32Field.hasValue());
    CHECK(t0.vectorDblField.hasValue());
    CHECK(t0.vectorStrField.hasValue());
-   CHECK(t0.vectorInt32Field.Value()[0] == 1);
-   CHECK(t0.vectorDblField.Value()[0] == 1.0);
-   CHECK(t0.vectorStrField.Value()[0] == "hi");
-   CHECK(t0.vectorInt32Field.FieldSetCounter() == 1);
-   CHECK(t0.vectorDblField.FieldSetCounter() == 2);
-   CHECK(t0.vectorStrField.FieldSetCounter() == 3);
-   CHECK(t0.vectorInt32Field.Value().size() == 2);
-   CHECK(t0.vectorDblField.Value().size() == 2);
-   CHECK(t0.vectorStrField.Value().size() == 2);
+   CHECK(t0.vectorInt32Field.value()[0] == 1);
+   CHECK(t0.vectorDblField.value()[0] == 1.0);
+   CHECK(t0.vectorStrField.value()[0] == "hi");
+   CHECK(t0.vectorInt32Field.fieldSetCounter() == 1);
+   CHECK(t0.vectorDblField.fieldSetCounter() == 2);
+   CHECK(t0.vectorStrField.fieldSetCounter() == 3);
+   CHECK(t0.vectorInt32Field.value().size() == 2);
+   CHECK(t0.vectorDblField.value().size() == 2);
+   CHECK(t0.vectorStrField.value().size() == 2);
 
    // make sure fromInt and field vectors are independent
    fromInt.push_back(3);
    fromDbl.push_back(3.0);
    fromStr.push_back("again");
-   CHECK(t0.vectorInt32Field.Value().size() == 2);
-   CHECK(t0.vectorDblField.Value().size() == 2);
-   CHECK(t0.vectorStrField.Value().size() == 2);
+   CHECK(t0.vectorInt32Field.value().size() == 2);
+   CHECK(t0.vectorDblField.value().size() == 2);
+   CHECK(t0.vectorStrField.value().size() == 2);
    CHECK(fromInt.size() == 3);
    CHECK(fromDbl.size() == 3);
    CHECK(fromStr.size() == 3);
@@ -170,16 +170,16 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    assignFromInt.push_back(1);
    assignFromInt.push_back(2);
    t0.vectorInt32Field = assignFromInt;
-   CHECK(t0.vectorInt32Field.Value() == assignFromInt);
-   CHECK(t0.vectorInt32Field.Value().size() == assignFromInt.size());
+   CHECK(t0.vectorInt32Field.value() == assignFromInt);
+   CHECK(t0.vectorInt32Field.value().size() == assignFromInt.size());
 
    // check assignment (double)
    std::vector<double> assignFromDbl;
    assignFromDbl.push_back(1.0);
    assignFromDbl.push_back(2.0);
    t0.vectorDblField = assignFromDbl;
-   CHECK(t0.vectorDblField.Value() == assignFromDbl);
-   CHECK(t0.vectorDblField.Value().size() == assignFromDbl.size());
+   CHECK(t0.vectorDblField.value() == assignFromDbl);
+   CHECK(t0.vectorDblField.value().size() == assignFromDbl.size());
 
    // check assignment (string)
 
@@ -187,13 +187,13 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
    assignFromStr.push_back("1");
    assignFromStr.push_back("2");
    t0.vectorStrField = assignFromStr;
-   t0.vectorStrField.Value(assignFromStr);
-   CHECK(t0.vectorStrField.Value() == assignFromStr);
-   CHECK(t0.vectorStrField.Value().size() == assignFromStr.size());
+   t0.vectorStrField.value(assignFromStr);
+   CHECK(t0.vectorStrField.value() == assignFromStr);
+   CHECK(t0.vectorStrField.value().size() == assignFromStr.size());
 
    t0a = t0;
-   CHECK(t0a.vectorDblField.Value().size() == t0a.vectorDblField.Value().size());
-   CHECK(t0a.vectorDblField.Value() == t0a.vectorDblField.Value());
+   CHECK(t0a.vectorDblField.value().size() == t0a.vectorDblField.value().size());
+   CHECK(t0a.vectorDblField.value() == t0a.vectorDblField.value());
    // check != operation
    CHECK(!(t0.vectorInt32Field != t0a.vectorInt32Field));
 
@@ -217,16 +217,16 @@ TEST_CASE("VectorFieldUnitTests", "[test]")
 
    t0.vectorAggField = assignFromAggVect;
    t0a.vectorAggField = assignFromAggVect;
-   CHECK(t0a.vectorAggField.Value().size() == t0.vectorAggField.Value().size());
-   CHECK(t0a.vectorAggField.Value() == t0.vectorAggField.Value());
+   CHECK(t0a.vectorAggField.value().size() == t0.vectorAggField.value().size());
+   CHECK(t0a.vectorAggField.value() == t0.vectorAggField.value());
    CHECK(t0a.vectorAggField == t0.vectorAggField);
 
-   const ReferenceAggregate &ra = t0.vectorAggField.Value()[0];
-   const ReferenceAggregate &rb = t0.vectorAggField.Value()[1];
+   const ReferenceAggregate &ra = t0.vectorAggField.value()[0];
+   const ReferenceAggregate &rb = t0.vectorAggField.value()[1];
    CHECK(ra.getVersion() == "v1.0.0");
-   CHECK(ra.vectorIntField.State() == a.vectorIntField.State());
+   CHECK(ra.vectorIntField.state() == a.vectorIntField.state());
    CHECK(rb.getVersion() == "v1.1.0");
-   CHECK(rb.vectorIntField.State() == b.vectorIntField.State());
+   CHECK(rb.vectorIntField.state() == b.vectorIntField.state());
    CHECK(ra == a);
    CHECK(rb == b);
    CHECK(ra != rb);
@@ -242,9 +242,9 @@ TEST_CASE("VectorFieldVersionUnitTests", "[test]")
    TestVectorFieldAggregate tv1("1.1.0");
    TestVectorFieldAggregate tv2("1.2.0");
 
-   CHECK(tv0.vectorVersion0only.State() == FieldStateEnum::NotSet);
-   CHECK(tv1.vectorVersion0only.State() == FieldStateEnum::Unavailable);
-   CHECK(tv2.vectorVersion0only.State() == FieldStateEnum::Unavailable);
+   CHECK(tv0.vectorVersion0only.state() == FieldStateEnum::NotSet);
+   CHECK(tv1.vectorVersion0only.state() == FieldStateEnum::Unavailable);
+   CHECK(tv2.vectorVersion0only.state() == FieldStateEnum::Unavailable);
 
    std::vector<int64_t> fromInt64;
    fromInt64.push_back(111);
@@ -255,43 +255,43 @@ TEST_CASE("VectorFieldVersionUnitTests", "[test]")
    fromInt64Extra.push_back(999);
 
    //first, test Version0only field
-   CHECK_THROWS_AS(tv0.vectorVersion0only.Value(), NotAbleToGet);    // version0only is not set
+   CHECK_THROWS_AS(tv0.vectorVersion0only.value(), NotAbleToGet);    // version0only is not set
    tv0.vectorVersion0only = fromInt64;
-   CHECK(tv0.vectorVersion0only.State() == FieldStateEnum::Set);
-   CHECK(tv0.vectorVersion0only.Value()[0] == 111);
-   CHECK(tv0.vectorVersion0only.Value()[1] == 222);
-   CHECK_THROWS_AS(tv1.vectorVersion0only.Value(), NotAbleToGet);
+   CHECK(tv0.vectorVersion0only.state() == FieldStateEnum::Set);
+   CHECK(tv0.vectorVersion0only.value()[0] == 111);
+   CHECK(tv0.vectorVersion0only.value()[1] == 222);
+   CHECK_THROWS_AS(tv1.vectorVersion0only.value(), NotAbleToGet);
    CHECK_THROWS_AS(tv2.vectorVersion0only.unset(), NotAbleToSet);
    CHECK_THROWS_AS(tv2.vectorVersion0only = fromInt64, NotAbleToSet);
    CHECK_THROWS_AS(tv2.vectorVersion0only.unset(), NotAbleToSet);
 
    // now look at version1only field
-   CHECK(tv0.vectorVersion1only.State() == FieldStateEnum::Unavailable);
-   CHECK(tv1.vectorVersion1only.State() == FieldStateEnum::NotSet);
-   CHECK(tv2.vectorVersion1only.State() == FieldStateEnum::Unavailable);
+   CHECK(tv0.vectorVersion1only.state() == FieldStateEnum::Unavailable);
+   CHECK(tv1.vectorVersion1only.state() == FieldStateEnum::NotSet);
+   CHECK(tv2.vectorVersion1only.state() == FieldStateEnum::Unavailable);
    tv1.vectorVersion1only = fromInt64;
-   CHECK(tv1.vectorVersion1only.State() == FieldStateEnum::Set);
-   CHECK(tv1.vectorVersion1only.Value()[0] == 111);
-   CHECK(tv1.vectorVersion1only.Value()[1] == 222);
-   tv1.vectorVersion1only.Value(fromInt64Extra);
-   CHECK(tv1.vectorVersion1only.Value()[0] == 777);
-   CHECK(tv1.vectorVersion1only.Value()[1] == 888);
-   CHECK(tv1.vectorVersion1only.Value()[2] == 999);
+   CHECK(tv1.vectorVersion1only.state() == FieldStateEnum::Set);
+   CHECK(tv1.vectorVersion1only.value()[0] == 111);
+   CHECK(tv1.vectorVersion1only.value()[1] == 222);
+   tv1.vectorVersion1only.value(fromInt64Extra);
+   CHECK(tv1.vectorVersion1only.value()[0] == 777);
+   CHECK(tv1.vectorVersion1only.value()[1] == 888);
+   CHECK(tv1.vectorVersion1only.value()[2] == 999);
    tv1.vectorVersion1only.unset();
-   CHECK(tv1.vectorVersion1only.State() == FieldStateEnum::NotSet);
-   CHECK_THROWS_AS(tv0.vectorVersion1only.Value(), NotAbleToGet);
-   CHECK_THROWS_AS(tv2.vectorVersion1only.Value(), NotAbleToGet);
-   CHECK_THROWS_AS(tv0.vectorVersion1only.Value(fromInt64), NotAbleToSet);
-   CHECK_THROWS_AS(tv2.vectorVersion1only.Value(fromInt64Extra), NotAbleToSet);
+   CHECK(tv1.vectorVersion1only.state() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(tv0.vectorVersion1only.value(), NotAbleToGet);
+   CHECK_THROWS_AS(tv2.vectorVersion1only.value(), NotAbleToGet);
+   CHECK_THROWS_AS(tv0.vectorVersion1only.value(fromInt64), NotAbleToSet);
+   CHECK_THROWS_AS(tv2.vectorVersion1only.value(fromInt64Extra), NotAbleToSet);
    CHECK_THROWS_AS(tv0.vectorVersion1only.unset(), NotAbleToSet);
    CHECK_THROWS_AS(tv2.vectorVersion1only.unset(), NotAbleToSet);
    CHECK_THROWS_AS(tv0.vectorVersion1only = fromInt64, NotAbleToSet);
    CHECK_THROWS_AS(tv2.vectorVersion1only = fromInt64, NotAbleToSet);
 
    // now look at version2only field
-   CHECK(tv0.vectorVersion2only.State() == FieldStateEnum::Unavailable);
-   CHECK(tv1.vectorVersion2only.State() == FieldStateEnum::Unavailable);
-   CHECK(tv2.vectorVersion2only.State() == FieldStateEnum::NotSet);
+   CHECK(tv0.vectorVersion2only.state() == FieldStateEnum::Unavailable);
+   CHECK(tv1.vectorVersion2only.state() == FieldStateEnum::Unavailable);
+   CHECK(tv2.vectorVersion2only.state() == FieldStateEnum::NotSet);
    tv2.vectorVersion2only.unset();
    CHECK_THROWS_AS(tv0.vectorVersion2only.unset(), NotAbleToSet);
    CHECK_THROWS_AS(tv1.vectorVersion2only.unset(), NotAbleToSet);
@@ -302,9 +302,9 @@ TEST_CASE("VectorFieldSwapTests", "[test]")
 {
    // arrange
    TestVectorFieldAggregate tv0("1.0.0");
-   CHECK(tv0.vectorVersion0only.State() == FieldStateEnum::NotSet);
-   CHECK_THROWS_AS(tv0.vectorDblField.Value().size() == 0, NotAbleToGet);
-   int count = tv0.vectorDblField.FieldSetCounter();
+   CHECK(tv0.vectorVersion0only.state() == FieldStateEnum::NotSet);
+   CHECK_THROWS_AS(tv0.vectorDblField.value().size() == 0, NotAbleToGet);
+   int count = tv0.vectorDblField.fieldSetCounter();
    std::vector<double> v;
    v.push_back(1.0);
    v.push_back(2.0);
@@ -316,10 +316,10 @@ TEST_CASE("VectorFieldSwapTests", "[test]")
    tv0.vectorDblField.swap(v);
 
    // assert
-   CHECK(tv0.vectorDblField.Value().size() == 3);
-   CHECK(tv0.vectorDblField.Value()[2] == 3.0);
-   CHECK(tv0.vectorDblField.FieldSetCounter() == ++count);
-   CHECK(tv0.vectorDblField.State() == FieldStateEnum::Set);
+   CHECK(tv0.vectorDblField.value().size() == 3);
+   CHECK(tv0.vectorDblField.value()[2] == 3.0);
+   CHECK(tv0.vectorDblField.fieldSetCounter() == ++count);
+   CHECK(tv0.vectorDblField.state() == FieldStateEnum::Set);
    CHECK(v.size() == 0);
 }
 

@@ -27,7 +27,7 @@ namespace Bct
             /// Field id associated with this rule.
             /// </summary>
             /// <returns>Field name for rule.</returns>
-            int16_t FieldId();
+            int16_t fieldId();
 
             /// <summary>
             /// Id associated with this rule.

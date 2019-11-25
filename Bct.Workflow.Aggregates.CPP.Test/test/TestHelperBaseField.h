@@ -15,7 +15,7 @@ namespace Bct
          private:
            
          public:
-            using AbstractField::ComputedValueString;
+            using AbstractField::computedValueString;
             TestHelperBaseField(int32_t fieldId, AbstractAggregate * const aggregate)
                : BaseField<T>(fieldId, aggregate)
             {

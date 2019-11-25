@@ -102,7 +102,7 @@ TEST_CASE("FluentMetaTests", "[test]")
    CHECK(1 == t1.intField);
    CHECK(1 == t2.intField);
 
-   CHECK("hello world" == t0.strField.Value()) ;
+   CHECK("hello world" == t0.strField.value()) ;
 
    CHECK(99 == t1.aggField.field1);
    CHECK(99 == t2.aggField.field1);

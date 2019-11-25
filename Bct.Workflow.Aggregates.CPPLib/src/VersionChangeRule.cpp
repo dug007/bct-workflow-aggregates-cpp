@@ -12,7 +12,7 @@ namespace Bct
          {
          };
 
-         int32_t VersionChangeRule::FieldId()
+         int32_t VersionChangeRule::fieldId()
          {
             return _fieldId;
          }

@@ -26,7 +26,7 @@ namespace Bct
             /// Getter to get fieldid of the rule.
             /// </summary>
             /// <returns>Field id.</returns>
-            int32_t FieldId();
+            int32_t fieldId();
             /// <summary>
             /// Getter to return the target versionid of the rule.
             /// </summary>
