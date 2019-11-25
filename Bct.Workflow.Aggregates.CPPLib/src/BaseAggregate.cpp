@@ -10,6 +10,7 @@
 #include "NotAbleToGet.h"
 #include "NoSuchVersion.h"
 #include "NotAbleToSet.h"
+#include "AggregateNotFound.h"                                                      
 #include "FieldInfo.h"
 
 #include "BaseField.h"
@@ -540,6 +541,10 @@ namespace Bct
                else
                {
                   // [PL] TODO: error handling.
+                  //std::string tempAggName = typeid(*this).name();
+                  //throw AggregateNotFound(tempAggName);
+                  //Currently deserialize does not work if this is uncommented because the aggregate comes in as a struct.
+                  //This needs to be addressed with HGT to understand what error handling needs to happen here.
                }
             }
 
@@ -636,6 +641,8 @@ namespace Bct
             else
             {
                // [PL] TODO error handling?
+               std::string tempAggName = typeid(*this).name();
+               throw AggregateNotFound(tempAggName);
             }
          }
 
@@ -643,7 +650,8 @@ namespace Bct
          {
             if (_currentAggregate.empty())
             {
-               // [PL] TODO: error handling.
+               std::string tempAggName = typeid(*this).name();
+               throw AggregateNotFound(tempAggName);
             }
             else
             {
