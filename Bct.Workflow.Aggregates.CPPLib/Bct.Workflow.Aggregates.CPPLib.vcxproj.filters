@@ -24,6 +24,7 @@
     <ClCompile Include="src\NotAbleToSet.cpp" />
     <ClCompile Include="src\AggregateNotFound.cpp" />
     <ClCompile Include="CannotConvertScalar.cpp" />
+    <ClCompile Include="src\CannotConvertScalar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FieldStateEnum.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="include\NotAbleToSet.h" />
     <ClInclude Include="include\AggregateNotFound.h" />
     <ClInclude Include="CannotConvertScalar.h" />
+    <ClInclude Include="include\CannotConvertScalar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

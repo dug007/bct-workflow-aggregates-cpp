@@ -111,6 +111,7 @@
     <ClInclude Include="include\BaseAggregate.h" />
     <ClInclude Include="include\BaseField.h" />
     <ClInclude Include="include\BaseFieldRo.h" />
+    <ClInclude Include="include\CannotConvertScalar.h" />
     <ClInclude Include="include\ComputeRule.h" />
     <ClInclude Include="include\EnumField.h" />
     <ClInclude Include="include\EnumFieldRo.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="src\AssessmentResult.cpp" />
     <ClCompile Include="src\AssessmentRule.cpp" />
     <ClCompile Include="src\BaseAggregate.cpp" />
+    <ClCompile Include="src\CannotConvertScalar.cpp" />
     <ClCompile Include="src\ComputeRule.cpp" />
     <ClCompile Include="src\FieldMeta.cpp" />
     <ClCompile Include="src\FluentAssessmentRule.cpp" />
