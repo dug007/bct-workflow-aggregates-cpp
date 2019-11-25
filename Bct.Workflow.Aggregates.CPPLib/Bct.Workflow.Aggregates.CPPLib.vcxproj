@@ -102,6 +102,7 @@
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\Token.h" />
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h" />
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\TypeEnum.h" />
+    <ClInclude Include="CannotConvertScalar.h" />
     <ClInclude Include="include\AbstractAggregate.h" />
     <ClInclude Include="include\AbstractField.h" />
     <ClInclude Include="include\AggregateNotFound.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp" />
     <ClCompile Include="BCT.RPNEvaluator.CPP\src\RPNEvaluator.cpp" />
     <ClCompile Include="BCT.RPNEvaluator.CPP\src\Token.cpp" />
+    <ClCompile Include="CannotConvertScalar.cpp" />
     <ClCompile Include="src\AggregateMetaData.cpp" />
     <ClCompile Include="src\AggregateNotFound.cpp" />
     <ClCompile Include="src\AssessmentResult.cpp" />
