@@ -593,7 +593,7 @@ TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
    {
       SamAgg4.Field7c.value(5);
    }
-   catch (NotAbleToSet exc)
+   catch (NotAbleToSet &exc)
    {
       std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7c fieldState=Constant";
       std::string actual = exc.what();
@@ -612,7 +612,7 @@ TEST_CASE("ThrowsExceptionIfFieldComputeOnly", "[test]")
    {
       SamAgg5.Field7com.value(5);
    }
-   catch (NotAbleToSet exc)
+   catch (NotAbleToSet &exc)
    {
       std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7com fieldState=Computed";
       std::string actual = exc.what();
@@ -808,7 +808,7 @@ TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
    {
       Sample1Aggregate SamAgg11("1.0.0.0");
    }
-   catch (NoSuchVersion ex)
+   catch (NoSuchVersion &ex)
    {
       CHECK(ex.requestedVersion() == "1.0.0.0");
       std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate requestedVersion=1.0.0.0";
