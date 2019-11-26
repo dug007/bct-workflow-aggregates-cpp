@@ -537,15 +537,17 @@ namespace Bct
                BaseAggregate * agg = dynamic_cast<BaseAggregate*>(currentAggregate->findLastKeyAggregate() );
                if (agg)
                {
-                  setCurrentAggregate( agg );
+                  setCurrentAggregate(agg);
                }
                else
                {
-                  // [PL] TODO: error handling.
+                  // [PL] TODO: error handling
                   //std::string tempAggName = typeid(*this).name();
                   //throw AggregateNotFound(tempAggName);
+                  //return false;
                   //Currently deserialize does not work if this is uncommented because the aggregate comes in as a struct.
                   //This needs to be addressed with HGT to understand what error handling needs to happen here.
+                  //Seems to fail on serialize such that there is no deserializeLastKeyName found
                }
             }
 
