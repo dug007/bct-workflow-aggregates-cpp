@@ -61,11 +61,11 @@ namespace Bct
          AggNested & AggNested::operator=(const AggNested &other)
          {
             BaseAggregate::operator=(other);
-            intField1.Value(other.intField1.Value());
-            intField2.Value(other.intField1.Value());
+            intField1.value(other.intField1.value());
+            intField2.value(other.intField1.value());
             aggField.operator=(other.aggField);
             aggFieldV2.operator=(other.aggFieldV2);
-            stringField.Value(other.stringField.Value());
+            stringField.value(other.stringField.value());
             return *this;
          }
 

@@ -14,7 +14,7 @@ namespace Bct
          class StringFieldRo : public StringField
          {
          private:
-            using StringField::Value; // hide value set/get
+            using StringField::value; // hide value set/get
             using StringField::unset;
          public:
             /// <summary>
@@ -47,7 +47,7 @@ namespace Bct
             /// Gets the read-only value.
             /// </summary>
             /// <returns>Value.</returns>
-            const std::string Value();
+            const std::string value();
          };
       }
    }

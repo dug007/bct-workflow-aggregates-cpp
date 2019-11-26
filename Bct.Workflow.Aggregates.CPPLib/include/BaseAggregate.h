@@ -110,7 +110,7 @@ namespace Bct
             /// latest counter.
             /// </summary>
             /// <returns>The incremented field set counter.</returns>
-            virtual const uint32_t &FieldSetCounter();
+            virtual const uint32_t &fieldSetCounter();
 
             // TODO: determine best way to define - User Story 126907
             // Field types

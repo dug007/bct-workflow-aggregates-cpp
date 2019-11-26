@@ -10,7 +10,7 @@ using namespace Bct::Workflow::Implementation;
 TEST_CASE("EnumFieldTests", "[test]")
 {
    ReferenceAggregate aOrig;
-   aOrig.enumField.Value(ReferenceEnum::Good);
+   aOrig.enumField.value(ReferenceEnum::Good);
 
    // check copy
    ReferenceAggregate aCopy = aOrig;
@@ -23,18 +23,18 @@ TEST_CASE("EnumFieldTests", "[test]")
    ReferenceAggregate aAssign;
    aAssign = aCopy;
    CHECK(aAssign.enumField == ReferenceEnum::Average);
-   CHECK(aAssign.enumField.Value() == 2);
+   CHECK(aAssign.enumField.value() == 2);
 
    // check string ops
    CHECK(aAssign.enumField.EnumName() == "ReferenceEnum::Average");
    CHECK(aAssign.enumField.s_enumValueString("ReferenceEnum::Average") == "2"); // needed when RPN eval returns ReferenceEnum::Average
-   CHECK("2" == aAssign.enumField.ComputedValueString());
-   aAssign.enumField.ComputedValueString("4");
+   CHECK("2" == aAssign.enumField.computedValueString());
+   aAssign.enumField.computedValueString("4");
    CHECK(aAssign.enumField == ReferenceEnum::BelowAverage);
 
    // check interop with wrapped enum
    aAssign.enumField = ReferenceEnum::Poor;
-   ReferenceEnum::Reference ref = aAssign.enumField.Value();
+   ReferenceEnum::Reference ref = aAssign.enumField.value();
    CHECK(ref == ReferenceEnum::Poor);
    ref = ReferenceEnum::VeryGood;
    aAssign.enumField = ref;

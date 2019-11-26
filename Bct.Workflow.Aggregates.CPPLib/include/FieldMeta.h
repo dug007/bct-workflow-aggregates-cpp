@@ -36,7 +36,7 @@ namespace Bct
             /// Provides the field id of the associated field.
             /// </summary>
             /// <returns></returns>
-            int16_t FieldId();
+            int16_t fieldId();
 
             /// <summary>
             /// The default of the field.
