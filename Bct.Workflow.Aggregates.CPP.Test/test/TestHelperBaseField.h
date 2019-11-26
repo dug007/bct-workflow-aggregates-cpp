@@ -32,21 +32,23 @@ namespace Bct
             /// Public exposure of ComputedValueString for testing purposes.
             /// </summary>
             /// <param name="val"></param>
-            virtual void ComputedValueString(const std::string & val)
+            virtual void computedValueString(const std::string & val)
             {
-               BaseField<T>::ComputedValueString(val);
+               BaseField<T>::computedValueString(val);
             }
 
             /// <summary>
             /// Public exposure of ComputedValueString for testing purposes.
             /// </summary>
             /// <returns>The string representation of field value.</returns>
-            virtual std::string ComputedValueString() const
+            virtual std::string computedValueString() const
             {
-               return BaseField<T>::ComputedValueString();
+               return BaseField<T>::computedValueString();
             }
 
-
+            /// <summary>
+            /// Descructor.
+            /// </summary>
             virtual ~TestHelperBaseField()
             {
             }
