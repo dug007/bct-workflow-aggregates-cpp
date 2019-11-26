@@ -603,32 +603,32 @@ namespace Bct
 			if (op == "$IsSet")
 			{
 				Token tok = argList[0];
-				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Set == variableMap[tok.Tok].VarState);
+				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::Set == variableMap[tok.Tok].VarState);
 			}
 			else if (op == "$IsComputed")
 			{
 				Token tok = argList[0];
-				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Computed == variableMap[tok.Tok].VarState);
+				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::Computed == variableMap[tok.Tok].VarState);
 			}
 			else if (op == "$IsDefault")
 			{
 				Token tok = argList[0];
-				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Default == variableMap[tok.Tok].VarState);
+				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::Default == variableMap[tok.Tok].VarState);
 			}
 			else if (op == "$IsConstant")
 			{
 				Token tok = argList[0];
-				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Constant == variableMap[tok.Tok].VarState);
+				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::Constant == variableMap[tok.Tok].VarState);
 			}
 			else if (op == "$IsNull")
 			{
 				Token tok = argList[0];
-				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::NotSet == variableMap[tok.Tok].VarState);
+				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::NotSet == variableMap[tok.Tok].VarState);
 			}
 			else if (op == "$HasValue")
 			{
 				Token tok = argList[0];
-				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Set == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Computed == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Default == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::FieldState::Constant == variableMap[tok.Tok].VarState);
+				rtn = (Bct::Workflow::Aggregates::FieldStateEnum::Set == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::Computed == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::Default == variableMap[tok.Tok].VarState || Bct::Workflow::Aggregates::FieldStateEnum::Constant == variableMap[tok.Tok].VarState);
 			}
 			else if (op == "$SetState")
 			{

@@ -79,6 +79,10 @@ namespace Bct
                   std::string aggName_Unavail = typeid(*_aggregate).name();
                   throw NotAbleToGet(aggName_Unavail, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
+               default:
+               {
+
+               }
                }
                return _val;
             }
@@ -163,6 +167,10 @@ namespace Bct
                {
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+               }
+               default:
+               {
+
                }
                }
                _state = FieldStateEnum::NotSet;
@@ -311,15 +319,10 @@ namespace Bct
             void valueInternal(const std::vector<T> &v, bool fromCalculation)
             {
                
-
-               switch (_state)
+               if (_state == FieldStateEnum::Unavailable)
                {
-                 
-                  case FieldStateEnum::Unavailable:
-                  {
-                     std::string aggName = typeid(*_aggregate).name();
-                     throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
-                  }
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
                }
 
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;              
