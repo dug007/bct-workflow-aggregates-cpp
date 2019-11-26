@@ -16,6 +16,8 @@ namespace Bct
             BaseAggregate(BaseAggregate::UseMostRecentVersionStr),
             doubleValue(0, this)
          {
+            pushFields();
+            syncVersion();
          }
 
          SimpleAggregate::SimpleAggregate(const std::string &version) :
