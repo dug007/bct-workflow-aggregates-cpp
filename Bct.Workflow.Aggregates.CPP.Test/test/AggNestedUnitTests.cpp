@@ -20,7 +20,7 @@ public:
          "1.2.0",
       };
 
-      for (uint16_t i = 0; i < std::size(vers); i++)
+      for (uint16_t i = 0; i < 3; i++)
       {
          metaData.versionInfo.push_back(VersionInfo(vers[i]));
          VersionMetaData vm;
@@ -112,7 +112,7 @@ public:
          "1.4.0"
       };
 
-      for (uint16_t i = 0; i < std::size(vers); i++)
+      for (uint16_t i = 0; i < 5; i++)
       {
          metaData.versionInfo.push_back(VersionInfo(vers[i]));
          VersionMetaData vm;

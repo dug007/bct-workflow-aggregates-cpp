@@ -4,7 +4,6 @@
     <ClCompile Include="src\AggAssess.cpp" />
     <ClCompile Include="src\AggNested.cpp" />
     <ClCompile Include="src\AssessMetaData.cpp" />
-    <ClCompile Include="src\AssessUnitTests.cpp" />
     <ClCompile Include="test\EnumFieldUnitTests.cpp" />
     <ClCompile Include="test\AggNestedUnitTests.cpp" />
     <ClCompile Include="test\GeneralUnitTests.cpp" />
@@ -15,6 +14,7 @@
     <ClCompile Include="test\VersionChangeRuleUnitTests.cpp" />
     <ClCompile Include="test\VectorFieldUnitTests.cpp" />
     <ClCompile Include="test\QAComprehensiveUnitTests.cpp" />
+    <ClCompile Include="test\AssessUnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\GeneralUnitTests.cpp">
