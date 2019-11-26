@@ -540,15 +540,15 @@ TEST_CASE("BoolStringFunctions", "[test]")
 {
    TestBaseFieldSerialization TesBas1;
 
-   //TesBas1.boolField.value( true);
-   //CHECK("true" == TesBas1.boolField.ComputedValueString());
-   //TesBas1.boolField.value(false);
-   //CHECK("false" == TesBas1.boolField.ComputedValueString());
+   TesBas1.boolField.value( true);
+   CHECK("true" == TesBas1.boolField.computedValueString());
+   TesBas1.boolField.value(false);
+   CHECK("false" == TesBas1.boolField.computedValueString());
 
-   //TesBas1.boolField.ComputedValueString("false");
-   //CHECK(TesBas1.boolField == false);
-   //TesBas1.boolField.ComputedValueString("true");
-   //CHECK(TesBas1.boolField == true);
+   TesBas1.boolField.computedValueString("false");
+   CHECK(TesBas1.boolField == false);
+   TesBas1.boolField.computedValueString("true");
+   CHECK(TesBas1.boolField == true);
 }
 
 //Set field value shall throw an exception if the field is not available in the current version of the aggregate.
