@@ -232,7 +232,7 @@ TEST_CASE("SetFieldCounterAssignCorrectly","[test]")
    ReferenceAggregate fromRefAgg;
    ReferenceAggregate toRefAgg;
 
-   fromRefAgg.boolField = false; //set boolField twice to ensure FieldSetCounter increases twice
+   fromRefAgg.boolField = false; //set boolField twice to ensure fieldSetCounter increases twice
    fromRefAgg.boolField = false;
    toRefAgg.boolField = true;
    CHECK( toRefAgg.boolField.fieldSetCounter() != fromRefAgg.boolField.fieldSetCounter());
@@ -540,9 +540,9 @@ TEST_CASE("BoolStringFunctions", "[test]")
 {
    TestBaseFieldSerialization TesBas1;
 
-   //TesBas1.boolField.Value( true);
+   //TesBas1.boolField.value( true);
    //CHECK("true" == TesBas1.boolField.ComputedValueString());
-   //TesBas1.boolField.Value(false);
+   //TesBas1.boolField.value(false);
    //CHECK("false" == TesBas1.boolField.ComputedValueString());
 
    //TesBas1.boolField.ComputedValueString("false");

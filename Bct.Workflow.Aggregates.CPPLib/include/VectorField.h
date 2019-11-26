@@ -322,7 +322,7 @@ namespace Bct
                if (_state == FieldStateEnum::Unavailable)
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
 
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;              
