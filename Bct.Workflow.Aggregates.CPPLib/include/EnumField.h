@@ -47,7 +47,7 @@ namespace Bct
             EnumField(int32_t fieldId, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate * const aggregate)
                : BaseField<U>(fieldId, aggregate), _enumName(enumName)
             {
-               // TODO parse enums into _enumNames and _enums and support RPN evaluator - Story 128470
+               // TODO parse enums into _enumNames and _enums and support RPN evaluator - Story 129300
                _enumNames = split(names, ' ');
                _enums = split(enums, ' ');
             }
