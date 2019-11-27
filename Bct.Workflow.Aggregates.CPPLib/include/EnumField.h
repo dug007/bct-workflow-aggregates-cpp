@@ -9,6 +9,11 @@ namespace Bct
    {
       namespace Aggregates
       {
+         template<class U, class X> class EnumField;
+
+         template <class U, class X>
+         std::ostream & operator<< (std::ostream& OutStream, const EnumField<U, X> enumField);
+
          /// <summary>
          /// Enumeration wrapper for fields. U is the underlying type. X is the enum being wrapped.
          /// 
@@ -42,7 +47,7 @@ namespace Bct
             EnumField(int32_t fieldId, const std::string enumName, const std::string enums, const std::string names, AbstractAggregate * const aggregate)
                : BaseField<U>(fieldId, aggregate), _enumName(enumName)
             {
-               // TODO parse enums into _enumNames and _enums and support RPN evaluator - Story 128470
+               // TODO parse enums into _enumNames and _enums and support RPN evaluator - Story 129300
                _enumNames = split(names, ' ');
                _enums = split(enums, ' ');
             }
@@ -66,19 +71,19 @@ namespace Bct
             /// Set the value of this field.
             /// </summary>
             /// <param name="v">Value to give this field.</param>
-            void Value(const X &v)
+            void value(const X &v)
             {
                U c = v;
-               BaseField<U>::Value(c);
+               BaseField<U>::value(c);
             }
 
             /// <summary>
             /// Get the value of this field.
             /// </summary>
             /// <returns>The value of this field.</returns>
-            X Value() const
+            X value() const
             {
-               X r = static_cast<X>(BaseField<U>::Value());
+               X r = static_cast<X>(BaseField<U>::value());
                return r;
             }
 
@@ -89,7 +94,7 @@ namespace Bct
             /// <returns>Coerced to integer.</returns>
             U operator=(const X &val)
             {
-               this->Value(val);
+               this->value(val);
                return *this;
             }
 
@@ -99,7 +104,7 @@ namespace Bct
             /// <returns>External representation.</returns>
             operator X() const
             {
-               return this->Value();
+               return this->value();
             }
 
             /// <summary>
@@ -108,7 +113,7 @@ namespace Bct
             /// <returns></returns>
             std::string EnumName() const
             {
-               std::string val = BaseField<U>::ComputedValueString();
+               std::string val = BaseField<U>::computedValueString();
                for (size_t i = 0; i < _enums.size(); i++)
                {
                   if (_enums[i] == val)
@@ -151,9 +156,9 @@ namespace Bct
             /// intended to be used internally for evaluating RPN expressions and not for public set/get operations.
             /// </summary>
             /// <returns>The string representation of the value of this enum.</returns>
-            virtual std::string ComputedValueString()
+            virtual std::string computedValueString()
             {
-               return BaseField<U>::ComputedValueString();
+               return BaseField<U>::computedValueString();
             };
 
             /// <summary>
@@ -161,11 +166,12 @@ namespace Bct
             /// intended to be used internally for evaluating RPN expressions and not for public set/get operations.
             /// </summary>
             /// <param name="val">The string representation of the value of this field.</param>
-            virtual void ComputedValueString(const std::string &val)
+            virtual void computedValueString(const std::string &val)
             {
-               BaseField<U>::ComputedValueString(val);
+               BaseField<U>::computedValueString(val);
             };
 
+            friend std::ostream & operator<< <U, X>(std::ostream& OutStream, const EnumField enumField);
 
          private:
 
@@ -173,6 +179,13 @@ namespace Bct
             std::vector<std::string> _enumNames;
             std::vector<std::string> _enums;
          };
+
+         template <class U, class X>
+         std::ostream & operator<< (std::ostream& OutStream, const EnumField<U, X> enumField )
+         {
+            OutStream << enumField.value();
+            return OutStream;
+         }
       }
    }
 }

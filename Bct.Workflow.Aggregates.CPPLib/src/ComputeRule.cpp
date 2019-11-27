@@ -12,7 +12,7 @@ namespace Bct
             _id(id), _fieldId(fieldId), _condition(condition), _expression(expression)
          {
          };
-         int16_t ComputeRule::FieldId()
+         int16_t ComputeRule::fieldId()
          {
             return _fieldId;
          }

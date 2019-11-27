@@ -1,4 +1,5 @@
 #include "NestedWithReference.h"
+#include "NestedWithReference.h"
 
 #include "AbstractAggregate.h"
 #include "BaseAggregate.h"
@@ -12,9 +13,23 @@ namespace Bct
       namespace Implementation
       {
          NestedWithReferenceAggregate::NestedWithReferenceAggregate() :
-            NestedWithReferenceAggregate(BaseAggregate::UseMostRecentVersionStr)
-         {
-         }
+            BaseAggregate(BaseAggregate::UseMostRecentVersionStr),
+            boolField(0, this),
+            int32Field(1, this),
+            uint32Field(2, this),
+            int64Field(3, this),
+            uint64Field(4, this),
+            doubleField(5, this),
+            stringField(6, this),
+            enumField(7, "ReferenceEnum::Reference",
+               "0 1 2 4 8 16",
+               "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor",
+               this),
+            aggField(8, this)
+      {
+         pushFields();
+         syncVersion();
+      }
 
          NestedWithReferenceAggregate::NestedWithReferenceAggregate(const std::string &version) :
             BaseAggregate(version),
@@ -90,14 +105,14 @@ namespace Bct
             if (&other != this)
             {
                BaseAggregate::operator=(other);
-               boolField.Value(other.boolField.Value());
-               int32Field.Value(other.int32Field.Value());
-               uint32Field.Value(other.uint32Field.Value());
-               int64Field.Value(other.int64Field.Value());
-               uint64Field.Value(other.uint64Field.Value());
-               doubleField.Value(other.doubleField.Value());
-               stringField.Value(other.stringField.Value());
-               enumField.Value(other.enumField.Value());
+               boolField.value(other.boolField.value());
+               int32Field.value(other.int32Field.value());
+               uint32Field.value(other.uint32Field.value());
+               int64Field.value(other.int64Field.value());
+               uint64Field.value(other.uint64Field.value());
+               doubleField.value(other.doubleField.value());
+               stringField.value(other.stringField.value());
+               enumField.value(other.enumField.value());
                aggField = other.aggField;
             }
 

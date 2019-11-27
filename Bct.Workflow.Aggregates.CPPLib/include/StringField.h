@@ -57,21 +57,21 @@ namespace Bct
             /// <returns>The value of this field.</returns>
             operator std::string() const
             {
-               return BaseField::ComputedValueString();
+               return BaseField<std::string>::computedValueString();
             }
 
             /// <summary>
             /// Returns value as a string.
             /// </summary>
             /// <returns>Value as a string.</returns>
-            virtual std::string ComputedValueString() const;
+            virtual std::string computedValueString() const;
 
             virtual void initMetaData(int16_t ver);
             /// <summary>
             /// Sets the value of this field using its string representation. This function is not public and is only needed for RPN computations.
             /// </summary>
             /// <param name="val">String representation of this field.</param>
-            virtual void ComputedValueString(const std::string & val);
+            virtual void computedValueString(const std::string & val);
 
          };
       }

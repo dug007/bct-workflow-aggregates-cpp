@@ -1,0 +1,30 @@
+*** include/rapidjson/rapidjson.h.orig	2019-10-14 08:33:54.290469000 -0600
+--- include/rapidjson/rapidjson.h	2019-10-14 08:36:34.372247000 -0600
+***************
+*** 15,20 ****
+--- 15,24 ----
+  #ifndef RAPIDJSON_RAPIDJSON_H_
+  #define RAPIDJSON_RAPIDJSON_H_
+  
++ #if defined(__RTP__) || defined(_WRS_KERNEL)
++ #define OS_VXWORKS 1
++ #endif
++ 
+  /*!\file rapidjson.h
+      \brief common definitions and configuration
+      
+***************
+*** 165,172 ****
+--- 169,180 ----
+  #else
+  // Other compilers should have this.
+  #include <stdint.h>
++ #if OS_VXWORKS
++ #include <stdint.h>
++ #else
+  #include <inttypes.h>
+  #endif
++ #endif
+  //!@endcond
+  #ifdef RAPIDJSON_DOXYGEN_RUNNING
+  #define RAPIDJSON_NO_INT64DEFINE

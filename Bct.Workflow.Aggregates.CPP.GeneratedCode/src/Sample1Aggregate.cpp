@@ -98,12 +98,8 @@ namespace Bct
             AggregateMetaData &aggMeta = MetaData();
             AbstractAggregate *agg = this;
 
-            std::string vers[3] =
-            {
-               "1.0.0",
-               "1.1.0",
-               "1.2.0"
-            };
+            std::vector<std::string> vers;
+            vers.push_back( "1.0.0" ); vers.push_back( "1.1.0" ); vers.push_back( "1.2.0" );
 
             FieldStateEnum::FieldState _Field1states[3] =
             {
@@ -257,10 +253,9 @@ namespace Bct
                "samro"
             };
 
-
-            for (uint16_t i = 0; i <std::size(vers); i++)
+            for ( std::vector<std::string>::const_iterator itr = vers.begin(); itr != vers.end(); ++itr)
             {
-               aggMeta.versionInfo.push_back(VersionInfo(vers[i]));
+               aggMeta.versionInfo.push_back(VersionInfo(*itr));
                VersionMetaData vm;
                aggMeta.versionMetaData.push_back(vm);
             }
@@ -277,7 +272,7 @@ namespace Bct
             aggMeta.addField(9, "FieldString", Bct::Workflow::TypeEnum::StringType);
             aggMeta.addField(10, "FieldStringro", Bct::Workflow::TypeEnum::StringType);
 
-            for (uint16_t i = 0; i < std::size(vers); i++)
+            for (uint16_t i = 0; i < vers.size(); i++)
             {
                FieldMeta Field1_(0, _Field1states[i], _Field1defaults[i], i);
                FieldMeta Field7_(1, _Field7states[i], _Field7defaults[i], i);

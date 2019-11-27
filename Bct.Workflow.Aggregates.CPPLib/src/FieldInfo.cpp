@@ -11,12 +11,12 @@ namespace Bct
          {
          }
 
-         int16_t FieldInfo::FieldId() const
+         int16_t FieldInfo::fieldId() const
          {
             return _fieldId;
          }
 
-         std::string FieldInfo::FieldName() const
+         std::string FieldInfo::fieldName() const
          {
             return _fieldName;
          }

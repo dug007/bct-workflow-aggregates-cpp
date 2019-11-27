@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="test\AssessUnitTests.cpp" />
     <ClCompile Include="test\CodeGenerationUnitTests.cpp" />
     <ClCompile Include="test\QAComprehensiveUnitTests.cpp" />
     <ClCompile Include="src\AggAssess.cpp" />
     <ClCompile Include="src\AggNested.cpp" />
     <ClCompile Include="src\AssessMetaData.cpp" />
-    <ClCompile Include="src\AssessUnitTests.cpp" />
     <ClCompile Include="test\EnumFieldUnitTests.cpp" />
     <ClCompile Include="test\AggNestedUnitTests.cpp" />
     <ClCompile Include="test\GeneralUnitTests.cpp" />
@@ -98,7 +98,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.CPP.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\BCT.RPNEvaluator.CPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.CPP.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\BCT.RPNEvaluator.CPP\include;$(SolutionDir)rapidjson-1.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,7 +124,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.CPP.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\BCT.RPNEvaluator.CPP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bct.Workflow.Aggregates.CPP.GeneratedCode\include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\include;$(SolutionDir)catch;$(MSBuildProjectDirectory)\Include;$(SolutionDir)Bct.Workflow.Aggregates.CPPLib\BCT.RPNEvaluator.CPP\include;$(SolutionDir)rapidjson-1.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>

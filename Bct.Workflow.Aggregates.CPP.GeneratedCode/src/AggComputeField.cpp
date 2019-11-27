@@ -67,9 +67,9 @@ namespace Bct
             if (&other != this)
             {
                BaseAggregate::operator=(other);
-               field1.Value(other.field1.Value());
-               field2.Value(other.field2.Value());
-               stringField.Value(other.stringField.Value());
+               field1.value(other.field1.value());
+               field2.value(other.field2.value());
+               stringField.value(other.stringField.value());
             }
             return *this;
          }

@@ -9,7 +9,7 @@ namespace Bct
       namespace Aggregates
       {
          StringField::StringField(int32_t fieldId, AbstractAggregate * const aggregate)
-            : BaseField(fieldId, aggregate)
+            : BaseField<std::string>(fieldId, aggregate)
          {
          }
 
@@ -33,7 +33,7 @@ namespace Bct
 
          std::string StringField::operator=(std::string const &val)
          {
-            this->Value(val);
+            this->value(val);
             return *this;
          }
 
@@ -45,22 +45,22 @@ namespace Bct
             // with that located metadata instance
             FieldMeta &fm = findFieldMeta();
             const FieldStateEnum::FieldState &state = fm._fieldState;
-            StateRef() = state;
+            stateRef() = state;
 
             if (state == FieldStateEnum::Constant || state == FieldStateEnum::Default)
             {
-               setDefault(DefaultStr());
+               setDefault(defaultStr());
             }
          }
 
-         void StringField::ComputedValueString(const std::string & val)
+         void StringField::computedValueString(const std::string & val)
          {
-            ValueInternal(val, true);
+            valueInternal(val, true);
          }
 
-         std::string StringField::ComputedValueString() const
+         std::string StringField::computedValueString() const
          {
-            return BaseField::ComputedValueString();
+            return BaseField<std::string>::computedValueString();
          }
 
       }

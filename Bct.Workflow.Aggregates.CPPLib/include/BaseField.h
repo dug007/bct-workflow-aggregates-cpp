@@ -9,7 +9,6 @@
 #include "AggregateMetaData.h"
 #include "Exceptions.h"
 
-
 namespace Bct
 {
    namespace Workflow
@@ -53,16 +52,16 @@ namespace Bct
             /// Set the value of this field.
             /// </summary>
             /// <param name="v">Value to give this field.</param>
-            void Value(const T &v)
+            void value(const T &v)
             {
-               ValueInternal(v, false);
+               valueInternal(v, false);
             }
 
             /// <summary>
             /// Get the value of this field.
             /// </summary>
             /// <returns>The value of this field.</returns>
-            const T &Value() const
+            const T &value() const
             {
                // rules to implement here - User Story 126598
                switch (_state)
@@ -70,15 +69,17 @@ namespace Bct
                case FieldStateEnum::NotSet:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  throw NotAbleToGet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName_Unavail = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName_Unavail, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  throw NotAbleToGet(aggName_Unavail, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
                case FieldStateEnum::Default:
                   return _default;
+
+               default: break;
                }
                return _val;
             }
@@ -90,7 +91,7 @@ namespace Bct
             /// <returns>Value of field being assigned from.</returns>
             T &operator=(const T &val)
             {
-               this->Value(val);
+               this->value(val);
                return this->_val;
             }
 
@@ -144,8 +145,10 @@ namespace Bct
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
+
+               default: break;
                }
                _state = FieldStateEnum::NotSet;
             }
@@ -157,7 +160,7 @@ namespace Bct
             /// <returns>The value of this field.</returns>
             operator T() const
             {
-               return this->Value();
+               return this->value();
             }
 
             // Set/Get ------------------------------<
@@ -168,11 +171,11 @@ namespace Bct
             /// Get the name of this field.
             /// </summary>
             /// <returns>Name of this field.</returns>
-            const std::string FieldName() const
+            const std::string fieldName() const
             {
                AggregateMetaData &md = _aggregate->MetaData();
-               FieldInfo &fi = md.fieldInfo[FieldId()];
-               std::string const &fieldName = fi.FieldName();
+               FieldInfo &fi = md.fieldInfo[fieldId()];
+               std::string const &fieldName = fi.fieldName();
                return fieldName;
             }
 
@@ -180,10 +183,10 @@ namespace Bct
             /// Get the type of this field.
             /// </summary>
             /// <returns>Type of this field.</returns>
-            virtual const TypeEnum::Type Type() const
+            virtual const TypeEnum::Type type() const
             {
                AggregateMetaData &md = _aggregate->MetaData();
-               FieldInfo &fi = md.fieldInfo[FieldId()];
+               FieldInfo &fi = md.fieldInfo[fieldId()];
                TypeEnum::Type const &fieldType = fi.FieldType();
                return fieldType;
             }
@@ -192,7 +195,7 @@ namespace Bct
             /// Get the state of this field.
             /// </summary>
             /// <returns>State of this field.</returns>
-            virtual const FieldStateEnum::FieldState &State() const
+            virtual const FieldStateEnum::FieldState &state() const
             {
                return _state;
             }
@@ -201,7 +204,7 @@ namespace Bct
             /// Get the field set counter for this field. This provides the relative order of when fields were last set.
             /// </summary>
             /// <returns>Field set counter.</returns>
-            virtual const uint32_t &FieldSetCounter() const
+            virtual const uint32_t &fieldSetCounter() const
             {
                return _fieldSetCounter;
             }
@@ -225,7 +228,7 @@ namespace Bct
                   // TODO Use serialization library for string<->type conversion - User Story 126886
                   T out;
                   std::stringstream ss;
-                  ss << DefaultStr();
+                  ss << defaultStr();
                   ss >> std::boolalpha >> out;
                   setDefault(out);
                }
@@ -242,7 +245,7 @@ namespace Bct
             /// Get the default value of this field as a string.
             /// </summary>
             /// <returns>Default value of field as a string.</returns>
-            const std::string &DefaultStr() const
+            const std::string &defaultStr() const
             {
                return findFieldMeta()._default;
             }
@@ -260,7 +263,7 @@ namespace Bct
             /// Pure virtual function that returns the field id for this field.
             /// </summary>
             /// <returns>Field id for this field.</returns>
-            virtual int32_t FieldId() const
+            virtual int32_t fieldId() const
             {
                return _fieldId;
             }
@@ -273,11 +276,11 @@ namespace Bct
            /// Gets the string representation value of this field. This function is only needed for RPN computations.
            /// </summary>
            /// <returns>String representation of this field.</returns>
-             virtual std::string ComputedValueString() const
+             virtual std::string computedValueString() const
              {
-                // TODO Use serialization library for string<->type conversion - User Story 126886
+                // TODO Use serialization library for string<->type conversion - User Story 129257
                 std::stringstream ss;
-                ss << std::boolalpha << Value();
+                ss << std::boolalpha << value();
                 return ss.str();
              }
 
@@ -285,21 +288,21 @@ namespace Bct
              /// Sets the value of this field using its string representation. This function is only needed for RPN computations.
              /// </summary>
              /// <param name="val">String representation of this field.</param>
-             virtual void ComputedValueString(const std::string & val)
+             virtual void computedValueString(const std::string & val)
              {
-                // TODO Use serialization library for string<->type conversion - User Story 126886
+                // TODO Use serialization library for string<->type conversion - User Story 129257
                 T out;
                 std::stringstream ss;
                 ss << val;
                 ss >> std::boolalpha >> out;
-                ValueInternal(out, true);
+                valueInternal(out, true);
              }
 
             /// <summary>
             /// Returns a ref to the state to allow changes.
             /// </summary>
             /// <returns>The state reference.</returns>
-             virtual FieldStateEnum::FieldState &StateRef()
+             virtual FieldStateEnum::FieldState &stateRef()
              {
                 return _state;
              }
@@ -322,7 +325,7 @@ namespace Bct
             /// </summary>
             /// <param name="v">The new value to be set.</param>
             /// <param name="fromCalculation">true if the value is being set by a calculation, false otherwase.</param>
-            void ValueInternal(const T &v, bool fromCalculation)
+            void valueInternal(const T &v, bool fromCalculation)
             {
                switch (_state)
                {
@@ -330,8 +333,11 @@ namespace Bct
                   case FieldStateEnum::Unavailable:
                   {
                      std::string aggName = typeid(*_aggregate).name();
-                     throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                     throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                   }
+                  break;
+
+                  default: break;
                }
 
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
@@ -342,13 +348,16 @@ namespace Bct
                      if (!fromCalculation)
                      {
                         std::string aggName = typeid(*_aggregate).name();
-                        throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
+                        throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
                      }
                   }
+                  break;
+
+                  default: break;
                }
 
                _val = v;
-               _fieldSetCounter = _aggregate->FieldSetCounter();
+               _fieldSetCounter = _aggregate->fieldSetCounter();
                if (metaState == FieldStateEnum::Default)
                {
                   if (_val == _default)
@@ -388,7 +397,7 @@ namespace Bct
                   for (size_t i = 0; i < fmi0.size(); i++)
                   {
                      FieldMeta &fm = aggMD.fieldMetaData[fmi0[i]]; // indirection
-                     if (fm.FieldId() == _fieldId)
+                     if (fm.fieldId() == _fieldId)
                      {
                         if (fm._parentVer == BaseAggregate::InAllVersions || (_ver == 0 && fm._parentVer == 0))
                         {
@@ -408,7 +417,7 @@ namespace Bct
                   for (size_t i = 0; i < fmi.size(); i++)
                   {
                      FieldMeta &fm = aggMD.fieldMetaData[fmi[i]]; // indirection
-                     if (fm.FieldId() == _fieldId && fm._parentVer <= _ver)
+                     if (fm.fieldId() == _fieldId && fm._parentVer <= _ver)
                      {
                         return fm;
                      }
@@ -420,7 +429,7 @@ namespace Bct
                std::string reqVersion = _aggregate->MetaData().versionInfo[_ver].Version();
                if (size > _fieldId)
                {
-                  fieldName = _aggregate->MetaData().fieldInfo[_fieldId].FieldName();
+                  fieldName = _aggregate->MetaData().fieldInfo[_fieldId].fieldName();
                   throw NoSuchVersion(aggName, fieldName, reqVersion);
                }
                throw NoSuchVersion(aggName, reqVersion);
