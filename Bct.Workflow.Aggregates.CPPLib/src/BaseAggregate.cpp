@@ -206,11 +206,11 @@ namespace Bct
                std::string strVal;
                if (f->state() == FieldStateEnum::NotSet)
                {
-                  strVal = "$Notset"; // TODO make sure this is correct - User Story 126600
+                  strVal = "$Notset"; // TODO make sure this is correct - User Story 129259
                }
                else if (f->state() == FieldStateEnum::Unavailable)
                {
-                  strVal = "$Unavailable"; // TODO make sure this is correct - User Story 126600
+                  strVal = "$Unavailable"; // TODO make sure this is correct - User Story 129259
                }
                else
                {
@@ -264,11 +264,11 @@ namespace Bct
                std::string strVal;
                if (f->state() == FieldStateEnum::NotSet)
                {
-                  strVal = "$Notset"; // TODO make sure this is correct - User Story 126600
+                  strVal = "$Notset"; // TODO make sure this is correct - User Story 129259
                }
                else if (f->state() == FieldStateEnum::Unavailable)
                {
-                  strVal = "$Unavailable"; // TODO make sure this is correct - User Story 126600
+                  strVal = "$Unavailable"; // TODO make sure this is correct - User Story 129259
                }
                else
                {
@@ -304,7 +304,7 @@ namespace Bct
 
          void BaseAggregate::convertToVersion(const std::string toVersionStr)
          {
-            // TODO implement - User Story 126595
+            // TODO implement - User Story 129296
 
             // populate variable map
             int16_t toVersion = -1;
@@ -329,11 +329,11 @@ namespace Bct
                std::string strVal;
                if (f->state() == FieldStateEnum::NotSet)
                {
-                  strVal = "$Notset"; // TODO make sure this is correct - User Story 126600
+                  strVal = "$Notset"; // TODO make sure this is correct - User Story 129259
                }
                else if (f->state() == FieldStateEnum::Unavailable)
                {
-                  strVal = "$Unavailable"; // TODO make sure this is correct - User Story 126600
+                  strVal = "$Unavailable"; // TODO make sure this is correct - User Story 129259
                }
                else
                {
@@ -403,7 +403,7 @@ namespace Bct
             return _version;
          }
 
-// [PL] #define COUT cout<<__LINE__<<endl;
+// for debugging only #define COUT cout<<__LINE__<<endl;
          void BaseAggregate::serialize( PrettyWriter<StringBuffer> & writer ) const
          {
             //TODO - User Story 129258
@@ -449,14 +449,8 @@ namespace Bct
                            writer.String( tmpStringValue.c_str() );
                         }
                         break;
-                     case TypeEnum::EnumType:
-                        // [PL] TODO As of 10-24-19, this case is never executed. Rather, it goes to case TypeEnum::Int32Type.
-                        break;
-                     case TypeEnum::ArrayType:// [PL] TODO
+                     case TypeEnum::ArrayType:// TODO: story 149108
                         writer.String( "<TODO: ArrayType>");
-                        break;
-                     case TypeEnum::EmptyType: // [PL] TODO ?
-                        writer.String( "<TODO: EmptyType>");
                         break;
                      default:
                         writer.String( "ERROR: unexpected type");
@@ -537,7 +531,7 @@ namespace Bct
                }
                else
                {
-                  // [PL] TODO: error handling.
+                  // TODO: story 149109
                }
             }
 
@@ -616,7 +610,7 @@ namespace Bct
                               setFieldReinterpretType(fld_uint64, static_cast<uint64_t>(theValue));
                            }
                            else {
-                              // [PL] TODO: error handling.
+                              // TODO: story 149109
                            }
                         }
                      }
@@ -633,7 +627,7 @@ namespace Bct
             }
             else
             {
-               // [PL] TODO error handling?
+               // TODO: story 149109
             }
          }
 
@@ -641,7 +635,7 @@ namespace Bct
          {
             if (_currentAggregate.empty())
             {
-               // [PL] TODO: error handling.
+               // TODO: story 149109
             }
             else
             {
@@ -718,40 +712,6 @@ namespace Bct
             reader.Parse(ss, handler);
 
             return;
-
-            /****
-            //TODO - User Story 129259
-            // Change valueInternal() to use an enum {Set, Deserialize, Compute} instead of just bool.
-            // Add serializeValue/deserializeValue() to AbstractField similar to computedValueString(). Implement as appropriate.
-            // Ensure computedValueString() uses serialializeValue/deserializeValue as appropriate.
-
-            // for each fieldNameIn/fieldValueIn from JSON, do the following loop
-            std::string fieldNameIn = "field1-for-example";
-            std::string fieldValueIn = "avalue-for-example";
-            for (int32_t i = 0; i < static_cast<int32_t>(_fieldList.size()); i++)
-            {
-               const AbstractField *fld = _fieldList[i];
-               const int32_t fieldId = fld->fieldId();
-               const std::string &fieldName = MetaData().fieldInfo[fieldId].fieldName();
-               if (fieldName == fieldNameIn)
-               {
-                  //fld->deserializeValue(fieldValueIn);
-               }
-            }
-            // for each nested aggregate from JSON, do the following loop
-            std::string aggNameIn = "agg-name";
-            std::string aggValueIn = "agg-json";
-            for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
-            {
-               AbstractAggregate *agg = _aggList[i];
-               const int32_t fieldIdNested = agg->FieldIdAsNested();
-               const std::string &fieldName = MetaData().fieldInfo[fieldIdNested].fieldName();
-               if (aggNameIn == fieldName)
-               {
-                  //agg->deserialize(aggValueIn);
-               }          
-            }
-            ****/
          }
 
          void BaseAggregate::log(std::ostream & logStream, int flags) const

@@ -278,7 +278,7 @@ namespace Bct
            /// <returns>String representation of this field.</returns>
              virtual std::string computedValueString() const
              {
-                // TODO Use serialization library for string<->type conversion - User Story 126886
+                // TODO Use serialization library for string<->type conversion - User Story 129257
                 std::stringstream ss;
                 ss << std::boolalpha << value();
                 return ss.str();
@@ -290,7 +290,7 @@ namespace Bct
              /// <param name="val">String representation of this field.</param>
              virtual void computedValueString(const std::string & val)
              {
-                // TODO Use serialization library for string<->type conversion - User Story 126886
+                // TODO Use serialization library for string<->type conversion - User Story 129257
                 T out;
                 std::stringstream ss;
                 ss << val;
