@@ -407,7 +407,7 @@ namespace Bct
             return _version;
          }
 
-// for debugging only #define COUT cout<<__LINE__<<endl;
+         // for debugging only #define COUT cout<<__LINE__<<endl;
          void BaseAggregate::serialize( PrettyWriter<StringBuffer> & writer ) const
          {
             //TODO - User Story 129258
@@ -459,16 +459,16 @@ namespace Bct
                      default:
                         writer.String( "ERROR: unexpected type");
                         break;
-                  }// switch(type)
-               }//try
+                  }
+               }
                catch(NotAbleToGet & exNotAbleToGet)
                {
                   cerr << "NotAbleToGet exception: " << exNotAbleToGet.what() << endl;
                   writer.Null();
                }
-            }// for(_fieldList)
+            }
 
-// Nested aggregates
+            // Nested aggregates
             cout << "Nested count: " << static_cast<int32_t>(_aggList.size()) << endl;
             for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
             {
@@ -535,13 +535,16 @@ namespace Bct
                }
                else
                {
-                  // [PL] TODO: error handling
-                  //std::string tempAggName = typeid(*this).name();
-                  //throw AggregateNotFound(tempAggName);
-                  //return false;
-                  //Currently deserialize does not work if this is uncommented because the aggregate comes in as a struct.
-                  //This needs to be addressed with HGT to understand what error handling needs to happen here.
-                  //Seems to fail on serialize such that there is no deserializeLastKeyName found
+                  if (deserializeLastKeyName == "")
+                  {
+                     return true;
+                  }
+                  else
+                  {
+                     std::string tempAggName = typeid(*this).name();
+                     throw AggregateNotFound(tempAggName);
+                     return false;
+                  }
                }
             }
 
@@ -598,8 +601,7 @@ namespace Bct
                   BaseField<int32_t> * fld_int32 = dynamic_cast<BaseField<int32_t>*>(fldAbs);
                   if (fld_int32)
                   {
-                     int32_t i(static_cast<int32_t>(theValue));
-                     setFieldReinterpretType(fld_int32, i );
+                     setFieldReinterpretType(fld_int32, static_cast<int32_t>(theValue));
                   }
                   else {
                      BaseField<uint32_t> * fld_uint32 = dynamic_cast<BaseField<uint32_t>*>(fldAbs);
@@ -620,16 +622,15 @@ namespace Bct
                               setFieldReinterpretType(fld_uint64, static_cast<uint64_t>(theValue));
                            }
                            else {
-                              // [PL] TODO: error handling.
                               std::string tempAggName = typeid(*this).name();
                               throw CannotConvertScalar(tempAggName, fld->FieldName());
                            }
                         }
                      }
                   }
-               }//else (! fld) 
-            }//if (currentAggregate) 
-         }//BaseAggregate::DeserializeEventHandler::setField()
+               }
+            }
+         }
 
          void BaseAggregate::DeserializeEventHandler::setCurrentAggregate(BaseAggregate * ag = NULL)
          {
@@ -639,7 +640,6 @@ namespace Bct
             }
             else
             {
-               // [PL] TODO error handling?
                std::string tempAggName = typeid(*this).name();
                throw AggregateNotFound(tempAggName);
             }
