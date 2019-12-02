@@ -621,7 +621,8 @@ namespace Bct
                            {
                               setFieldReinterpretType(fld_uint64, static_cast<uint64_t>(theValue));
                            }
-                           else {
+                           else
+                           {
                               std::string tempAggName = typeid(*this).name();
                               throw CannotConvertScalar(tempAggName, fld->fieldName());
                            }
