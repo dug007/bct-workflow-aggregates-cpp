@@ -57,16 +57,16 @@ namespace Bct
             /// Set the value of this field.
             /// </summary>
             /// <param name="v">Value to give this field.</param>
-            void Value(const std::vector<T> &v)
+            void value(const std::vector<T> &v)
             {
-               ValueInternal(v, false);
+               valueInternal(v, false);
             }
 
             /// <summary>
             /// Get the value of this field.
             /// </summary>
             /// <returns>The value of this field.</returns>
-            const std::vector<T> &Value() const
+            const std::vector<T> &value() const
             {
                // rules to implement here - User Story 126598
                switch (_state)
@@ -74,12 +74,16 @@ namespace Bct
                case FieldStateEnum::NotSet:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  throw NotAbleToGet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName_Unavail = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName_Unavail, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  throw NotAbleToGet(aggName_Unavail, fieldName(), FieldStateEnum::FieldStateString(state()));
+               }
+               default:
+               {
+
                }
                }
                return _val;
@@ -96,11 +100,11 @@ namespace Bct
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
                }
                _val.swap(other);
-               _fieldSetCounter = _aggregate->FieldSetCounter();
+               _fieldSetCounter = _aggregate->fieldSetCounter();
                _state = FieldStateEnum::Set;
             }
 
@@ -111,7 +115,7 @@ namespace Bct
             /// <returns>Value of field being assigned from.</returns>
             std::vector<T> &operator=(const std::vector<T> &val)
             {
-               this->Value(val);
+               this->value(val);
                return this->_val;
             }
 
@@ -164,7 +168,11 @@ namespace Bct
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
+                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+               }
+               default:
+               {
+
                }
                }
                _state = FieldStateEnum::NotSet;
@@ -176,7 +184,7 @@ namespace Bct
             /// <returns>The value of this field.</returns>
             operator std::vector<T>() const
             {
-               return this->Value();
+               return this->value();
             }
 
             // Set/Get ------------------------------<
@@ -187,11 +195,11 @@ namespace Bct
             /// Get the name of this field.
             /// </summary>
             /// <returns>Name of this field.</returns>
-            const std::string FieldName() const
+            const std::string fieldName() const
             {
                AggregateMetaData &md = _aggregate->MetaData();
-               FieldInfo &fi = md.fieldInfo[FieldId()];
-               std::string const &fieldName = fi.FieldName();
+               FieldInfo &fi = md.fieldInfo[fieldId()];
+               std::string const &fieldName = fi.fieldName();
                return fieldName;
             }
 
@@ -199,10 +207,10 @@ namespace Bct
             /// Get the type of this field.
             /// </summary>
             /// <returns>Type of this field.</returns>
-            virtual const TypeEnum::Type Type() const
+            virtual const TypeEnum::Type type() const
             {
                AggregateMetaData &md = _aggregate->MetaData();
-               FieldInfo &fi = md.fieldInfo[FieldId()];
+               FieldInfo &fi = md.fieldInfo[fieldId()];
                TypeEnum::Type const &fieldType = fi.FieldType();
                return fieldType;
             }
@@ -211,7 +219,7 @@ namespace Bct
             /// Get the state of this field.
             /// </summary>
             /// <returns>State of this field.</returns>
-            virtual const FieldStateEnum::FieldState &State() const
+            virtual const FieldStateEnum::FieldState &state() const
             {
                return _state;
             }
@@ -220,7 +228,7 @@ namespace Bct
             /// Get the field set counter for this field. This provides the relative order of when fields were last set.
             /// </summary>
             /// <returns>Field set counter.</returns>
-            virtual const uint32_t &FieldSetCounter() const
+            virtual const uint32_t &fieldSetCounter() const
             {
                return _fieldSetCounter;
             }
@@ -246,7 +254,7 @@ namespace Bct
             /// Get the default value of this field as a string. Question: need this?
             /// </summary>
             /// <returns>Default value of field as a string.</returns>
-            const std::string &DefaultStr() const
+            const std::string &defaultStr() const
             {
                return findFieldMeta()._default;
             }
@@ -264,7 +272,7 @@ namespace Bct
             /// Pure virtual function that returns the field id for this field.
             /// </summary>
             /// <returns>Field id for this field.</returns>
-            virtual int32_t FieldId() const
+            virtual int32_t fieldId() const
             {
                return _fieldId;
             }
@@ -278,7 +286,7 @@ namespace Bct
             /// This function is only needed for RPN computations, which does not support vector.
             /// </summary>
             /// <returns>String representation of this field.</returns>
-            virtual std::string ComputedValueString() const
+            virtual std::string computedValueString() const
             {              
                return "";
             }
@@ -288,7 +296,7 @@ namespace Bct
             /// This function is only needed for RPN computations, which does not support vector.
             /// </summary>
             /// <param name="val">String representation of this field.</param>
-            virtual void ComputedValueString(const std::string & val)
+            virtual void computedValueString(const std::string & val)
             {
                
             }
@@ -297,7 +305,7 @@ namespace Bct
             /// Returns a ref to the state to allow changes.
             /// </summary>
             /// <returns>The state reference.</returns>
-            virtual FieldStateEnum::FieldState &StateRef()
+            virtual FieldStateEnum::FieldState &stateRef()
             {
                return _state;
             }
@@ -310,24 +318,19 @@ namespace Bct
             /// </summary>
             /// <param name="v">The new value to be set.</param>
             /// <param name="fromCalculation">true if the value is being set by a calculation, false otherwase.</param>
-            void ValueInternal(const std::vector<T> &v, bool fromCalculation)
+            void valueInternal(const std::vector<T> &v, bool fromCalculation)
             {
                
-
-               switch (_state)
+               if (_state == FieldStateEnum::Unavailable)
                {
-                 
-                  case FieldStateEnum::Unavailable:
-                  {
-                     std::string aggName = typeid(*_aggregate).name();
-                     throw NotAbleToSet(aggName, FieldName(), FieldStateEnum::FieldStateString(State()));
-                  }
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
 
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;              
 
                _val = v;
-               _fieldSetCounter = _aggregate->FieldSetCounter();
+               _fieldSetCounter = _aggregate->fieldSetCounter();
                if (metaState == FieldStateEnum::Default)
                {                
                   _state = FieldStateEnum::Set;                
@@ -360,7 +363,7 @@ namespace Bct
                   for (size_t i = 0; i < fmi0.size(); i++)
                   {
                      FieldMeta &fm = aggMD.fieldMetaData[fmi0[i]]; // indirection
-                     if (fm.FieldId() == _fieldId)
+                     if (fm.fieldId() == _fieldId)
                      {
                         if (fm._parentVer == BaseAggregate::InAllVersions || (_ver == 0 && fm._parentVer == 0))
                         {
@@ -380,7 +383,7 @@ namespace Bct
                   for (size_t i = 0; i < fmi.size(); i++)
                   {
                      FieldMeta &fm = aggMD.fieldMetaData[fmi[i]]; // indirection
-                     if (fm.FieldId() == _fieldId && fm._parentVer <= _ver)
+                     if (fm.fieldId() == _fieldId && fm._parentVer <= _ver)
                      {
                         return fm;
                      }
@@ -392,7 +395,7 @@ namespace Bct
                std::string reqVersion = _aggregate->MetaData().versionInfo[_ver].Version();
                if (size > _fieldId)
                {
-                  fieldName = _aggregate->MetaData().fieldInfo[_fieldId].FieldName();
+                  fieldName = _aggregate->MetaData().fieldInfo[_fieldId].fieldName();
                   throw NoSuchVersion(aggName, fieldName, reqVersion);
                }
                throw NoSuchVersion(aggName, reqVersion);

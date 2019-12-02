@@ -48,7 +48,8 @@ NestedWithReference.cpp \
 PlateletConfigAggregate.cpp \
 PlateletTemplateAggregate.cpp \
 ReferenceAggregate.cpp \
-Sample1Aggregate.cpp
+Sample1Aggregate.cpp \
+SimpleAggregate.cpp
 
 ARCHIVE_NAME=generated_code_lib.a
 ARCHIVE_DIR=.

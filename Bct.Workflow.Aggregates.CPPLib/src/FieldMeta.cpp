@@ -16,7 +16,7 @@ namespace Bct
          {
          }
 
-         int16_t FieldMeta::FieldId()
+         int16_t FieldMeta::fieldId()
          {
             return _fieldId;
          }

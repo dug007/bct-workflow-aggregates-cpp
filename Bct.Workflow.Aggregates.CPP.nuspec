@@ -11,7 +11,7 @@
     <releaseNotes>First Release</releaseNotes>
     <copyright>TerumoBCT</copyright>
      <dependencies>
-      <dependency id="BCT.RPNEvaluator.CPP" version ="1.0.4"/>
+      <dependency id="BCT.RPNEvaluator.CPP" version ="1.0.5"/>
     </dependencies>
   </metadata>
   <files>

@@ -26,12 +26,12 @@ namespace Bct
             /// Returns the field id.
             /// </summary>
             /// <returns>Field id.</returns>
-            int16_t FieldId() const;
+            int16_t fieldId() const;
             /// <summary>
             /// Returns field name.
             /// </summary>
             /// <returns>Field name.</returns>
-            std::string FieldName() const;
+            std::string fieldName() const;
             /// <summary>
             /// Returns field type.
             /// </summary>

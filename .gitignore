@@ -261,3 +261,7 @@ __pycache__/
 *.pyc
 **/Documentation
 
+*.d
+*.o
+*.vxe
+*.a

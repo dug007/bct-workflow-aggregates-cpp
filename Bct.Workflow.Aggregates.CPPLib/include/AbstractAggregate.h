@@ -26,7 +26,7 @@ namespace Bct
             /// which fields are the most recently set.
             /// </remarks> 
             /// <returns>The field set counter incremented by 1 since the last time this function was called.</returns>
-            virtual const uint32_t &FieldSetCounter() = 0;
+            virtual const uint32_t &fieldSetCounter() = 0;
 
             /// <summary>
             /// Pure virtual function to set a child nested aggregate version.

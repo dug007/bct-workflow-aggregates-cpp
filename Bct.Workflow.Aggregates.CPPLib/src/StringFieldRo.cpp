@@ -31,9 +31,9 @@ namespace Bct
 
 
 
-         const std::string StringFieldRo::Value()
+         const std::string StringFieldRo::value()
          {
-            return StringField::Value();
+            return StringField::value();
          };
       }
    }
