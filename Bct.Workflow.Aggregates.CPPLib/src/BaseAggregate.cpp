@@ -555,6 +555,7 @@ namespace Bct
          {
             cout << "EndObject(" << memberCount << ")" << endl;
             setCurrentAggregateToParent();
+            deserializeLastKeyName = "";
             return true;
          }
 
