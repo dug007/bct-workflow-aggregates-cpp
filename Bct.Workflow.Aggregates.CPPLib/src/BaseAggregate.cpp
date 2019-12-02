@@ -308,8 +308,6 @@ namespace Bct
 
          void BaseAggregate::convertToVersion(const std::string toVersionStr)
          {
-            // TODO implement - User Story 129296
-
             // populate variable map
             int16_t toVersion = -1;
             for (size_t i = 0; i < MetaData().versionInfo.size(); i++)

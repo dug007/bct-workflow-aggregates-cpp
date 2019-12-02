@@ -112,16 +112,6 @@ namespace Bct
             /// <returns>The incremented field set counter.</returns>
             virtual const uint32_t &fieldSetCounter();
 
-            // TODO: determine best way to define - User Story 129299
-            // Field types
-            //typedef int32_t_ Int32Type_;
-            //typedef int64_t_ Int64Type;
-            //typedef uint32_t_ UInt32Type;
-            //typedef uint64_t_ UInt64Type;
-            //typedef double_ DoubleType;
-            //typedef std::string_ StringType;
-            //typedef bool_ BoolType;
-
          protected:
             /// <summary>
             /// Sets the current version as appropriate.
