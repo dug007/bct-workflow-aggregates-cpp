@@ -423,46 +423,45 @@ namespace Bct
                // now put into JSON
                writer.Key(fieldName.c_str());
                //cout << "fieldName: " << fieldName.c_str() << ";   type: " << type << endl;
-               try
+               if (fld->state() == FieldStateEnum::Unavailable || fld->state() == FieldStateEnum::NotSet)
                {
-                  switch( type )
-                  {
-                     case TypeEnum::BoolType:
-                        writer.Bool( (static_cast<const BaseField<bool>*>(fld))->value() );
-                        break;
-                     case TypeEnum::Int32Type:
-                        writer.Int( (static_cast<const BaseField<int32_t>*>(fld))->value() );
-                        break;
-                     case TypeEnum::UInt32Type:
-                        writer.Uint( (static_cast<const BaseField<uint32_t>*>(fld))->value() );
-                        break;
-                     case TypeEnum::Int64Type:
-                        writer.Int64( (static_cast<const BaseField<int64_t>*>(fld))->value() );
-                        break;
-                     case TypeEnum::UInt64Type:
-                        writer.Uint64( (static_cast<const BaseField<uint64_t>*>(fld))->value() );
-                        break;
-                     case TypeEnum::DoubleType:
-                        writer.Double( (static_cast<const BaseField<double>*>(fld))->value() );
-                        break;
-                     case TypeEnum::StringType:
-                        {
-                           const std::string tmpStringValue = (std::string)( *(static_cast<const StringField*>(fld)) );
-                           writer.String( tmpStringValue.c_str() );
-                        }
-                        break;
-                     case TypeEnum::ArrayType:// TODO: story 149108
-                        writer.String( "<TODO: ArrayType>");
-                        break;
-                     default:
-                        writer.String( "ERROR: unexpected type");
-                        break;
-                  }
-               }
-               catch(NotAbleToGet & exNotAbleToGet)
-               {
-                  cerr << "NotAbleToGet exception: " << exNotAbleToGet.what() << endl;
                   writer.Null();
+               }
+               else
+               {
+                  switch (type)
+                  {
+                  case TypeEnum::BoolType:
+                     writer.Bool((static_cast<const BaseField<bool>*>(fld))->value());
+                     break;
+                  case TypeEnum::Int32Type:
+                     writer.Int((static_cast<const BaseField<int32_t>*>(fld))->value());
+                     break;
+                  case TypeEnum::UInt32Type:
+                     writer.Uint((static_cast<const BaseField<uint32_t>*>(fld))->value());
+                     break;
+                  case TypeEnum::Int64Type:
+                     writer.Int64((static_cast<const BaseField<int64_t>*>(fld))->value());
+                     break;
+                  case TypeEnum::UInt64Type:
+                     writer.Uint64((static_cast<const BaseField<uint64_t>*>(fld))->value());
+                     break;
+                  case TypeEnum::DoubleType:
+                     writer.Double((static_cast<const BaseField<double>*>(fld))->value());
+                     break;
+                  case TypeEnum::StringType:
+                  {
+                     const std::string tmpStringValue = (std::string)(*(static_cast<const StringField*>(fld)));
+                     writer.String(tmpStringValue.c_str());
+                  }
+                  break;
+                  case TypeEnum::ArrayType:// TODO: story 149108
+                     writer.String("<TODO: ArrayType>");
+                     break;
+                  default:
+                     writer.String("ERROR: unexpected type");
+                     break;
+                  }
                }
             }
 
@@ -545,7 +544,6 @@ namespace Bct
                   }
                }
             }
-
             return true;
          }
 
@@ -661,6 +659,21 @@ namespace Bct
          BaseAggregate * BaseAggregate::DeserializeEventHandler::getCurrentAggregate(void)
          {
             return _currentAggregate.empty() ? NULL: _currentAggregate.back();
+         }
+
+         bool BaseAggregate::DeserializeEventHandler::Null()
+         {
+            BaseAggregate * currentAggregate = getCurrentAggregate();
+            if (currentAggregate)
+            {
+               AbstractField *fldAbs = currentAggregate->findLastKeyField();
+               if (fldAbs && fldAbs->state() != FieldStateEnum::Unavailable)
+               {
+                  fldAbs->stateRef() = FieldStateEnum::NotSet;
+               }
+            }
+            cout << "Null()" << endl;
+            return true;
          }
 
          bool BaseAggregate::DeserializeEventHandler::Bool(bool b) {

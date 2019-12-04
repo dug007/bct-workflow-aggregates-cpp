@@ -854,7 +854,7 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
 
    fromRefAgg10.boolField = false; //Set values to something other than default
    fromRefAgg10.int32Field = -123;
-   fromRefAgg10.int64Field = -246;
+   fromRefAgg10.int64Field.unset();
    fromRefAgg10.uint64Field = 246;
    fromRefAgg10.doubleField = 12.00;
    fromRefAgg10.stringField = "Hi Team";
@@ -873,7 +873,6 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
 
    CHECK(toRefAgg10.boolField == false);
    CHECK(toRefAgg10.int32Field == -123);
-   CHECK(toRefAgg10.int64Field == -246);
    CHECK(toRefAgg10.uint64Field == 246);
    CHECK(toRefAgg10.doubleField == 12.00);
    CHECK((std::string)toRefAgg10.stringField == "Hi Team");
@@ -883,5 +882,6 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    CHECK(toRefAgg10.boolField.state() == FieldStateEnum::Set);
    CHECK(toRefAgg10.boolFieldRequiredv2.state() == FieldStateEnum::NotSet);
    CHECK(toRefAgg10.uint32Field.state() == FieldStateEnum::Default);
+   CHECK(toRefAgg10.int64Field.state() == FieldStateEnum::NotSet);
   
 }

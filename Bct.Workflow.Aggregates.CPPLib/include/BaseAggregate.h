@@ -182,7 +182,7 @@ namespace Bct
 
             struct DeserializeEventHandler // Required by the RapidJSON SAX parser.
             {
-               bool Null() { cout << "Null()" << endl; return true; }
+               bool Null();
                bool Bool(bool b);
                bool Int(int i);
                bool Uint(unsigned u);
