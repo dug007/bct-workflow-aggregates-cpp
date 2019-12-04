@@ -50,7 +50,7 @@ TEST_CASE("PlateletTemplateAggregate100", "[test]")
    CHECK(Platelet_100.cellsPerMl.state() == FieldStateEnum::Set);
    Platelet_100.updateCalculatedFields();
    CHECK(Platelet_100.yield.value() == expectedYield100);
-   CHECK(Platelet_100.yield.state() == FieldStateEnum::FieldState::Computed);
+   CHECK(Platelet_100.yield.state() == FieldStateEnum::Computed);
 }
 
 TEST_CASE("PlateletTemplateAggregate110", "[test]")
