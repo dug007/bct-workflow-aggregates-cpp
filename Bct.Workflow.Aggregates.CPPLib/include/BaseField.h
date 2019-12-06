@@ -85,6 +85,31 @@ namespace Bct
             }
 
             /// <summary>
+            /// Get the value of this field.
+            /// </summary>
+            /// <returns>The value of this field.</returns>
+            const T &valueForSerialize(bool & isNull) const
+            {
+               // rules to implement here - User Story 126598
+               switch (_state)
+               {
+               case FieldStateEnum::NotSet:
+               case FieldStateEnum::Unavailable:
+               {
+                  isNull = true;
+                  return _val;
+               }
+               case FieldStateEnum::Default:
+                  return _default;
+
+               default: break;
+               }
+               isNull = false;
+               return _val;
+            }
+
+
+            /// <summary>
             /// Assignment operator from wrapped type.
             /// </summary>
             /// <param name="val">Value of wrapped type.</param>
