@@ -423,39 +423,46 @@ namespace Bct
                //cout << "fieldName: " << fieldName.c_str() << ";   type: " << type << endl;
                try
                {
-                  switch( type )
+                  if (fld->state() == FieldStateEnum::NotSet || fld->state() == FieldStateEnum::Unavailable)
                   {
+                     writer.Null();
+                  }
+                  else
+                  {
+                     switch (type)
+                     {
                      case TypeEnum::BoolType:
-                        writer.Bool( (static_cast<const BaseField<bool>*>(fld))->value() );
+                        writer.Bool((static_cast<const BaseField<bool>*>(fld))->value());
                         break;
                      case TypeEnum::Int32Type:
-                        writer.Int( (static_cast<const BaseField<int32_t>*>(fld))->value() );
+                        writer.Int((static_cast<const BaseField<int32_t>*>(fld))->value());
                         break;
                      case TypeEnum::UInt32Type:
-                        writer.Uint( (static_cast<const BaseField<uint32_t>*>(fld))->value() );
+                        writer.Uint((static_cast<const BaseField<uint32_t>*>(fld))->value());
                         break;
                      case TypeEnum::Int64Type:
-                        writer.Int64( (static_cast<const BaseField<int64_t>*>(fld))->value() );
+                        writer.Int64((static_cast<const BaseField<int64_t>*>(fld))->value());
                         break;
                      case TypeEnum::UInt64Type:
-                        writer.Uint64( (static_cast<const BaseField<uint64_t>*>(fld))->value() );
+                        writer.Uint64((static_cast<const BaseField<uint64_t>*>(fld))->value());
                         break;
                      case TypeEnum::DoubleType:
-                        writer.Double( (static_cast<const BaseField<double>*>(fld))->value() );
+                        writer.Double((static_cast<const BaseField<double>*>(fld))->value());
                         break;
                      case TypeEnum::StringType:
-                        {
-                           const std::string tmpStringValue = (std::string)( *(static_cast<const StringField*>(fld)) );
-                           writer.String( tmpStringValue.c_str() );
-                        }
-                        break;
+                     {
+                        const std::string tmpStringValue = (std::string)(*(static_cast<const StringField*>(fld)));
+                        writer.String(tmpStringValue.c_str());
+                     }
+                     break;
                      case TypeEnum::ArrayType:// TODO: story 149108
-                        writer.String( "<TODO: ArrayType>");
+                        writer.String("<TODO: ArrayType>");
                         break;
                      default:
-                        writer.String( "ERROR: unexpected type");
+                        writer.String("ERROR: unexpected type");
                         break;
-                  }// switch(type)
+                     }// switch(type)
+                  }
                }//try
                catch(NotAbleToGet & exNotAbleToGet)
                {

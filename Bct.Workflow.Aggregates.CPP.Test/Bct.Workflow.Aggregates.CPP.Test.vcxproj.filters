@@ -26,9 +26,6 @@
     <ClCompile Include="src\AggAssess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AssessUnitTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\AggNested.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
