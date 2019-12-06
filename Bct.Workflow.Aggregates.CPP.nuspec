@@ -11,8 +11,9 @@
     <releaseNotes>First Release</releaseNotes>
     <copyright>TerumoBCT</copyright>
      <dependencies>
-      <dependency id="BCT.RPNEvaluator.CPP" version ="1.0.6"/>
-    </dependencies>
+      <dependency id="BCT.RPNEvaluator.CPP" version ="1.0.5"/>
+      <dependency id="github.tencent.rapidjson" version ="1.1.0"/>
+     </dependencies>
   </metadata>
   <files>
     <file src="Bct.Workflow.Aggregates.CPPLib\src\*.*" target ="../content/native/BCT.Workflow.Aggregates.CPP/src" />
