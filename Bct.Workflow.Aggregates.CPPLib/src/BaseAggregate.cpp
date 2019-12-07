@@ -450,7 +450,9 @@ namespace Bct
                         }
                         break;
                      case TypeEnum::ArrayType:// TODO: story 149108
-                        writer.String( "<TODO: ArrayType>");
+                        // writer.String( "<TODO: ArrayType>");
+                        writer.StartArray();
+                        writer.EndArray();
                         break;
                      default:
                         writer.String( "ERROR: unexpected type");
