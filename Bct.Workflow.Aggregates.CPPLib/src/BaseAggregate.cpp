@@ -12,6 +12,7 @@
 
 #include "BaseField.h"
 #include "StringField.h"
+#include "VectorField.h"
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/reader.h"
@@ -451,8 +452,16 @@ namespace Bct
                         break;
                      case TypeEnum::ArrayType:// TODO: story 149108
                         // writer.String( "<TODO: ArrayType>");
-                        writer.StartArray();
-                        writer.EndArray();
+                        {
+                           const vector<int32_t> & theVector = (static_cast<const VectorField<int32_t>*>(fld))->value();
+                           cout << "VectorField.size(): " << theVector.size() << endl;
+                           for (vector<int32_t>::const_iterator iter = theVector.begin(); iter != theVector.end(); ++iter)
+                           {
+
+                           }
+                           writer.StartArray();
+                           writer.EndArray();
+                        }
                         break;
                      default:
                         writer.String( "ERROR: unexpected type");
@@ -486,9 +495,9 @@ namespace Bct
 
          AbstractAggregate * BaseAggregate::findLastKeyAggregate() const
          {
-            for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
+            for (vector<AbstractAggregate*>::const_iterator iter = _aggList.begin(); iter != _aggList.end(); ++iter)
             {
-               AbstractAggregate *agg = _aggList[i];
+               AbstractAggregate *agg = *iter;
                const int32_t fieldIdNested = agg->FieldIdAsNested();
                const std::string &fieldName = MetaData().fieldInfo[fieldIdNested].fieldName();
                if (deserializeLastKeyName == fieldName)
@@ -501,9 +510,9 @@ namespace Bct
 
          AbstractField * BaseAggregate::findLastKeyField() const
          {
-            for (int32_t i = 0; i < static_cast<int32_t>(_fieldList.size()); i++)
+            for (vector<AbstractField*>::const_iterator iter = _fieldList.begin(); iter != _fieldList.end(); ++iter)
             {
-               AbstractField *fld = _fieldList[i];
+               AbstractField *fld = *iter;
                const int32_t fieldId = fld->fieldId();
                const std::string &fieldName = MetaData().fieldInfo[fieldId].fieldName();
                if ( deserializeLastKeyName == fieldName )
@@ -552,8 +561,13 @@ namespace Bct
          template <typename T>
          void setFieldReinterpretType(BaseField<T> * fld, T theValue)
          {
+				if( NULL == fld )
+				{	// [PL] TODO: error handling?
+					return;
+				}
+				
             const string fldTypeName = typeid(*fld).name();
-            cout << "fldTypeName: " << fldTypeName;
+            cout << "setFieldReinterpretType() fldTypeName: " << fldTypeName;
             const FieldStateEnum::FieldState fldState = fld->state();
             if (fldState != FieldStateEnum::Constant && fldState != FieldStateEnum::Unavailable) {
                fld->value(theValue);
@@ -573,51 +587,37 @@ namespace Bct
             const string theValueTypeName = theValueType.name();
             cout << "ScalarType: " << theValueTypeName << endl;
             BaseAggregate * currentAggregate = getCurrentAggregate();
-            if (currentAggregate) {
+            if (currentAggregate)
+            {
                AbstractField * fldAbs = currentAggregate->findLastKeyField();
-               BaseField<ScalarType> * fld = dynamic_cast<BaseField<ScalarType>*>( fldAbs );
-               if (fld)
+               if (fldAbs)
                {
-                  setFieldReinterpretType(fld, theValue);
-               }
-               else
-               {
-                  // The actual field type could be EnumField<U,X>, U being int32_t, uint32_t, int64_t, uint64_t.
-                  //   If (rapidjson-detected) ScalarType is uint32_t, U could actually be any of the above four types.
-                  //   If ScalarType is  int32_t - U could be  int32_t or  int64_t
-                  //   If ScalarType is uint64_t - U could be uint32_t or uint64_t
-                  //   If ScalarType is  int64_t - U can only be int64_t
-                  BaseField<int32_t> * fld_int32 = dynamic_cast<BaseField<int32_t>*>(fldAbs);
-                  if (fld_int32)
+                  const TypeEnum::Type fldType = fldAbs->type();
+                  cout << "fldType: " << fldType << endl;
+                  switch (fldType)
                   {
-                     int32_t i(theValue);
-                     setFieldReinterpretType(fld_int32, i );
+                  case TypeEnum::BoolType:
+                     setFieldReinterpretType(dynamic_cast<BaseField<bool>*>(fldAbs), static_cast<bool>(theValue));
+                     break;
+                  case TypeEnum::Int32Type:
+                     setFieldReinterpretType(dynamic_cast<BaseField<int32_t>*>(fldAbs), static_cast<int32_t>(theValue));
+                     break;
+                  case TypeEnum::UInt32Type:
+                     setFieldReinterpretType(dynamic_cast<BaseField<uint32_t>*>(fldAbs), static_cast<uint32_t>(theValue));
+                     break;
+                  case TypeEnum::Int64Type:
+                     setFieldReinterpretType(dynamic_cast<BaseField<int64_t>*>(fldAbs), static_cast<int64_t>(theValue));
+                     break;
+                  case TypeEnum::UInt64Type:
+                     setFieldReinterpretType(dynamic_cast<BaseField<uint64_t>*>(fldAbs), static_cast<uint64_t>(theValue));
+                     break;
+                  case TypeEnum::DoubleType:
+                     setFieldReinterpretType(dynamic_cast<BaseField<double>*>(fldAbs), static_cast<double>(theValue));
+                     break;
+                  default: // [PL] TODO: error handling?
+                     break;
                   }
-                  else {
-                     BaseField<uint32_t> * fld_uint32 = dynamic_cast<BaseField<uint32_t>*>(fldAbs);
-                     if (fld_uint32)
-                     {
-                        setFieldReinterpretType(fld_uint32, static_cast<uint32_t>(theValue));
-                     }
-                     else {
-                        BaseField<int64_t> * fld_int64 = dynamic_cast<BaseField<int64_t>*>(fldAbs);
-                        if (fld_int64)
-                        {
-                           setFieldReinterpretType(fld_int64, static_cast<int64_t>(theValue));
-                        }
-                        else {
-                           BaseField<uint64_t> * fld_uint64 = dynamic_cast<BaseField<uint64_t>*>(fldAbs);
-                           if (fld_uint64)
-                           {
-                              setFieldReinterpretType(fld_uint64, static_cast<uint64_t>(theValue));
-                           }
-                           else {
-                              // TODO: story 149109
-                           }
-                        }
-                     }
-                  }
-               }//else (! fld) 
+               }//if (fldAbs)
             }//if (currentAggregate) 
          }//BaseAggregate::DeserializeEventHandler::setField()
 
@@ -688,7 +688,6 @@ namespace Bct
 
          bool BaseAggregate::DeserializeEventHandler::String(const char* str, SizeType length, bool copy) {
             cout << "String(" << str << ", " << length << ", " << boolalpha << copy << ")" << endl;
-            //setField( string(str) );
             const BaseAggregate * currentAggregate = getCurrentAggregate();
             if (currentAggregate)
             {
