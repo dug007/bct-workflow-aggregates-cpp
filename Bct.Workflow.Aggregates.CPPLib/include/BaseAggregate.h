@@ -112,16 +112,6 @@ namespace Bct
             /// <returns>The incremented field set counter.</returns>
             virtual const uint32_t &fieldSetCounter();
 
-            // TODO: determine best way to define - User Story 129299
-            // Field types
-            //typedef int32_t_ Int32Type_;
-            //typedef int64_t_ Int64Type;
-            //typedef uint32_t_ UInt32Type;
-            //typedef uint64_t_ UInt64Type;
-            //typedef double_ DoubleType;
-            //typedef std::string_ StringType;
-            //typedef bool_ BoolType;
-
          protected:
             /// <summary>
             /// Sets the current version as appropriate.
@@ -190,10 +180,9 @@ namespace Bct
             // Use as a requested version to indicate the most recent version is requested.
             static const int16_t UseMostRecentVersion = -1;
 
-         public:
             struct DeserializeEventHandler // Required by the RapidJSON SAX parser.
             {
-               bool Null() { cout << "Null()" << endl; return true; }
+               bool Null();
                bool Bool(bool b);
                bool Int(int i);
                bool Uint(unsigned u);
@@ -204,6 +193,7 @@ namespace Bct
                    cout << "Number(" << str << ", " << length << ", " << boolalpha << copy << ")" << endl;
                    return true;
                }
+
                bool String(const char* str, SizeType length, bool copy);
                bool StartObject();
 
@@ -218,8 +208,6 @@ namespace Bct
 
                template <typename ScalarType>
                void setField(ScalarType theValue);
-
-            private:
                void setCurrentAggregate(BaseAggregate * ag);
                void setCurrentAggregateToParent(void);
                BaseAggregate * getCurrentAggregate(void);
@@ -230,6 +218,7 @@ namespace Bct
                // _currentAggregate[2] is the "level-2" nested aggregate, and so on. Once it has been parsed, the EndObject()
                //   event handler removes it from the vector, and its parent, _currentAggregate[1], becomes the current aggregate.
                vector<BaseAggregate *> _currentAggregate;
+
             };
 
          };
