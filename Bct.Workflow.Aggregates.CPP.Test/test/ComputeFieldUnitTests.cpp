@@ -9,7 +9,17 @@ using namespace Bct::Workflow::Aggregates;
 using namespace Bct::Workflow::Implementation;
 
 //********** UNIT TESTS **************************************
-
+#define CHECK_EXCEPTION_TYPE(throwCode, exceptionType, expression) {bool thrown = false; try {throwCode;} catch(exceptionType &ex) { CHECK(expression(ex)); thrown = true; } CHECK(thrown);}
+/// /// <summary>
+/// Returns true if the exception message is equal to what is expected. This is used in the "PlateletTemplateAggregate100" Test Case
+/// </summary>
+/// <param name="ex">Exception being thrown</param>
+/// <returns>boolean of true if messages match, false if messages don't match</returns>
+bool Check_ThrowsExceptionIfUnavailableField(NotAbleToGet const& ex)
+{
+   std::string message = "Bct::Workflow::Aggregates::NotAbleToGet: aggregate=class Bct::Workflow::Implementation::PlateletTemplateAggregate fieldName=maxYield fieldState=Unavailable";
+   return ex.what() == message;
+}
 
 TEST_CASE("PlateletTemplateAggregate100", "[test]")
 {
@@ -23,15 +33,18 @@ TEST_CASE("PlateletTemplateAggregate100", "[test]")
    CHECK_THROWS_AS(Platelet_100.minYield.value(), NotAbleToGet); 
    CHECK_THROWS_AS(Platelet_100.maxYield.value(), NotAbleToGet);
    CHECK_THROWS_AS(Platelet_100.minYield.value(5), NotAbleToSet);
-   try //Try to get an unavailable field value
-   {
-      Platelet_100.maxYield.value();
-   }
-   catch (NotAbleToGet &exc)
-   {
-      std::string message = "Bct::Workflow::Aggregates::NotAbleToGet: aggregate=class Bct::Workflow::Implementation::PlateletTemplateAggregate fieldName=maxYield fieldState=Unavailable";
-      CHECK(exc.what() == message);
-   }
+
+   CHECK_EXCEPTION_TYPE(Platelet_100.maxYield.value(), NotAbleToGet, Check_ThrowsExceptionIfUnavailableField);
+
+   //try //Try to get an unavailable field value
+   //{
+   //   Platelet_100.maxYield.value();
+   //}
+   //catch (NotAbleToGet &exc)
+   //{
+   //   std::string message = "Bct::Workflow::Aggregates::NotAbleToGet: aggregate=class Bct::Workflow::Implementation::PlateletTemplateAggregate fieldName=maxYield fieldState=Unavailable";
+   //   CHECK(exc.what() == message);
+   //}
 
    //Check initial state of fields used in calculation
    CHECK(Platelet_100.volumeMl.state() == FieldStateEnum::NotSet);

@@ -18,6 +18,38 @@ using namespace Bct::Workflow::Aggregates;
 using namespace Bct::Workflow::Implementation;
 using namespace Bct::Workflow;
 
+#define CHECK_EXCEPTION_TYPE(throwCode, exceptionType, expression) {bool thrown = false; try {throwCode;} catch(exceptionType &ex) { CHECK(expression(ex)); thrown = true; } CHECK(thrown);}
+/// <summary>
+/// Returns true if the exception message is equal to what is expected. This is used in the "ThrowsExceptionIfFieldConstant" Test Case
+/// </summary>
+/// <param name="ex">Exception being thrown</param>
+/// <returns>boolean of true if messages match, false if messages don't match</returns>
+bool Check_ThrowsExceptionIfFieldConstant (NotAbleToSet const& ex)
+{
+   std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7c fieldState=Constant";
+   return ex.what() == expected;
+}
+/// <summary>
+/// Returns true if the exception message is equal to what is expected. This is used in the "ThrowsExceptionIfFieldComputeOnly" Test Case
+/// </summary>
+/// <param name="ex">Exception being thrown</param>
+/// <returns>boolean of true if messages match, false if messages don't match</returns>
+bool Check_ThrowsExceptionIfFieldComputeOnly(NotAbleToSet const& ex)
+{
+   std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7com fieldState=Computed";
+   return ex.what() == expected;
+}
+/// <summary>
+/// Returns true if the exception message is equal to what is expected. This is used in the "ThrowExceptionNoSuchVersion" Test Case
+/// </summary>
+/// <param name="ex">Exception being thrown</param>
+/// <returns>boolean of true if messages match, false if messages don't match</returns>
+bool Check_ThrowExceptionNoSuchVersion(NoSuchVersion const& ex)
+{
+   std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate requestedVersion=1.0.0.0";
+   return ex.what() == message;
+}
+
 class VectorFieldAggregate : public BaseAggregate
 {
 
@@ -589,16 +621,19 @@ TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
    CHECK(SamAgg4.Field7c.state() == FieldStateEnum::Constant);
    CHECK_THROWS_AS(SamAgg4.Field7c = 3, NotAbleToSet);  // throws on assignment
    CHECK_THROWS_AS(SamAgg4.Field7c.value(3), NotAbleToSet);  // throws on set
-   try //Trying to set a constant field
-   {
-      SamAgg4.Field7c.value(5);
-   }
-   catch (NotAbleToSet &exc)
-   {
-      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7c fieldState=Constant";
-      std::string actual = exc.what();
-      CHECK(actual == expected);
-   }
+
+   CHECK_EXCEPTION_TYPE(SamAgg4.Field7c.value(3), NotAbleToSet, Check_ThrowsExceptionIfFieldConstant);
+
+   //try //Trying to set a constant field
+   //{
+   //   SamAgg4.Field7c.value(5);
+   //}
+   //catch (NotAbleToSet &exc)
+   //{
+   //   std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7c fieldState=Constant";
+   //   std::string actual = exc.what();
+   //   CHECK(actual == expected);
+   //}
 }
 
 // Tests set field value shall throw and exception if the field is marked as computedOnly.
@@ -608,16 +643,20 @@ TEST_CASE("ThrowsExceptionIfFieldComputeOnly", "[test]")
 
    CHECK(SamAgg5.Field7com.state() == FieldStateEnum::NotSet);
    CHECK_THROWS_AS(SamAgg5.Field7com = 3, NotAbleToSet);  // throws on assignment since it is compute only
-   try //Trying to set a computeOnly field
-   {
-      SamAgg5.Field7com.value(5);
-   }
-   catch (NotAbleToSet &exc)
-   {
-      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7com fieldState=Computed";
-      std::string actual = exc.what();
-      CHECK(actual == expected);
-   }
+   //std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7com fieldState=Computed";
+
+   CHECK_EXCEPTION_TYPE(SamAgg5.Field7com = 3, NotAbleToSet, Check_ThrowsExceptionIfFieldComputeOnly);
+
+   //try //Trying to set a computeOnly field
+   //{
+   //   SamAgg5.Field7com.value(5);
+   //}
+   //catch (NotAbleToSet &exc)
+   //{
+   //   std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7com fieldState=Computed";
+   //   std::string actual = exc.what();
+   //   CHECK(actual == expected);
+   //}
 }
 
 //Set vector field value shall allow changing a vector field to “nullable” which will set the state to “not set”..
@@ -804,16 +843,18 @@ TEST_CASE("ConvertVersion", "[test]")
 // Test the method shall throw an exception if the specified version is not defined
 TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
 {
-   try
-   {
-      Sample1Aggregate SamAgg11("1.0.0.0");
-   }
-   catch (NoSuchVersion &ex)
-   {
-      CHECK(ex.requestedVersion() == "1.0.0.0");
-      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate requestedVersion=1.0.0.0";
-      CHECK(ex.what() == message);
-   }
+   CHECK_EXCEPTION_TYPE(Sample1Aggregate SamAgg11("1.0.0.0"), NoSuchVersion, Check_ThrowExceptionNoSuchVersion);
+
+   //try
+   //{
+   //   Sample1Aggregate SamAgg11("1.0.0.0");
+   //}
+   //catch (NoSuchVersion &ex)
+   //{
+   //   CHECK(ex.requestedVersion() == "1.0.0.0");
+   //   std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate requestedVersion=1.0.0.0";
+   //   CHECK(ex.what() == message);
+   //}
 }
 
 // Tests the system shall include assess functions to determine if specified data is valid.
