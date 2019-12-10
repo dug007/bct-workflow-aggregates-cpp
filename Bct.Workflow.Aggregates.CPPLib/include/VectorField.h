@@ -7,7 +7,9 @@
 #include "AbstractField.h"
 #include "FieldMeta.h"
 #include "AggregateMetaData.h"
-#include "Exceptions.h"
+#include "NotAbleToGet.h"
+#include "NoSuchVersion.h"
+#include "NotAbleToSet.h"
 
 #include <iostream>  // [PL] just for testing
 
@@ -214,6 +216,18 @@ namespace Bct
                FieldInfo &fi = md.fieldInfo[fieldId()];
                TypeEnum::Type const &fieldType = fi.FieldType();
                return fieldType;
+            }
+
+            /// <summary>
+            /// Get the subtype of this field.
+            /// </summary>
+            /// <returns>Subtype of this field.</returns>
+            virtual const TypeEnum::Type subtype() const
+            {
+               AggregateMetaData &md = _aggregate->MetaData();
+               FieldInfo &fi = md.fieldInfo[fieldId()];
+               TypeEnum::Type const &fieldSubtype = fi.FieldSubtype();
+               return fieldSubtype;
             }
 
             /// <summary>

@@ -26,6 +26,12 @@ namespace Bct
             virtual const TypeEnum::Type type() const = 0;
 
             /// <summary>
+            /// Pure virtual function to return the subtype enum of this field.
+            /// </summary>
+            /// <returns>Subtype enum of this field.</returns>
+            virtual const TypeEnum::Type subtype() const = 0;
+
+            /// <summary>
             /// Pure virtual function to return the field state enum of this field.
             /// </summary>
             /// <returns>The field state of this field.</returns>

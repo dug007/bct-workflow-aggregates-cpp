@@ -7,7 +7,11 @@
 #include "RPNEvaluator.h"
 #include "AssessmentRule.h"
 #include "AssessmentResult.h"
-#include "Exceptions.h"
+#include "NotAbleToGet.h"
+#include "NoSuchVersion.h"
+#include "NotAbleToSet.h"
+#include "AggregateNotFound.h"
+#include "CannotConvertScalar.h"
 #include "FieldInfo.h"
 
 #include "BaseField.h"
@@ -305,8 +309,6 @@ namespace Bct
 
          void BaseAggregate::convertToVersion(const std::string toVersionStr)
          {
-            // TODO implement - User Story 129296
-
             // populate variable map
             int16_t toVersion = -1;
             for (size_t i = 0; i < MetaData().versionInfo.size(); i++)
@@ -404,7 +406,7 @@ namespace Bct
             return _version;
          }
 
-// for debugging only #define COUT cout<<__LINE__<<endl;
+         // for debugging only #define COUT cout<<__LINE__<<endl;
          void BaseAggregate::serialize( PrettyWriter<StringBuffer> & writer ) const
          {
             //TODO - User Story 129258
@@ -433,8 +435,8 @@ namespace Bct
                }
             }// for(_fieldList)
 
-// Nested aggregates
-            cout << ">> Nested count: " << static_cast<int32_t>(_aggList.size()) << endl;
+            // Nested aggregates
+            cout << "Nested count: " << static_cast<int32_t>(_aggList.size()) << endl;
             for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
             {
                AbstractAggregate *agg = _aggList[i];
@@ -507,14 +509,22 @@ namespace Bct
                BaseAggregate * agg = dynamic_cast<BaseAggregate*>(currentAggregate->findLastKeyAggregate() );
                if (agg)
                {
-                  setCurrentAggregate( agg );
+                  setCurrentAggregate(agg);
                }
                else
                {
-                  // TODO: story 149109
+                  if (deserializeLastKeyName == "")
+                  {
+                     return true;
+                  }
+                  else
+                  {
+                     std::string tempAggName = typeid(*this).name();
+                     throw AggregateNotFound(tempAggName);
+                     return false;
+                  }
                }
             }
-
             return true;
          }
 
@@ -522,6 +532,7 @@ namespace Bct
          {
             cout << "EndObject(" << memberCount << ")" << endl;
             setCurrentAggregateToParent();
+            deserializeLastKeyName = "";
             return true;
          }
 
@@ -616,9 +627,9 @@ namespace Bct
                   default: // [PL] TODO: error handling?
                      break;
                   }
-               }//if (fldAbs)
-            }//if (currentAggregate) 
-         }//BaseAggregate::DeserializeEventHandler::setField()
+               }
+            }
+         }
 
          void BaseAggregate::DeserializeEventHandler::setCurrentAggregate(BaseAggregate * ag = NULL)
          {
@@ -628,7 +639,8 @@ namespace Bct
             }
             else
             {
-               // TODO: story 149109
+               std::string tempAggName = typeid(*this).name();
+               throw AggregateNotFound(tempAggName);
             }
          }
 
@@ -636,7 +648,8 @@ namespace Bct
          {
             if (_currentAggregate.empty())
             {
-               // TODO: story 149109
+               std::string tempAggName = typeid(*this).name();
+               throw AggregateNotFound(tempAggName);
             }
             else
             {
@@ -647,6 +660,21 @@ namespace Bct
          BaseAggregate * BaseAggregate::DeserializeEventHandler::getCurrentAggregate(void)
          {
             return _currentAggregate.empty() ? NULL: _currentAggregate.back();
+         }
+
+         bool BaseAggregate::DeserializeEventHandler::Null()
+         {
+            BaseAggregate * currentAggregate = getCurrentAggregate();
+            if (currentAggregate)
+            {
+               AbstractField *fldAbs = currentAggregate->findLastKeyField();
+               if (fldAbs && fldAbs->state() != FieldStateEnum::Unavailable)
+               {
+                  fldAbs->stateRef() = FieldStateEnum::NotSet;
+               }
+            }
+            cout << "Null()" << endl;
+            return true;
          }
 
          bool BaseAggregate::DeserializeEventHandler::Bool(bool b) {

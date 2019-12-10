@@ -47,6 +47,16 @@ namespace Bct
             void addField(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType);
 
             /// <summary>
+            /// Adds a field to metadata. This should be called in the same order that the fields are declared.
+            /// </summary>
+            /// <param name="fieldId">Field id.</param>
+            /// <param name="fieldName">Field name.</param>
+            /// <param name="fieldType">Field type.</param>
+            /// <param name="fieldSubType">Field subtype.</param>
+            void addField(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType, TypeEnum::Type const &fieldSubType);
+
+
+            /// <summary>
             /// Adds a aggregate field to metadata. This should be called in the same order that the fields are declared.
             /// </summary>
             /// <param name="fieldId">Field id.</param>

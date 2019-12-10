@@ -7,7 +7,9 @@
 #include "AbstractField.h"
 #include "FieldMeta.h"
 #include "AggregateMetaData.h"
-#include "Exceptions.h"
+#include "NotAbleToGet.h"
+#include "NoSuchVersion.h"
+#include "NotAbleToSet.h"
 
 namespace Bct
 {
@@ -85,6 +87,31 @@ namespace Bct
                }
                return _val;
             }
+
+            /// <summary>
+            /// Get the value of this field.
+            /// </summary>
+            /// <returns>The value of this field.</returns>
+            const T &valueForSerialize(bool & isNull) const
+            {
+               // rules to implement here - User Story 126598
+               switch (_state)
+               {
+               case FieldStateEnum::NotSet:
+               case FieldStateEnum::Unavailable:
+               {
+                  isNull = true;
+                  return _val;
+               }
+               case FieldStateEnum::Default:
+                  return _default;
+
+               default: break;
+               }
+               isNull = false;
+               return _val;
+            }
+
 
             /// <summary>
             /// Assignment operator from wrapped type.
@@ -191,6 +218,18 @@ namespace Bct
                FieldInfo &fi = md.fieldInfo[fieldId()];
                TypeEnum::Type const &fieldType = fi.FieldType();
                return fieldType;
+            }
+
+            /// <summary>
+            /// Get the subtype of this field.
+            /// </summary>
+            /// <returns>Subtype of this field.</returns>
+            virtual const TypeEnum::Type subtype() const
+            {
+               AggregateMetaData &md = _aggregate->MetaData();
+               FieldInfo &fi = md.fieldInfo[fieldId()];
+               TypeEnum::Type const &fieldSubtype = fi.FieldSubtype();
+               return fieldSubtype;
             }
 
             /// <summary>

@@ -10,7 +10,6 @@ using namespace Bct::Workflow::Implementation;
 
 //********** UNIT TESTS **************************************
 
-
 TEST_CASE("PlateletTemplateAggregate100", "[test]")
 {
    // Design doc example version 1.0.0 ----------------------------
@@ -23,14 +22,20 @@ TEST_CASE("PlateletTemplateAggregate100", "[test]")
    CHECK_THROWS_AS(Platelet_100.minYield.value(), NotAbleToGet); 
    CHECK_THROWS_AS(Platelet_100.maxYield.value(), NotAbleToGet);
    CHECK_THROWS_AS(Platelet_100.minYield.value(5), NotAbleToSet);
+
    try //Try to get an unavailable field value
    {
       Platelet_100.maxYield.value();
    }
    catch (NotAbleToGet &exc)
    {
-      std::string message = "Bct::Workflow::Aggregates::NotAbleToGet: aggregate=class Bct::Workflow::Implementation::PlateletTemplateAggregate fieldName=maxYield fieldState=Unavailable";
-      CHECK(exc.what() == message);
+      std::string actual = exc.what();
+      std::string exception_str = "Bct::Workflow::Aggregates::NotAbleToGet:";
+      std::string field_str = "fieldName=maxYield fieldState=Unavailable";
+      std::string agg_str = "PlateletTemplateAggregate";
+      CHECK(actual.find(exception_str) != std::string::npos);
+      CHECK(actual.find(field_str) != std::string::npos);
+      CHECK(actual.find(agg_str) != std::string::npos);
    }
 
    //Check initial state of fields used in calculation

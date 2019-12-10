@@ -22,6 +22,16 @@ namespace Bct
             /// <param name="fieldName">Field name.</param>
             /// <param name="fieldType">Field type.</param>
             FieldInfo(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType);
+
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="fieldId">Field id.</param>
+            /// <param name="fieldName">Field name.</param>
+            /// <param name="fieldType">Field type.</param>
+            /// <param name="fieldSubType">Field subtype.</param>
+            FieldInfo(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType, TypeEnum::Type const &fieldSubtype);
+
             /// <summary>
             /// Returns the field id.
             /// </summary>
@@ -38,10 +48,17 @@ namespace Bct
             /// <returns>Field type.</returns>
             TypeEnum::Type FieldType() const;
 
+            /// <summary>
+            /// Returns field subtype.
+            /// </summary>
+            /// <returns>Field subtype.</returns>
+            TypeEnum::Type FieldSubtype() const;
+
          private:
             int16_t _fieldId;
             std::string _fieldName;
             TypeEnum::Type _fieldType;
+            TypeEnum::Type _fieldSubtype;
 
          };
       }
