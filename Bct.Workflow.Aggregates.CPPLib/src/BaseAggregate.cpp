@@ -421,52 +421,10 @@ namespace Bct
                const TypeEnum::Type &type = fld->type();
                // now put into JSON
                writer.Key(fieldName.c_str());
-               //cout << "fieldName: " << fieldName.c_str() << ";   type: " << type << endl;
+               cout << "fieldName: " << fieldName.c_str() << ";   type: " << type << endl;
                try
                {
-                  switch( type )
-                  {
-                     case TypeEnum::BoolType:
-                        writer.Bool( (static_cast<const BaseField<bool>*>(fld))->value() );
-                        break;
-                     case TypeEnum::Int32Type:
-                        writer.Int( (static_cast<const BaseField<int32_t>*>(fld))->value() );
-                        break;
-                     case TypeEnum::UInt32Type:
-                        writer.Uint( (static_cast<const BaseField<uint32_t>*>(fld))->value() );
-                        break;
-                     case TypeEnum::Int64Type:
-                        writer.Int64( (static_cast<const BaseField<int64_t>*>(fld))->value() );
-                        break;
-                     case TypeEnum::UInt64Type:
-                        writer.Uint64( (static_cast<const BaseField<uint64_t>*>(fld))->value() );
-                        break;
-                     case TypeEnum::DoubleType:
-                        writer.Double( (static_cast<const BaseField<double>*>(fld))->value() );
-                        break;
-                     case TypeEnum::StringType:
-                        {
-                           const std::string tmpStringValue = (std::string)( *(static_cast<const StringField*>(fld)) );
-                           writer.String( tmpStringValue.c_str() );
-                        }
-                        break;
-                     case TypeEnum::ArrayType:// TODO: story 149108
-                        // writer.String( "<TODO: ArrayType>");
-                        {
-                           const vector<int32_t> & theVector = (static_cast<const VectorField<int32_t>*>(fld))->value();
-                           cout << "VectorField.size(): " << theVector.size() << endl;
-                           for (vector<int32_t>::const_iterator iter = theVector.begin(); iter != theVector.end(); ++iter)
-                           {
-
-                           }
-                           writer.StartArray();
-                           writer.EndArray();
-                        }
-                        break;
-                     default:
-                        writer.String( "ERROR: unexpected type");
-                        break;
-                  }// switch(type)
+                  fld->serialize(writer);
                }//try
                catch(NotAbleToGet & exNotAbleToGet)
                {
@@ -476,7 +434,7 @@ namespace Bct
             }// for(_fieldList)
 
 // Nested aggregates
-            cout << "Nested count: " << static_cast<int32_t>(_aggList.size()) << endl;
+            cout << ">> Nested count: " << static_cast<int32_t>(_aggList.size()) << endl;
             for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
             {
                AbstractAggregate *agg = _aggList[i];
@@ -484,8 +442,17 @@ namespace Bct
                const std::string &fieldName = MetaData().fieldInfo[fieldIdNested].fieldName();
                // Now put into JSON
                writer.Key( fieldName.c_str());
-               static_cast<BaseAggregate*>(agg)->serialize( writer );
-            }
+               cout << "fieldName: " << fieldName.c_str() << endl;
+               try
+               {
+                  static_cast<BaseAggregate*>(agg)->serialize(writer);
+               }//try
+               catch (...)
+               {
+                  cerr << "Exception................ " << endl;
+                  writer.Null();
+               }
+            }//for(_aggList)
 
             writer.EndObject();
          }
@@ -510,9 +477,9 @@ namespace Bct
 
          AbstractField * BaseAggregate::findLastKeyField() const
          {
-            for (vector<AbstractField*>::const_iterator iter = _fieldList.begin(); iter != _fieldList.end(); ++iter)
+            for (vector<AbstractField*>::const_iterator itr = _fieldList.begin(); itr != _fieldList.end(); ++itr)
             {
-               AbstractField *fld = *iter;
+               AbstractField *fld = *itr;
                const int32_t fieldId = fld->fieldId();
                const std::string &fieldName = MetaData().fieldInfo[fieldId].fieldName();
                if ( deserializeLastKeyName == fieldName )
@@ -532,6 +499,8 @@ namespace Bct
 
          bool BaseAggregate::DeserializeEventHandler::StartObject()
          {
+            _deserializeCurrentVector = NULL;
+
             cout << ">>> StartObject()" << endl;
             const BaseAggregate * currentAggregate = getCurrentAggregate();
             if (currentAggregate) {
@@ -553,6 +522,32 @@ namespace Bct
          {
             cout << "EndObject(" << memberCount << ")" << endl;
             setCurrentAggregateToParent();
+            return true;
+         }
+
+         bool BaseAggregate::DeserializeEventHandler::StartArray()
+         {
+            cout << "StartArray()" << endl;
+            BaseAggregate * currentAggregate = getCurrentAggregate();
+            if (currentAggregate)
+            {
+               AbstractField * fldAbs = currentAggregate->findLastKeyField();
+               if (fldAbs)
+               {
+                  _deserializeCurrentVector = fldAbs;
+                  const TypeEnum::Type fldType = fldAbs->type();
+                  cout << "================  StartArray(): fldType: " << fldType << endl;
+               }
+            }
+            //--------------------------------
+            return true;
+         }
+
+         bool BaseAggregate::DeserializeEventHandler::EndArray(SizeType elementCount)
+         {
+            _deserializeCurrentVector = NULL;
+
+            cout << "EndArray(" << elementCount << ")" << endl;
             return true;
          }
 
@@ -614,6 +609,10 @@ namespace Bct
                   case TypeEnum::DoubleType:
                      setFieldReinterpretType(dynamic_cast<BaseField<double>*>(fldAbs), static_cast<double>(theValue));
                      break;
+
+                  case TypeEnum::ArrayType:
+                     break;
+
                   default: // [PL] TODO: error handling?
                      break;
                   }

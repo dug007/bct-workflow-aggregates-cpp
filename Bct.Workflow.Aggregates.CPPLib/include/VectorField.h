@@ -9,6 +9,9 @@
 #include "AggregateMetaData.h"
 #include "Exceptions.h"
 
+#include <iostream>  // [PL] just for testing
+
+using namespace std;
 
 namespace Bct
 {
@@ -273,6 +276,23 @@ namespace Bct
             virtual int32_t fieldId() const
             {
                return _fieldId;
+            }
+
+            virtual void serialize(PrettyWriter<StringBuffer> & writer) const
+            {
+               cout << "VF::serialize() type(): " << type() << endl;
+               writer.StartArray();
+               //std::vector<T>::const_iterator itr; // = _val.begin();
+               //for (; itr != _val.end(); ++itr)
+               const std::vector<T> & theValue = value();
+               for (int idx = 0; idx < theValue.size(); ++idx)
+               {
+                  //const T theElement = theValue[idx];
+                  //const T * pE = &theElement;
+                  //writer.Int(theElement);
+                  //cout << "=== theElement: " << theElement << endl;
+               }
+               writer.EndArray();
             }
 
          protected:

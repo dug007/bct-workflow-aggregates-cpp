@@ -15,6 +15,8 @@ namespace Bct
    {
       namespace Aggregates
       {
+         class StringField;
+
          /// <summary>
          /// Base template class for scalar fields and derives from the AbstractField class. All scalar fields must derive from this class.
          /// </summary>
@@ -268,7 +270,102 @@ namespace Bct
                return _fieldId;
             }
 
-          protected:
+            virtual void serialize(PrettyWriter<StringBuffer> & writer) const
+            { //[PL] TODO
+               const AbstractField * absField = dynamic_cast<const AbstractField *>(this);
+               cout << "BaseField::serialize() type(): " << type() << endl;
+               switch (type())
+               {
+               case TypeEnum::BoolType:
+                  {
+                     const BaseField<bool> * pField = dynamic_cast<const BaseField<bool>*>(this);
+                     if (pField)
+                     {
+                        writer.Bool(pField->value());
+                     }
+                     else
+                     {
+                        writer.Null();
+                     }
+                  }
+
+                  break;
+               case TypeEnum::Int32Type:
+                  {
+                     const BaseField<int32_t> * pField = dynamic_cast<const BaseField<int32_t>*>(this);
+                     if (pField)
+                     {
+                        writer.Int(pField->value());
+                     }
+                     else
+                     {
+                        writer.Null();
+                     }
+                  }
+                  break;
+               case TypeEnum::UInt32Type:
+                  {
+                     const BaseField<uint32_t> * pField = dynamic_cast<const BaseField<uint32_t>*>(this);
+                     if (pField)
+                     {
+                        writer.Uint(pField->value());
+                     }
+                     else
+                     {
+                        writer.Null();
+                     }
+                  }
+                  break;
+               case TypeEnum::Int64Type:
+                  {
+                     const BaseField<int64_t> * pField = dynamic_cast<const BaseField<int64_t>*>(this);
+                     if (pField)
+                     {
+                        writer.Int64(pField->value());
+                     }
+                     else
+                     {
+                        writer.Null();
+                     }
+                  }
+                  break;
+               case TypeEnum::UInt64Type:
+                  {
+                     const BaseField<uint64_t> * pField = dynamic_cast<const BaseField<uint64_t>*>(this);
+                     if (pField)
+                     {
+                        writer.Uint64(pField->value());
+                     }
+                     else
+                     {
+                        writer.Null();
+                     }
+                  }
+                  break;
+               case TypeEnum::DoubleType:
+                  {
+                     const BaseField<double> * pField = dynamic_cast<const BaseField<double>*>(this);
+                     if (pField)
+                     {
+                        writer.Double(pField->value());
+                     }
+                     else
+                     {
+                        writer.Null();
+                     }
+                  }                  break;
+               case TypeEnum::StringType:
+                  // Should never get here. This is handled by StringField::serialize().
+                  cout << ">>>>>>>> Error in " << __FILE__ << ", line " << __LINE__ << endl;
+                  break;
+
+               default:
+                  writer.String("ERROR: unexpected type");
+                  break;
+               }// switch(type)
+            }
+
+            protected:
 
             // AbstractField ----------->
 

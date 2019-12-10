@@ -205,13 +205,11 @@ namespace Bct
                    return true;
                }
                bool String(const char* str, SizeType length, bool copy);
-               bool StartObject();
-
                bool Key(const char* str, SizeType length, bool copy);
-
+               bool StartObject();
                bool EndObject(SizeType memberCount);
-               bool StartArray() { cout << "StartArray()" << endl; return true; }
-               bool EndArray(SizeType elementCount) { cout << "EndArray(" << elementCount << ")" << endl; return true; }
+               bool StartArray();
+               bool EndArray(SizeType elementCount);
 
                DeserializeEventHandler(BaseAggregate * ag) { setCurrentAggregate(ag); };
                DeserializeEventHandler() {};
@@ -230,6 +228,7 @@ namespace Bct
                // _currentAggregate[2] is the "level-2" nested aggregate, and so on. Once it has been parsed, the EndObject()
                //   event handler removes it from the vector, and its parent, _currentAggregate[1], becomes the current aggregate.
                vector<BaseAggregate *> _currentAggregate;
+					AbstractField *			_deserializeCurrentVector; // The vector being deserialized.
             };
 
          };
