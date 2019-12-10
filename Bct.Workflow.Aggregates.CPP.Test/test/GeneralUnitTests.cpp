@@ -36,9 +36,13 @@ TEST_CASE("General", "[test]")
    }
    catch (NotAbleToSet &exc)
    {
-      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7c fieldState=Constant";
       std::string actual = exc.what();
-      CHECK(actual == expected);
+      std::string exception_str = "Bct::Workflow::Aggregates::NotAbleToSet:";
+      std::string field_str = "fieldName=Field7c fieldState=Constant";
+      std::string agg_str = "Sample1Aggregate";
+      CHECK(actual.find(exception_str) != std::string::npos);
+      CHECK(actual.find(field_str) != std::string::npos);
+      CHECK(actual.find(agg_str) != std::string::npos);
    }
    CHECK(f1 == 2.0);
    CHECK(a.Field1.state() == FieldStateEnum::Set);
@@ -101,7 +105,12 @@ TEST_CASE("NoSuchVersion", "[test]")
    catch (NoSuchVersion &ex)
    {
       CHECK(ex.requestedVersion() == "1.3.0");
-      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate requestedVersion=1.3.0";
-      CHECK(ex.what() == message);
+      std::string actual = ex.what();
+      std::string exception_str = "Bct::Workflow::Aggregates::NoSuchVersion:";
+      std::string version_str = "requestedVersion=1.3.0";
+      std::string agg_str = "Sample1Aggregate";
+      CHECK(actual.find(exception_str) != std::string::npos);
+      CHECK(actual.find(version_str) != std::string::npos);
+      CHECK(actual.find(agg_str) != std::string::npos);
    }
 }
