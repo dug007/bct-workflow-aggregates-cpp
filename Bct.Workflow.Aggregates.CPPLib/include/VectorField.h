@@ -216,6 +216,18 @@ namespace Bct
             }
 
             /// <summary>
+            /// Get the subtype of this field.
+            /// </summary>
+            /// <returns>Subtype of this field.</returns>
+            virtual const TypeEnum::Type subtype() const
+            {
+               AggregateMetaData &md = _aggregate->MetaData();
+               FieldInfo &fi = md.fieldInfo[fieldId()];
+               TypeEnum::Type const &fieldSubtype = fi.FieldSubtype();
+               return fieldSubtype;
+            }
+
+            /// <summary>
             /// Get the state of this field.
             /// </summary>
             /// <returns>State of this field.</returns>
