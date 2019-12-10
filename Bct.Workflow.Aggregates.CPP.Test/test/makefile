@@ -41,7 +41,7 @@ include $(MAINDIR)/makefile.vxc_rtp
 #
 APP_NAME := unit_test
 unit_test_dir = .
-unit_test_cxx_files = AssessUnitTests.cpp AggNestedUnitTests.cpp CodeGenerationUnitTests.cpp QAComprehensiveUnitTests.cpp ComputeFieldUnitTests.cpp EnumFieldUnitTests.cpp GeneralUnitTests.cpp MetaUnitTests.cpp ReferenceAggregateUnitTests.cpp VersionChangeRuleUnitTests.cpp
+unit_test_cxx_files = AssessUnitTests.cpp AggNestedUnitTests.cpp CodeGenerationUnitTests.cpp QAComprehensiveUnitTests.cpp ComputeFieldUnitTests.cpp EnumFieldUnitTests.cpp GeneralUnitTests.cpp MetaUnitTests.cpp ReferenceAggregateUnitTests.cpp VersionChangeRuleUnitTests.cpp VectorFieldUnitTests.cpp
 unit_test_libs = $(GENERATED_INCDIR)/../src/generated_code_lib.a $(AGGREGATES_INCDIR)/../src/cpp_lib.a $(RPN_INCDIR)/../src/rpn_lib.a ../src/test_lib.a
 
 include $(MAINDIR)/makefile.process_app_rtp
