@@ -7,7 +7,12 @@ namespace Bct
       namespace Aggregates
       {
          FieldInfo::FieldInfo(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType) :
-            _fieldId(fieldId), _fieldName(fieldName), _fieldType(fieldType)
+            _fieldId(fieldId), _fieldName(fieldName), _fieldType(fieldType), _fieldSubtype(TypeEnum::EmptyType)
+         {
+         }
+
+         FieldInfo::FieldInfo(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType, TypeEnum::Type const &fieldSubtype) :
+            _fieldId(fieldId), _fieldName(fieldName), _fieldType(fieldType), _fieldSubtype(fieldSubtype)
          {
          }
 
@@ -24,6 +29,11 @@ namespace Bct
          TypeEnum::Type FieldInfo::FieldType() const
          {
             return _fieldType;
+         }
+
+         TypeEnum::Type FieldInfo::FieldSubtype() const
+         {
+            return _fieldSubtype;
          }
       }
    }
