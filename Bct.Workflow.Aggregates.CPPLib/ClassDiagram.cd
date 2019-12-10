@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Bct::RPNEvaluator::FuncOper" Collapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAEAAAAAAAAAQAAAQAAABAAAAAAAAEAAA=</HashCode>
+      <FileName>BCT.RPNEvaluator.CPP\include\FuncOper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::RPNEvaluator::FunctionMap" Collapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>BCT.RPNEvaluator.CPP\include\FunctionMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::RPNEvaluator::RPNEvaluator" Collapsed="true">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAgiABAIAIBgAoAAAAAABAAAAAABAGgAAgIEBQAY=</HashCode>
+      <FileName>BCT.RPNEvaluator.CPP\include\RPNEvaluator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::RPNEvaluator::RPNVariable" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAAAAAAAEAAAACACAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>BCT.RPNEvaluator.CPP\include\RPNVariable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::RPNEvaluator::Token" Collapsed="true">
+    <Position X="13.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIQAAAAAAAAAAAAAAAAQAEIAAAAAAAAAAARAAE=</HashCode>
+      <FileName>BCT.RPNEvaluator.CPP\include\Token.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::AbstractAggregate" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQABAAAAAAAAAAAAAAAAAAAAEAAACAAAAAAAAA=</HashCode>
+      <FileName>include\AbstractAggregate.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::AbstractField" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAgAAAACAAAAAAAAIAAAEAABAAAEACAAAAAAAAA=</HashCode>
+      <FileName>include\AbstractField.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::BaseAggregate" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAQABAAgICBIAiACL4AQAADAAAASQCQgAAAAAIA=</HashCode>
+      <FileName>include\BaseAggregate.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::AssessmentResult" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAgAAAQAAAAABAAAAAAAAAAAAAAEAAAAICAAAAAAAAQ=</HashCode>
+      <FileName>include\AssessmentResult.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::AssessmentRule" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAgCAAAAAAAAAoAABAQAAAAgAAAAgA=</HashCode>
+      <FileName>include\AssessmentRule.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::StringField" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgQAAAAAAAAAAAgIAAAEAAAgAAAAAAgAAAAAAA=</HashCode>
+      <FileName>include\StringField.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::BaseField&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAIAAgAAQACAAwAAAsAK4AAEJABACAEACAgAAAADCA=</HashCode>
+      <FileName>include\BaseField.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::BaseFieldRo&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAABAA=</HashCode>
+      <FileName>include\BaseFieldRo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::ComputeRule" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAIAAAACAAAAAAABAAAAAAAgAAAAQAAAAgAAACAA=</HashCode>
+      <FileName>include\ComputeRule.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::EnumField&lt;U, X&gt;" Collapsed="true">
+    <Position X="5.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEIAgAAAAAAAAAAAAgAAAiCRAAACAAAAAgAAEAAAA=</HashCode>
+      <FileName>include\EnumField.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::EnumFieldRo&lt;U, X&gt;" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAgAACAAAAAgAAAAAAA=</HashCode>
+      <FileName>include\EnumFieldRo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::NoSuchVersion" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAACARAAABAAAAAAEAASAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>include\Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::NotAbleToSet" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAACABAAABAAAAJAEAAAACAAEAAAAAAAAAAI=</HashCode>
+      <FileName>include\Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::NotAbleToGet" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAACABAAABAAAAIAEAAABCAAEAAAAACAAAAA=</HashCode>
+      <FileName>include\Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::FieldInfo" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAIBAAAAAAAAAAAAAAIAAABAAAAAEAAAAAAAACAA=</HashCode>
+      <FileName>include\FieldInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::FieldMeta" Collapsed="true">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAIAABAAAAAAAAAABAAAAAAAAAAAEAAAAAAAAAACQA=</HashCode>
+      <FileName>include\FieldMeta.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::AggregateMetaData" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iBIAAAAAAQCABAEBQAAABAEAAAAAAEACAAAIBCAAAAA=</HashCode>
+      <FileName>include\AggregateMetaData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::FluentAssessmentRule" Collapsed="true">
+    <Position X="11.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAIAAAgAEAAgA=</HashCode>
+      <FileName>include\FluentAssessmentRule.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::FluentComputeRule" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAABAAAAAAAAAAAAAAAAgAAABgA=</HashCode>
+      <FileName>include\FluentComputeRule.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::FluentMeta" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAABAAgAAAAgg=</HashCode>
+      <FileName>include\FluentMeta.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::FluentVersionChangeRule" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAEAAABAAAAAAAAAAAAAAAAgAAAAgA=</HashCode>
+      <FileName>include\FluentVersionChangeRule.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::StringFieldRo" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAACAAAAAAACAAAAAgAAAAAAA=</HashCode>
+      <FileName>include\StringFieldRo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::VectorField&lt;T&gt;" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAgAASACAAQAAAoAK4AAEBABACAEASAgAAAADCA=</HashCode>
+      <FileName>include\VectorField.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::VersionChangeRule" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAiAAAEAAAAAAAAAAEgAAAAQAAAAgAAACAA=</HashCode>
+      <FileName>include\VersionChangeRule.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::VersionInfo" Collapsed="true">
+    <Position X="17" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAIAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>include\VersionInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bct::Workflow::Aggregates::VersionMetaData" Collapsed="true">
+    <Position X="10" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAABAAEAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>include\VersionMetaData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Bct::Workflow::Aggregates::FieldStateEnum::FieldState" Collapsed="true">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAQABAAAAAAAIAAAAAAAAAgAAAAAAAgAAAA=</HashCode>
+      <FileName>BCT.RPNEvaluator.CPP\include\FieldStateEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Bct::Workflow::TypeEnum::Type" Collapsed="true">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAEAAAgABACQAAAAAAYAAAAAAAAAAAAAoAAAAAgBAA=</HashCode>
+      <FileName>BCT.RPNEvaluator.CPP\include\TypeEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
