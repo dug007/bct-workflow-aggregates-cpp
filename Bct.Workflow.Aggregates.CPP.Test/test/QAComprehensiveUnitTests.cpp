@@ -589,15 +589,20 @@ TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
    CHECK(SamAgg4.Field7c.state() == FieldStateEnum::Constant);
    CHECK_THROWS_AS(SamAgg4.Field7c = 3, NotAbleToSet);  // throws on assignment
    CHECK_THROWS_AS(SamAgg4.Field7c.value(3), NotAbleToSet);  // throws on set
+
    try //Trying to set a constant field
    {
       SamAgg4.Field7c.value(5);
    }
    catch (NotAbleToSet &exc)
    {
-      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7c fieldState=Constant";
       std::string actual = exc.what();
-      CHECK(actual == expected);
+      std::string exception_str = "Bct::Workflow::Aggregates::NotAbleToSet:";
+      std::string field_str = "fieldName=Field7c fieldState=Constant";
+      std::string agg_str = "Sample1Aggregate";
+      CHECK(actual.find(exception_str) != std::string::npos);
+      CHECK(actual.find(field_str) != std::string::npos);
+      CHECK(actual.find(agg_str) != std::string::npos);
    }
 }
 
@@ -608,15 +613,20 @@ TEST_CASE("ThrowsExceptionIfFieldComputeOnly", "[test]")
 
    CHECK(SamAgg5.Field7com.state() == FieldStateEnum::NotSet);
    CHECK_THROWS_AS(SamAgg5.Field7com = 3, NotAbleToSet);  // throws on assignment since it is compute only
+   
    try //Trying to set a computeOnly field
    {
       SamAgg5.Field7com.value(5);
    }
    catch (NotAbleToSet &exc)
    {
-      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7com fieldState=Computed";
       std::string actual = exc.what();
-      CHECK(actual == expected);
+      std::string exception_str = "Bct::Workflow::Aggregates::NotAbleToSet:";
+      std::string field_str = "fieldName=Field7com fieldState=Computed";
+      std::string agg_str = "Sample1Aggregate";
+      CHECK(actual.find(exception_str) != std::string::npos);
+      CHECK(actual.find(field_str) != std::string::npos);
+      CHECK(actual.find(agg_str) != std::string::npos);
    }
 }
 
@@ -811,8 +821,13 @@ TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
    catch (NoSuchVersion &ex)
    {
       CHECK(ex.requestedVersion() == "1.0.0.0");
-      std::string message = "Bct::Workflow::Aggregates::NoSuchVersion: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate requestedVersion=1.0.0.0";
-      CHECK(ex.what() == message);
+      std::string actual = ex.what();
+      std::string exception_str = "Bct::Workflow::Aggregates::NoSuchVersion:";
+      std::string version_str = "requestedVersion=1.0.0.0";
+      std::string agg_str = "Sample1Aggregate";
+      CHECK(actual.find(exception_str) != std::string::npos);
+      CHECK(actual.find(version_str) != std::string::npos);
+      CHECK(actual.find(agg_str) != std::string::npos);
    }
 }
 

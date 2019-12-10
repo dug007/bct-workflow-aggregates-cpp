@@ -44,17 +44,21 @@ LIB_CC_FILES =
 
 LIB_CXX_FILES = \
 AggregateMetaData.cpp \
+AggregateNotFound.cpp \
 AssessmentResult.cpp \
 AssessmentRule.cpp \
 BaseAggregate.cpp \
+CannotConvertScalar.cpp \
 ComputeRule.cpp \
-Exceptions.cpp \
 FieldInfo.cpp \
 FieldMeta.cpp \
 FluentAssessmentRule.cpp \
 FluentComputeRule.cpp \
 FluentMeta.cpp \
 FluentVersionChangeRule.cpp \
+NoSuchVersion.cpp \
+NotAbleToGet.cpp \
+NotAbleToSet.cpp \
 StringField.cpp \
 StringFieldRo.cpp \
 VersionChangeRule.cpp \
