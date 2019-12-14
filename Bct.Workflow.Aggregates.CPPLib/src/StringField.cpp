@@ -63,10 +63,10 @@ namespace Bct
             return BaseField<std::string>::computedValueString();
          }
 
-         void StringField::serialize(PrettyWriter<StringBuffer> & writer) const
+         void StringField::serialize(PrettyWriter<StringBuffer> * writer) const
          {
             const std::string tmpStringValue = (std::string)(*this);
-            writer.String(tmpStringValue.c_str());
+            writer->String(tmpStringValue.c_str());
          }
       }
    }

@@ -101,7 +101,7 @@ namespace Bct
             /// <param name="version">The new version</param>
             void convertToVersion(const std::string toVersion);
 
-            void serialize( PrettyWriter<StringBuffer> & writer ) const;
+            void serialize( PrettyWriter<StringBuffer> * writer ) const;
             void deserialize(const std::string & value);
             void log(std::ostream & logStream, int flags) const;
 
@@ -204,8 +204,10 @@ namespace Bct
                DeserializeEventHandler(BaseAggregate * ag) { setCurrentAggregate(ag); };
                DeserializeEventHandler() {};
 
-               template <typename ScalarType>
-               void setField(ScalarType theValue);
+            private:
+               template<typename T> void setField(const T & value);
+               template<typename T> void setFieldOrVectorElement(const T & value);
+               template<typename T> void vectorPushBack(const T & element);
                void setCurrentAggregate(BaseAggregate * ag);
                void setCurrentAggregateToParent(void);
                BaseAggregate * getCurrentAggregate(void);

@@ -32,7 +32,7 @@ const string na_json =
 \"boolField\": true, \
 \"int32Field\": -32, \
 \"uint32Field\": 32, \
-\"int64Field\": -64, \
+\"int64Field\":  60, \
 \"uint64Field\": 64, \
 \"doubleField\": 1.23, \
 \"stringField\": \"hello world\", \
@@ -47,6 +47,7 @@ const string na_json =
     \"stringField\": \"hello world - nested - na\", \
     \"boolFieldRequiredv2\": false, \
     \"enumField\": 4, \
+    \"vectorIntField\": [20, 30, -50], \
     \"v100Field\": 100.0, \
     \"boolFieldRequiredv0\": false \
   } \
@@ -63,21 +64,31 @@ const string ra_json =
     \"stringField\": \"hello world - nested - ra\", \
     \"boolFieldRequiredv2\": false, \
     \"enumField\": 40, \
-    \"vectorIntField\": [2, 3, 5], \
+    \"vectorIntField\": [2, 3, -5], \
     \"v100Field\": 100.0, \
     \"boolFieldRequiredv0\": true \
 }";
 
+#define NA_TEST 0 // 1|0, respectively, to switch betw. NestedWithReferenceAggregate and ReferenceAggregate test.
+
 static void runDeserialize( void )
 {
-   //NestedWithReferenceAggregate na;  na.deserialize(na_json);
-   ReferenceAggregate ra;   ra.deserialize( ra_json );
+   ReferenceAggregate ra;
+   NestedWithReferenceAggregate na;
+
+#if NA_TEST
+   BaseAggregate *agg = &na;
+   agg->deserialize(na_json);
+#else
+   BaseAggregate *agg = &ra;
+   agg->deserialize(ra_json);
+#endif
 
    cout << "--------------- Serialize it now:" << endl;
    StringBuffer sb;
    PrettyWriter<StringBuffer> writer(sb);
 
-   ra.serialize(writer);
+   agg->serialize(&writer);
    cout << "Serialized: \n" << sb.GetString() << endl;
 }
 
@@ -86,10 +97,10 @@ static void runSerialize( void )
    StringBuffer sb;
    PrettyWriter<StringBuffer> writer(sb);
 
-#if 0
+#if NA_TEST
    NestedWithReferenceAggregate na;
 	na.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
-   na.serialize( writer );
+   na.serialize( &writer );
 #else
    ReferenceAggregate ra;
 	ra.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
@@ -98,7 +109,7 @@ static void runSerialize( void )
 	vectorInt.push_back( 3 );
 	vectorInt.push_back( 5 );
 	ra.vectorIntField.value( vectorInt );
-   ra.serialize( writer );
+   ra.serialize( &writer );
 #endif
 
    cout << "Serialized: \n" << sb.GetString() << endl;

@@ -257,7 +257,7 @@ namespace Bct
                tm.addField(6, "stringField", TypeEnum::StringType);
                tm.addField(7, "boolFieldRequiredv2", TypeEnum::BoolType);
                tm.addField(8, "enumField", TypeEnum::Int32Type);
-               tm.addField(9, "vectorIntField", TypeEnum::ArrayType);
+               tm.addField(9, "vectorIntField", TypeEnum::ArrayType, TypeEnum::Int32Type);
                tm.addAggField(10, "nestedField");
                tm.addField(11, "v100Field", TypeEnum::DoubleType);
                tm.addAggField(12, "nestedField2");

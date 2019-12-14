@@ -309,8 +309,13 @@ namespace Bct
                return _fieldId;
             }
 
-            virtual void serialize(PrettyWriter<StringBuffer> & writer) const
+            virtual void serialize(PrettyWriter<StringBuffer> * writer) const
             { //[PL] TODO
+               if (NULL == writer)
+               {
+                  return;
+               }
+
                const AbstractField * absField = dynamic_cast<const AbstractField *>(this);
                cout << "BaseField::serialize() type(): " << type() << endl;
                switch (type())
@@ -320,25 +325,24 @@ namespace Bct
                      const BaseField<bool> * pField = dynamic_cast<const BaseField<bool>*>(this);
                      if (pField)
                      {
-                        writer.Bool(pField->value());
+                        writer->Bool(pField->value());
                      }
                      else
                      {
-                        writer.Null();
+                        writer->Null();
                      }
                   }
-
                   break;
                case TypeEnum::Int32Type:
                   {
                      const BaseField<int32_t> * pField = dynamic_cast<const BaseField<int32_t>*>(this);
                      if (pField)
                      {
-                        writer.Int(pField->value());
+                        writer->Int(pField->value());
                      }
                      else
                      {
-                        writer.Null();
+                        writer->Null();
                      }
                   }
                   break;
@@ -347,11 +351,11 @@ namespace Bct
                      const BaseField<uint32_t> * pField = dynamic_cast<const BaseField<uint32_t>*>(this);
                      if (pField)
                      {
-                        writer.Uint(pField->value());
+                        writer->Uint(pField->value());
                      }
                      else
                      {
-                        writer.Null();
+                        writer->Null();
                      }
                   }
                   break;
@@ -360,11 +364,11 @@ namespace Bct
                      const BaseField<int64_t> * pField = dynamic_cast<const BaseField<int64_t>*>(this);
                      if (pField)
                      {
-                        writer.Int64(pField->value());
+                        writer->Int64(pField->value());
                      }
                      else
                      {
-                        writer.Null();
+                        writer->Null();
                      }
                   }
                   break;
@@ -373,11 +377,11 @@ namespace Bct
                      const BaseField<uint64_t> * pField = dynamic_cast<const BaseField<uint64_t>*>(this);
                      if (pField)
                      {
-                        writer.Uint64(pField->value());
+                        writer->Uint64(pField->value());
                      }
                      else
                      {
-                        writer.Null();
+                        writer->Null();
                      }
                   }
                   break;
@@ -386,20 +390,21 @@ namespace Bct
                      const BaseField<double> * pField = dynamic_cast<const BaseField<double>*>(this);
                      if (pField)
                      {
-                        writer.Double(pField->value());
+                        writer->Double(pField->value());
                      }
                      else
                      {
-                        writer.Null();
+                        writer->Null();
                      }
-                  }                  break;
+                  }
+                  break;
                case TypeEnum::StringType:
                   // Should never get here. This is handled by StringField::serialize().
                   cout << ">>>>>>>> Error in " << __FILE__ << ", line " << __LINE__ << endl;
                   break;
 
                default:
-                  writer.String("ERROR: unexpected type");
+                  writer->String("ERROR: unexpected type");
                   break;
                }// switch(type)
             }

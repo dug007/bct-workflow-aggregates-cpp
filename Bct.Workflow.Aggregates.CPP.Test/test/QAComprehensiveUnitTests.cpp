@@ -883,7 +883,7 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
 
    rapidjson::StringBuffer buffer;
    PrettyWriter<rapidjson::StringBuffer> writer(buffer);
-   fromRefAgg10.serialize(writer);
+   fromRefAgg10.serialize(&writer);
    toRefAgg10.deserialize(buffer.GetString());
 
    CHECK(toRefAgg10.boolField == false);

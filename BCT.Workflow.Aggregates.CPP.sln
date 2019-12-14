@@ -24,7 +24,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bct.Workflow.Aggregates.CPP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "serialize_test", "ConsoleApplication1\ConsoleApplication1.vcxproj", "{978C26A4-F3AC-4B66-BAFD-25D7B0B4DB56}"
 	ProjectSection(ProjectDependencies) = postProject
-		{A9850E36-2543-4EDE-80B0-5B27EF64859F} = {A9850E36-2543-4EDE-80B0-5B27EF64859F}
+		{9B10266C-1CC1-418B-8390-E860603184B3} = {9B10266C-1CC1-418B-8390-E860603184B3}
 	EndProjectSection
 EndProject
 Global

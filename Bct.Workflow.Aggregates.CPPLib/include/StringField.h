@@ -72,7 +72,7 @@ namespace Bct
             /// </summary>
             /// <param name="val">String representation of this field.</param>
             virtual void computedValueString(const std::string & val);
-            virtual void serialize(PrettyWriter<StringBuffer> & writer) const;
+            virtual void serialize(PrettyWriter<StringBuffer> * writer) const;
 
          };
       }
