@@ -205,9 +205,8 @@ namespace Bct
                DeserializeEventHandler() {};
 
             private:
-               template<typename T> void setField(const T & value);
-               template<typename T> void setFieldOrVectorElement(const T & value);
-               template<typename T> void vectorPushBack(const T & element);
+               template<typename T> void setFieldOrVectorElement(const T * value);
+               template<typename T> void vectorPushBack(const T * element);
                void setCurrentAggregate(BaseAggregate * ag);
                void setCurrentAggregateToParent(void);
                BaseAggregate * getCurrentAggregate(void);

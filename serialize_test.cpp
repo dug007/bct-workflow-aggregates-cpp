@@ -73,13 +73,12 @@ const string ra_json =
 
 static void runDeserialize( void )
 {
-   ReferenceAggregate ra;
-   NestedWithReferenceAggregate na;
-
 #if NA_TEST
+   NestedWithReferenceAggregate na;
    BaseAggregate *agg = &na;
    agg->deserialize(na_json);
 #else
+   ReferenceAggregate ra;
    BaseAggregate *agg = &ra;
    agg->deserialize(ra_json);
 #endif
