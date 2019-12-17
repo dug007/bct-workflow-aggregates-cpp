@@ -69,10 +69,10 @@ namespace Bct
             /// Append an element to this vector.
             /// </summary>
             /// <param name="element">Element to append.</param>
-            void pushBack(const T * element)
+            void pushBack(const T & element)
             {
                // [PL] TODO: Am I correctly updating the metadata below? Modeled this after valueInternal().
-               cout << "pushBack( " << *element << " )" << endl;
+               cout << "pushBack( " << element << " )" << endl;
 
                if (_state == FieldStateEnum::Unavailable)
                {
@@ -80,7 +80,7 @@ namespace Bct
                   throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
 
-               _val.push_back(*element);
+               _val.push_back(element);
 
                _fieldSetCounter = _aggregate->fieldSetCounter();
                const FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
@@ -130,6 +130,8 @@ namespace Bct
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
+               default:
+                  break;
                }
                _val.swap(other);
                _fieldSetCounter = _aggregate->fieldSetCounter();

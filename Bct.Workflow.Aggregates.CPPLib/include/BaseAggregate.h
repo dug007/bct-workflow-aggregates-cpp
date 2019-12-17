@@ -206,7 +206,6 @@ namespace Bct
 
             private:
                template<typename T> void setFieldOrVectorElement(const T * value);
-               template<typename T> void vectorPushBack(const T * element);
                void setCurrentAggregate(BaseAggregate * ag);
                void setCurrentAggregateToParent(void);
                BaseAggregate * getCurrentAggregate(void);
@@ -217,7 +216,7 @@ namespace Bct
                // _currentAggregate[2] is the "level-2" nested aggregate, and so on. Once it has been parsed, the EndObject()
                //   event handler removes it from the vector, and its parent, _currentAggregate[1], becomes the current aggregate.
                vector<BaseAggregate *> _currentAggregate;
-					AbstractField *			_deserializeCurrentVector; // The vector being deserialized.
+               AbstractField *         _deserializeCurrentVector; // The vector being deserialized.
             };
 
          };

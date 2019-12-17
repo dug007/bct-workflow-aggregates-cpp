@@ -69,7 +69,7 @@ const string ra_json =
     \"boolFieldRequiredv0\": true \
 }";
 
-#define NA_TEST 0 // 1|0, respectively, to switch betw. NestedWithReferenceAggregate and ReferenceAggregate test.
+#define NA_TEST 1 // 1|0, respectively, to switch betw. NestedWithReferenceAggregate and ReferenceAggregate test.
 
 static void runDeserialize( void )
 {
@@ -98,16 +98,16 @@ static void runSerialize( void )
 
 #if NA_TEST
    NestedWithReferenceAggregate na;
-	na.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
+   na.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
    na.serialize( &writer );
 #else
    ReferenceAggregate ra;
-	ra.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
-	std::vector<int32_t> vectorInt;
-	vectorInt.push_back( -1 );
-	vectorInt.push_back( 3 );
-	vectorInt.push_back( 5 );
-	ra.vectorIntField.value( vectorInt );
+   ra.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
+   std::vector<int32_t> vectorInt;
+   vectorInt.push_back( -1 );
+   vectorInt.push_back( 3 );
+   vectorInt.push_back( 5 );
+   ra.vectorIntField.value( vectorInt );
    ra.serialize( &writer );
 #endif
 
@@ -127,7 +127,7 @@ int main(int argc, char** argv)
       runDeserialize();
    }
 
-	//----------------
+   //----------------
    return 0;
 }
 

@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{978C26A4-F3AC-4B66-BAFD-25D7B0B4DB56}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ConsoleApplication1</RootNamespace>
+    <RootNamespace>serialize_test</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>serialize_test</ProjectName>
     <TargetFrameworkVersion>4.5</TargetFrameworkVersion>
