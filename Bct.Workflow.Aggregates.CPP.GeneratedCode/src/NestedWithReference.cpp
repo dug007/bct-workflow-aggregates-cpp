@@ -158,7 +158,7 @@ namespace Bct
                tm.addField(4, "uint64Field", Bct::Workflow::TypeEnum::UInt64Type);
                tm.addField(5, "doubleField", Bct::Workflow::TypeEnum::DoubleType);
                tm.addField(6, "stringField", Bct::Workflow::TypeEnum::StringType);
-               tm.addField(7, "enumField", Bct::Workflow::TypeEnum::Int32Type);
+               tm.addField(7, "enumField", Bct::Workflow::TypeEnum::UInt32Type);
                tm.addAggField(8, "aggField");
 
                tm.addFieldMetaToAllVersions(0, FieldStateEnum::Default, "true");
