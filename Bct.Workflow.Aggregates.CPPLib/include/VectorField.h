@@ -334,7 +334,7 @@ namespace Bct
                //std::vector<T>::const_iterator itr; // = _val.begin();
                //for (; itr != _val.end(); ++itr)
                const std::vector<T> & theVector = value();
-               for (int idx = 0; idx < theVector.size(); ++idx)
+               for (unsigned int idx = 0; idx < theVector.size(); ++idx)
                {
                   try
                   {
