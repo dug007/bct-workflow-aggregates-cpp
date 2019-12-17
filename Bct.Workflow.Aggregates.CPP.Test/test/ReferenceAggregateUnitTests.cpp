@@ -38,3 +38,9 @@ TEST_CASE("ReferenceUnitTest", "[test]")
    ref2.deserialize(buffer.GetString());
    CHECK(ref2.stringField.value() == "another world");
 }
+
+TEST_CASE("ReferenceSubtype", "[test]")
+{
+   ReferenceAggregate ref;
+   CHECK(ref.boolField.subtype() == TypeEnum::EmptyType);
+}

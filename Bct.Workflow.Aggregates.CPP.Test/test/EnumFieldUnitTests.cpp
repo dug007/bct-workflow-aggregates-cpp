@@ -48,5 +48,5 @@ TEST_CASE("EnumFieldTests", "[test]")
 
    // will not compile  aAssign.enumField.Va
    // will not compile = aAssign.enumField;
-
+   CHECK(na.enumField.type() == Bct::Workflow::TypeEnum::UInt32Type);
 }

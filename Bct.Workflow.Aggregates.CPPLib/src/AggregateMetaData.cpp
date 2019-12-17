@@ -60,6 +60,12 @@ namespace Bct
             fieldInfo.push_back(fi);
          }
 
+         void AggregateMetaData::addField(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType, TypeEnum::Type const &fieldSubType = TypeEnum::EmptyType)
+         {
+            FieldInfo fi = FieldInfo(fieldId, fieldName, fieldType, fieldSubType);
+            fieldInfo.push_back(fi);
+         }
+
          void AggregateMetaData::addAggField(int16_t fieldId, std::string const &fieldName)
          {
             FieldInfo fi = FieldInfo(fieldId, fieldName, TypeEnum::ObjectType);

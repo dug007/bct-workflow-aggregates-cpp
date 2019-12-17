@@ -307,6 +307,7 @@ TEST_CASE("FieldAssigmentDoesNotThrowExceiption", "[test]")
    toSamAgg.FieldEnumRo = fromSamAgg.FieldEnumRo;
    toSamAgg.FieldStringro = fromSamAgg.FieldStringro;
    toSamAgg.Field7ro = fromSamAgg.Field7ro;
+   CHECK(1 == 1); //Just to make sure test runs and that no exception are thrown from previous lines of code.
 }
 
 //Tests Set Field Value - sets the current value for a field by using assignment.
