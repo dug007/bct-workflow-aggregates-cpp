@@ -11,6 +11,9 @@
 #include "NoSuchVersion.h"
 #include "NotAbleToSet.h"
 
+#include <iostream>  // [PL] just for testing
+
+using namespace std;
 
 namespace Bct
 {
@@ -63,6 +66,31 @@ namespace Bct
             }
 
             /// <summary>
+            /// Append an element to this vector.
+            /// </summary>
+            /// <param name="element">Element to append.</param>
+            void pushBack(const T & element)
+            {
+               // [PL] TODO: Am I correctly updating the metadata below? Modeled this after valueInternal().
+               cout << "pushBack( " << element << " )" << endl;
+
+               if (_state == FieldStateEnum::Unavailable)
+               {
+                  std::string aggName = typeid(*_aggregate).name();
+                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+               }
+
+               _val.push_back(element);
+
+               _fieldSetCounter = _aggregate->fieldSetCounter();
+               const FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;
+               if (metaState == FieldStateEnum::Default || metaState == FieldStateEnum::NotSet)
+               {
+                  _state = FieldStateEnum::Set;
+               }
+            }
+
+            /// <summary>
             /// Get the value of this field.
             /// </summary>
             /// <returns>The value of this field.</returns>
@@ -102,6 +130,8 @@ namespace Bct
                   std::string aggName = typeid(*_aggregate).name();
                   throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                }
+               default:
+                  break;
                }
                _val.swap(other);
                _fieldSetCounter = _aggregate->fieldSetCounter();
@@ -287,6 +317,70 @@ namespace Bct
             virtual int32_t fieldId() const
             {
                return _fieldId;
+            }
+
+            virtual void serialize(PrettyWriter<StringBuffer> * writer) const
+            {
+               const TypeEnum::Type theSubtype = subtype();
+               cout << "VF::serialize() type()/subtype(): " << type() << " / " << theSubtype << endl;
+
+               if (FieldStateEnum::Unavailable == _state || FieldStateEnum::NotSet == _state)
+               {
+                  writer->Null();
+                  return;
+               }
+
+               writer->StartArray();
+               //std::vector<T>::const_iterator itr; // = _val.begin();
+               //for (; itr != _val.end(); ++itr)
+               const std::vector<T> & theVector = value();
+               for (unsigned int idx = 0; idx < theVector.size(); ++idx)
+               {
+                  try
+                  {
+                     const T theElement = theVector[idx];
+                     const T * pElement = &(theElement);
+                     switch (theSubtype)
+                     {
+                     case TypeEnum::BoolType:
+                        writer->Bool(*(reinterpret_cast<const bool*>(pElement)));
+                        break;
+                     case TypeEnum::Int32Type:
+                        writer->Int(*(reinterpret_cast<const int32_t*>(pElement)));
+                        break;
+                     case TypeEnum::UInt32Type:
+                        writer->Uint(*(reinterpret_cast<const uint32_t*>(pElement)));
+                        break;
+                     case TypeEnum::Int64Type:
+                        writer->Int64(*(reinterpret_cast<const int64_t*>(pElement)));
+                        break;
+                     case TypeEnum::UInt64Type:
+                        writer->Uint64(*(reinterpret_cast<const uint64_t*>(pElement)));
+                        break;
+                     case TypeEnum::DoubleType:
+                        writer->Double(*(reinterpret_cast<const double*>(pElement)));
+                        break;
+                     case TypeEnum::StringType:
+                        writer->String((reinterpret_cast<const std::string *>(pElement))->c_str());
+                        break;
+                     case TypeEnum::ObjectType: //[PL] TODO: what type of object could this be, anyway?
+                        writer->Null();
+                        break;
+                     case TypeEnum::ArrayType: //[PL] TODO: nested vectors
+                        writer->Null();
+                        break;
+                     default:
+                        writer->Null();
+                        break;
+                     }
+                  }
+                  catch (...)
+                  {
+                     cout << "VectorField " << __LINE__ << " exception" << endl;
+                     writer->Null();
+                  }
+               }
+               writer->EndArray();
             }
 
          protected:

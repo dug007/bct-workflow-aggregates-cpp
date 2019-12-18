@@ -16,6 +16,7 @@
 
 #include "BaseField.h"
 #include "StringField.h"
+#include "VectorField.h"
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/reader.h"
@@ -405,13 +406,17 @@ namespace Bct
             return _version;
          }
 
+         //
+         // Serialization stuff below:
+         //***************************************************************************
+
          // for debugging only #define COUT cout<<__LINE__<<endl;
-         void BaseAggregate::serialize( PrettyWriter<StringBuffer> & writer ) const
+         void BaseAggregate::serialize( PrettyWriter<StringBuffer> * writer ) const
          {
             //TODO - User Story 129258
             // Elsewhere, ensure computedValueString() uses serialializeValue/deserializeValue as appropriate.
             // See deserialize below.
-            writer.StartObject();
+            writer->StartObject();
             // Fields
             for (int32_t i = 0; i < static_cast<int32_t>(_fieldList.size()); i++)
             {
@@ -420,50 +425,23 @@ namespace Bct
                const int32_t fieldId = fld->fieldId();
                const std::string &fieldName = MetaData().fieldInfo[fieldId].fieldName();
                const TypeEnum::Type &type = fld->type();
+
+               // [PL] temp
+               //if (TypeEnum::ArrayType == type) continue;
+
                // now put into JSON
-               writer.Key(fieldName.c_str());
-               //cout << "fieldName: " << fieldName.c_str() << ";   type: " << type << endl;
-               if (fld->state() == FieldStateEnum::Unavailable || fld->state() == FieldStateEnum::NotSet)
+               writer->Key(fieldName.c_str());
+               cout << "fieldName: " << fieldName.c_str() << ";   type: " << type << endl;
+               try
                {
-                  writer.Null();
+                  fld->serialize(writer);
                }
-               else
+               catch(NotAbleToGet & exNotAbleToGet)
                {
-                  switch (type)
-                  {
-                  case TypeEnum::BoolType:
-                     writer.Bool((static_cast<const BaseField<bool>*>(fld))->value());
-                     break;
-                  case TypeEnum::Int32Type:
-                     writer.Int((static_cast<const BaseField<int32_t>*>(fld))->value());
-                     break;
-                  case TypeEnum::UInt32Type:
-                     writer.Uint((static_cast<const BaseField<uint32_t>*>(fld))->value());
-                     break;
-                  case TypeEnum::Int64Type:
-                     writer.Int64((static_cast<const BaseField<int64_t>*>(fld))->value());
-                     break;
-                  case TypeEnum::UInt64Type:
-                     writer.Uint64((static_cast<const BaseField<uint64_t>*>(fld))->value());
-                     break;
-                  case TypeEnum::DoubleType:
-                     writer.Double((static_cast<const BaseField<double>*>(fld))->value());
-                     break;
-                  case TypeEnum::StringType:
-                  {
-                     const std::string tmpStringValue = (std::string)(*(static_cast<const StringField*>(fld)));
-                     writer.String(tmpStringValue.c_str());
-                  }
-                  break;
-                  case TypeEnum::ArrayType:// TODO: story 149108
-                     writer.String("<TODO: ArrayType>");
-                     break;
-                  default:
-                     writer.String("ERROR: unexpected type");
-                     break;
-                  }
+                  cerr << "NotAbleToGet exception: " << exNotAbleToGet.what() << endl;
+                  writer->Null();
                }
-            }
+            }// for(_fieldList)
 
             // Nested aggregates
             cout << "Nested count: " << static_cast<int32_t>(_aggList.size()) << endl;
@@ -473,21 +451,32 @@ namespace Bct
                const int32_t fieldIdNested = agg->FieldIdAsNested();
                const std::string &fieldName = MetaData().fieldInfo[fieldIdNested].fieldName();
                // Now put into JSON
-               writer.Key( fieldName.c_str());
-               static_cast<BaseAggregate*>(agg)->serialize( writer );
-            }
+               writer->Key( fieldName.c_str());
+               cout << "fieldName: " << fieldName.c_str() << endl;
+               try
+               {
+                  static_cast<BaseAggregate*>(agg)->serialize(writer);
+               }//try
+               catch (...)
+               {
+                  cerr << "Exception................ " << endl;
+                  writer->Null();
+               }
+            }//for(_aggList)
 
-            writer.EndObject();
+            writer->EndObject();
          }
 
-         // Deserialize-related stuff -----------------------------:
+         //
+         // Deserialization stuff below:
+         //***************************************************************************
          static string deserializeLastKeyName;
 
          AbstractAggregate * BaseAggregate::findLastKeyAggregate() const
          {
-            for (int32_t i = 0; i < static_cast<int32_t>(_aggList.size()); i++)
+            for (vector<AbstractAggregate*>::const_iterator iter = _aggList.begin(); iter != _aggList.end(); ++iter)
             {
-               AbstractAggregate *agg = _aggList[i];
+               AbstractAggregate *agg = *iter;
                const int32_t fieldIdNested = agg->FieldIdAsNested();
                const std::string &fieldName = MetaData().fieldInfo[fieldIdNested].fieldName();
                if (deserializeLastKeyName == fieldName)
@@ -500,9 +489,9 @@ namespace Bct
 
          AbstractField * BaseAggregate::findLastKeyField() const
          {
-            for (int32_t i = 0; i < static_cast<int32_t>(_fieldList.size()); i++)
+            for (vector<AbstractField*>::const_iterator itr = _fieldList.begin(); itr != _fieldList.end(); ++itr)
             {
-               AbstractField *fld = _fieldList[i];
+               AbstractField *fld = *itr;
                const int32_t fieldId = fld->fieldId();
                const std::string &fieldName = MetaData().fieldInfo[fieldId].fieldName();
                if ( deserializeLastKeyName == fieldName )
@@ -522,6 +511,8 @@ namespace Bct
 
          bool BaseAggregate::DeserializeEventHandler::StartObject()
          {
+            _deserializeCurrentVector = NULL;
+
             cout << ">>> StartObject()" << endl;
             const BaseAggregate * currentAggregate = getCurrentAggregate();
             if (currentAggregate) {
@@ -540,7 +531,6 @@ namespace Bct
                   {
                      std::string tempAggName = typeid(*this).name();
                      throw AggregateNotFound(tempAggName);
-                     return false;
                   }
                }
             }
@@ -555,79 +545,29 @@ namespace Bct
             return true;
          }
 
-         // [PL] setFieldReinterpretType() is a global function b/c when I tried making it a BaseAggregate::DeserializeEventHandler
-         // member I was getting circular dependency errors (BaseAggregate<->BaseField) when compiling for VxWorks.
-         template <typename T>
-         void setFieldReinterpretType(BaseField<T> * fld, T theValue)
+         bool BaseAggregate::DeserializeEventHandler::StartArray()
          {
-            const string fldTypeName = typeid(*fld).name();
-            cout << "fldTypeName: " << fldTypeName;
-            const FieldStateEnum::FieldState fldState = fld->state();
-            if (fldState != FieldStateEnum::Constant && fldState != FieldStateEnum::Unavailable) {
-               fld->value(theValue);
-               cout << "\ttheValue: " << theValue;
-            }
-            else
+            cout << "StartArray()" << endl;
+            BaseAggregate * currentAggregate = getCurrentAggregate();
+            if (currentAggregate)
             {
-               cout << "\tfield State: " << fldState;
+               AbstractField * fldAbs = currentAggregate->findLastKeyField();
+               if (fldAbs)
+               {
+                  _deserializeCurrentVector = fldAbs;
+                  cout << "================  StartArray(): subtype: " << fldAbs->subtype() << endl;
+               }
             }
-            cout << endl;
+            //--------------------------------
+            return true;
          }
 
-         template <typename ScalarType>
-         void BaseAggregate::DeserializeEventHandler::setField( ScalarType theValue )
+         bool BaseAggregate::DeserializeEventHandler::EndArray(SizeType elementCount)
          {
-            const type_info & theValueType = typeid(theValue);
-            const string theValueTypeName = theValueType.name();
-            cout << "ScalarType: " << theValueTypeName << endl;
-            BaseAggregate * currentAggregate = getCurrentAggregate();
-            if (currentAggregate) {
-               AbstractField * fldAbs = currentAggregate->findLastKeyField();
-               BaseField<ScalarType> * fld = dynamic_cast<BaseField<ScalarType>*>( fldAbs );
-               if (fld)
-               {
-                  setFieldReinterpretType(fld, theValue);
-               }
-               else
-               {
-                  // The actual field type could be EnumField<U,X>, U being int32_t, uint32_t, int64_t, uint64_t.
-                  //   If (rapidjson-detected) ScalarType is uint32_t, U could actually be any of the above four types.
-                  //   If ScalarType is  int32_t - U could be  int32_t or  int64_t
-                  //   If ScalarType is uint64_t - U could be uint32_t or uint64_t
-                  //   If ScalarType is  int64_t - U can only be int64_t
-                  BaseField<int32_t> * fld_int32 = dynamic_cast<BaseField<int32_t>*>(fldAbs);
-                  if (fld_int32)
-                  {
-                     setFieldReinterpretType(fld_int32, static_cast<int32_t>(theValue));
-                  }
-                  else {
-                     BaseField<uint32_t> * fld_uint32 = dynamic_cast<BaseField<uint32_t>*>(fldAbs);
-                     if (fld_uint32)
-                     {
-                        setFieldReinterpretType(fld_uint32, static_cast<uint32_t>(theValue));
-                     }
-                     else {
-                        BaseField<int64_t> * fld_int64 = dynamic_cast<BaseField<int64_t>*>(fldAbs);
-                        if (fld_int64)
-                        {
-                           setFieldReinterpretType(fld_int64, static_cast<int64_t>(theValue));
-                        }
-                        else {
-                           BaseField<uint64_t> * fld_uint64 = dynamic_cast<BaseField<uint64_t>*>(fldAbs);
-                           if (fld_uint64)
-                           {
-                              setFieldReinterpretType(fld_uint64, static_cast<uint64_t>(theValue));
-                           }
-                           else
-                           {
-                              std::string tempAggName = typeid(*this).name();
-                              throw CannotConvertScalar(tempAggName, fld->fieldName());
-                           }
-                        }
-                     }
-                  }
-               }
-            }
+            _deserializeCurrentVector = NULL;
+
+            cout << "EndArray(" << elementCount << ")" << endl;
+            return true;
          }
 
          void BaseAggregate::DeserializeEventHandler::setCurrentAggregate(BaseAggregate * ag = NULL)
@@ -638,7 +578,7 @@ namespace Bct
             }
             else
             {
-               std::string tempAggName = typeid(*this).name();
+               const std::string tempAggName = typeid(*this).name();
                throw AggregateNotFound(tempAggName);
             }
          }
@@ -647,7 +587,7 @@ namespace Bct
          {
             if (_currentAggregate.empty())
             {
-               std::string tempAggName = typeid(*this).name();
+               const std::string tempAggName = typeid(*this).name();
                throw AggregateNotFound(tempAggName);
             }
             else
@@ -661,9 +601,125 @@ namespace Bct
             return _currentAggregate.empty() ? NULL: _currentAggregate.back();
          }
 
+         // [PL] setField() is a global function b/c when I tried making it a BaseAggregate::DeserializeEventHandler
+         // member I was getting circular dependency errors (BaseAggregate<->BaseField) when compiling for VxWorks.
+         template <typename TFieldType, typename TValue>
+         static void setField(TFieldType * fld, const TValue & theValue)
+         {
+            if( NULL == fld )
+            { // [PL] TODO: error handling? Need this NULL-check b/c the upstream code may be calling dynamic_cast which can return NULL.
+               cout << "!!!!!!!!!!!! ERROR in setField(): fld is NULL." << endl;
+               return;
+            }
+
+            const string fldTypeName = typeid(*fld).name();
+            cout << "setField() fldTypeName: " << fldTypeName;
+            const FieldStateEnum::FieldState fldState = fld->state();
+            if (fldState != FieldStateEnum::Constant && fldState != FieldStateEnum::Unavailable) {
+               fld->value(theValue);
+               cout << "\ttheValue: " << theValue;
+            }
+            else
+            {
+               cout << "\tfield State: " << fldState;
+            }
+            cout << endl;
+         }
+
+         template <typename TVector, typename TElement>
+         static void vectorPushBack(TVector * vector, const TElement & element)
+         {
+            if (NULL == vector)
+            {   // [PL] TODO: error handling? Need this NULL-check b/c the upstream code may be calling dynamic_cast which can return NULL.
+               cout << "!!!!!!!!!!!! ERROR in vectorPushBack(): vector is NULL." << endl;
+               return;
+            }
+
+            vector->pushBack(element);
+         }
+
+         template<typename T>
+         void BaseAggregate::DeserializeEventHandler::setFieldOrVectorElement(const T * value)
+         {
+            const type_info & valueTypeId = typeid(*value);
+            const string valueTypeName = valueTypeId.name();
+            cout << "setFieldOrVectorElement(): T (scalar type): " << valueTypeName << endl;
+
+            if (_deserializeCurrentVector)
+            {
+               const TypeEnum::Type subtype = _deserializeCurrentVector->subtype();
+               cout << "setFieldOrVectorElement(): subtype: " << subtype << endl;
+               switch (subtype)
+               {
+               case TypeEnum::BoolType:
+                  vectorPushBack(dynamic_cast<VectorField<bool> *>(_deserializeCurrentVector), *value);
+                  break;
+               case TypeEnum::Int32Type:
+                  vectorPushBack(dynamic_cast<VectorField<int32_t> *>(_deserializeCurrentVector), *value);
+                  break;
+               case TypeEnum::UInt32Type:
+                  vectorPushBack(dynamic_cast<VectorField<uint32_t> *>(_deserializeCurrentVector), *value);
+                  break;
+               case TypeEnum::Int64Type:
+                  vectorPushBack(dynamic_cast<VectorField<int64_t> *>(_deserializeCurrentVector), *value);
+                  break;
+               case TypeEnum::UInt64Type:
+                  vectorPushBack(dynamic_cast<VectorField<uint64_t> *>(_deserializeCurrentVector), *value);
+                  break;
+               case TypeEnum::DoubleType:
+                  vectorPushBack(dynamic_cast<VectorField<double> *>(_deserializeCurrentVector), *value);
+                  break;
+               case TypeEnum::StringType:
+                  vectorPushBack(dynamic_cast<VectorField<std::string>*>(_deserializeCurrentVector), std::string(reinterpret_cast<const char *>(value)));
+                  break;
+               default:
+                  break;
+               }
+            }
+            else
+            {
+               BaseAggregate * currentAggregate = getCurrentAggregate();
+               if (currentAggregate)
+               {
+                  AbstractField * fldAbs = currentAggregate->findLastKeyField();
+                  if (fldAbs)
+                  {
+                     const TypeEnum::Type fldType = fldAbs->type();
+                     cout << "setFieldOrVectorElement(): fldType: " << fldType << endl;
+                     switch (fldType)
+                     {
+                     case TypeEnum::BoolType:
+                        setField(dynamic_cast<BaseField<bool>*>(fldAbs), *value);
+                        break;
+                     case TypeEnum::Int32Type:
+                        setField(dynamic_cast<BaseField<int32_t>*>(fldAbs), *value);
+                        break;
+                     case TypeEnum::UInt32Type:
+                        setField(dynamic_cast<BaseField<uint32_t>*>(fldAbs), *value);
+                        break;
+                     case TypeEnum::Int64Type:
+                        setField(dynamic_cast<BaseField<int64_t>*>(fldAbs), *value);
+                        break;
+                     case TypeEnum::UInt64Type:
+                        setField(dynamic_cast<BaseField<uint64_t>*>(fldAbs), *value);
+                        break;
+                     case TypeEnum::DoubleType:
+                        setField(dynamic_cast<BaseField<double>*>(fldAbs), *value);
+                        break;
+                     case TypeEnum::StringType:
+                        setField(dynamic_cast<BaseField<std::string>*>(fldAbs), std::string(reinterpret_cast<const char *>(value)));
+                        break;
+                     default: // [PL] TODO: error handling?
+                        break;
+                     }
+                  }
+               }
+            }
+         }
+
          bool BaseAggregate::DeserializeEventHandler::Null()
          {
-            BaseAggregate * currentAggregate = getCurrentAggregate();
+            const BaseAggregate * currentAggregate = getCurrentAggregate();
             if (currentAggregate)
             {
                AbstractField *fldAbs = currentAggregate->findLastKeyField();
@@ -676,58 +732,45 @@ namespace Bct
             return true;
          }
 
-         bool BaseAggregate::DeserializeEventHandler::Bool(bool b) {
-            cout << "Bool(" << boolalpha << b << ")" << endl;
-            setField( b );
-            return true;
-         }
-
          bool BaseAggregate::DeserializeEventHandler::Int(int i) {
             cout << "Int(" << i << ")" << endl;
-            setField(i);
+            setFieldOrVectorElement(&i);
             return true;
          }
 
          bool BaseAggregate::DeserializeEventHandler::Uint(unsigned u){
             cout << "Uint(" << u << ")" << endl;
-            setField(u);
+            setFieldOrVectorElement(&u);
             return true;
          }
 
          bool BaseAggregate::DeserializeEventHandler::Int64(int64_t i) {
             cout << "Int64(" << i << ")" << endl;
-            setField(i);
+            setFieldOrVectorElement(&i);
             return true;
          }
 
          bool BaseAggregate::DeserializeEventHandler::Uint64(uint64_t u) {
             cout << "Uint64(" << u << ")" << endl;
-            setField(u);
+            setFieldOrVectorElement(&u);
             return true;
          }
 
          bool BaseAggregate::DeserializeEventHandler::Double(double d) {
             cout << "Double(" << d << ")" << endl;
-            setField(d);
+            setFieldOrVectorElement(&d);
             return true;
          }
 
-         bool BaseAggregate::DeserializeEventHandler::String(const char* str, SizeType length, bool copy) {
-            cout << "String(" << str << ", " << length << ", " << boolalpha << copy << ")" << endl;
-            //setField( string(str) );
-            const BaseAggregate * currentAggregate = getCurrentAggregate();
-            if (currentAggregate)
-            {
-               BaseField<string> * fld = dynamic_cast<BaseField<string>*>(currentAggregate->findLastKeyField());
-               if (fld)
-               {
-                  const FieldStateEnum::FieldState fldState = fld->state();
-                  if (fldState != FieldStateEnum::Constant && fldState != FieldStateEnum::Unavailable) {
-                     fld->value(str);
-                     cout << "str: " << str << endl;
-                  }
-               }
-            }
+         bool BaseAggregate::DeserializeEventHandler::Bool(bool b) {
+            cout << "Bool(" << boolalpha << b << ")" << endl;
+            setFieldOrVectorElement(&b);
+            return true;
+         }
+
+         bool BaseAggregate::DeserializeEventHandler::String(const char* psz, SizeType length, bool copy) {
+            cout << "String(" << psz << ", " << length << ", " << boolalpha << copy << ")" << endl;
+            setFieldOrVectorElement(psz);
             return true;
          }
 

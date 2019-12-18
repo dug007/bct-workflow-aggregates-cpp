@@ -4,6 +4,7 @@
 
 #include "catch.hpp"
 
+using namespace Bct::Workflow;
 using namespace Bct::Workflow::Aggregates;
 using namespace Bct::Workflow::Implementation;
 
@@ -45,6 +46,10 @@ TEST_CASE("EnumFieldTests", "[test]")
    CHECK(na.aggField.enumField == ReferenceEnum::Average);
    na.aggField = aAssign;
    CHECK(na.aggField.enumField == ReferenceEnum::VeryGood);
+
+   // [PL] added this test - failing as of 12/12/19 b/c of a bug in EnumField, I think:
+   const TypeEnum::Type enumFieldType = na.enumField.type();
+   CHECK(enumFieldType == TypeEnum::UInt32Type);
 
    // will not compile  aAssign.enumField.Va
    // will not compile = aAssign.enumField;
