@@ -875,9 +875,9 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    fromRefAgg10.doubleField = 12.00;
    fromRefAgg10.stringField = "Hi Team";
    fromRefAgg10.enumField = ReferenceEnum::Good;
-   /*std::vector<int32_t> fromInt; Keep this for later vector serialization
+   std::vector<int32_t> fromInt; 
    fromInt.push_back(3);
-   fromRefAgg10.vectorIntField = fromInt;*/
+   fromRefAgg10.vectorIntField = fromInt;
    SimpleAggregate fromNestedField;
    fromNestedField.doubleValue = 2;
    fromRefAgg10.nestedField = fromNestedField;
@@ -893,7 +893,7 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    CHECK(toRefAgg10.doubleField == 12.00);
    CHECK((std::string)toRefAgg10.stringField == "Hi Team");
    CHECK(toRefAgg10.enumField == ReferenceEnum::Good);
-   //CHECK(toRefAgg10.vectorIntField.value()[0] == 3); Keep this for later vector serialization
+   CHECK(toRefAgg10.vectorIntField.value()[0] == 3); 
    CHECK(toRefAgg10.nestedField.doubleValue == 2);
    CHECK(toRefAgg10.boolField.state() == FieldStateEnum::Set);
    CHECK(toRefAgg10.boolFieldRequiredv2.state() == FieldStateEnum::NotSet);
