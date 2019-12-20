@@ -7,9 +7,6 @@
 #include "EnumField.h"
 #include "StringField.h"
 #include "VectorField.h"
-#include "BaseAggregate.h"
-#include "BaseField.h"
-#include "SimpleAggregate.h"
 
 using namespace Bct::Workflow::Aggregates;
 
@@ -21,9 +18,9 @@ namespace Bct
       namespace Implementation
       {
 
-         namespace ReferenceEnum
+         namespace SimpleReferenceEnum
          {
-            enum Reference
+            enum SimpleReference
             {
                /// <summary>very good reference</summary>
                VeryGood = 0, 
@@ -36,99 +33,47 @@ namespace Bct
                /// <summary>poor reference</summary>
                Poor = 8, 
                /// <summary>very poor reference</summary>
-               VeryPoor = 2747782723
+               VeryPoor = 16
             };
          }
 
          /// <summary>
-         /// ReferenceAggregate.
+         /// ProjectEnumerations
          /// </summary>
-         class ReferenceAggregate : public BaseAggregate
+         class ProjectEnumerations : public BaseAggregate
          {
          private:
             void pushFields();
 
          public:
             /// <summary>
-            /// Boolean field
-            /// </summary>
-            BaseField<bool>                     boolField;
-                        /// <summary>
-            /// integer field
-            /// </summary>
-            BaseField<int32_t>                     int32Field;
-                        /// <summary>
-            /// uinteger field
-            /// </summary>
-            BaseField<uint32_t>                     uint32Field;
-                        /// <summary>
-            /// integer field
-            /// </summary>
-            BaseField<int64_t>                     int64Field;
-                        /// <summary>
-            /// uinteger field
-            /// </summary>
-            BaseField<uint64_t>                     uint64Field;
-                        /// <summary>
-            /// double field
-            /// </summary>
-            BaseField<double>                     doubleField;
-                        /// <summary>
-            /// string field
-            /// </summary>
-            StringField                     stringField;
-                        /// <summary>
             /// 
             /// </summary>
-            BaseField<bool>                     boolFieldRequiredv2;
-                        /// <summary>
-            /// 
-            /// </summary>
-            EnumField<int64_t, ReferenceEnum::Reference>                     enumField;
-                        /// <summary>
-            /// 
-            /// </summary>
-            VectorField<int32_t>                     vectorIntField;
-                        /// <summary>
-            /// Simple Type.
-            /// </summary>
-            SimpleAggregate                     nestedField;
-                        /// <summary>
-            /// double field
-            /// </summary>
-            BaseField<double>                     v100Field;
-                        /// <summary>
-            /// 
-            /// </summary>
-            SimpleAggregate                     nestedField2;
-                        /// <summary>
-            /// 
-            /// </summary>
-            BaseField<bool>                     boolFieldRequiredv0;
+            EnumField<int32_t, SimpleReferenceEnum::SimpleReference>                     simpleReferenceEnumGenerator;
             
             /// <summary>
             /// Default constructor. Creates the most recent version.
             /// </summary>
-            ReferenceAggregate();
+            ProjectEnumerations();
 
             /// <summary>
             /// Version constructor. Creates the specified version.
             /// </summary>
             /// <param name="version">Version to construct such as "1.2.0"</param>
-            ReferenceAggregate(const std::string &version);
+            ProjectEnumerations(const std::string &version);
 
             /// <summary>
             /// Constructor for nested aggregate.
             /// </summary>
             /// <param name="fieldId">Field id of this nested aggregate.</param>
             /// <param name="parent">Parent aggregate of this nested aggregate</param>
-            ReferenceAggregate(int32_t fieldId, BaseAggregate * const parent);
+            ProjectEnumerations(int32_t fieldId, BaseAggregate * const parent);
 
             /// <summary>
             /// Copy constructor.
             /// </summary>
             /// <param name="other">Aggregate to be copied.</param>
-            ReferenceAggregate(const ReferenceAggregate & other);
+            ProjectEnumerations(const ProjectEnumerations & other);
 
             /// <summary>
             /// Constructor for copying when the aggregate is nested.
@@ -138,7 +83,7 @@ namespace Bct
             /// </summary>
             /// <param name="other">The object being copied</param>
             /// <param name="parent">The parent of this nested aggregate.</param>
-            ReferenceAggregate(const ReferenceAggregate & other, BaseAggregate * const parent);
+            ProjectEnumerations(const ProjectEnumerations & other, BaseAggregate * const parent);
 
 
             /// <summary>
@@ -146,26 +91,26 @@ namespace Bct
             /// </summary>
             /// <param name="other">Object being copied.</param>
             /// <returns>Reference to new object.</returns>
-            ReferenceAggregate & operator=(const ReferenceAggregate &other);
+            ProjectEnumerations & operator=(const ProjectEnumerations &other);
 
             /// <summary>
             /// Equal operator.
             /// </summary>
             /// <param name="fld">Other field to compare to</param>
             /// <returns>True if the two field's values are equal.</returns>
-            bool operator ==(const ReferenceAggregate &other) const;
+            bool operator ==(const ProjectEnumerations &other) const;
 
             /// <summary>
             /// Not equal operator.
             /// </summary>
             /// <param name="fld">Other field to compare to.</param>
             /// <returns>True if the two field's values are not equal.</returns>
-            bool operator !=(const ReferenceAggregate &other) const;
+            bool operator !=(const ProjectEnumerations &other) const;
 
             /// <summary>
             /// Virtual destructor
             /// </summary>
-            virtual ~ReferenceAggregate();
+            virtual ~ProjectEnumerations();
 
             /// <summary>
             /// Virtual function to return the metadata reference for this object. Aggregates must implement this at the most-derived level such as generated code.

@@ -351,7 +351,7 @@ TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
    CHECK(RefAgg3.enumField == ReferenceEnum::BelowAverage);
    RefAgg3.enumField.computedValueString("8");
    CHECK(RefAgg3.enumField == ReferenceEnum::Poor);
-   RefAgg3.enumField.computedValueString("16");
+   RefAgg3.enumField.computedValueString("2747782723");
    CHECK(RefAgg3.enumField == ReferenceEnum::VeryPoor);
 }
 
