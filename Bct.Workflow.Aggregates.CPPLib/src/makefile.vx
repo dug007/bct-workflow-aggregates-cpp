@@ -14,12 +14,12 @@ endif
 # MAINDIR should be set to the relative path from this makefile directory
 # to the base project directory.
 #
-MAINDIR = ../../../../..
+MAINDIR = ../../../..
 BASEDIR = $(MAINDIR)/base
 
-MESSAGES_DIR = ../..
-AGGREGATES_INCDIR = $(MESSAGES_DIR)/Bct.Workflow.Aggregates.CPPLib/include
-RPN_INCDIR        = $(MESSAGES_DIR)/Bct.Workflow.Aggregates.CPPLib/BCT.RPNEvaluator.CPP/include
+AGGREGATES_INCDIR = ../include
+RPN_INCDIR        = ../BCT.RPNEvaluator.CPP/include
+RPN_SRCDIR        = ../BCT.RPNEvaluator.CPP/src
 RAPIDJSON_INCDIR  = $(BASEDIR)/rapidjson-1.1.0/include
 
 WARNFLAGS = -Wchar-subscripts -Wcomment -Wimplicit -Wparentheses -Wreturn-type -Wswitch -Wtrigraphs 
@@ -31,7 +31,15 @@ WARNFLAGS = -Wchar-subscripts -Wcomment -Wimplicit -Wparentheses -Wreturn-type -
 ADDN_INCDIR = -I$(AGGREGATES_INCDIR) -I$(RPN_INCDIR) -I$(RAPIDJSON_INCDIR)
 
 include $(MAINDIR)/makefile.vxc_rtp
-#include $(MAINDIR)/makefile.vxc
+
+#
+# VPATH must include the relative pathnames (from the directory containing this
+# makefile) to any directories containing source files used for the applications.
+#
+
+vpath FuncOper.cpp $(RPN_SRCDIR)
+vpath RPNEvaluator.cpp $(RPN_SRCDIR)
+vpath Token.cpp $(RPN_SRCDIR)
 
 #
 # The following should define all of the source files of each type
@@ -39,28 +47,33 @@ include $(MAINDIR)/makefile.vxc_rtp
 #
 
 LIB_C_FILES = 
-
 LIB_CC_FILES = 
-
 LIB_CXX_FILES = \
+FuncOper.cpp \
+RPNEvaluator.cpp\
+Token.cpp \
 AggregateMetaData.cpp \
+AggregateNotFound.cpp \
 AssessmentResult.cpp \
 AssessmentRule.cpp \
 BaseAggregate.cpp \
+CannotConvertScalar.cpp \
 ComputeRule.cpp \
-Exceptions.cpp \
 FieldInfo.cpp \
 FieldMeta.cpp \
 FluentAssessmentRule.cpp \
 FluentComputeRule.cpp \
 FluentMeta.cpp \
 FluentVersionChangeRule.cpp \
+NoSuchVersion.cpp \
+NotAbleToGet.cpp \
+NotAbleToSet.cpp \
 StringField.cpp \
 StringFieldRo.cpp \
 VersionChangeRule.cpp \
 VersionInfo.cpp 
 
-ARCHIVE_NAME=cpp_lib.a
+ARCHIVE_NAME=aggregates_lib.a
 ARCHIVE_DIR=.
 
 #

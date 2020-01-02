@@ -331,8 +331,6 @@ namespace Bct
                }
 
                writer->StartArray();
-               //std::vector<T>::const_iterator itr; // = _val.begin();
-               //for (; itr != _val.end(); ++itr)
                const std::vector<T> & theVector = value();
                for (unsigned int idx = 0; idx < theVector.size(); ++idx)
                {
