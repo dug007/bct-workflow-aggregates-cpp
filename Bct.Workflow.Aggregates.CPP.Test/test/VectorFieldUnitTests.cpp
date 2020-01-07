@@ -63,13 +63,13 @@ public:
 
       if (!initialized)
       {
-         tm.addField(0, "vectorInt32Field", Bct::Workflow::TypeEnum::ArrayType);
-         tm.addField(1, "vectorDblField", Bct::Workflow::TypeEnum::ArrayType);
-         tm.addField(2, "vectorStrField", Bct::Workflow::TypeEnum::ArrayType);
-         tm.addField(3, "vectorAggField", Bct::Workflow::TypeEnum::ArrayType);
-         tm.addField(4, "vectorVersion0only", Bct::Workflow::TypeEnum::ArrayType);
-         tm.addField(5, "vectorVersion1only", Bct::Workflow::TypeEnum::ArrayType);
-         tm.addField(6, "vectorVersion2only", Bct::Workflow::TypeEnum::ArrayType);
+         tm.addField(0, "vectorInt32Field", Bct::Workflow::TypeEnum::ArrayType, Bct::Workflow::TypeEnum::Int32Type);
+         tm.addField(1, "vectorDblField", Bct::Workflow::TypeEnum::ArrayType, Bct::Workflow::TypeEnum::DoubleType);
+         tm.addField(2, "vectorStrField", Bct::Workflow::TypeEnum::ArrayType, Bct::Workflow::TypeEnum::StringType);
+         tm.addField(3, "vectorAggField", Bct::Workflow::TypeEnum::ArrayType, Bct::Workflow::TypeEnum::ObjectType);
+         tm.addField(4, "vectorVersion0only", Bct::Workflow::TypeEnum::ArrayType, Bct::Workflow::TypeEnum::Int64Type);
+         tm.addField(5, "vectorVersion1only", Bct::Workflow::TypeEnum::ArrayType, Bct::Workflow::TypeEnum::Int64Type);
+         tm.addField(6, "vectorVersion2only", Bct::Workflow::TypeEnum::ArrayType, Bct::Workflow::TypeEnum::BoolType);
 
          tm.addVersion("1.0.0");
          tm.addVersion("1.1.0");
@@ -323,3 +323,13 @@ TEST_CASE("VectorFieldSwapTests", "[test]")
    CHECK(v.size() == 0);
 }
 
+TEST_CASE("VectorFieldSubtype", "[test]")
+{
+   TestVectorFieldAggregate testVec("1.2.0");
+
+   CHECK(testVec.vectorAggField.subtype() == TypeEnum::ObjectType);
+   CHECK(testVec.vectorDblField.subtype() == TypeEnum::DoubleType);
+   CHECK(testVec.vectorStrField.subtype() == TypeEnum::StringType);
+   CHECK(testVec.vectorInt32Field.subtype() == TypeEnum::Int32Type);
+   CHECK(testVec.vectorVersion2only.subtype() == TypeEnum::BoolType);
+}

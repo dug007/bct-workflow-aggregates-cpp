@@ -32,7 +32,7 @@ const string na_json =
 \"boolField\": true, \
 \"int32Field\": -32, \
 \"uint32Field\": 32, \
-\"int64Field\": -64, \
+\"int64Field\":  60, \
 \"uint64Field\": 64, \
 \"doubleField\": 1.23, \
 \"stringField\": \"hello world\", \
@@ -47,6 +47,7 @@ const string na_json =
     \"stringField\": \"hello world - nested - na\", \
     \"boolFieldRequiredv2\": false, \
     \"enumField\": 4, \
+    \"vectorIntField\": [20, 30, -50], \
     \"v100Field\": 100.0, \
     \"boolFieldRequiredv0\": false \
   } \
@@ -55,28 +56,38 @@ const string na_json =
 const string ra_json =
 "{ \
     \"boolField\": true, \
-    \"int32Field\": -320, \
+    \"int32Field\": -300, \
     \"uint32Field\": 320, \
-    \"int64Field\": -64000000000, \
+    \"int64Field\": 60, \
     \"uint64Field\": 64000000000, \
     \"doubleField\": -7.8999999, \
     \"stringField\": \"hello world - nested - ra\", \
     \"boolFieldRequiredv2\": false, \
     \"enumField\": 40, \
+    \"vectorIntField\": [2, 3, -5], \
     \"v100Field\": 100.0, \
     \"boolFieldRequiredv0\": true \
 }";
 
+#define NA_TEST 1 // 1|0, respectively, to switch betw. NestedWithReferenceAggregate and ReferenceAggregate test.
+
 static void runDeserialize( void )
 {
-   NestedWithReferenceAggregate na;  na.deserialize(na_json);
-   //ReferenceAggregate ra;   ra.deserialize( ra_json );
+#if NA_TEST
+   NestedWithReferenceAggregate na;
+   BaseAggregate *agg = &na;
+   agg->deserialize(na_json);
+#else
+   ReferenceAggregate ra;
+   BaseAggregate *agg = &ra;
+   agg->deserialize(ra_json);
+#endif
 
    cout << "--------------- Serialize it now:" << endl;
    StringBuffer sb;
    PrettyWriter<StringBuffer> writer(sb);
 
-   na.serialize(writer);
+   agg->serialize(&writer);
    cout << "Serialized: \n" << sb.GetString() << endl;
 }
 
@@ -85,10 +96,22 @@ static void runSerialize( void )
    StringBuffer sb;
    PrettyWriter<StringBuffer> writer(sb);
 
+#if NA_TEST
    NestedWithReferenceAggregate na;
-   na.serialize( writer );
+   na.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
+   na.serialize( &writer );
+#else
+   ReferenceAggregate ra;
+   ra.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
+   std::vector<int32_t> vectorInt;
+   vectorInt.push_back( -1 );
+   vectorInt.push_back( 3 );
+   vectorInt.push_back( 5 );
+   ra.vectorIntField.value( vectorInt );
+   ra.serialize( &writer );
+#endif
 
-   cout << "NestedWithReferenceAggregate serialized: \n" << sb.GetString() << endl;
+   cout << "Serialized: \n" << sb.GetString() << endl;
 }
 
 int main(int argc, char** argv)
@@ -104,7 +127,7 @@ int main(int argc, char** argv)
       runDeserialize();
    }
 
-	//----------------
+   //----------------
    return 0;
 }
 

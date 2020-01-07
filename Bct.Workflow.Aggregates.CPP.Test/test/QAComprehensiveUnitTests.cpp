@@ -307,6 +307,7 @@ TEST_CASE("FieldAssigmentDoesNotThrowExceiption", "[test]")
    toSamAgg.FieldEnumRo = fromSamAgg.FieldEnumRo;
    toSamAgg.FieldStringro = fromSamAgg.FieldStringro;
    toSamAgg.Field7ro = fromSamAgg.Field7ro;
+   CHECK(1 == 1); //Just to make sure test runs and that no exception are thrown from previous lines of code.
 }
 
 //Tests Set Field Value - sets the current value for a field by using assignment.
@@ -350,7 +351,7 @@ TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
    CHECK(RefAgg3.enumField == ReferenceEnum::BelowAverage);
    RefAgg3.enumField.computedValueString("8");
    CHECK(RefAgg3.enumField == ReferenceEnum::Poor);
-   RefAgg3.enumField.computedValueString("16");
+   RefAgg3.enumField.computedValueString("2747782723");
    CHECK(RefAgg3.enumField == ReferenceEnum::VeryPoor);
 }
 
@@ -874,16 +875,16 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    fromRefAgg10.doubleField = 12.00;
    fromRefAgg10.stringField = "Hi Team";
    fromRefAgg10.enumField = ReferenceEnum::Good;
-   /*std::vector<int32_t> fromInt; Keep this for later vector serialization
+   std::vector<int32_t> fromInt; 
    fromInt.push_back(3);
-   fromRefAgg10.vectorIntField = fromInt;*/
+   fromRefAgg10.vectorIntField = fromInt;
    SimpleAggregate fromNestedField;
    fromNestedField.doubleValue = 2;
    fromRefAgg10.nestedField = fromNestedField;
 
    rapidjson::StringBuffer buffer;
    PrettyWriter<rapidjson::StringBuffer> writer(buffer);
-   fromRefAgg10.serialize(writer);
+   fromRefAgg10.serialize(&writer);
    toRefAgg10.deserialize(buffer.GetString());
 
    CHECK(toRefAgg10.boolField == false);
@@ -892,7 +893,7 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    CHECK(toRefAgg10.doubleField == 12.00);
    CHECK((std::string)toRefAgg10.stringField == "Hi Team");
    CHECK(toRefAgg10.enumField == ReferenceEnum::Good);
-   //CHECK(toRefAgg10.vectorIntField.value()[0] == 3); Keep this for later vector serialization
+   CHECK(toRefAgg10.vectorIntField.value()[0] == 3); 
    CHECK(toRefAgg10.nestedField.doubleValue == 2);
    CHECK(toRefAgg10.boolField.state() == FieldStateEnum::Set);
    CHECK(toRefAgg10.boolFieldRequiredv2.state() == FieldStateEnum::NotSet);

@@ -1,8 +1,11 @@
 #pragma once
 #include <string>
-
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/stringbuffer.h"
 #include "TypeEnum.h"
 #include "FieldStateEnum.h"
+
+using namespace rapidjson;
 
 namespace Bct
 {
@@ -23,6 +26,12 @@ namespace Bct
             virtual const TypeEnum::Type type() const = 0;
 
             /// <summary>
+            /// Pure virtual function to return the subtype enum of this field.
+            /// </summary>
+            /// <returns>Subtype enum of this field.</returns>
+            virtual const TypeEnum::Type subtype() const = 0;
+
+            /// <summary>
             /// Pure virtual function to return the field state enum of this field.
             /// </summary>
             /// <returns>The field state of this field.</returns>
@@ -41,6 +50,8 @@ namespace Bct
             /// </summary>
             /// <returns>Field id for this field.</returns>
             virtual int32_t fieldId() const = 0;
+
+            virtual void serialize(PrettyWriter<StringBuffer> * writer) const = 0;
 
          protected:
             /// <summary>

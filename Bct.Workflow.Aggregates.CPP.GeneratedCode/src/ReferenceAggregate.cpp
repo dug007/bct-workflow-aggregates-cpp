@@ -23,7 +23,7 @@ namespace Bct
             stringField(6, this), 
             boolFieldRequiredv2(7, this), 
             enumField(8, "ReferenceEnum::Reference",
-            "0 1 2 4 8 16 ",
+            "0 1 2 4 8 2747782723 ",
             "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
             vectorIntField(9, this), 
             nestedField(10, this), 
@@ -46,7 +46,7 @@ namespace Bct
             stringField(6, this), 
             boolFieldRequiredv2(7, this), 
             enumField(8, "ReferenceEnum::Reference",
-            "0 1 2 4 8 16 ",
+            "0 1 2 4 8 2747782723 ",
             "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
             vectorIntField(9, this), 
             nestedField(10, this), 
@@ -69,7 +69,7 @@ namespace Bct
            stringField(6, this), 
            boolFieldRequiredv2(7, this), 
            enumField(8, "ReferenceEnum::Reference",
-           "0 1 2 4 8 16 ",
+           "0 1 2 4 8 2747782723 ",
            "ReferenceEnum::VeryGood ReferenceEnum::Good ReferenceEnum::Average ReferenceEnum::BelowAverage ReferenceEnum::Poor ReferenceEnum::VeryPoor ", this), 
            vectorIntField(9, this), 
            nestedField(10, this), 
@@ -256,8 +256,8 @@ namespace Bct
                tm.addField(5, "doubleField", TypeEnum::DoubleType);
                tm.addField(6, "stringField", TypeEnum::StringType);
                tm.addField(7, "boolFieldRequiredv2", TypeEnum::BoolType);
-               tm.addField(8, "enumField", TypeEnum::Int32Type);
-               tm.addField(9, "vectorIntField", TypeEnum::ArrayType);
+               tm.addField(8, "enumField", TypeEnum::Int64Type);
+               tm.addField(9, "vectorIntField", TypeEnum::ArrayType, TypeEnum::Int32Type);
                tm.addAggField(10, "nestedField");
                tm.addField(11, "v100Field", TypeEnum::DoubleType);
                tm.addAggField(12, "nestedField2");

@@ -34,7 +34,13 @@ TEST_CASE("ReferenceUnitTest", "[test]")
    ref.stringField.value("another world");
    rapidjson::StringBuffer buffer;
    PrettyWriter<rapidjson::StringBuffer> writer(buffer);
-   ref.serialize(writer);
+   ref.serialize(&writer);
    ref2.deserialize(buffer.GetString());
    CHECK(ref2.stringField.value() == "another world");
+}
+
+TEST_CASE("ReferenceSubtype", "[test]")
+{
+   ReferenceAggregate ref;
+   CHECK(ref.boolField.subtype() == TypeEnum::EmptyType);
 }
