@@ -30,6 +30,8 @@ WARNFLAGS = -Wchar-subscripts -Wcomment -Wimplicit -Wparentheses -Wreturn-type -
 
 ADDN_INCDIR = -I$(AGGREGATES_INCDIR) -I$(RPN_INCDIR) -I$(RAPIDJSON_INCDIR)
 
+SMARTIFACTS=true
+
 include $(MAINDIR)/makefile.vxc_rtp
 
 #
