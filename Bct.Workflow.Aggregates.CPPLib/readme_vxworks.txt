@@ -16,7 +16,7 @@ Simulator note: The code is not ready yet to be run in the simulator. Doing so w
 1. cd Bct.Workflow.Aggregates.CPPLib/src; make -f makefile.vx
 	- Will create aggregates_lib.a
 2. Bct.Workflow.Aggregates.CPP.Test/test; make -f makefile.vx
-	- Will create unit_test.vxe (Firefly's unit tests, which can be run on the Optia - see "RUNNING..." below).
+	- Will create aggregates_unit_tests.vxe (Firefly's unit tests, which can be run on the Optia - see "RUNNING..." below).
 	- (Will build aggregates_lib.a and generated_code_lib.a as needed.)
 3. Bct.Workflow.Aggregates.CPP.Test/serialize_test; make -f makefile.vx
 	- Will create serialize_test.vxe (HGT's de-/serialization test tool, which can be run on the Optia - see "RUNNING..." below).
@@ -31,15 +31,15 @@ onto the Optia in /machine/tools/.
 If you get a S_rtpLib_INSTANTIATE_FAILED error, you need to transfer the file in binary mode.
 
 FTP serialize_test/serialize_test.vxe file to /machine/tools/
-FTP Bct.Workflow.Aggregates.CPP.Test/test/unit_test.vxe to /machine/tools/
+FTP Bct.Workflow.Aggregates.CPP.Test/test/aggregates_unit_tests.vxe to /machine/tools/
 Telnet to the machine
 -> cmd
 [vxWorks *]# cd /machine/tools
 [vxWorks *]# rtp exec -u 16834 -c /machine/tools/serialize_test.vxe        //serialize proto
 [vxWorks *]# rtp exec -u 16834 -c /machine/tools/serialize_test.vxe -- -d  //de-serialize proto
-[vxWorks *]# rtp exec -u 16834 -c /machine/tools/unit_test.vxe             
+[vxWorks *]# rtp exec -u 16834 -c /machine/tools/aggregates_unit_tests.vxe
 	...or, to get more debug info:
-[vxWorks *]# rtp exec -u 16834 -c /machine/tools/unit_test.vxe -- -r xml
+[vxWorks *]# rtp exec -u 16834 -c /machine/tools/aggregates_unit_tests.vxe -- -r xml
 
 
 /* EOF */

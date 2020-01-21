@@ -1,4 +1,5 @@
 #include "NestedWithReference.h"
+//#include "TPEPredictUserDataAggregate.h"
 
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/stringbuffer.h"
@@ -69,14 +70,47 @@ const string ra_json =
     \"boolFieldRequiredv0\": true \
 }";
 
+const string tpe_json =
+"{\
+      \"gender\": null,\
+      \"heightCm\" : null,\
+      \"weightKg\" : null,\
+      \"hctFrac\" : null,\
+      \"tbvMl\" : null,\
+      \"bmi\" : null,\
+      \"patientHeightMinCm\" : 30.0,\
+      \"patientHeightMaxCm\" : 244.0,\
+      \"patientHeightMinEng\" : 12.0,\
+      \"patientHeightMaxEng\" : 96.0,\
+      \"patientWeightMin\" : 2.0,\
+      \"patientWeightMax\" : 227.0,\
+      \"patientWeightMinEng\" : 5.0,\
+      \"patientWeightMaxEng\" : 500.0,\
+      \"patientHCTMin\" : 0.1,\
+      \"patientHCTMax\" : 0.7,\
+      \"tBVLimitPercent\" : 0.15,\
+      \"tBVEnteredMin\" : 300.0,\
+      \"tBVEnteredMax\" : 15000.0,\
+      \"tBVCalculationThresholdKg\" : 25.0,\
+      \"bMIComputedMin\" : 0,\
+      \"bMIComputedMax\" : 100\
+}";
+
 #define NA_TEST 1 // 1|0, respectively, to switch betw. NestedWithReferenceAggregate and ReferenceAggregate test.
+#define TPE_TEST 0
 
 static void runDeserialize( void )
 {
 #if NA_TEST
-   NestedWithReferenceAggregate na;
-   BaseAggregate *agg = &na;
-   agg->deserialize(na_json);
+   #if TPE_TEST
+   TPEPredictUserDataAggregate tpe;
+   BaseAggregate *agg = &tpe;
+   agg->deserialize(tpe_json);
+   #else
+      NestedWithReferenceAggregate na;
+      BaseAggregate *agg = &na;
+      agg->deserialize(na_json);
+   #endif
 #else
    ReferenceAggregate ra;
    BaseAggregate *agg = &ra;
@@ -97,9 +131,14 @@ static void runSerialize( void )
    PrettyWriter<StringBuffer> writer(sb);
 
 #if NA_TEST
-   NestedWithReferenceAggregate na;
-   na.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
-   na.serialize( &writer );
+   #if TPE_TEST
+      TPEPredictUserDataAggregate tpe;
+      tpe.serialize(&writer);
+   #else
+      NestedWithReferenceAggregate na;
+      na.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);
+      na.serialize( &writer );
+   #endif
 #else
    ReferenceAggregate ra;
    ra.enumField.value(Bct::Workflow::Implementation::ReferenceEnum::Poor);

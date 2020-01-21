@@ -265,3 +265,8 @@ __pycache__/
 *.o
 *.vxe
 *.a
+/Bct.Workflow.Aggregates.CPPLib/src/makefile.vx.bak
+/BCT.Workflow.Aggregates.CPP.0.1.0-XDV-063806744.zip
+/Bct.Workflow.Aggregates.CPP.GeneratedCode/src/TPEPredictUserDataAggregate.cpp
+/Bct.Workflow.Aggregates.CPP.GeneratedCode/include/TPEPredictUserDataAggregate.h
+/BCT.RPNEvaluator.CPP

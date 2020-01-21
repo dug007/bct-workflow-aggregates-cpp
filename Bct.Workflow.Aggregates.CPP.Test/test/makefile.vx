@@ -39,14 +39,16 @@ WARNFLAGS = -Wchar-subscripts -Wcomment -Wimplicit -Wparentheses -Wreturn-type -
 
 ADDN_INCDIR = -I$(AGGREGATES_INCDIR) -I$(RPN_INCDIR) -I$(GENERATED_INCDIR) -I$(TEST_INCDIR) -I$(RAPIDJSON_INCDIR) -I$(CATCH_INCDIR)
 
+SMARTIFACTS = true
+
 include $(MAINDIR)/makefile.vxc_rtp
 
 # Build the message libraries
 #
-$(GENERATED_SRCDIR)/generated_code_lib.a :
+$(GENERATED_SRCDIR)/generated_code.a :
 	@cd $(GENERATED_SRCDIR) && $(MAKE) -f makefile.vx CPU=$(CPU) BUILD_TYPE=$(BUILD_TYPE) COMDIR=$(COMDIR) RMSGDIR=$(RMSGDIR)
 
-$(AGGREGATES_SRCDIR)/aggregates_lib.a :
+$(AGGREGATES_SRCDIR)/aggregates.a :
 	@cd $(AGGREGATES_SRCDIR) && $(MAKE) -f makefile.vx CPU=$(CPU) BUILD_TYPE=$(BUILD_TYPE) COMDIR=$(COMDIR) RMSGDIR=$(RMSGDIR)
 
 #
@@ -62,9 +64,9 @@ vpath AssessMetaData.cpp $(TEST_SRCDIR)
 # The following should define all of the source files of each type
 # to be compiled for the executable
 #
-APP_NAME := unit_test
-unit_test_dir = .
-unit_test_cxx_files = \
+APP_NAME := aggregates_unit_tests
+aggregates_unit_tests_dir = .
+aggregates_unit_tests_cxx_files = \
 AggAssess.cpp \
 AggNested.cpp \
 AssessMetaData.cpp \
@@ -80,7 +82,7 @@ ReferenceAggregateUnitTests.cpp \
 VersionChangeRuleUnitTests.cpp \
 VectorFieldUnitTests.cpp
 
-unit_test_libs = $(GENERATED_SRCDIR)/generated_code_lib.a $(AGGREGATES_SRCDIR)/aggregates_lib.a
+aggregates_unit_tests_libs = $(GENERATED_SRCDIR)/generated_code.a $(AGGREGATES_SRCDIR)/aggregates.a
 
 include $(MAINDIR)/makefile.process_app_rtp
 
