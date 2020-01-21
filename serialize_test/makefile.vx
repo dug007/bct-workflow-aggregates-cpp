@@ -1,4 +1,4 @@
-# $Header: //depot/main/Embedded/Taos/Taos/tools/serialization/makefile#1 $
+# $Header: $
 #
 
 Q=
@@ -15,7 +15,7 @@ endif
 # to the base project directory.
 #
 MAINDIR = ../../..
-BASEDIR = $(MAINDIR)/base
+BASEDIR = ../..
 
 RAPIDJSON_INCDIR  = $(BASEDIR)/rapidjson-1.1.0/include
 AGGREGATES_DIR    = ../Bct.Workflow.Aggregates.CPPLib
@@ -34,14 +34,16 @@ WARNFLAGS = -Wchar-subscripts -Wcomment -Wimplicit -Wparentheses -Wreturn-type -
 
 ADDN_INCDIR = -I$(RAPIDJSON_INCDIR) -I$(GENERATED_INCDIR) -I$(AGGREGATES_INCDIR) -I$(RPN_INCDIR)
 
+SMARTIFACTS = true
+
 include $(MAINDIR)/makefile.vxc_rtp
 
 # Build the message libraries
 #
-$(GENERATED_SRCDIR)/generated_code_lib.a :
+$(GENERATED_SRCDIR)/generated_code.a :
 	@cd $(GENERATED_SRCDIR) && $(MAKE) -f makefile.vx CPU=$(CPU) BUILD_TYPE=$(BUILD_TYPE) COMDIR=$(COMDIR) RMSGDIR=$(RMSGDIR)
 
-$(AGGREGATES_SRCDIR)/aggregates_lib.a :
+$(AGGREGATES_SRCDIR)/aggregates.a :
 	@cd $(AGGREGATES_SRCDIR) && $(MAKE) -f makefile.vx CPU=$(CPU) BUILD_TYPE=$(BUILD_TYPE) COMDIR=$(COMDIR) RMSGDIR=$(RMSGDIR)
 
 #
@@ -51,7 +53,7 @@ $(AGGREGATES_SRCDIR)/aggregates_lib.a :
 APP_NAME := serialize_test
 serialize_test_dir = .
 serialize_test_cxx_files = serialize_test.cpp
-serialize_test_libs = $(GENERATED_SRCDIR)/generated_code_lib.a $(AGGREGATES_SRCDIR)/aggregates_lib.a
+serialize_test_libs = $(GENERATED_SRCDIR)/generated_code.a $(AGGREGATES_SRCDIR)/aggregates.a
 
 include $(MAINDIR)/makefile.process_app_rtp
 

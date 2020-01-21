@@ -1,6 +1,8 @@
 # $Header: $
 #
 
+# This makefile.vx is meant to be invoked as part of the TAOS base build - create_base.bat.
+
 Q=
 ifeq ($(BUILD_TYPE),CLEAN)
 .PHONY: all
@@ -18,8 +20,9 @@ MAINDIR = ../../../..
 BASEDIR = $(MAINDIR)/base
 
 AGGREGATES_INCDIR = ../include
-RPN_INCDIR        = ../BCT.RPNEvaluator.CPP/include
-RPN_SRCDIR        = ../BCT.RPNEvaluator.CPP/src
+RPN_DIR           = ../../BCT.RPNEvaluator.CPP
+RPN_INCDIR        = $(RPN_DIR)/include
+RPN_SRCDIR        = $(RPN_DIR)/src
 RAPIDJSON_INCDIR  = $(BASEDIR)/rapidjson-1.1.0/include
 
 WARNFLAGS = -Wchar-subscripts -Wcomment -Wimplicit -Wparentheses -Wreturn-type -Wswitch -Wtrigraphs 
@@ -38,7 +41,6 @@ include $(MAINDIR)/makefile.vxc_rtp
 # VPATH must include the relative pathnames (from the directory containing this
 # makefile) to any directories containing source files used for the applications.
 #
-
 vpath FuncOper.cpp $(RPN_SRCDIR)
 vpath RPNEvaluator.cpp $(RPN_SRCDIR)
 vpath Token.cpp $(RPN_SRCDIR)
@@ -47,7 +49,6 @@ vpath Token.cpp $(RPN_SRCDIR)
 # The following should define all of the source files of each type
 # to be compiled for the executable
 #
-
 LIB_C_FILES = 
 LIB_CC_FILES = 
 LIB_CXX_FILES = \
@@ -75,7 +76,7 @@ StringFieldRo.cpp \
 VersionChangeRule.cpp \
 VersionInfo.cpp 
 
-ARCHIVE_NAME=aggregates_lib.a
+ARCHIVE_NAME=aggregates.a
 ARCHIVE_DIR=.
 
 #
