@@ -31,6 +31,8 @@ WARNFLAGS = -Wchar-subscripts -Wcomment -Wimplicit -Wparentheses -Wreturn-type -
 
 ADDN_INCDIR = -I$(GENERATED_INCDIR) -I$(AGGREGATES_INCDIR) -I$(RPN_INCDIR) -I$(RAPIDJSON_INCDIR) 
 
+SMARTIFACTS = true
+
 include $(MAINDIR)/makefile.vxc_rtp
 
 #
@@ -48,8 +50,9 @@ PlateletTemplateAggregate.cpp \
 ReferenceAggregate.cpp \
 Sample1Aggregate.cpp \
 SimpleAggregate.cpp
+#TPEPredictUserDataAggregate.cpp \
 
-ARCHIVE_NAME=generated_code_lib.a
+ARCHIVE_NAME=generated_code.a
 ARCHIVE_DIR=.
 
 #
