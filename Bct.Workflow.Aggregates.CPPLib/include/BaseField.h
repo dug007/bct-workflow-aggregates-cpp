@@ -73,12 +73,16 @@ namespace Bct
                case FieldStateEnum::NotSet:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToGet obj = NotAbleToGet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName_Unavail = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName_Unavail, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToGet obj = NotAbleToGet(aggName_Unavail, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
                case FieldStateEnum::Default:
                   return _default;
@@ -174,7 +178,9 @@ namespace Bct
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
 
                default: break;
@@ -471,7 +477,9 @@ namespace Bct
                   case FieldStateEnum::Unavailable:
                   {
                      std::string aggName = typeid(*_aggregate).name();
-                     throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                     NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                     BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                     throw obj;
                   }
                   break;
 
@@ -486,7 +494,9 @@ namespace Bct
                      if (!fromCalculation)
                      {
                         std::string aggName = typeid(*_aggregate).name();
-                        throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
+                        NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(FieldStateEnum::Computed));
+                        BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                        throw obj;
                      }
                   }
                   break;
@@ -567,10 +577,14 @@ namespace Bct
                std::string reqVersion = _aggregate->MetaData().versionInfo[_ver].Version();
                if (size > _fieldId)
                {
-                  fieldName = _aggregate->MetaData().fieldInfo[_fieldId].fieldName();
-                  throw NoSuchVersion(aggName, fieldName, reqVersion);
+                  fieldName = _aggregate->MetaData().fieldInfo[_fieldId].fieldName();                  
+                  NoSuchVersion obj = NoSuchVersion(aggName, fieldName, reqVersion);
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
-               throw NoSuchVersion(aggName, reqVersion);
+               NoSuchVersion obj = NoSuchVersion(aggName, reqVersion);
+               BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+               throw obj;
             }
 
             /// <summary>

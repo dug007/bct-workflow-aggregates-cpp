@@ -77,7 +77,9 @@ namespace Bct
                if (_state == FieldStateEnum::Unavailable)
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
 
                _val.push_back(element);
@@ -102,12 +104,16 @@ namespace Bct
                case FieldStateEnum::NotSet:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToGet obj = NotAbleToGet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName_Unavail = typeid(*_aggregate).name();
-                  throw NotAbleToGet(aggName_Unavail, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToGet obj = NotAbleToGet(aggName_Unavail, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
                default:
                {
@@ -128,7 +134,9 @@ namespace Bct
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
                default:
                   break;
@@ -198,7 +206,9 @@ namespace Bct
                case FieldStateEnum::Unavailable:
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
                default:
                {
@@ -428,7 +438,9 @@ namespace Bct
                if (_state == FieldStateEnum::Unavailable)
                {
                   std::string aggName = typeid(*_aggregate).name();
-                  throw NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
 
                FieldStateEnum::FieldState  metaState = findFieldMeta()._fieldState;              
@@ -500,9 +512,13 @@ namespace Bct
                if (size > _fieldId)
                {
                   fieldName = _aggregate->MetaData().fieldInfo[_fieldId].fieldName();
-                  throw NoSuchVersion(aggName, fieldName, reqVersion);
+                  NoSuchVersion obj = NoSuchVersion(aggName, fieldName, reqVersion);
+                  BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+                  throw obj;
                }
-               throw NoSuchVersion(aggName, reqVersion);
+               NoSuchVersion obj = NoSuchVersion(aggName, reqVersion);
+               BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
+               throw obj;
             }
           
 

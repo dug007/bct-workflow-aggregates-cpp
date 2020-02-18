@@ -36,7 +36,8 @@ namespace Bct
       namespace Aggregates
       {
          const std::string BaseAggregate::UseMostRecentVersionStr = "0.0.0";
-
+         IBctLogger* BaseAggregate::_logger = BaseAggregate::getLogger();
+         
          BaseAggregate::BaseAggregate(const std::string &version) :
             _version(version), _fieldSetCounter(0), _parent(nullptr)
          {
@@ -123,7 +124,9 @@ namespace Bct
                }
             }
             std::string aggName = typeid(*this).name();
-            throw NoSuchVersion(aggName, _version); 
+            NoSuchVersion obj = NoSuchVersion(aggName, _version);
+            _logger->logError(obj.what(), __FILE__, __LINE__);
+            throw obj;
          }
 
          void BaseAggregate::syncChildVersion(int16_t parentVer)
@@ -170,8 +173,10 @@ namespace Bct
                   }
                   if (!found)
                   {
-                     std::string aggName = typeid(*this).name();
-                     throw NoSuchVersion(aggName, _version);
+                     std::string aggName = typeid(*this).name();                    
+                     NoSuchVersion obj = NoSuchVersion(aggName, _version);
+                     _logger->logError(obj.what(), __FILE__, __LINE__);
+                     throw obj;
                   }
                }
 
@@ -190,7 +195,7 @@ namespace Bct
          int32_t &BaseAggregate::FieldIdAsNested()
          {
             return _fieldIdAsNested;
-         }
+         }        
          /**
           * Destructor
           */
@@ -241,15 +246,20 @@ namespace Bct
                   if (f->fieldId() == cRule.fieldId())
                   {
                      const std::string &condition = cRule.Condition();
-                     const std::string &expression = cRule.Expression();
-                     std::string answerValue;
-                     TypeEnum::Type answerType;
+                     const std::string &expression = cRule.Expression();                    
+                     RPNEvaluator::RPNResult rpnResult;
                      RPNEvaluator::RPNEvaluator evaluator;
-                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                     if ("true" == answerValue)
+                     if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                      {
-                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                        f->computedValueString(answerValue);
+                        _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                     }
+                     if ("true" == rpnResult.answerValue)
+                     {
+                        if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
+                        {
+                           _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                        }
+                        f->computedValueString(rpnResult.answerValue);
                      }
                   }
                }
@@ -291,18 +301,23 @@ namespace Bct
                AssessmentRule &aRule = MetaData().assessmentRules[aRulesV[j]]; // indirection
                const std::string &condition = aRule.Condition();
                const std::string &expression = aRule.Expression();
-               std::string answerValue;
-               TypeEnum::Type answerType;
+               RPNEvaluator::RPNResult rpnResult;
                RPNEvaluator::RPNEvaluator evaluator;
-               evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-               if ("true" == answerValue)
+               if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                {
-                  evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                  if (answerValue != "true")
-                  {
-                     result.addError(aRule.StringId(), answerValue);
-                  }
+                  _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
                }
+               if ("true" == rpnResult.answerValue)
+               {
+                  if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
+                  {
+                     _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                  }
+                  if (rpnResult.answerValue != "true")
+                  {
+                     result.addError(aRule.StringId(), rpnResult.answerValue);
+                  }                  
+               }              
             }
             return result;
          }
@@ -322,7 +337,10 @@ namespace Bct
             if (toVersion == -1)
             {
                std::string aggName = typeid(*this).name();
-               throw NoSuchVersion(aggName, toVersionStr);
+               NoSuchVersion noSuchVersionObj = NoSuchVersion(aggName, toVersionStr);
+               _logger->logError(noSuchVersionObj.what(), __FILE__, __LINE__);
+               throw noSuchVersionObj;
+               return;
             }
 
             std::map<std::string, RPNEvaluator::RPNVariable> varMap;
@@ -363,14 +381,23 @@ namespace Bct
                   {
                      const std::string &condition = vcRule.Condition();
                      const std::string &expression = vcRule.Expression();
-                     std::string answerValue;
-                     TypeEnum::Type answerType;
+                     RPNEvaluator::RPNResult rpnResult;
                      RPNEvaluator::RPNEvaluator evaluator;
-                     evaluator.EvaluateRPNExpression(condition, varMap, answerType, answerValue);
-                     if ("true" == answerValue)
+                     if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                      {
-                        evaluator.EvaluateRPNExpression(expression, varMap, answerType, answerValue);
-                        f->computedValueString(answerValue);
+                        _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                     }
+                     if ("true" == rpnResult.answerValue)
+                     {
+                        if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
+                        {
+                           _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                        }
+                        f->computedValueString(rpnResult.answerValue);
+                     }
+                     else
+                     {                      
+                        _logger->logError("Unable to convert to version - "+ condition, __FILE__, __LINE__);
                      }
                   }
                }
@@ -529,8 +556,10 @@ namespace Bct
                   }
                   else
                   {
-                     std::string tempAggName = typeid(*this).name();
-                     throw AggregateNotFound(tempAggName);
+                     std::string tempAggName = typeid(*this).name();                    
+                     AggregateNotFound obj = AggregateNotFound(tempAggName);
+                     _logger->logError(obj.what(), __FILE__, __LINE__);
+                     throw obj;
                   }
                }
             }
@@ -579,7 +608,9 @@ namespace Bct
             else
             {
                const std::string tempAggName = typeid(*this).name();
-               throw AggregateNotFound(tempAggName);
+               AggregateNotFound obj = AggregateNotFound(tempAggName);
+               _logger->logError(obj.what(), __FILE__, __LINE__);
+               throw obj;
             }
          }
 
@@ -588,7 +619,9 @@ namespace Bct
             if (_currentAggregate.empty())
             {
                const std::string tempAggName = typeid(*this).name();
-               throw AggregateNotFound(tempAggName);
+               AggregateNotFound obj = AggregateNotFound(tempAggName);
+               _logger->logError(obj.what(), __FILE__, __LINE__);
+               throw obj;
             }
             else
             {
@@ -785,11 +818,19 @@ namespace Bct
             return;
          }
 
-         void BaseAggregate::log(std::ostream & logStream, int flags) const
+         void BaseAggregate::setLogger(IBctLogger& logger)
          {
-            //TODO - User Story 129791
+            _logger = &logger;
          }
 
+         IBctLogger* BaseAggregate::getLogger()
+         {
+            if (_logger == nullptr)
+            {
+               _logger = new NullLogger;
+            }
+            return _logger;
+         }
       }
    }
 }

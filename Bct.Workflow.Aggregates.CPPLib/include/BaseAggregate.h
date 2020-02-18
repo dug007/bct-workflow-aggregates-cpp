@@ -12,6 +12,12 @@
 #include "rapidjson/stringbuffer.h"
 #include <iostream>  // [PL] just for testing
 
+#include "IBctLogger.h"
+#include "NullLogger.h"
+
+
+using namespace Bct::Common::CppLogging;
+
 using namespace rapidjson;
 using namespace std;
 
@@ -103,14 +109,26 @@ namespace Bct
 
             void serialize( PrettyWriter<StringBuffer> * writer ) const;
             void deserialize(const std::string & value);
-            void log(std::ostream & logStream, int flags) const;
-
             /// <summary>
             /// Increments the global field set counter and returns the result. Field setters can call this to get their
             /// latest counter.
             /// </summary>
             /// <returns>The incremented field set counter.</returns>
             virtual const uint32_t &fieldSetCounter();
+
+
+            /// <summary>
+            /// An API for consumer to provide a logger
+            /// </summary>
+            /// <param name="logger"></param>
+            static void setLogger(IBctLogger& logger);
+
+            /// <summary>
+            /// Get a logger:
+            ///   if not set, use NullLogger
+            /// </summary>
+            /// <param name="logger"></param>
+            static IBctLogger* getLogger();
 
          protected:
             /// <summary>
@@ -165,7 +183,7 @@ namespace Bct
             AbstractField     * findLastKeyField() const;
 
          private:
-
+            static IBctLogger* _logger;
             std::vector<AbstractField*> _fieldList;
             std::vector<AbstractAggregate*> _aggList;
             int16_t _ver;
