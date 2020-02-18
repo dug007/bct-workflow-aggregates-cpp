@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="rapidjson">
+      <UniqueIdentifier>{b1b97e40-7932-42a8-9604-6a55d22dc629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rapidjson\rapidjson">
+      <UniqueIdentifier>{0ef61f7e-89d8-4805-8445-a76c25629655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rapidjson\rapidjson\msinttypes">
+      <UniqueIdentifier>{fe4a954d-db25-4a31-af62-d790fc420153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rapidjson\rapidjson\internal">
+      <UniqueIdentifier>{9b2656d4-d3d6-40d1-b8a4-fcd13c929e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rapidjson\rapidjson\error">
+      <UniqueIdentifier>{e67f201b-1106-491e-be81-385ee0202652}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Common.CppLogging">
+      <UniqueIdentifier>{4036cdb3-0409-4bc0-aa59-86c1f3da6aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Common.CppLogging\test">
+      <UniqueIdentifier>{edb64013-d57b-4b06-8f87-d306ac1a6f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Common.CppLogging\include">
+      <UniqueIdentifier>{39a70565-4896-490a-9416-7affe7c46b0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Workflow.Util.Cpp">
+      <UniqueIdentifier>{cff80b5b-9d3c-4d3f-b3b7-0b651f4fabcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Workflow.Util.Cpp\include">
+      <UniqueIdentifier>{782fe5b9-ad08-4071-afc9-ecd25bb046b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP">
+      <UniqueIdentifier>{c944630a-b1ef-4495-964e-7027423e6931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP\src">
+      <UniqueIdentifier>{fb828fbc-68f8-4d30-a3fd-291fd1ec0722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.RPNEvaluator.CPP\include">
+      <UniqueIdentifier>{8d37bc83-824e-4bc4-a038-dcc97a1cda16}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\AbstractAggregate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AbstractField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AggregateMetaData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AggregateNotFound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AssessmentResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AssessmentRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseAggregate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CannotConvertScalar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ComputeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnumField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnumFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FieldInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FieldMeta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentAssessmentRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentComputeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentMeta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FluentVersionChangeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NoSuchVersion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NotAbleToGet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NotAbleToSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StringField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StringFieldRo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VectorField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VersionChangeRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VersionInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VersionMetaData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\writer.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\stringbuffer.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\stream.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\schema.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\reader.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\rapidjson.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\prettywriter.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\pointer.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\ostreamwrapper.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\msinttypes\stdint.h">
+      <Filter>rapidjson\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\msinttypes\inttypes.h">
+      <Filter>rapidjson\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\memorystream.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\memorybuffer.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\istreamwrapper.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\swap.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\strtod.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\strfunc.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\stack.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\regex.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\pow10.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\meta.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\itoa.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\ieee754.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\dtoa.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\diyfp.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\clzll.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\internal\biginteger.h">
+      <Filter>rapidjson\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\fwd.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\filewritestream.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\filereadstream.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\error\error.h">
+      <Filter>rapidjson\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\error\en.h">
+      <Filter>rapidjson\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\encodings.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\encodedstream.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\document.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\cursorstreamwrapper.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson\allocators.h">
+      <Filter>rapidjson\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.Common.CppLogging\test\TestLogger.h">
+      <Filter>BCT.Common.CppLogging\test</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.Common.CppLogging\include\NullLogger.h">
+      <Filter>BCT.Common.CppLogging\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.Common.CppLogging\include\IBctLogger.h">
+      <Filter>BCT.Common.CppLogging\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.Workflow.Util.Cpp\include\TypeEnum.h">
+      <Filter>BCT.Workflow.Util.Cpp\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.Workflow.Util.Cpp\include\FieldStateEnum.h">
+      <Filter>BCT.Workflow.Util.Cpp\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\Token.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\stdafx.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNVariable.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNResult.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\RPNEvaluator.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FunctionMap.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h">
+      <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\AggregateMetaData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AggregateNotFound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessmentResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssessmentRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BaseAggregate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CannotConvertScalar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComputeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FieldInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FieldMeta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentAssessmentRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentComputeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentMeta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FluentVersionChangeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NoSuchVersion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NotAbleToGet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NotAbleToSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringFieldRo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VersionChangeRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VersionInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.Common.CppLogging\test\TestLogger.cpp">
+      <Filter>BCT.Common.CppLogging\test</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.Common.CppLogging\test\IBctLoggerUnitTests.cpp">
+      <Filter>BCT.Common.CppLogging\test</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\Token.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\RPNEvaluator.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp">
+      <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
