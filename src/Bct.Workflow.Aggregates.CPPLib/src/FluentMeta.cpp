@@ -16,7 +16,6 @@ namespace Bct
          FluentMeta &FluentMeta::toVersion(int16_t ver)
          {
             int16_t i = static_cast<int16_t>(_position);
-            _fieldMeta._parentVer = ver;
             _aggMeta.versionMetaData[ver].fieldMetaDataI.push_back(i);
             return *this;
          }
