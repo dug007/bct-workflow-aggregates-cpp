@@ -1,5 +1,6 @@
 #include <sstream>
 #include "NotAbleToGet.h"
+#include "demangle.h"
 
 namespace Bct
 {
@@ -10,7 +11,7 @@ namespace Bct
          NotAbleToGet::NotAbleToGet(const std::string& aggregateName, const std::string& fieldName, const std::string& fieldState) :
             std::exception(),
             _errorMessage(),
-            _aggregateName(aggregateName),
+            _aggregateName(demangle(aggregateName.c_str())),
             _fieldName(fieldName),
             _fieldState(fieldState)
          {

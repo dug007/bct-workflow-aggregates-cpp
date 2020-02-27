@@ -288,6 +288,9 @@
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
+    <ClInclude Include="include\demangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AggregateMetaData.cpp">

@@ -1,5 +1,6 @@
 #include <sstream>
 #include "AggregateNotFound.h"
+#include "demangle.h"
 
 namespace Bct
 {
@@ -10,7 +11,7 @@ namespace Bct
          AggregateNotFound::AggregateNotFound(const std::string & aggregateName)
             : std::exception()
             , _errorMessage()
-            , _aggregateName(aggregateName)
+            , _aggregateName(demangle(aggregateName.c_str()))
          {
             try
             {

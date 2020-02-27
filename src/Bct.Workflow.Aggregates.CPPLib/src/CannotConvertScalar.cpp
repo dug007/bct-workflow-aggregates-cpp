@@ -1,5 +1,6 @@
 #include <sstream>
 #include "CannotConvertScalar.h"
+#include "demangle.h"
 
 namespace Bct
 {
@@ -10,7 +11,7 @@ namespace Bct
          CannotConvertScalar::CannotConvertScalar(const std::string& aggregateName, const std::string& fieldName) :
             std::exception(),
             _errorMessage(),
-            _aggregateName(aggregateName),
+            _aggregateName(demangle(aggregateName.c_str())),
             _fieldName(fieldName)
          {
             try

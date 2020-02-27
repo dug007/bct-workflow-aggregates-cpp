@@ -35,6 +35,7 @@
     <ClInclude Include="include\BaseFieldRo.h" />
     <ClInclude Include="include\CannotConvertScalar.h" />
     <ClInclude Include="include\ComputeRule.h" />
+    <ClInclude Include="include\demangle.h" />
     <ClInclude Include="include\EnumField.h" />
     <ClInclude Include="include\EnumFieldRo.h" />
     <ClInclude Include="include\FieldInfo.h" />

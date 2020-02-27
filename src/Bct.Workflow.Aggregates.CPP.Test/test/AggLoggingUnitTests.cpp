@@ -49,6 +49,7 @@ TEST_CASE("AggLoggingLogsUnitTest", "[test]")
    }
    catch (NoSuchVersion & ex)
    {
+      message = ex.what();
       message = "logError call successful";
       CHECK(testLogger->getStringOutput()[0] == message);
    }

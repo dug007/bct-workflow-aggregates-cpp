@@ -1,5 +1,6 @@
 #include <sstream>
 #include "NoSuchVersion.h"
+#include "demangle.h"
 
 namespace Bct
 {
@@ -10,7 +11,7 @@ namespace Bct
          NoSuchVersion::NoSuchVersion(const std::string& aggregateName, const std::string& requestedVersion)
             : std::exception()
             , _errorMessage()
-            , _aggregateName(aggregateName)
+            , _aggregateName(demangle(aggregateName.c_str()))
             , _requestedVersion(requestedVersion)
          {
             try
@@ -28,7 +29,7 @@ namespace Bct
          NoSuchVersion::NoSuchVersion(const std::string& aggregateName, const std::string &fieldName, std::string& requestedVersion)
             : std::exception()
             , _errorMessage()
-            , _aggregateName(aggregateName)
+            , _aggregateName(demangle(aggregateName.c_str()))
             , _fieldName(fieldName)
             , _requestedVersion(requestedVersion)
          {
