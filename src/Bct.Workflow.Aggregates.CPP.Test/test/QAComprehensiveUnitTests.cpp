@@ -177,12 +177,12 @@ TEST_CASE("GetFieldValue", "[test]")
    ReferenceAggregate RefAgg1;
 
    CHECK(RefAgg1.boolField.value() == true);
-   CHECK(RefAgg1.int32Field.value() == -1); 
-   CHECK(RefAgg1.uint32Field.value() == 1); 
-   CHECK(RefAgg1.int64Field.value() == -1); 
-   CHECK(RefAgg1.uint64Field.value() == 1); 
-   CHECK(RefAgg1.doubleField.value() == 1.0); 
-   CHECK(RefAgg1.stringField.value() == "hello world"); 
+   CHECK(RefAgg1.int32Field.value() == -1);
+   CHECK(RefAgg1.uint32Field.value() == 1);
+   CHECK(RefAgg1.int64Field.value() == -1);
+   CHECK(RefAgg1.uint64Field.value() == 1);
+   CHECK(RefAgg1.doubleField.value() == 1.0);
+   CHECK(RefAgg1.stringField.value() == "hello world");
    CHECK(RefAgg1.enumField.value() == 2);
    std::vector<int32_t> fromInt;
    fromInt.push_back(3);
@@ -208,7 +208,7 @@ TEST_CASE("ThrowsExceptionIfGetFieldNotSet", "[test]")
    CHECK_THROWS_AS(SamAgg2.Field7x.value(), NotAbleToGet);
 }
 
- //Tests get vector field value shall throw an exception if the vector field is not available in the current version of the aggregate.
+//Tests get vector field value shall throw an exception if the vector field is not available in the current version of the aggregate.
 TEST_CASE("ThrowsExceptionIfGetVecotrFieldNotAvailable", "[test]")
 {
    VectorFieldAggregate VecAgg1 ("1.0.0");
@@ -307,7 +307,6 @@ TEST_CASE("FieldAssigmentDoesNotThrowExceiption", "[test]")
    toSamAgg.FieldEnumRo = fromSamAgg.FieldEnumRo;
    toSamAgg.FieldStringro = fromSamAgg.FieldStringro;
    toSamAgg.Field7ro = fromSamAgg.Field7ro;
-   CHECK(1 == 1); //Just to make sure test runs and that no exception are thrown from previous lines of code.
 }
 
 //Tests Set Field Value - sets the current value for a field by using assignment.
@@ -315,8 +314,8 @@ TEST_CASE("SetFieldCurrentValueUsingAssignment", "[test]")
 {
    ReferenceAggregate RefAgg3 ("v1.0.0");
 
-   RefAgg3.boolField = false; 
-   CHECK(RefAgg3.boolField.value() == false); 
+   RefAgg3.boolField = false;
+   CHECK(RefAgg3.boolField.value() == false);
    RefAgg3.int32Field = -2;
    CHECK(RefAgg3.int32Field.value() == -2);
    RefAgg3.uint32Field = 5;
@@ -597,13 +596,9 @@ TEST_CASE("ThrowsExceptionIfFieldConstant", "[test]")
    }
    catch (NotAbleToSet &exc)
    {
+      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7c fieldState=Constant";
       std::string actual = exc.what();
-      std::string exception_str = "Bct::Workflow::Aggregates::NotAbleToSet:";
-      std::string field_str = "fieldName=Field7c fieldState=Constant";
-      std::string agg_str = "Sample1Aggregate";
-      CHECK(actual.find(exception_str) != std::string::npos);
-      CHECK(actual.find(field_str) != std::string::npos);
-      CHECK(actual.find(agg_str) != std::string::npos);
+      CHECK(actual == expected);
    }
 }
 
@@ -614,20 +609,16 @@ TEST_CASE("ThrowsExceptionIfFieldComputeOnly", "[test]")
 
    CHECK(SamAgg5.Field7com.state() == FieldStateEnum::NotSet);
    CHECK_THROWS_AS(SamAgg5.Field7com = 3, NotAbleToSet);  // throws on assignment since it is compute only
-   
+
    try //Trying to set a computeOnly field
    {
       SamAgg5.Field7com.value(5);
    }
    catch (NotAbleToSet &exc)
    {
+      std::string expected = "Bct::Workflow::Aggregates::NotAbleToSet: aggregate=class Bct::Workflow::Implementation::Sample1Aggregate fieldName=Field7com fieldState=Computed";
       std::string actual = exc.what();
-      std::string exception_str = "Bct::Workflow::Aggregates::NotAbleToSet:";
-      std::string field_str = "fieldName=Field7com fieldState=Computed";
-      std::string agg_str = "Sample1Aggregate";
-      CHECK(actual.find(exception_str) != std::string::npos);
-      CHECK(actual.find(field_str) != std::string::npos);
-      CHECK(actual.find(agg_str) != std::string::npos);
+      CHECK(actual == expected);
    }
 }
 
@@ -825,10 +816,8 @@ TEST_CASE("ThrowExceptionNoSuchVersion", "[test]")
       std::string actual = ex.what();
       std::string exception_str = "Bct::Workflow::Aggregates::NoSuchVersion:";
       std::string version_str = "requestedVersion=1.0.0.0";
-      std::string agg_str = "Sample1Aggregate";
       CHECK(actual.find(exception_str) != std::string::npos);
       CHECK(actual.find(version_str) != std::string::npos);
-      CHECK(actual.find(agg_str) != std::string::npos);
    }
 }
 
@@ -864,7 +853,7 @@ TEST_CASE("UpdateComputedField", "[test]")
 
 // Test Serialize the aggregate data to a JSON string and Deserialize a JSON string, setting the aggregate data appropriately
 TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
-{   
+{
    ReferenceAggregate fromRefAgg10;
    ReferenceAggregate toRefAgg10;
 
@@ -875,7 +864,7 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    fromRefAgg10.doubleField = 12.00;
    fromRefAgg10.stringField = "Hi Team";
    fromRefAgg10.enumField = ReferenceEnum::Good;
-   std::vector<int32_t> fromInt; 
+   std::vector<int32_t> fromInt;
    fromInt.push_back(3);
    fromRefAgg10.vectorIntField = fromInt;
    SimpleAggregate fromNestedField;
@@ -893,11 +882,11 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    CHECK(toRefAgg10.doubleField == 12.00);
    CHECK((std::string)toRefAgg10.stringField == "Hi Team");
    CHECK(toRefAgg10.enumField == ReferenceEnum::Good);
-   CHECK(toRefAgg10.vectorIntField.value()[0] == 3); 
+   CHECK(toRefAgg10.vectorIntField.value()[0] == 3);
    CHECK(toRefAgg10.nestedField.doubleValue == 2);
    CHECK(toRefAgg10.boolField.state() == FieldStateEnum::Set);
    CHECK(toRefAgg10.boolFieldRequiredv2.state() == FieldStateEnum::NotSet);
    CHECK(toRefAgg10.uint32Field.state() == FieldStateEnum::Default);
    CHECK(toRefAgg10.int64Field.state() == FieldStateEnum::NotSet);
-  
+
 }
