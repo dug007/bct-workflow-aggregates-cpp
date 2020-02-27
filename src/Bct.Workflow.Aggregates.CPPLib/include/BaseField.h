@@ -405,10 +405,18 @@ namespace Bct
                }
                break;
                case TypeEnum::StringType:
-                  // Should never get here. This is handled by StringField::serialize().
-                  cout << ">>>>>>>> Error in " << __FILE__ << ", line " << __LINE__ << endl;
-                  break;
-
+               {
+                  const BaseField<std::string>* pField = dynamic_cast<const BaseField<std::string>*>(this);
+                  if (pField)
+                  {
+                     writer->String(pField->value().c_str(), pField->value().length(), false);
+                  }
+                  else
+                  {
+                     writer->Null();
+                  }
+               }
+               break;
                default:
                   writer->String("ERROR: unexpected type");
                   break;
