@@ -34,8 +34,7 @@ namespace Bct
          {
             FieldMeta fm(fieldId, fieldState, def, BaseAggregate::InAllVersions);
             this->fieldMetaData.push_back(fm);
-            FluentMeta flu(*this, fm, this->fieldMetaData.size() - 1);
-            flu.toVersion(0);
+            this->versionMetaData[0].fieldMetaDataI.push_back(this->fieldMetaData.size() - 1);
          };
 
          FluentMeta AggregateMetaData::addAggMeta(int32_t fieldId, FieldStateEnum::FieldState const &fieldState, int16_t childVer)
@@ -50,8 +49,7 @@ namespace Bct
          {
             FieldMeta fm(fieldId, fieldState, BaseAggregate::InAllVersions, childVer);
             this->fieldMetaData.push_back(fm);
-            FluentMeta flu(*this, fm, this->fieldMetaData.size() - 1);
-            flu.toVersion(0);
+            this->versionMetaData[0].fieldMetaDataI.push_back(this->fieldMetaData.size() - 1);
          }
 
          void AggregateMetaData::addField(int16_t fieldId, std::string const &fieldName, TypeEnum::Type const &fieldType)

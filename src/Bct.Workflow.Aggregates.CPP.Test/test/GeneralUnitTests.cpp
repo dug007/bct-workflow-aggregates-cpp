@@ -62,7 +62,7 @@ TEST_CASE("General", "[test]")
    // set back to default
    a.Field7d = -1;
    CHECK(a.Field7d.value() == -1);
-   CHECK(a.Field7d.state() == FieldStateEnum::Default);
+   CHECK(a.Field7d.state() != FieldStateEnum::Default);
 
    a.updateCalculatedFields();
    CHECK(a.Field1.value() == 22.0);
