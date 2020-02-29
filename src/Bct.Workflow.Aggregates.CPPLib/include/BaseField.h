@@ -653,29 +653,14 @@ namespace Bct
 
                _val = v;
                _fieldSetCounter = _aggregate->fieldSetCounter();
-               if (metaState == FieldStateEnum::Default)
+               if (fromCalculation)
                {
-                  if (_val == _default)
-                  {
-                     _state = FieldStateEnum::Default;
-                  }
-                  else
-                  {
-                     _state = FieldStateEnum::Set;
-                  }
+                  _state = FieldStateEnum::Computed;
                }
                else
                {
-                  if (fromCalculation)
-                  {
-                     _state = FieldStateEnum::Computed;
-                  }
-                  else
-                  {
-                     _state = FieldStateEnum::Set;
-                  }
+                  _state = FieldStateEnum::Set;
                }
-
             }
 
             /// <summary>
