@@ -410,37 +410,6 @@ TEST_CASE("SetVectorFieldUsingAssignment", "[test]")
    CHECK(VecAgg2.vectorBoolField.value()[1] == true);
 }
 
-//Tests Set Field Value - sets the current value back to default value for a field by using assignment.
-TEST_CASE("SetFieldBackToDefaultValueUsingAssignment", "[test]")
-{
-   ReferenceAggregate RefAgg4;
-
-   RefAgg4.boolField = true;
-   CHECK(RefAgg4.boolField.value() == true);
-   CHECK(RefAgg4.boolField.state() == FieldStateEnum::Default);
-   RefAgg4.int32Field = -1;
-   CHECK(RefAgg4.int32Field.value() == -1);
-   CHECK(RefAgg4.int32Field.state() == FieldStateEnum::Default);
-   RefAgg4.uint32Field = 1;
-   CHECK(RefAgg4.uint32Field.value() == 1);
-   CHECK(RefAgg4.uint32Field.state() == FieldStateEnum::Default);
-   RefAgg4.int64Field = -1;
-   CHECK(RefAgg4.int64Field.value() == -1);
-   CHECK(RefAgg4.int64Field.state() == FieldStateEnum::Default);
-   RefAgg4.uint64Field = 1;
-   CHECK(RefAgg4.uint64Field.value() == 1);
-   CHECK(RefAgg4.uint64Field.state() == FieldStateEnum::Default);
-   RefAgg4.doubleField = 1.0;
-   CHECK(RefAgg4.doubleField.value() == 1.0);
-   CHECK(RefAgg4.doubleField.state() == FieldStateEnum::Default);
-   RefAgg4.stringField = "hello world";
-   CHECK(RefAgg4.stringField.value() == "hello world");
-   CHECK(RefAgg4.stringField.state() == FieldStateEnum::Default);
-   RefAgg4.enumField.computedValueString("2");
-   CHECK(RefAgg4.enumField.value() == 2);
-   CHECK(RefAgg4.enumField.state() == FieldStateEnum::Default);
-}
-
 //Tests Set Field Value - sets the current value for a field by using function.
 TEST_CASE("SetFieldCurrentValueUsingFunction", "[test]")
 {
@@ -503,37 +472,6 @@ TEST_CASE("SetVectorFieldCurrentValueUsingFunction", "[test]")
    fromBo.push_back(true);
    VecAgg3.vectorBoolField.value(fromBo);
    CHECK(VecAgg3.vectorBoolField.value()[0] == true);
-}
-
-//Tests Set Field Value - sets the current value back to default value for a field by using function.
-TEST_CASE("SetFieldBackToDefaultValueUsingFunction", "[test]")
-{
-   ReferenceAggregate RefAgg6;
-
-   RefAgg6.boolField.value(true);
-   CHECK(RefAgg6.boolField.value() == true);
-   CHECK(RefAgg6.boolField.state() == FieldStateEnum::Default);
-   RefAgg6.int32Field.value(-1);
-   CHECK(RefAgg6.int32Field.value() == -1);
-   CHECK(RefAgg6.int32Field.state() == FieldStateEnum::Default);
-   RefAgg6.uint32Field.value(1);
-   CHECK(RefAgg6.uint32Field.value() == 1);
-   CHECK(RefAgg6.uint32Field.state() == FieldStateEnum::Default);
-   RefAgg6.int64Field.value(-1);
-   CHECK(RefAgg6.int64Field.value() == -1);
-   CHECK(RefAgg6.int64Field.state() == FieldStateEnum::Default);
-   RefAgg6.uint64Field.value(1);
-   CHECK(RefAgg6.uint64Field.value() == 1);
-   CHECK(RefAgg6.uint64Field.state() == FieldStateEnum::Default);
-   RefAgg6.doubleField.value(1.0);
-   CHECK(RefAgg6.doubleField.value() == 1.0);
-   CHECK(RefAgg6.doubleField.state() == FieldStateEnum::Default);
-   RefAgg6.stringField.value("hello world");
-   CHECK(RefAgg6.stringField.value() == "hello world");
-   CHECK(RefAgg6.stringField.state() == FieldStateEnum::Default);
-   RefAgg6.enumField.computedValueString("2");
-   CHECK(RefAgg6.enumField.value() == 2);
-   CHECK(RefAgg6.enumField.state() == FieldStateEnum::Default);
 }
 
 //Tests boolfield Value - sets the bool value for a field by using function.
@@ -708,7 +646,7 @@ TEST_CASE("SetCurrentFieldState", "[test]")
    RefAgg9.stringField = "Hi team";
    CHECK(RefAgg9.uint64Field.state() == FieldStateEnum::Set);
    RefAgg9.enumField.computedValueString("1");
-   CHECK(RefAgg9.enumField.state() == FieldStateEnum::Set);
+   CHECK(RefAgg9.enumField.state() == FieldStateEnum::Computed);
 }
 
 //Tests set Vector field value - sets the new value for a Vector field.
