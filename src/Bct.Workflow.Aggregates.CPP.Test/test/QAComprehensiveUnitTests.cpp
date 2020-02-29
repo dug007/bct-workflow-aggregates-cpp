@@ -835,7 +835,7 @@ TEST_CASE("SerializeAggDatatoJsonStringAndDeserializeJsonString", "[test]")
    CHECK(toRefAgg10.nestedField.doubleValue == 2);
    CHECK(toRefAgg10.boolField.state() == FieldStateEnum::Set);
    CHECK(toRefAgg10.boolFieldRequiredv2.state() == FieldStateEnum::NotSet);
-   CHECK(toRefAgg10.uint32Field.state() == FieldStateEnum::Default);
+   CHECK(toRefAgg10.uint32Field.state() == FieldStateEnum::Set);
    CHECK(toRefAgg10.int64Field.state() == FieldStateEnum::NotSet);
   
 }
