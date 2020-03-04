@@ -36,6 +36,9 @@
     <ClInclude Include="ExceptionUnitTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ExceptionUnitTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AggAssess.cpp">
@@ -83,8 +86,8 @@
     <ClCompile Include="test\VersionChangeRuleUnitTests.cpp">
       <Filter>Test Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExceptionUnitTests.cpp">
-      <Filter>Test Files</Filter>
+    <ClCompile Include="test\ExceptionUnitTests.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

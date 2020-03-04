@@ -13,7 +13,7 @@ public:
 };
 
 
-TEST_CASE("AssessRulesTest", "[test]")
+TEST_CASE("RpnExceptionUnitTest", "[test]")
 {
    ThrowsException e;
    try
@@ -22,6 +22,8 @@ TEST_CASE("AssessRulesTest", "[test]")
    }
    catch (const RPNEvalException &exc)
    {
-      CHECK(exc.what() == "error was found");
+      std::string expected = "Aggregate: aggname, Expression: 1 1 +, Error Message: error was found";
+      std::string actual = exc.what();
+      CHECK(expected == actual);
    }
 }

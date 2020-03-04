@@ -23,11 +23,11 @@
     <ClInclude Include="include\AggAssess.h" />
     <ClInclude Include="include\AggNested.h" />
     <ClInclude Include="include\AssessMetaData.h" />
+    <ClInclude Include="include\ExceptionUnitTests.h" />
     <ClInclude Include="include\TestLogger.h" />
     <ClInclude Include="test\TestHelperBaseField.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ExceptionUnitTests.cpp" />
     <ClCompile Include="src\AggAssess.cpp" />
     <ClCompile Include="src\AggNested.cpp" />
     <ClCompile Include="src\AssessMetaData.cpp" />
@@ -37,6 +37,7 @@
     <ClCompile Include="test\CodeGenerationUnitTests.cpp" />
     <ClCompile Include="test\ComputeFieldUnitTests.cpp" />
     <ClCompile Include="test\EnumFieldUnitTests.cpp" />
+    <ClCompile Include="test\ExceptionUnitTests.cpp" />
     <ClCompile Include="test\GeneralUnitTests.cpp" />
     <ClCompile Include="test\MetaUnitTests.cpp" />
     <ClCompile Include="test\QAComprehensiveUnitTests.cpp" />

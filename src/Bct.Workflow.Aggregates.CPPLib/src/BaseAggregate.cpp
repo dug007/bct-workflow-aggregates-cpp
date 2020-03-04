@@ -21,6 +21,7 @@
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/reader.h"
+#include "type_name.h"
 #include <iostream>  // [PL] just for testing
 
 using namespace std;
@@ -254,7 +255,8 @@ namespace Bct
                      RPNEvaluator::RPNEvaluator evaluator;
                      if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                      {
-                        std::string tempAggName = typeid(*this).name();
+                        int status = 0;
+                        std::string tempAggName = type_name(*this, status);
                         RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                         _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
                         throw obj;
@@ -263,7 +265,8 @@ namespace Bct
                      {
                         if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
                         {
-                           std::string tempAggName = typeid(*this).name();
+                           int status = 0;
+                           std::string tempAggName = type_name(*this, status);
                            RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                            _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
                            throw obj;
@@ -314,7 +317,8 @@ namespace Bct
                RPNEvaluator::RPNEvaluator evaluator;
                if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                {
-                  std::string tempAggName = typeid(*this).name();
+                  int status = 0;
+                  std::string tempAggName = type_name(*this, status);
                   RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                   _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
                   throw obj;
@@ -323,7 +327,8 @@ namespace Bct
                {
                   if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
                   {
-                     std::string tempAggName = typeid(*this).name();
+                     int status = 0;
+                     std::string tempAggName = type_name(*this, status);
                      RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                      _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
                      throw obj;
@@ -401,7 +406,8 @@ namespace Bct
                      RPNEvaluator::RPNEvaluator evaluator;
                      if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                      {
-                        std::string tempAggName = typeid(*this).name();
+                        int status = 0;
+                        std::string tempAggName = type_name(*this, status);
                         RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                         _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
                         throw obj;
@@ -410,7 +416,8 @@ namespace Bct
                      {
                         if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
                         {
-                           std::string tempAggName = typeid(*this).name();
+                           int status = 0;
+                           std::string tempAggName = type_name(*this, status);
                            RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                            _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
                            throw obj;
