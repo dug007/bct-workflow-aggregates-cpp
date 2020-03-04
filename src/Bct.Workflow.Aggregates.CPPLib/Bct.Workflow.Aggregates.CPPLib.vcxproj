@@ -48,6 +48,7 @@
     <ClInclude Include="include\NoSuchVersion.h" />
     <ClInclude Include="include\NotAbleToGet.h" />
     <ClInclude Include="include\NotAbleToSet.h" />
+    <ClInclude Include="include\RPNEvalException.h" />
     <ClInclude Include="include\StringField.h" />
     <ClInclude Include="include\StringFieldRo.h" />
     <ClInclude Include="include\TypeEnum.h" />
@@ -116,6 +117,7 @@
     <ClCompile Include="src\NoSuchVersion.cpp" />
     <ClCompile Include="src\NotAbleToGet.cpp" />
     <ClCompile Include="src\NotAbleToSet.cpp" />
+    <ClCompile Include="src\RPNEvalException.cpp" />
     <ClCompile Include="src\StringField.cpp" />
     <ClCompile Include="src\StringFieldRo.cpp" />
     <ClCompile Include="src\VersionChangeRule.cpp" />

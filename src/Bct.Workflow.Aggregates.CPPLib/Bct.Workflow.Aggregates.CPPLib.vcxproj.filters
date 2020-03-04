@@ -51,6 +51,10 @@
     </Filter>
     <Filter Include="BCT.Workflow.Util.Cpp\include">
       <UniqueIdentifier>{0c403eec-01a4-4e50-8eb6-ecdd67531e5b}</UniqueIdentifier>
+      <UniqueIdentifier>{81b73dd8-6b23-4633-a83a-76fcb52efa27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Workflow.Util.Cpp\include">
+      <UniqueIdentifier>{f525d7a8-dc41-4b7e-96e7-7df80fb0e885}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +304,9 @@
     <ClInclude Include="BCT.Workflow.Util.Cpp\include\FieldStateEnum.h">
       <Filter>BCT.Workflow.Util.Cpp\include</Filter>
     </ClInclude>
+    <ClInclude Include="include\RPNEvalException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AggregateMetaData.cpp">
@@ -376,6 +383,9 @@
     </ClCompile>
     <ClCompile Include="BCT.RPNEvaluator.CPP\src\FuncOper.cpp">
       <Filter>BCT.RPNEvaluator.CPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RPNEvalException.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

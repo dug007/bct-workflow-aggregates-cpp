@@ -270,3 +270,4 @@ __pycache__/
 /Bct.Workflow.Aggregates.CPP.GeneratedCode/src/TPEPredictUserDataAggregate.cpp
 /Bct.Workflow.Aggregates.CPP.GeneratedCode/include/TPEPredictUserDataAggregate.h
 /BCT.RPNEvaluator.CPP
+/rapidjson-1.1.0/out/build/x64-Debug

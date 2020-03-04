@@ -13,6 +13,7 @@
 #include "AggregateNotFound.h"
 #include "CannotConvertScalar.h"
 #include "FieldInfo.h"
+#include "RPNEvalException.h"
 
 #include "BaseField.h"
 #include "StringField.h"
@@ -253,13 +254,19 @@ namespace Bct
                      RPNEvaluator::RPNEvaluator evaluator;
                      if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                      {
+                        std::string tempAggName = typeid(*this).name();
+                        RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                         _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                        throw obj;
                      }
                      if ("true" == rpnResult.answerValue)
                      {
                         if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
                         {
+                           std::string tempAggName = typeid(*this).name();
+                           RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                            _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                           throw obj;
                         }
                         f->computedValueString(rpnResult.answerValue);
                      }
@@ -307,13 +314,19 @@ namespace Bct
                RPNEvaluator::RPNEvaluator evaluator;
                if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                {
+                  std::string tempAggName = typeid(*this).name();
+                  RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                   _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                  throw obj;
                }
                if ("true" == rpnResult.answerValue)
                {
                   if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
                   {
+                     std::string tempAggName = typeid(*this).name();
+                     RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                      _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                     throw obj;
                   }
                   if (rpnResult.answerValue != "true")
                   {
@@ -388,13 +401,19 @@ namespace Bct
                      RPNEvaluator::RPNEvaluator evaluator;
                      if (!evaluator.EvaluateRPNExpression(condition, varMap, rpnResult))
                      {
+                        std::string tempAggName = typeid(*this).name();
+                        RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                         _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                        throw obj;
                      }
                      if ("true" == rpnResult.answerValue)
                      {
                         if (!evaluator.EvaluateRPNExpression(expression, varMap, rpnResult))
                         {
+                           std::string tempAggName = typeid(*this).name();
+                           RPNEvalException obj = RPNEvalException(tempAggName, condition, rpnResult.errorMsg);
                            _logger->logError(rpnResult.errorMsg, __FILE__, __LINE__);
+                           throw obj;
                         }
                         f->computedValueString(rpnResult.answerValue);
                      }
