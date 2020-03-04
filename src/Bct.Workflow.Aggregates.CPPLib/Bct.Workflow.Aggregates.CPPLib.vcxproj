@@ -24,6 +24,7 @@
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h" />
     <ClInclude Include="BCT.Workflow.Util.Cpp\include\FieldStateEnum.h" />
     <ClInclude Include="BCT.Workflow.Util.Cpp\include\TypeEnum.h" />
+    <ClInclude Include="BCT.Workflow.Util.Cpp\include\type_name.h" />
     <ClInclude Include="include\AbstractAggregate.h" />
     <ClInclude Include="include\AbstractField.h" />
     <ClInclude Include="include\AggregateMetaData.h" />
@@ -39,6 +40,7 @@
     <ClInclude Include="include\EnumFieldRo.h" />
     <ClInclude Include="include\FieldInfo.h" />
     <ClInclude Include="include\FieldMeta.h" />
+    <ClInclude Include="include\FieldStateEnum.h" />
     <ClInclude Include="include\FluentAssessmentRule.h" />
     <ClInclude Include="include\FluentComputeRule.h" />
     <ClInclude Include="include\FluentMeta.h" />
@@ -48,6 +50,8 @@
     <ClInclude Include="include\NotAbleToSet.h" />
     <ClInclude Include="include\StringField.h" />
     <ClInclude Include="include\StringFieldRo.h" />
+    <ClInclude Include="include\TypeEnum.h" />
+    <ClInclude Include="include\type_name.h" />
     <ClInclude Include="include\VectorField.h" />
     <ClInclude Include="include\VersionChangeRule.h" />
     <ClInclude Include="include\VersionInfo.h" />

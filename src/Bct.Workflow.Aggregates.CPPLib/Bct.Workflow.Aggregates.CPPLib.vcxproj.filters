@@ -37,12 +37,6 @@
     <Filter Include="BCT.Common.CppLogging\include">
       <UniqueIdentifier>{39a70565-4896-490a-9416-7affe7c46b0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="BCT.Workflow.Util.Cpp">
-      <UniqueIdentifier>{cff80b5b-9d3c-4d3f-b3b7-0b651f4fabcc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="BCT.Workflow.Util.Cpp\include">
-      <UniqueIdentifier>{782fe5b9-ad08-4071-afc9-ecd25bb046b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="BCT.RPNEvaluator.CPP">
       <UniqueIdentifier>{c944630a-b1ef-4495-964e-7027423e6931}</UniqueIdentifier>
     </Filter>
@@ -51,6 +45,12 @@
     </Filter>
     <Filter Include="BCT.RPNEvaluator.CPP\include">
       <UniqueIdentifier>{8d37bc83-824e-4bc4-a038-dcc97a1cda16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Workflow.Util.Cpp">
+      <UniqueIdentifier>{e86813a6-b765-4add-9837-157eb0f27fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Workflow.Util.Cpp\include">
+      <UniqueIdentifier>{0c403eec-01a4-4e50-8eb6-ecdd67531e5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -258,12 +258,6 @@
     <ClInclude Include="BCT.Common.CppLogging\include\IBctLogger.h">
       <Filter>BCT.Common.CppLogging\include</Filter>
     </ClInclude>
-    <ClInclude Include="BCT.Workflow.Util.Cpp\include\TypeEnum.h">
-      <Filter>BCT.Workflow.Util.Cpp\include</Filter>
-    </ClInclude>
-    <ClInclude Include="BCT.Workflow.Util.Cpp\include\FieldStateEnum.h">
-      <Filter>BCT.Workflow.Util.Cpp\include</Filter>
-    </ClInclude>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
     </ClInclude>
@@ -287,6 +281,24 @@
     </ClInclude>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\type_name.h">
+      <Filter>BCT.Common.CppLogging\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TypeEnum.h">
+      <Filter>BCT.Common.CppLogging\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FieldStateEnum.h">
+      <Filter>BCT.Common.CppLogging\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.Workflow.Util.Cpp\include\type_name.h">
+      <Filter>BCT.Workflow.Util.Cpp\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.Workflow.Util.Cpp\include\TypeEnum.h">
+      <Filter>BCT.Workflow.Util.Cpp\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BCT.Workflow.Util.Cpp\include\FieldStateEnum.h">
+      <Filter>BCT.Workflow.Util.Cpp\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

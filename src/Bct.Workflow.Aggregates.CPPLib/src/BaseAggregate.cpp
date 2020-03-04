@@ -123,7 +123,8 @@ namespace Bct
                   }
                }
             }
-            std::string aggName = typeid(*this).name();
+            int status = 0;
+            std::string aggName = type_name(*this, status);
             NoSuchVersion obj = NoSuchVersion(aggName, _version);
             _logger->logError(obj.what(), __FILE__, __LINE__);
             throw obj;
@@ -173,7 +174,8 @@ namespace Bct
                   }
                   if (!found)
                   {
-                     std::string aggName = typeid(*this).name();                    
+                     int status = 0;
+                     std::string aggName = type_name(*this, status);
                      NoSuchVersion obj = NoSuchVersion(aggName, _version);
                      _logger->logError(obj.what(), __FILE__, __LINE__);
                      throw obj;
@@ -336,7 +338,8 @@ namespace Bct
             }
             if (toVersion == -1)
             {
-               std::string aggName = typeid(*this).name();
+               int status = 0;
+               std::string aggName = type_name(*this, status);
                NoSuchVersion noSuchVersionObj = NoSuchVersion(aggName, toVersionStr);
                _logger->logError(noSuchVersionObj.what(), __FILE__, __LINE__);
                throw noSuchVersionObj;
@@ -556,7 +559,8 @@ namespace Bct
                   }
                   else
                   {
-                     std::string tempAggName = typeid(*this).name();                    
+                     int status = 0;
+                     std::string tempAggName = type_name(*this, status);
                      AggregateNotFound obj = AggregateNotFound(tempAggName);
                      _logger->logError(obj.what(), __FILE__, __LINE__);
                      throw obj;
@@ -607,7 +611,8 @@ namespace Bct
             }
             else
             {
-               const std::string tempAggName = typeid(*this).name();
+               int status = 0;
+               const std::string tempAggName = type_name(*this, status);
                AggregateNotFound obj = AggregateNotFound(tempAggName);
                _logger->logError(obj.what(), __FILE__, __LINE__);
                throw obj;
@@ -618,7 +623,8 @@ namespace Bct
          {
             if (_currentAggregate.empty())
             {
-               const std::string tempAggName = typeid(*this).name();
+               int status = 0;
+               const std::string tempAggName = type_name(*this, status);
                AggregateNotFound obj = AggregateNotFound(tempAggName);
                _logger->logError(obj.what(), __FILE__, __LINE__);
                throw obj;
@@ -645,7 +651,8 @@ namespace Bct
                return;
             }
 
-            const string fldTypeName = typeid(*fld).name();
+            int status = 0;
+            const string fldTypeName = type_name(*fld, status); 
             cout << "setField() fldTypeName: " << fldTypeName;
             const FieldStateEnum::FieldState fldState = fld->state();
             if (fldState != FieldStateEnum::Constant && fldState != FieldStateEnum::Unavailable) {
@@ -674,8 +681,8 @@ namespace Bct
          template<typename T>
          void BaseAggregate::DeserializeEventHandler::setFieldOrVectorElement(const T * value)
          {
-            const type_info & valueTypeId = typeid(*value);
-            const string valueTypeName = valueTypeId.name();
+            int status = 0;
+            std::string valueTypeName = type_name(*value, status);
             cout << "setFieldOrVectorElement(): T (scalar type): " << valueTypeName << endl;
 
             if (_deserializeCurrentVector)
