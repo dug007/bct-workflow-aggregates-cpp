@@ -26,11 +26,11 @@ namespace Bct
             }
          }
 
-         NotAbleToGet::~NotAbleToGet()
+         NotAbleToGet::~NotAbleToGet() throw()
          {
          }
 
-         const char * NotAbleToGet::what() const
+         const char * NotAbleToGet::what() const throw()
          {
             return _errorMessage.c_str();
          }

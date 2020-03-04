@@ -8,6 +8,7 @@
 #include <queue>
 #include <sstream>
 #include "FunctionMap.h"
+#include <cstring>
 
 namespace Bct
 {

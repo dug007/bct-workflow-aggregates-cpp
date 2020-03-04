@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <typeinfo>
 
 #include "AbstractAggregate.h"
 #include "AbstractField.h"

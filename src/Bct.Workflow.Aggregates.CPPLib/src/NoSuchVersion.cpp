@@ -44,11 +44,11 @@ namespace Bct
             }
          }
 
-         NoSuchVersion::~NoSuchVersion()
+         NoSuchVersion::~NoSuchVersion() throw()
          {
          }
 
-         const char * NoSuchVersion::what() const
+         const char * NoSuchVersion::what() const throw()
          {
             return _errorMessage.c_str();
          }

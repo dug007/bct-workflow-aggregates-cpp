@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <stdint.h>
 #include "VersionInfo.h"
 #include "FieldMeta.h"
 #include "AssessmentRule.h"

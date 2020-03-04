@@ -26,11 +26,11 @@ namespace Bct
             }
          }
 
-         NotAbleToSet::~NotAbleToSet()
+         NotAbleToSet::~NotAbleToSet() throw()
          {
          }
 
-         const char * NotAbleToSet::what() const
+         const char * NotAbleToSet::what() const throw()
          {
             return _errorMessage.c_str();
          }

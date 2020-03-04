@@ -22,13 +22,13 @@ namespace Bct
             /// <summary>
             /// Destructor
             /// </summary>
-            virtual ~CannotConvertScalar();
+            virtual ~CannotConvertScalar() throw();
 
             /// <summary>
             /// Error message for the exception
             /// </summary>
             /// <returns>The error message for this exception</returns>
-            virtual const char * what() const;
+            virtual const char * what() const throw();
 
             /// <summary>
             /// Aggregate name for exception
