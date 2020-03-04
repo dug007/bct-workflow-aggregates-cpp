@@ -51,6 +51,10 @@
     </Filter>
     <Filter Include="BCT.Workflow.Util.Cpp\include">
       <UniqueIdentifier>{f525d7a8-dc41-4b7e-96e7-7df80fb0e885}</UniqueIdentifier>
+      <UniqueIdentifier>{e86813a6-b765-4add-9837-157eb0f27fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BCT.Workflow.Util.Cpp\include">
+      <UniqueIdentifier>{0c403eec-01a4-4e50-8eb6-ecdd67531e5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +285,15 @@
     </ClInclude>
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\FuncOper.h">
       <Filter>BCT.RPNEvaluator.CPP\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\type_name.h">
+      <Filter>BCT.Common.CppLogging\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TypeEnum.h">
+      <Filter>BCT.Common.CppLogging\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FieldStateEnum.h">
+      <Filter>BCT.Common.CppLogging\include</Filter>
     </ClInclude>
     <ClInclude Include="BCT.Workflow.Util.Cpp\include\type_name.h">
       <Filter>BCT.Workflow.Util.Cpp\include</Filter>

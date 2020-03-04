@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <stdint.h>
 #include "FieldStateEnum.h"
 
 namespace Bct

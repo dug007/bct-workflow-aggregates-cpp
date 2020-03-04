@@ -21,13 +21,13 @@ namespace Bct
             /// <summary>
             /// Destructor
             /// </summary>
-            virtual ~AggregateNotFound();
+            virtual ~AggregateNotFound() throw();
 
             /// <summary>
             /// Error message for the exception
             /// </summary>
             /// <returns>The error message for this exception</returns>
-            virtual const char * what() const;
+            virtual const char * what() const throw();
 
             /// <summary>
             /// Aggregate name for exception

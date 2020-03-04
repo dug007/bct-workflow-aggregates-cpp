@@ -22,11 +22,11 @@ namespace Bct
             }
          }
 
-         AggregateNotFound::~AggregateNotFound()
+         AggregateNotFound::~AggregateNotFound() throw()
          {
          }
 
-         const char * AggregateNotFound::what() const
+         const char * AggregateNotFound::what() const throw()
          {
             return _errorMessage.c_str();
          }

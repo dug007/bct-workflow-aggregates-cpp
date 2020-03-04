@@ -24,11 +24,11 @@ namespace Bct
          }
 
 
-         CannotConvertScalar::~CannotConvertScalar()
+         CannotConvertScalar::~CannotConvertScalar() throw()
          {
          }
 
-         const char * CannotConvertScalar::what() const
+         const char * CannotConvertScalar::what() const throw()
          {
             return _errorMessage.c_str();
          }

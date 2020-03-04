@@ -10,6 +10,7 @@
 #include "NotAbleToGet.h"
 #include "NoSuchVersion.h"
 #include "NotAbleToSet.h"
+#include "type_name.h"
 
 #include <iostream>  // [PL] just for testing
 
@@ -76,7 +77,8 @@ namespace Bct
 
                if (_state == FieldStateEnum::Unavailable)
                {
-                  std::string aggName = typeid(*_aggregate).name();
+                  int status = 0;
+                  std::string aggName = type_name(*_aggregate, status); 
                   NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                   BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
                   throw obj;
@@ -103,14 +105,16 @@ namespace Bct
                {
                case FieldStateEnum::NotSet:
                {
-                  std::string aggName = typeid(*_aggregate).name();
+                  int status = 0;
+                  std::string aggName = type_name(*_aggregate, status);
                   NotAbleToGet obj = NotAbleToGet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                   BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
                   throw obj;
                }
                case FieldStateEnum::Unavailable:
                {
-                  std::string aggName_Unavail = typeid(*_aggregate).name();
+                  int status = 0;
+                  std::string aggName_Unavail = type_name(*_aggregate, status);
                   NotAbleToGet obj = NotAbleToGet(aggName_Unavail, fieldName(), FieldStateEnum::FieldStateString(state()));
                   BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
                   throw obj;
@@ -133,7 +137,8 @@ namespace Bct
                {
                case FieldStateEnum::Unavailable:
                {
-                  std::string aggName = typeid(*_aggregate).name();
+                  int status = 0;
+                  std::string aggName = type_name(*_aggregate, status);
                   NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                   BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
                   throw obj;
@@ -205,7 +210,8 @@ namespace Bct
                case FieldStateEnum::Constant:
                case FieldStateEnum::Unavailable:
                {
-                  std::string aggName = typeid(*_aggregate).name();
+                  int status = 0;
+                  std::string aggName = type_name(*_aggregate, status);
                   NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                   BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
                   throw obj;
@@ -437,7 +443,8 @@ namespace Bct
                
                if (_state == FieldStateEnum::Unavailable)
                {
-                  std::string aggName = typeid(*_aggregate).name();
+                  int status = 0;
+                  std::string aggName = type_name(*_aggregate, status);
                   NotAbleToSet obj = NotAbleToSet(aggName, fieldName(), FieldStateEnum::FieldStateString(state()));
                   BaseAggregate::getLogger()->logError(obj.what(), __FILE__, __LINE__);
                   throw obj;
@@ -505,7 +512,8 @@ namespace Bct
                      }
                   }
                }
-               std::string aggName = typeid(*_aggregate).name();
+               int status = 0;
+               std::string aggName = type_name(*_aggregate, status);
                int32_t size = (int32_t)_aggregate->MetaData().fieldInfo.size();
                std::string fieldName = "unknown";
                std::string reqVersion = _aggregate->MetaData().versionInfo[_ver].Version();
