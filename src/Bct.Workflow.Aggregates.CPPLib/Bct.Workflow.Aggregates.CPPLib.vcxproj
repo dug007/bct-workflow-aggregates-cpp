@@ -24,6 +24,7 @@
     <ClInclude Include="BCT.RPNEvaluator.CPP\include\TokenClass.h" />
     <ClInclude Include="BCT.Workflow.Util.Cpp\include\FieldStateEnum.h" />
     <ClInclude Include="BCT.Workflow.Util.Cpp\include\TypeEnum.h" />
+    <ClInclude Include="BCT.Workflow.Util.Cpp\include\type_name.h" />
     <ClInclude Include="include\AbstractAggregate.h" />
     <ClInclude Include="include\AbstractField.h" />
     <ClInclude Include="include\AggregateMetaData.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="include\NoSuchVersion.h" />
     <ClInclude Include="include\NotAbleToGet.h" />
     <ClInclude Include="include\NotAbleToSet.h" />
+    <ClInclude Include="include\RPNEvalException.h" />
     <ClInclude Include="include\StringField.h" />
     <ClInclude Include="include\StringFieldRo.h" />
     <ClInclude Include="include\VectorField.h" />
@@ -112,6 +114,7 @@
     <ClCompile Include="src\NoSuchVersion.cpp" />
     <ClCompile Include="src\NotAbleToGet.cpp" />
     <ClCompile Include="src\NotAbleToSet.cpp" />
+    <ClCompile Include="src\RPNEvalException.cpp" />
     <ClCompile Include="src\StringField.cpp" />
     <ClCompile Include="src\StringFieldRo.cpp" />
     <ClCompile Include="src\VersionChangeRule.cpp" />
