@@ -17,6 +17,7 @@ add_executable(BCT.Workflow.Aggregates.CPP.Test
             ${AGGTST}/CodeGenerationUnitTests.cpp
             ${AGGTST}/ComputeFieldUnitTests.cpp
             ${AGGTST}/EnumFieldUnitTests.cpp
+            ${AGGTST}/ExceptionUnitTests.cpp
             ${AGGTST}/GeneralUnitTests.cpp
             ${AGGTST}/MetaUnitTests.cpp
             ${AGGTST}/QAComprehensiveUnitTests.cpp

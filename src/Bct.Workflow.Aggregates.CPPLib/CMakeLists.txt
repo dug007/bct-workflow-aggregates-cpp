@@ -31,6 +31,7 @@ add_library(BCT.Workflow.Aggregates.CPPLib SHARED
             ${AGGSRC}/NoSuchVersion.cpp
             ${AGGSRC}/NotAbleToGet.cpp
             ${AGGSRC}/NotAbleToSet.cpp
+            ${AGGSRC}/RPNEvalException.cpp
             ${AGGSRC}/StringField.cpp
             ${AGGSRC}/StringFieldRo.cpp
             ${AGGSRC}/VersionChangeRule.cpp
@@ -57,6 +58,7 @@ add_library(BCT.Workflow.Aggregates.CPPLib SHARED
             ${AGGINC}/NoSuchVersion.h
             ${AGGINC}/NotAbleToGet.h
             ${AGGINC}/NotAbleToSet.h
+            ${AGGINC}/RPNEvalException.h
             ${AGGINC}/StringField.h
             ${AGGINC}/StringFieldRo.h
             ${AGGINC}/VectorField.h
